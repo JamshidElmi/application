@@ -11,7 +11,9 @@
             <div class="box-body table-responsive no-padding">
                 <div class="col-sm-6">
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); } ?>
+                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
                 </div>
+
 
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
@@ -70,6 +72,7 @@ $(document).ready(function() {
               });
             $(document).ajaxStop(function(){
                 $(".overlay").css('display','none');
+                $(".msg").css('display','block');
                 $("tr#emp_"+emp_id).remove();
             });
         };

@@ -56,11 +56,11 @@
                 <div class="form-group">
                     <label for="emp_picture">عکس</label>
                     <input type="file" name="emp_picture" id="emp_picture" required />
-                    <p class="small">حجم فایل باید کمتر از 100 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
+                    <p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
                 </div>
 
                 <div class="row">
-                     <div class="col-xs-6">
+                     <div class="col-xs-5">
                         <label for="emp_phone">جنسیت</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary checked">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-6 text-right">
+                    <div class="col-xs-7 text-right">
                         <label for="emp_phone">بخش کاری</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
                             <label class="btn btn-warning checked">

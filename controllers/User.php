@@ -12,7 +12,7 @@ class User extends MY_Controller {
 
 	}
 
-    public function index($value='')
+    public function index()
     {
         $this->template->description = 'لسیت حساب های کاربری ';
         $users = $this->user_model->join_user_emp();
@@ -108,6 +108,27 @@ class User extends MY_Controller {
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، لطفاً دوباره سیع نمائید.');
                 redirect('user/');
             }
+        }
+    }
+
+    public function login()
+    {
+        $this->load->view('users/login');
+    }
+
+    public function check_login()
+    {
+        $user_name = $this->input->post('user_name', TRUE);
+        $user_pass = $this->input->post('user_pass', TRUE);
+
+        $user = $this->user_model->data_get_by(['user_name'=>$user_name, 'user_pass'=>$user_pass], TRUE);
+        if(is_object($user))
+        {
+            redirect('dashboard/');
+        }
+        else
+        {
+            redirect('user/login');
         }
 
 
