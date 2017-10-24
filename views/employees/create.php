@@ -56,7 +56,7 @@
                 <div class="form-group">
                     <label for="emp_picture">عکس</label>
                     <input type="file" name="emp_picture" id="emp_picture" required />
-                    <p class="small">حجم فایل باید کمتر از 100 کیلوبایت باشد.</p>
+                    <p class="small">حجم فایل باید کمتر از 100 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
                 </div>
 
                 <div class="row">
