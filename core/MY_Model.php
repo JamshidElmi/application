@@ -58,6 +58,7 @@ class MY_Model extends CI_Model
             $filter = $this->_primary_filter;
             $id = $filter($id);
             $this->db->set($data);
+            $this->db->where($this->_primary_key, $id);
             $this->db->update($this->_table_name);
         }
         return $id;

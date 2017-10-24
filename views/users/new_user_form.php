@@ -9,10 +9,8 @@
             <form role="form" action="<?php echo site_url('user/insert'); ?>" method='POST' >
 
                 <div class="box-body">
-
-                    <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
-                    <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); } ?>
-
+                        <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
+                        <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); } ?>
 
                     <input type="hidden" name="emp_id" class="form-control"   id="emp_id" />
 
@@ -60,8 +58,8 @@
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="submit" id="submit" disabled="disabled" class="btn btn-primary">ایجاد حساب</button>
-                    <button type="reset" class="btn btn-default">پاک کردن</button>
+                    <button type="submit" id="submit" disabled="disabled" class="btn btn-primary">ایجاد حساب <i class="fa fa-save"></i></button>
+                    <button type="reset" class="btn btn-default">پاک کردن <i class="fa fa-refresh"></i></button>
                     <br>
                     <small>لطفاً قبل از فشردن دکمه ایجاد حساب یکی از کارمندان را انتخاب کنید </small>
                 </div>

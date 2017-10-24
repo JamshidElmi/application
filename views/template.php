@@ -12,7 +12,7 @@
         <?php $styles = array(
               'bootstrap'       => 'assets/css/bootstrap-theme.css',
               'normalize'       => 'assets/css/rtl.css',
-              'datepicker'      => 'assets/css/persian-datepicker-0.4.5.min',
+              'datepicker'      => 'assets/css/persian-datepicker-0.4.5.min.css',
               'font-awesome'    => 'components/font-awesome/css/font-awesome.min.css',
               'ionicons'        => 'components/Ionicons/css/ionicons.min.css',
               'AdminLTE'        => 'assets/css/AdminLTE.css',
@@ -20,6 +20,8 @@
               'morris'          => 'components/morris.js/morris.css',
               'jvectormap'      => 'components/jvectormap/jquery-jvectormap.css',
               'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
+              'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
+              'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
               'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
 
         ); ?>
@@ -96,7 +98,9 @@
                 'fastclick' => 'components/fastclick/lib/fastclick.js' ,
                 'adminlte' => 'assets/js/adminlte.min.js' ,
                 'dashboard' => 'assets/js/pages/dashboard.js' ,
-                'demo' => 'assets/js/demo.js'
+                'demo' => 'assets/js/demo.js',
+                'persian-date-0.1.8' => 'assets/js/persian-date.js',
+                'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
 
 
             );
@@ -104,7 +108,9 @@
         <?php echo $this->template->javascript->add($script); ?>
         <!-- Public Custom Scripts -->
         <script>
-            $.widget.bridge('uibutton', $.ui.button);
+            // $.widget.bridge('uibutton', $.ui.button);
         </script>
+
+
     </body>
 </html>

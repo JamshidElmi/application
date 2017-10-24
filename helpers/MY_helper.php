@@ -80,4 +80,27 @@ if(!function_exists("alert"))
 }
 
 
+if(!function_exists("options"))
+{
+    /**
+     * Select [options]
+     *
+     * @param   string  setting name
+     * @return  mixed   Array of valus on fixed column of row
+     */
+    function options($item)
+    {
+        $ci = & get_instance();
+        $field = $item.'_name';
+        $ci->db->select($field);
+        $items = $ci->db->get($item.'s')->result();
+        foreach($items as $row)
+        {
+            echo "<option>". $row->$field ."</option>";
+        }
+    }
+}
+
+
+
  ?>

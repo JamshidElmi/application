@@ -22,5 +22,14 @@ class user_model extends MY_Model
 
     }
 
+    public function join_user_emp()
+    {
+        $this->db->from('users');
+        $this->db->join('employees', 'users.emp_id = employees.emp_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+
 
 }
