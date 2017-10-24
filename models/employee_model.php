@@ -1,6 +1,6 @@
 <?php
 /**
-* User Model class
+* Employee Model class
 */
 class employee_model extends MY_Model
 {
