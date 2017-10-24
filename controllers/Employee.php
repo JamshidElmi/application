@@ -52,6 +52,7 @@ class Employee extends MY_Controller {
 
         $this->load->library('upload', $config);
 
+
         if ($this->form_validation->run() == FALSE)
         {
             $this->session->set_flashdata('form_errors', validation_errors() );
