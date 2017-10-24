@@ -111,10 +111,101 @@ class Employee extends MY_Controller {
         echo '<h1>emp Profile</h1>';
     }
 
+
+
+
+
+
+
+
+
+
     public function edit($emp_id)
     {
-        echo '<h1>emp edit </h1>';
+        $employee = $this->employee_model->data_get($emp_id, TRUE);
+        $this->template->description = 'ویرایش اطلاعات '. $employee->emp_name ." ". $employee->emp_lname;
+
+        $this->template->content->view('employees/edit', ['employee' => $employee]);
+        $this->template->publish();
     }
+
+
+
+
+    public function update($emp_id)
+    {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('emp_name', 'نام کارمند', 'required|trim');
+        $this->form_validation->set_rules('emp_lname', 'تخلص کارمند', 'required|trim');
+        $this->form_validation->set_rules('emp_position', 'پست', 'required');
+        $this->form_validation->set_rules('emp_salary', 'معاش کارمند', 'required|numeric');
+        $this->form_validation->set_rules('emp_join_date', 'تاریخ استخدام', 'required');
+        $this->form_validation->set_rules('emp_org_place', 'سکونت اصلی', 'required');
+        $this->form_validation->set_rules('emp_cur_place', 'سکونت فعلی', 'required');
+        $this->form_validation->set_rules('emp_address', 'آدرس کامل کارمند', 'required');
+        $this->form_validation->set_rules('emp_phone', 'شماره تماس', 'required|numeric');
+        $this->form_validation->set_rules('emp_email', 'ایمیل آدرس', 'valid_email');
+        $this->form_validation->set_rules('emp_biography_no', 'شماره تذکره', 'numeric');
+
+        $config['upload_path']          = './assets/img/profiles';
+        $config['allowed_types']        = 'gif|jpg|png';
+        $config['max_size']             = 250;
+        $config['max_width']            = 400;
+        $config['max_height']           = 400;
+
+        $this->load->library('upload', $config);
+
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->session->set_flashdata('form_errors', validation_errors() );
+            redirect('employee/create');
+        }
+        else
+        {
+
+            if($_FILES['emp_picture']['name'])
+            {
+                if ( ! $this->upload->do_upload('emp_picture'))
+                {
+                    $this->session->set_flashdata('file_errors', $this->upload->display_errors());
+                    redirect('employee/edit/'.$emp_id);
+                }
+                else
+                {
+                    // Get file name
+                    $file = $this->upload->data();
+                    $file_name = $file['file_name'];
+                    // Set data
+                    $data = $this->input->post();
+                    $data['emp_picture'] = $file_name;
+                    // Updating data
+                    $this->employee_model->data_save($data, $emp_id);
+                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                    redirect('employee/');
+                }
+            }
+            else
+            {
+                // Remove Picure
+                $data = $this->input->post();
+                unset($data['emp_picture']);
+                // Updating data
+                $this->employee_model->data_save($data, $emp_id);
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                redirect('employee/');
+            }
+
+
+
+        }
+    }
+
+
+
+
+
+
 
     public function delete()
     {

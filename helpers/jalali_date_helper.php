@@ -4,8 +4,8 @@ if ( ! function_exists('mds_date'))
 {
     /**
      *
-     * @Created by:      Jamshid Elmi
-     * @modified by:     Mohammad Dayyan
+     * @Created by:     Jamshid Elmi
+     * @modified by:    Mohammad Dayyan
      * @date:           1387/5/15
      * @param:          string
      * @return:         mixed depends on what the array contains
