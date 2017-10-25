@@ -102,5 +102,40 @@ if(!function_exists("options"))
 }
 
 
+if(!function_exists("permission"))
+{
+    function permission($number)
+    {
+        switch ($number) {
+            case 1:
+                $pos_name = 'مدیر کل';
+                break;
+            case 2:
+                $pos_name = 'مدیر مسئول';
+                break;
+            case 3:
+                $pos_name = 'گارسن';
+                break;
+        }
+        echo $pos_name;
+    }
 
+}
+
+if(!function_exists("sys_type"))
+{
+    function sys_type($number)
+    {
+        switch ($number) {
+            case 0:
+                $pos_name = 'آشپزخانه';
+                break;
+            case 1:
+                $pos_name = 'رستورانت';
+                break;
+        }
+        echo $pos_name;
+    }
+
+}
  ?>
