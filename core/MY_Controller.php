@@ -10,7 +10,12 @@ class MY_Controller extends CI_Controller
         parent::__construct();
 
         /*load language file*/
-        $this->lang->load('dari_lang', 'dari');
+        // $this->lang->load('dari_lang', 'dari');
+
+
+
+
+
 
 
     }

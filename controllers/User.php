@@ -111,27 +111,6 @@ class User extends MY_Controller {
         }
     }
 
-    public function login()
-    {
-        $this->load->view('users/login');
-    }
 
-    public function check_login()
-    {
-        $user_name = $this->input->post('user_name', TRUE);
-        $user_pass = $this->input->post('user_pass', TRUE);
-
-        $user = $this->user_model->data_get_by(['user_name'=>$user_name, 'user_pass'=>$user_pass], TRUE);
-        if(is_object($user))
-        {
-            redirect('dashboard/');
-        }
-        else
-        {
-            redirect('user/login');
-        }
-
-
-    }
 
 }

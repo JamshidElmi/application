@@ -5,11 +5,11 @@
     <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-right image">
-                <img src="<?=base_url('assets/img/user2-160x160.jpg'); ?>" class="img-circle" alt="User Image">
+                <img src="<?=base_url('assets/img/profiles/'.$this->session->emp_info->emp_picture); ?>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-right info">
-                <p>محمد میرزائی</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> آنلاین</a>
+                <p><?=$this->session->emp_info->emp_name ?> <?=$this->session->emp_info->emp_lname ?></p>
+                <a href="#"><i class="fa fa-circle text-success"></i> <?=$this->session->emp_info->emp_position ?></a>
             </div>
         </div>
         <!-- search form -->
