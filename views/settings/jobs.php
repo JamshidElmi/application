@@ -19,8 +19,8 @@
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
 
                     <div class="form-group">
-                        <label for="job_name">نام واحد</label>
-                        <input type="text" class="form-control" name="job_name" id="job_name" placeholder="نام واحد" required/>
+                        <label for="job_name">عنوان وظیفه</label>
+                        <input type="text" class="form-control" name="job_name" id="job_name" placeholder="عنوان وظیفه" required/>
                     </div>
 
                 </div>

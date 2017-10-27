@@ -61,7 +61,7 @@
 
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-key"></i> <span>مدیریت</span>
+                <i class="fa fa-key"></i> <span>مدیریت دسترسی</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
@@ -72,6 +72,28 @@
                 <li><a href="<?=site_url('user/create'); ?>"><i class="fa fa-circle-o "></i> ثبت حساب کاربری </a></li>
             </ul>
         </li>
+
+        <!-- menu header -->
+        <li class="header">امور مالی</li>
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-money"></i> <span>مدیریت مالی</span>
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+
+            <ul class="treeview-menu">
+                <li><a href="<?=site_url('finance/accounts'); ?>"><i class="fa fa-circle-o "></i> ایجاد صندوق </a></li>
+                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> جمع و برداشت </a></li>
+                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پرداخت معاش کارمندان </a></li>
+                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> مصارف روزانه</a></li>
+                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> </a></li>
+            </ul>
+        </li>
+
+
 
         <!-- menu header -->
         <li class="header">بخش تنظیمات</li>
@@ -87,8 +109,8 @@
             <ul class="treeview-menu">
                 <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای مقیاسی </a></li>
                 <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> ثبت وظایف </a></li>
-                <li><a href="#"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
-                <li><a href="#"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
+                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
+                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>
         </li>
 

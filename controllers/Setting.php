@@ -30,9 +30,9 @@ class Setting extends MY_Controller {
     public function jobs()
     {
         $this->template->description = 'لیست وظایف ثبت شده در سیستم و ایجاد وظیفه جدید';
-        $this->setting_model->_table_name = 'jobs';
-        $this->setting_model->_primary_key = 'job_id';
-        $this->setting_model->_order_by = 'job_id';
+        $this->setting_model->_table_name   = 'jobs';
+        $this->setting_model->_primary_key  = 'job_id';
+        $this->setting_model->_order_by     = 'job_id';
 
         $jobs = $this->setting_model->data_get();
 
@@ -48,9 +48,9 @@ class Setting extends MY_Controller {
 
     public function delete_job()
     {
-        $this->setting_model->_table_name = 'jobs';
-        $this->setting_model->_primary_key = 'job_id';
-        $this->setting_model->_order_by = 'job_id';
+        $this->setting_model->_table_name   = 'jobs';
+        $this->setting_model->_primary_key  = 'job_id';
+        $this->setting_model->_order_by     = 'job_id';
 
         $job_id = $this->input->post('job_id');
         $this->setting_model->data_delete($job_id);
@@ -61,20 +61,20 @@ class Setting extends MY_Controller {
         $unit = $this->setting_model->data_save($this->input->post());
         if ($unit) {
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-            redirect('setting/units','refresh');
+            redirect('setting/units');
         }
         else
         {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-            redirect('setting/units','refresh');
+            redirect('setting/units');
         }
     }
 
     public function insert_job()
     {
-        $this->setting_model->_table_name = 'jobs';
-        $this->setting_model->_primary_key = 'job_id';
-        $this->setting_model->_order_by = 'job_id';
+        $this->setting_model->_table_name   = 'jobs';
+        $this->setting_model->_primary_key  = 'job_id';
+        $this->setting_model->_order_by     = 'job_id';
 
         $unit = $this->setting_model->data_save($this->input->post());
         if ($unit) {
