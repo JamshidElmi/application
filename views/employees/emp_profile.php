@@ -1,3 +1,9 @@
+<style>
+.table-border th , .table-border td , .table-border
+{
+    border:2px solid #BEBEBE;
+}
+</style>
 <div class="box box-primary box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">اطلاعات کارمند: <?php echo ($employee->emp_gendar == 0) ? 'خانم' : 'آقای'; ?> <?=$employee->emp_name ." ". $employee->emp_lname ?></h3>
@@ -12,48 +18,35 @@
             <div class="col-xs-3">
                 <img width="150" src="<?=base_url('assets/img/profiles/'.$employee->emp_picture); ?>" class="img-thumbnail" alt="">
             </div>
-            <div class="col-xs-9">
+            <div class="col-xs-8">
                 <table class="table " >
                     <tr><td>&nbsp;</td></tr>
-                    <tr>
-                        <th>نام: </th>
-                        <td><?=$employee->emp_name ?> </td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <th>بخش کاری: </th>
-                        <td><?=sys_type($employee->emp_type) ?>  </td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
+                    <tr class="text-center">
+                        <th class="bg-info text-center">نام </th>
+                        <th class="bg-info text-center">تخلص </th>
+                        <th class="bg-info text-center">بخش کاری </th>
+                        <th class="bg-info text-center">پست </th>
                     </tr>
                     <tr>
-                        <th>تخلص: </th>
-                        <td><?=$employee->emp_lname ?>  </td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <th>پست: </th>
-                        <td><?=($employee->emp_position) ?>  </td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
+                        <td class="bg-warning text-center"><?=$employee->emp_name ?> </td>
+                        <td class="bg-warning text-center"><?=$employee->emp_lname ?>  </td>
+                        <td class="bg-warning text-center"><?=($employee->emp_position) ?>  </td>
+                        <td class="bg-warning text-center"><?=sys_type($employee->emp_type) ?>  </td>
                     </tr>
                 </table>
             </div>
         </div>
         <br>
-<style>
-.table-border th , .table-border td , .table-border
-{
-    border:2px solid #BEBEBE;
-}
-</style>
+
         <div class="box box-default box-solid">
             <div class="box-header with-border">
                 <h5 class="box-title">اطلاعات شخصی کارمند</h5>
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-xs-12">
+
+                    </div>
+                    <div class="col-xs-9">
                         <table class="table table-border table-striped">
                             <tr >
                                 <th>نام: </th>
@@ -69,7 +62,7 @@
                                 <th>پست: </th>
                                 <td><?=($employee->emp_position) ?>  </td>
                                 <th>تاریخ ختم قرارداد</th>
-                                <td><?=mds_date("l Y/F/d ", strtotime('+1 years', $employee->emp_join_date), 0); ?></td>
+                                <td><?=mds_date("l Y/F/d ", strtotime('+1 years', $employee->emp_join_date)); ?></td>
                             </tr>
                             <tr>
                                 <th>شماره تذکره: </th>
@@ -84,21 +77,50 @@
                                 <td><?=$employee->emp_org_place ?>  </td>
                                 <th>سکونت فعلی: </th>
                                 <td><?=($employee->emp_cur_place) ?>  </td>
-                                <th>وظیفه:</th>
-                                <td><?=$employee->emp_cur_place ?></td>
+                                <th>جنسیت:</th>
+                                <td><?php echo ($employee->emp_gendar == 0) ? 'خانم' : 'آقا'; ?></td>
                             </tr>
                         </table>
+
+                        <div class="col-sm-6">
+                            <h4>آدرس کارمند:</h4>
+                            <?=($employee->emp_address) ?>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4>خلص سوانح کارمند:</h4>
+                            <p><?=($employee->emp_biography) ?></p>
+                        </div>
+
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <h4>آدرس کارمند:</h4>
-                        <?=($employee->emp_address) ?>
-                    </div>
-                    <div class="col-sm-6">
-                        <h4>خلص سوانح کارمند:</h4>
-                        <p><?=($employee->emp_biography) ?></p>
-                    </div>
+
+                    <div class="col-xs-3">
+                    <?php foreach ($users as $user): ?>
+                        <div class="box box-primary">
+                            <div class="box-header with-border">
+                                <h5 class="text-center">حساب کاربری</h5>
+                            </div>
+                            <div class="box-body box-profile">
+                            <img src="<?=base_url('assets/img/profiles/'.$employee->emp_picture); ?>" class="profile-user-img img-responsive img-circle" alt="">
+                                <h3 class="profile-username text-center"><?=$employee->emp_name ." ". $employee->emp_lname ?></h3>
+                                <p class="text-muted text-center"><?=$employee->emp_position ?></p>
+                                <ul class="list-group list-group-unbordered">
+                                    <li class="list-group-item">
+                                        <b>نام کاربری</b> <a class="pull-left"><?=($user->user_name); ?></a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>رمز عبور</b> <a class="pull-left">**********</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>سطح دسترسی</b> <a class="pull-left"><?=permission($user->user_type); ?></a>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-primary btn-block"><b></b></a>
+                            </div>
+                                <!-- /.box-body -->
+                        </div>
+                    <?php endforeach ?>
+
+
                 </div>
             </div>
         </div>
