@@ -30,8 +30,8 @@
                     <tr>
                         <td class="bg-warning text-center"><?=$employee->emp_name ?> </td>
                         <td class="bg-warning text-center"><?=$employee->emp_lname ?>  </td>
-                        <td class="bg-warning text-center"><?=($employee->emp_position) ?>  </td>
                         <td class="bg-warning text-center"><?=sys_type($employee->emp_type) ?>  </td>
+                        <td class="bg-warning text-center"><?=($employee->emp_position) ?>  </td>
                     </tr>
                 </table>
             </div>
@@ -82,19 +82,24 @@
                             </tr>
                         </table>
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 text-muted well well-sm no-shadow">
                             <h4>آدرس کارمند:</h4>
-                            <?=($employee->emp_address) ?>
+                            <p class="text-justify"><?=($employee->emp_address) ?></p>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6 text-muted well well-sm no-shadow">
                             <h4>خلص سوانح کارمند:</h4>
-                            <p><?=($employee->emp_biography) ?></p>
+                            <p class="text-justify"><?=($employee->emp_biography) ?></p>
                         </div>
 
                     </div>
 
                     <div class="col-xs-3">
-                    <?php foreach ($users as $user): ?>
+                    <?php if ((!$users)): ?>
+                        <div class="callout callout-warning">
+                            <p>   کارمند مورد نظر حساب کاربری ندارد.</p>
+                          </div>
+                    <?php else: ?>
+                        <?php foreach ($users as $user): ?>
                         <div class="box box-primary">
                             <div class="box-header with-border">
                                 <h5 class="text-center">حساب کاربری</h5>
@@ -102,7 +107,7 @@
                             <div class="box-body box-profile">
                             <img src="<?=base_url('assets/img/profiles/'.$employee->emp_picture); ?>" class="profile-user-img img-responsive img-circle" alt="">
                                 <h3 class="profile-username text-center"><?=$employee->emp_name ." ". $employee->emp_lname ?></h3>
-                                <p class="text-muted text-center"><?=$employee->emp_position ?></p>
+                                <p class="text-muted text-center"><?=$employee->emp_position ?> | بخش <?=sys_type($employee->emp_type) ?></p>
                                 <ul class="list-group list-group-unbordered">
                                     <li class="list-group-item">
                                         <b>نام کاربری</b> <a class="pull-left"><?=($user->user_name); ?></a>
@@ -119,6 +124,8 @@
                                 <!-- /.box-body -->
                         </div>
                     <?php endforeach ?>
+                    <?php endif ?>
+
 
 
                 </div>

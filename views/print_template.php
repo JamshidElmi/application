@@ -12,17 +12,10 @@
         <?php $styles = array(
               'bootstrap'       => 'assets/css/bootstrap-theme.css',
               'normalize'       => 'assets/css/rtl.css',
-              // 'datepicker'      => 'assets/css/persian-datepicker-0.4.5.min.css',
               'font-awesome'    => 'components/font-awesome/css/font-awesome.min.css',
               'ionicons'        => 'components/Ionicons/css/ionicons.min.css',
               'AdminLTE'        => 'assets/css/AdminLTE.css',
-              // 'skins'           => 'assets/css/skins/_all-skins.min.css',
-              // 'morris'          => 'components/morris.js/morris.css',
-              // 'jvectormap'      => 'components/jvectormap/jquery-jvectormap.css',
               'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
-              // 'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
-              // 'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
-              // 'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
 
         ); ?>
         <!-- Exretnal Scripts -->
@@ -48,15 +41,6 @@
     </head>
     <body onload="window.print();">
         <div class="wrapper">
-        <?php
-            // This is an example to show that you can load stuff from inside the template file
-            /* Header Layout */
-            // echo $this->template->widget("header");
-            /* Right Sidebar Layout */
-            //echo $this->template->widget("sidebar");
-        ?>
-            <!-- Content Wrapper. Contains page content -->
-            <!-- <div class="content-wrapper"> -->
                 <section class="content-header">
                     <h1>
                         <?=$this->template->title; ?>
@@ -70,47 +54,17 @@
                 <!-- /.content -->
             <!-- </div> -->
         <?php
-            /* Footer Layout */
-            // echo //$this->template->widget("footer");
-            /* Left Control Panel Layout */
-            // echo //$this->template->widget("controlsidebar");
         ?>
-            <!-- <div class="control-sidebar-bg"></div> -->
         </div> <!-- wrapper -->
 
         <!-- Exretnal Scripts -->
         <?php
             $script = array(
-                // 'jquery' => 'components/jquery/dist/jquery.min.js' ,
-                // 'jquery-ui' => 'components/jquery-ui/jquery-ui.min.js' ,
-                // 'bootstrap' => 'components/bootstrap/dist/js/bootstrap.min.js' ,
-                // 'raphael' => 'components/raphael/raphael.min.js' ,
-                // 'morris' => 'components/morris.js/morris.min.js' ,
-                // 'sparkline' => 'components/jquery-sparkline/dist/jquery.sparkline.min.js' ,
-                // 'vectormap-1' => 'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js' ,
-                // 'jvectormap-world' => 'plugins/jvectormap/jquery-jvectormap-world-mill-en.js' ,
-                // 'jquery.knob' => 'components/jquery-knob/dist/jquery.knob.min.js' ,
-                // 'moment.min' => 'components/moment/min/moment.min.js' ,
-                // 'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.js' ,
-                // 'bootstrap-datepicker' => 'components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' ,
-                // 'bootstrap3-wysihtml5' => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' ,
-                // 'jquery.slimscroll' => 'components/jquery-slimscroll/jquery.slimscroll.min.js' ,
-                // 'fastclick' => 'components/fastclick/lib/fastclick.js' ,
-                // 'adminlte' => 'assets/js/adminlte.min.js' ,
-                // 'dashboard' => 'assets/js/pages/dashboard.js' ,
-                // 'demo' => 'assets/js/demo.js',
-                // 'persian-date-0.1.8' => 'assets/js/persian-date.js',
-                // 'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
-
 
             );
          ?>
         <?php echo $this->template->javascript->add($script); ?>
         <!-- Public Custom Scripts -->
-        <script>
-            // $.widget.bridge('uibutton', $.ui.button);
-        </script>
-
 
     </body>
 </html>

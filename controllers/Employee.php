@@ -93,9 +93,7 @@ class Employee extends MY_Controller {
 
     public function print_profile($emp_id)
     {
-        // $this->template->content->view('employees/emp_profile');
         $this->template->set_template('print_template');
-        // $this->template->publish();
         $this->view($emp_id);
     }
 

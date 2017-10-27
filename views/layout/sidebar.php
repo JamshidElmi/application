@@ -85,10 +85,10 @@
             </a>
 
             <ul class="treeview-menu">
-                <li><a href="index2.html"><i class="fa fa-circle-o "></i> ثبت واحدهای مقیاسی </a></li>
-                <li><a href="index2.html"><i class="fa fa-circle-o "></i> ثبت وظایف </a></li>
-                <li><a href="index2.html"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
-                <li><a href="index2.html"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
+                <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای مقیاسی </a></li>
+                <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> ثبت وظایف </a></li>
+                <li><a href="#"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
+                <li><a href="#"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>
         </li>
 
