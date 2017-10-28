@@ -4,15 +4,22 @@
 */
 class finance_model extends MY_Model
 {
-    protected $_table_name = 'accounts';
-    protected $_primary_key = 'acc_id';
-    protected $_primary_filter = 'intval';
-    protected $_order_by = 'acc_id';
-    protected $_timestamps = FALSE;
+    public $_table_name = 'accounts';
+    public $_primary_key = 'acc_id';
+    public $_primary_filter = 'intval';
+    public $_order_by = 'acc_id';
+    public $_timestamps = FALSE;
 
     function __construct()
     {
         parent::__construct();
+    }
+
+    public function transections()
+    {
+        $this->_table_name = 'transections';
+        $this->_primary_key = 'tr_id';
+        $this->_order_by = 'tr_id';
     }
 
 

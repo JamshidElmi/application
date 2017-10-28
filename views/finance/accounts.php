@@ -81,7 +81,7 @@
 
                                 <p><?=$account->acc_name ?></p>
                             </div>
-                            <a href="#" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List">اطلاعات بیشتر <i class="fa fa-line-chart"></i></a>
+                            <a href="<?=site_url('finance/credit_debit/'.$account->acc_id); ?>" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List">اطلاعات بیشتر <i class="fa fa-line-chart"></i></a>
                         </div>
                     </div>
                 <?php endforeach ?>
@@ -107,7 +107,6 @@ $(document).ready(function() {
         observer: true,
     });
 });
-
 </script>
 
 
