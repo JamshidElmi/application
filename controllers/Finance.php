@@ -44,8 +44,6 @@ class Finance extends MY_Controller {
         }
         else
         {
-
-
             $account = $this->finance_model->data_save($this->input->post());
             if ($account) {
                 // get data from account form
@@ -94,7 +92,6 @@ class Finance extends MY_Controller {
         else
         {
             $this->finance_model->transections();
-
             $transection = $this->finance_model->data_save($this->input->post());
             if ($transection) {
                 $this->finance_model->_table_name = 'accounts';

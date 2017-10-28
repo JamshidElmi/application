@@ -86,27 +86,40 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                    <table class="table table-bordered">
-                        <tbody>
+                    <table class="table table-bordered table-striped">
+                        <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام صندوق</th>
+                                <th>توضیحات</th>
                                 <th>مقدار برداشت/جمع</th>
                                 <th>وضعیت</th>
-                                <th>تاریخ</th>
-                                <th>تاریخ</th>
+                                <th class="text-center">تاریخ</th>
+                                <th>فیصدی</th>
                             </tr>
-                <?php foreach ($transections as $transection): ?>
+                        </thead>
+                        <tbody>
+                            <?php $i = 1; $credit=null; $debit=null; foreach ($transections as $transection): ?>
                             <tr>
-                                <td>1.</td>
-                                <td><?=$transection->tr_desc ?></td>
-                                <td><?=$transection->tr_amount ?></td>
-                                <td class="text-center"><?=($transection->tr_status == 0) ? '<span class="badge bg-red">برداشت</span>' : '<span class="badge bg-green">جمع</span>' ; ?></td>
-                                <td><?=mds_date("Y/F/d ", $employee->emp_join_date); ?></td>
+                                <td><?=$i++ ?></td>
+                                <td><span data-toggle="tooltip" title="" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
+                                <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
+                                <td class="text-center"><?=($transection->tr_status == 0) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
+                                <td><?=mds_date("Y/F/d ", $transection->tr_date); ?></td>
                                 <td><span class="badge bg-orange"><?php echo $transection->tr_amount*100/$account->acc_amount; ?>%</span></td>
                             </tr>
-                <?php endforeach ?>
+                            <?php ($transection->tr_status == 0) ? $credit += $transection->tr_amount : $debit += $transection->tr_amount; ?>
+                            <?php endforeach ?>
+                            <?php $remain =   $credit - $debit; ?>
                         </tbody>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>مجموعه:</th>
+                                <th class="text-center <?=($remain > 0)? 'bg-success' :'bg-danger'  ; ?>"><?=($remain > 0) ? '<span class="text-success">'.$remain.' افغانی</span>' : '<span class="text-danger">'.$remain.' افغانی</span>' ; ?></th>
+                                <th></th><th></th><th></th>
+                            </tr>
+                        </thead>
+
                     </table>
 
             </div>
@@ -148,3 +161,10 @@ $('#tr_amount').keyup(function(event) {
 
 
 
+<h1>
+<?php
+
+echo mds_date("Y/F/d ", $account->acc_date);
+
+?>
+</h1>
