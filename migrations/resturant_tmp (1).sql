@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2017 at 10:18 PM
+-- Generation Time: Oct 29, 2017 at 08:43 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -32,16 +32,14 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `acc_amount` decimal(10,2) NOT NULL,
   `acc_description` varchar(512) DEFAULT NULL COMMENT 'توضیحات',
   `acc_date` varchar(16) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`) VALUES
-(1, 'اکانت یک', '25645.00', 'توضیحات مربوط به این صندوق...', '234212'),
-(2, 'اکانت دوم', '5000.00', 'توضیحات مربوط به این صندوق...', '1324324'),
-(3, 'صندوق شماره یک', '25000.00', 'توضیحات مربوط', '1509391378');
+(14, 'صندوق', '0.00', '', '1509303898');
 
 -- --------------------------------------------------------
 
@@ -184,6 +182,22 @@ CREATE TABLE IF NOT EXISTS `stocks` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `transections`
+--
+
+CREATE TABLE IF NOT EXISTS `transections` (
+`tr_id` int(11) NOT NULL,
+  `tr_desc` varchar(512) DEFAULT NULL,
+  `tr_amount` decimal(10,2) NOT NULL,
+  `tr_type` varchar(32) NOT NULL COMMENT 'نوعیت تراکنش: معاش/برداشت/ جمع/ مصارف/',
+  `tr_date` varchar(16) NOT NULL,
+  `tr_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'عدد 2 برای برداشت عدد 1 برای جمع',
+  `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق'
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `units`
 --
 
@@ -273,6 +287,12 @@ ALTER TABLE `stocks`
  ADD PRIMARY KEY (`st_id`);
 
 --
+-- Indexes for table `transections`
+--
+ALTER TABLE `transections`
+ ADD PRIMARY KEY (`tr_id`), ADD KEY `tr_acc_id` (`tr_acc_id`);
+
+--
 -- Indexes for table `units`
 --
 ALTER TABLE `units`
@@ -292,7 +312,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `company_info`
 --
@@ -319,6 +339,11 @@ MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 ALTER TABLE `stocks`
 MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `transections`
+--
+ALTER TABLE `transections`
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
+--
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
@@ -331,6 +356,12 @@ MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `transections`
+--
+ALTER TABLE `transections`
+ADD CONSTRAINT `TRANS_FK_ACC` FOREIGN KEY (`tr_acc_id`) REFERENCES `accounts` (`acc_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`
