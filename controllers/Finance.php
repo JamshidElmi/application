@@ -25,12 +25,6 @@ class Finance extends MY_Controller {
         $this->template->publish();
     }
 
-    public function delete_account()
-    {
-        $unit_id = $this->input->post('unit_id');
-        $this->setting_model->data_delete($unit_id);
-    }
-
     public function insert_account()
     {
         $this->load->library('form_validation');
@@ -51,7 +45,7 @@ class Finance extends MY_Controller {
                 $tr_date = $this->input->post('acc_date');
                 // set trans values
                 $this->finance_model->transections();
-                $this->finance_model->data_save(['tr_amount'=> $tr_amount,'tr_status' =>1,'tr_desc' => 'مقدار اولیه', 'tr_acc_id'=>$account, 'tr_date'=>$tr_date], $acc_id);
+                $this->finance_model->data_save(['tr_amount'=> $tr_amount,'tr_status' =>1,'tr_desc' => 'افتتاح حساب', 'tr_acc_id'=>$account, 'tr_date'=>$tr_date, 'tr_type' => 'credit_debit'], $acc_id);
 
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
                 redirect('finance/accounts');
@@ -62,8 +56,7 @@ class Finance extends MY_Controller {
                 redirect('finance/accounts');
             }
         }
-
-    }
+    } // insert_account
 
 
     public function credit_debit($acc_id)
@@ -75,15 +68,14 @@ class Finance extends MY_Controller {
 
         $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections ]);
         $this->template->publish();
-    }
+    } // credit_debit
 
     public function insert_credit_debit()
     {
         $acc_id = $this->input->post('tr_acc_id');
         $this->load->library('form_validation');
         $this->form_validation->set_rules('tr_amount', 'مقدار جدید', 'required|numeric');
-        $this->form_validation->set_rules('tr_desc', 'توضیحات / یادداشت', 'required');
-        $this->form_validation->set_rules('tr_status', 'نوعیت عملیات', 'required|in_list[1,0]');
+        $this->form_validation->set_rules('tr_status', 'نوعیت عملیات', 'required|in_list[1,2]');
         if ($this->form_validation->run() == FALSE)
         {
             $this->session->set_flashdata('form_errors', validation_errors() );
@@ -91,15 +83,15 @@ class Finance extends MY_Controller {
         }
         else
         {
+            $data = $this->input->post();
+            $data['tr_type'] = 'credit_debit';
             $this->finance_model->transections();
-            $transection = $this->finance_model->data_save($this->input->post());
+            $transection = $this->finance_model->data_save($data);
             if ($transection) {
-                $this->finance_model->_table_name = 'accounts';
-                $this->finance_model->_primary_key = 'acc_id';
-                $this->finance_model->_order_by = 'acc_id';
+                $this->finance_model->accounts();
                 $acc_info = $this->finance_model->data_get($acc_id, TRUE);
                 $acc_new_amount = $this->input->post('tr_amount');
-                if($this->input->post('tr_status') == 0)
+                if($this->input->post('tr_status') == 2)
                     $acc_new_amount = $acc_info->acc_amount - $acc_new_amount;
                 else
                     $acc_new_amount = $acc_info->acc_amount + $acc_new_amount;
@@ -115,8 +107,43 @@ class Finance extends MY_Controller {
                 redirect('finance/credit_debit/'.$acc_id);
             }
         }
+    } /* END insert_credit_debit */
+
+    public function delete_account()
+    {
+        sleep(1);
+        $acc_id = $this->input->post('acc_id');
+        $this->finance_model->data_delete($acc_id);
     }
 
+    public function delete_transection($tr_id, $acc_id, $acc_amount)
+    {
+        sleep(1);
+        // set trans values
+        $this->finance_model->transections();
+        // get current amount of account
+        $transection = $this->finance_model->data_get($tr_id, TRUE);
+        if($transection->tr_status == 1)
+            $new_amount = $acc_amount - $transection->tr_amount;
+        else
+            $new_amount = $acc_amount + $transection->tr_amount;
+        // Set new amount of account
+        $this->finance_model->accounts();
+        $account = $this->finance_model->data_save(['acc_amount'=> $new_amount], $acc_id);
+        if (is_int($account)) {
+            // delete trans tow
+            $this->finance_model->transections();
+            $this->finance_model->data_delete($tr_id);
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/credit_debit/'.$acc_id);
+        }
+        else{
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+            redirect('finance/credit_debit/'.$acc_id);
+        }
+
+
+    }
 
 
 

@@ -70,8 +70,10 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+            <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
+            <div class="row">
                 <?php foreach ($accounts as $account): ?>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" id="acc_<?=$account->acc_id ?>">
                         <div class="small-box bg-green">
                             <div class="icon">
                                 <i class="ion ion-lock-combination"></i>
@@ -81,15 +83,21 @@
 
                                 <p><?=$account->acc_name ?></p>
                             </div>
-                            <a href="<?=site_url('finance/credit_debit/'.$account->acc_id); ?>" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List">اطلاعات بیشتر <i class="fa fa-line-chart"></i></a>
+                            <a href="<?=site_url('finance/credit_debit/'.$account->acc_id); ?>" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List">
+                                لیست جمع و برداشت <i class="fa fa-line-chart fa-lg" ></i>
+                            </a>
+                            <a href="#" class="small-box-footer acc_id_to_delete" id="<?php echo $account->acc_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove Account">
+                                حذف حساب <i class="ion ion-trash-b fa-lg" ></i>
+                            </a>
                         </div>
                     </div>
                 <?php endforeach ?>
+                </div>
 
             </div>
             <!-- /.box-body -->
-            <div class="overlay" id="overlay" style="display: none;">
-                <i class="fa fa-refresh fa-spin"></i>
+            <div class="overlay" id="overlay" hidden >
+                <i class="fa ion ion-load-d fa-spin fa-lg" style="font-size: 40px;"></i>
             </div>
         </div>
     </div>
@@ -107,6 +115,23 @@ $(document).ready(function() {
         observer: true,
     });
 });
+
+    // remove account
+    $('.acc_id_to_delete').click(function() {
+        var acc_id = $(this).attr('id');
+        if (confirm('آیا با حذف این صندوق و تمام معاملات آن موافق هستید؟'))
+        {
+            $(document).ajaxStart(function(){
+                $(".overlay").css('display','block');
+            });
+              $.post("<?php echo site_url('finance/delete_account'); ?>",{acc_id:acc_id},function(response){});
+            $(document).ajaxStop(function(){
+                $(".overlay").css('display','none');
+                $(".msg").css('display','block');
+                $("div#acc_"+acc_id).remove();
+            });
+        };
+    });
 </script>
 
 

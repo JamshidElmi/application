@@ -22,6 +22,13 @@ class finance_model extends MY_Model
         $this->_order_by = 'tr_id';
     }
 
+    public function accounts()
+    {
+        $this->_table_name = 'accounts';
+        $this->_primary_key = 'acc_id';
+        $this->_order_by = 'acc_id';
+    }
+
 
 
 

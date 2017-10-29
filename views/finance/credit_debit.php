@@ -15,7 +15,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="POST" action="<?=site_url('finance/insert_credit_debit'); ?>" >
+            <form role="form" method="POST" id="myForm" action="<?=site_url('finance/insert_credit_debit'); ?>" >
 
                 <div class="box-body">
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
@@ -33,7 +33,7 @@
 
                     <div class="form-group">
                         <label for="acc_amount">مقدار جدید</label>
-                        <input type="number" class="form-control"  max="<?=round($account->acc_amount); ?>"  name="tr_amount" id="tr_amount" placeholder="مقدار اولیه به عدد " required/>
+                        <input type="number" class="form-control"    name="tr_amount" id="tr_amount" placeholder="مقدار اولیه به عدد " required/>
                     </div>
 
                     <div class="form-group">
@@ -54,7 +54,7 @@
                             <input type="radio" name="tr_status" id="tr_status1" value="1" checked /> جمع
                         </label>
                         <label class="btn btn-primary ">
-                            <input type="radio" name="tr_status" id="tr_status2" value="0" /> برداشت
+                            <input type="radio" name="tr_status" id="tr_status2" value="2" /> برداشت
                         </label>
                     </div>
 
@@ -69,6 +69,7 @@
                 <div class="box-footer">
                     <button type="submit" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
+                    <!-- <button class="example2 btn btn-primary">example confirm</button> -->
                 </div>
             </form>
         </div>
@@ -79,53 +80,52 @@
             <div class="box-header with-border">
                 <h3 class="box-title">لیست صندوق های موجود در سیستم</h3>
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
+                    <a href="<?=site_url('finance/accounts'); ?>" class="btn btn-box-tool bg-blue" data-toggle="tooltip" title="" data-original-title="Accounts List"><i class="ion-lock-combination fa-lg"></i></a>
                 </div>
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>توضیحات</th>
-                                <th>مقدار برداشت/جمع</th>
-                                <th>وضعیت</th>
-                                <th class="text-center">تاریخ</th>
-                                <th>فیصدی</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; $credit=null; $debit=null; foreach ($transections as $transection): ?>
-                            <tr>
-                                <td><?=$i++ ?></td>
-                                <td><span data-toggle="tooltip" title="" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
-                                <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
-                                <td class="text-center"><?=($transection->tr_status == 0) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
-                                <td><?=mds_date("Y/F/d ", $transection->tr_date); ?></td>
-                                <td><span class="badge bg-orange"><?php echo $transection->tr_amount*100/$account->acc_amount; ?>%</span></td>
-                            </tr>
-                            <?php ($transection->tr_status == 0) ? $credit += $transection->tr_amount : $debit += $transection->tr_amount; ?>
-                            <?php endforeach ?>
-                            <?php $remain =   $credit - $debit; ?>
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>مجموعه:</th>
-                                <th class="text-center <?=($remain > 0)? 'bg-success' :'bg-danger'  ; ?>"><?=($remain > 0) ? '<span class="text-success">'.$remain.' افغانی</span>' : '<span class="text-danger">'.$remain.' افغانی</span>' ; ?></th>
-                                <th></th><th></th><th></th>
-                            </tr>
-                        </thead>
+                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>توضیحات</th>
+                            <th>مقدار برداشت/جمع</th>
+                            <th>وضعیت</th>
+                            <th class="text-center">تاریخ</th>
+                            <th>فیصدی</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; $credit=null; $debit=null; foreach ($transections as $transection): ?>
+                        <tr id="tr_<?=$transection->tr_id  ?>">
+                            <td><?=$i++ ?></td>
+                            <td><span data-toggle="tooltip" title="" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
+                            <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
+                            <td class="text-center"><?=($transection->tr_status == 1) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
+                            <td><?=mds_date("Y/F/d ", $transection->tr_date); ?></td>
+                            <td><a href="" class="edit" id="<?=$transection->tr_id ?>"><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a>  <a class="remove" href="<?=site_url('finance/delete_transection/'.$transection->tr_id.'/'.$account->acc_id.'/'.$account->acc_amount); ?>"  ><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
+                        </tr>
+                        <?php ($transection->tr_status == 1) ? $credit += $transection->tr_amount : $debit += $transection->tr_amount; ?>
+                        <?php endforeach ?>
+                        <?php $remain =   $credit - $debit; ?>
+                    </tbody>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>مجموعه:</th>
+                            <th class="text-center <?=($remain > 0)? 'bg-success' :'bg-danger'  ; ?>"><?=($remain > 0) ? '<span class="text-success">'.$remain.' افغانی</span>' : '<span class="text-danger">'.$remain.' افغانی</span>' ; ?></th>
+                            <th></th><th></th><th></th>
+                        </tr>
+                    </thead>
 
-                    </table>
-
+                </table>
             </div>
             <!-- /.box-body -->
-            <div class="overlay" id="overlay" style="display: none;">
-                <i class="fa fa-refresh fa-spin"></i>
+            <div class="overlay" id="overlay" hidden>
+                <i class="fa ion ion-load-d fa-spin"></i>
             </div>
         </div>
     </div>
@@ -135,16 +135,26 @@
 
 <script>
 $(document).ready(function() {
+    // get transection type
     var $current_amount = $('#acc_amount').val();
-
-$('#tr_amount').keyup(function(event) {
-    $new_amount = $(this).val();
-    $remain_amount = $current_amount - $new_amount;
-    $('#acc_amount').val($remain_amount);
-
-});
-
-
+    var $radio = $('input[name=tr_status]:checked').val();
+    $('#myForm input').on('change', function() {
+       var $radio = $('input[name=tr_status]:checked', '#myForm').val();
+    });
+    // print remain || sum of current and old amount
+    $('#tr_amount').keyup(function(event) {
+        $new_amount = $(this).val();
+        var $radio = $('input[name=tr_status]:checked', '#myForm').val();
+        if($radio == 1)
+        {
+            $remain_amount = parseFloat($current_amount) + parseFloat($new_amount);
+            $('#acc_amount').val($remain_amount);
+        }else
+        {
+            $remain_amount = parseFloat($current_amount) - parseFloat($new_amount);
+            $('#acc_amount').val($remain_amount);
+        }
+    });
 
 
     // Date Picker
@@ -154,17 +164,28 @@ $('#tr_amount').keyup(function(event) {
         format: 'D/MMMM/YYYY',
         observer: true,
     });
-});
+
+    $('a.remove').confirm({
+        title: 'حذف',
+        content: 'آیا با حذف این معامله موافق هستید؟',
+        type: 'red',
+        rtl: true,
+        buttons: {
+            confirm: {
+                text: 'تایید',
+                btnClass: 'btn-red',
+                action: function () {
+                    location.href = this.$target.attr('href');
+                }
+            },
+            cancel: {
+                text: 'انصراف',
+                action: function () {
+                }
+            }
+        }
+    });
+
+
+}); // end document
 </script>
-
-
-
-
-
-<h1>
-<?php
-
-echo mds_date("Y/F/d ", $account->acc_date);
-
-?>
-</h1>

@@ -22,12 +22,15 @@
               'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
               'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
               'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
-              'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
+              'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
+              'jquery-confirm'  => 'plugins/jquery-confirm/jquery-confirm.min.css',
+              'style'           => 'assets/css/style.css'
 
         ); ?>
         <!-- Exretnal Scripts -->
         <?php $scripts = array(
-            'jquery' => 'components/jquery/dist/jquery.min.js' ,
+            'jquery'            => 'components/jquery/dist/jquery.min.js' ,
+            'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
 
          ); ?>
 
@@ -69,12 +72,13 @@
                 </section>
                 <!-- /.content -->
             </div>
-        <?php
-            /* Footer Layout */
-            echo $this->template->widget("footer");
-            /* Left Control Panel Layout */
-            echo $this->template->widget("controlsidebar");
-        ?>
+            <?php
+                /* Footer Layout */
+                echo $this->template->widget("footer");
+                /* Left Control Panel Layout */
+                echo $this->template->widget("controlsidebar");
+            ?>
+
             <div class="control-sidebar-bg"></div>
         </div> <!-- wrapper -->
 
