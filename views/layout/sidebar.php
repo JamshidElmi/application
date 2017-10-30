@@ -86,10 +86,19 @@
 
             <ul class="treeview-menu">
                 <li><a href="<?=site_url('finance/accounts'); ?>"><i class="fa fa-circle-o "></i> ایجاد صندوق </a></li>
-                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> جمع و برداشت </a></li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-circle-o"></i> مصارف
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('finance/expences'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف روزانه</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o"></i> ثتب مصارف روزانه</a></li>
+
+                    </ul>
+                </li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پرداخت معاش کارمندان </a></li>
-                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> مصارف روزانه</a></li>
-                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> </a></li>
             </ul>
         </li>
 
@@ -108,7 +117,6 @@
 
             <ul class="treeview-menu">
                 <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای مقیاسی </a></li>
-                <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> ثبت وظایف </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>

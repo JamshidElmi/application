@@ -29,6 +29,13 @@ class finance_model extends MY_Model
         $this->_order_by = 'acc_id';
     }
 
+    public function expences()
+    {
+        $this->_table_name = 'daily_expences';
+        $this->_primary_key = 'dex_id';
+        $this->_order_by = 'dex_id';
+    }
+
 
 
 

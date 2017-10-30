@@ -141,6 +141,17 @@ class Finance extends MY_Controller {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
             redirect('finance/credit_debit/'.$acc_id);
         }
+    }
+
+    public function expences()
+    {
+        $this->template->description = 'لیست خریداری و مصارف روزانه';
+
+        $this->finance_model->expences();
+        $expences = $this->finance_model->data_get();
+
+        $this->template->content->view('finance/expences', ['expences' => $expences]);
+        $this->template->publish();
 
 
     }

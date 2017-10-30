@@ -33,7 +33,7 @@
 
                     <div class="form-group">
                         <label for="acc_amount">مقدار جدید</label>
-                        <input type="number" class="form-control"    name="tr_amount" id="tr_amount" placeholder="مقدار اولیه به عدد " required/>
+                        <input type="number" class="form-control" name="tr_amount" id="tr_amount" placeholder="مقدار اولیه به عدد " required/>
                     </div>
 
                     <div class="form-group">

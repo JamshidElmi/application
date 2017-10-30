@@ -1,5 +1,5 @@
 <style>
-    .bg-red{padding: 3px 4px 3px 4px;}
+    /*.bg-red{padding: 3px 4px 3px 4px;}*/
     .bg-red:hover {
     background-color: #8F2418 !important;
 }
@@ -25,7 +25,7 @@
 
                     <label for="emp_phone">واحد برای:</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div id="radios" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-warning checked">
+                        <label class="btn btn-warning active">
                             <input type="radio" name="unit_type" id="unit_type1" value="1" checked /> رستورانت
                         </label>
                         <label class="btn btn-warning ">
@@ -56,7 +56,7 @@
                 <div class="msg_coo" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($units_coock as $coock): ?>
                 <a class="btn btn-app " id="coo_<?=$coock->unit_id ?>">
-                    <span class="badge bg-red unit_coo_delete" id="<?=$coock->unit_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-trash fa-lg"></i></span>
+                    <span class="badge bg-red unit_coo_delete" id="<?=$coock->unit_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
                     <i class="fa fa-cutlery"></i><?php echo $coock->unit_name ?>
                 </a>
             <?php endforeach ?>
@@ -84,7 +84,7 @@
                 <div class="msg_res" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($units_resturant as $resturant): ?>
                 <a class="btn btn-app" id="res_<?=$resturant->unit_id ?>">
-                    <span class="badge bg-red unit_res_delete" id="<?=$resturant->unit_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-trash fa-lg"></i></span>
+                    <span class="badge bg-red unit_res_delete" id="<?=$resturant->unit_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
                     <i class="fa fa-coffee"></i><?=$resturant->unit_name ?>
                 </a>
             <?php endforeach ?>

@@ -32,6 +32,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="emp_phone">نوعیت حساب</label> &nbsp;&nbsp;&nbsp;
+                        <div id="radios" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-warning active">
+                                <input type="radio" name="acc_type" id="acc_type1" value="1" checked /> همکار
+                            </label>
+                            <label class="btn btn-warning ">
+                                <input type="radio" name="acc_type" id="acc_type2" value="2" /> مشتری
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label>تاریخ ایجاد</label>
                         <div class="input-group date">
                             <div class="input-group-addon">
@@ -48,7 +60,6 @@
                         <textarea type="number" rows="7" class="form-control" name="acc_description" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
-
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
@@ -59,7 +70,7 @@
     </div>
 
     <div class="col-md-7">
-        <div class="box box-primary box-solid">
+        <div class="box  box-primary box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست صندوق های موجود در سیستم</h3>
                 <div class="box-tools pull-right">
@@ -74,7 +85,7 @@
             <div class="row">
                 <?php foreach ($accounts as $account): ?>
                     <div class="col-sm-6" id="acc_<?=$account->acc_id ?>">
-                        <div class="small-box bg-green">
+                        <div class="small-box <?=($account->acc_type != 0)? 'bg-green' :'bg-orange' ; ?>">
                             <div class="icon">
                                 <i class="ion ion-lock-combination"></i>
                             </div>
@@ -86,9 +97,12 @@
                             <a href="<?=site_url('finance/credit_debit/'.$account->acc_id); ?>" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List">
                                 لیست جمع و برداشت <i class="fa fa-line-chart fa-lg" ></i>
                             </a>
-                            <a href="#" class="small-box-footer acc_id_to_delete" id="<?php echo $account->acc_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove Account">
-                                حذف حساب <i class="ion ion-trash-b fa-lg" ></i>
-                            </a>
+                            <?php if ($account->acc_type != 0): ?>
+                                <a href="#" class="small-box-footer acc_id_to_delete" id="<?php echo $account->acc_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove Account">
+                                    حذف حساب <i class="ion ion-trash-b fa-lg" ></i>
+                                </a>
+                            <?php endif ?>
+
                         </div>
                     </div>
                 <?php endforeach ?>
@@ -116,22 +130,22 @@ $(document).ready(function() {
     });
 });
 
-    // remove account
-    $('.acc_id_to_delete').click(function() {
-        var acc_id = $(this).attr('id');
-        if (confirm('آیا با حذف این صندوق و تمام معاملات آن موافق هستید؟'))
-        {
-            $(document).ajaxStart(function(){
-                $(".overlay").css('display','block');
-            });
-              $.post("<?php echo site_url('finance/delete_account'); ?>",{acc_id:acc_id},function(response){});
-            $(document).ajaxStop(function(){
-                $(".overlay").css('display','none');
-                $(".msg").css('display','block');
-                $("div#acc_"+acc_id).remove();
-            });
-        };
-    });
+// remove account
+$('.acc_id_to_delete').click(function() {
+    var acc_id = $(this).attr('id');
+    if (confirm('آیا با حذف این صندوق و تمام معاملات آن موافق هستید؟'))
+    {
+        $(document).ajaxStart(function(){
+            $(".overlay").css('display','block');
+        });
+          $.post("<?php echo site_url('finance/delete_account'); ?>",{acc_id:acc_id},function(response){});
+        $(document).ajaxStop(function(){
+            $(".overlay").css('display','none');
+            $(".msg").css('display','block');
+            $("div#acc_"+acc_id).remove();
+        });
+    };
+});
 </script>
 
 
