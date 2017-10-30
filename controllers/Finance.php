@@ -148,13 +148,26 @@ class Finance extends MY_Controller {
         $this->template->description = 'لیست خریداری و مصارف روزانه';
 
         $this->finance_model->expences();
-        $expences = $this->finance_model->data_get();
+        $expences = $this->finance_model->get_join_expences();
 
         $this->template->content->view('finance/expences', ['expences' => $expences]);
         $this->template->publish();
-
-
     }
+
+    public function new_expence()
+    {
+        $this->template->description = 'ثبت خریداری و مصارف روزانه';
+        // get current amount of main account
+        $this->finance_model->accounts();
+        $account = $this->finance_model->data_get_by(['acc_type' => 0] , TRUE);
+        $this->finance_model->units();
+        $units = $this->finance_model->data_get_by(['unit_type' => 0] );
+
+        $this->template->content->view('finance/new_expence', ['acc_amount' => $account->acc_amount, 'units' => $units]);
+        $this->template->publish();
+    }
+
+
 
 
 

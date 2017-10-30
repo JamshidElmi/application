@@ -36,6 +36,23 @@ class finance_model extends MY_Model
         $this->_order_by = 'dex_id';
     }
 
+    public function get_join_expences($value='')
+    {
+        // $this->expences();
+
+        $this->db->from('daily_expences');
+        $this->db->join('units', 'daily_expences.dex_unit = units.unit_id');
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
+    public function units()
+    {
+        $this->_table_name = 'units';
+        $this->_primary_key = 'unit_id';
+        $this->_order_by = 'unit_id';
+    }
 
 
 

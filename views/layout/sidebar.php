@@ -94,7 +94,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li><a href="<?=site_url('finance/expences'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف روزانه</a></li>
-                        <li><a href="#"><i class="fa fa-circle-o"></i> ثتب مصارف روزانه</a></li>
+                        <li><a href="<?=site_url('finance/new_expence'); ?>"><i class="fa fa-circle-o"></i> ثبت مصارف روزانه</a></li>
 
                     </ul>
                 </li>

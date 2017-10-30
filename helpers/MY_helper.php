@@ -48,6 +48,31 @@ if(!function_exists("setting_option"))
     }
 }
 
+if(!function_exists("units"))
+{
+    /**
+     * Select Province
+     *
+     * @param   string  setting name
+     * @return  mixed   Array of valus on fixed column of row
+     */
+    function units($type = null)
+    {
+        $ci = & get_instance();
+        if($type != null){
+            $ci->db->where('unit_type' , $type);
+        }
+        // $ci->db->limit(1);
+        $units = $ci->db->get('units')->result();
+        //var_dump($units);
+        // $item = explode(',', current($setting[0]));
+        foreach ($units as $unit)
+        {
+            echo "<option value='".$unit->unit_id."'>". $unit->unit_name ."</option>";
+        }
+    }
+}
+
 if(!function_exists("alert"))
 {
     function alert($txt, $type = 'success')
