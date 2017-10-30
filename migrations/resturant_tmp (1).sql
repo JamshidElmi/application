@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2017 at 08:43 PM
+-- Generation Time: Oct 30, 2017 at 08:16 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -31,15 +31,16 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `acc_name` varchar(256) NOT NULL,
   `acc_amount` decimal(10,2) NOT NULL,
   `acc_description` varchar(512) DEFAULT NULL COMMENT 'توضیحات',
-  `acc_date` varchar(16) NOT NULL
+  `acc_date` varchar(16) NOT NULL,
+  `acc_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای صندوق اصلی عدد 1 برای حساب همکاران عدد 2 برای حساب مشتریان'
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `accounts`
 --
 
-INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`) VALUES
-(14, 'صندوق', '0.00', '', '1509303898');
+INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
+(14, 'صندوق', '1000.00', '', '1509303898', 0);
 
 -- --------------------------------------------------------
 
@@ -70,16 +71,29 @@ CREATE TABLE IF NOT EXISTS `company_info` (
 CREATE TABLE IF NOT EXISTS `daily_expences` (
 `dex_id` int(11) NOT NULL,
   `dex_bill_no` varchar(16) DEFAULT NULL,
-  `dex_shop_name` varchar(256) DEFAULT NULL COMMENT 'اگر از بیرون بود نام دوکان/اگر از داخل بود فقط کلمه گدام',
+  `dex_shop` varchar(256) DEFAULT NULL COMMENT 'اگر از بیرون بود نام دوکان/اگر از داخل بود فقط کلمه گدام',
   `dex_name` varchar(256) NOT NULL,
   `dex_price` decimal(10,2) NOT NULL,
   `dex_count` int(11) NOT NULL,
-  `dex_unit` varchar(128) NOT NULL,
-  `dex_total_price` decimal(10,0) NOT NULL,
+  `dex_unit` int(11) NOT NULL COMMENT 'واحد مقیاسی',
+  `dex_total_amount` decimal(10,2) NOT NULL,
   `dex_desc` varchar(512) NOT NULL,
-  `dex_date` varchar(16) NOT NULL,
-  `dex_type` tinyint(1) NOT NULL COMMENT 'یا 0 برداشت از گدام یا 1 خرید مصرفی زا بیرونیل '
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `dex_date` varchar(16) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `daily_expences`
+--
+
+INSERT INTO `daily_expences` (`dex_id`, `dex_bill_no`, `dex_shop`, `dex_name`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_desc`, `dex_date`) VALUES
+(2, '3453', 'sdf', 'sdf', '44.00', 4, 13, '444.00', 'asdfas adf', '34523452'),
+(3, '3453', 'sdf', 'sdf', '44.00', 4, 16, '444.00', 'asdfas adf', '34523452'),
+(4, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
+(5, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
+(6, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
+(7, '3453', 'sdf', 'sdf', '44.00', 4, 13, '444.00', 'asdfas adf', '34523452'),
+(8, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
+(9, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452');
 
 -- --------------------------------------------------------
 
@@ -193,7 +207,14 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_date` varchar(16) NOT NULL,
   `tr_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'عدد 2 برای برداشت عدد 1 برای جمع',
   `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق'
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `transections`
+--
+
+INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`) VALUES
+(1, '', '1000.00', 'credit_debit', '1509372633', 1, 14);
 
 -- --------------------------------------------------------
 
@@ -266,7 +287,7 @@ ALTER TABLE `company_info`
 -- Indexes for table `daily_expences`
 --
 ALTER TABLE `daily_expences`
- ADD PRIMARY KEY (`dex_id`);
+ ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`);
 
 --
 -- Indexes for table `employees`
@@ -322,7 +343,7 @@ MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `daily_expences`
 --
 ALTER TABLE `daily_expences`
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `employees`
 --
@@ -342,7 +363,7 @@ MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=61;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -356,6 +377,12 @@ MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `daily_expences`
+--
+ALTER TABLE `daily_expences`
+ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
 
 --
 -- Constraints for table `transections`
