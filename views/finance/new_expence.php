@@ -42,7 +42,7 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
-                                    <input type="hidden" id="tarikhAlt" name="tr_date" class="form-control pull-right" style="z-index: 0;" >
+                                    <input type="hidden" id="tarikhAlt" name="dex_date" class="form-control pull-right" style="z-index: 0;" >
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -50,7 +50,8 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="dex_shop">موجودی صندوق</label>
-                                <input type="text" class="form-control" name="dex_shop" value="<?=$acc_amount; ?>" id="dex_shop" disabled />
+                                <input type="text" class="form-control" value="<?=$acc_amount; ?>" id="dex_shop" disabled />
+                                <input type="hidden" name="acc_amount" value="<?=$acc_amount; ?>" id="acc_amount">
                             </div>
                         </div>
                     </div>
@@ -58,7 +59,7 @@
 
                     <!-- row[] -->
                     <div class="input_fields_wrap">
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="dex_name">نام جنس</label>
@@ -70,37 +71,42 @@
                                 <label for="dex_unit">واحد</label>
                                 <select name="dex_unit[]" id="dex_unit" class="form-control" required>
                                     <option value="">واحدات</option>
-                                    <?php units(0) ?>
+                                    <?php //units(0) ?>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="dex_count">تعداد</label>
-                                <input type="number" class="form-control" name="dex_count[]" id="dex_count" placeholder="مقدار اولیه به عدد " required/>
+                                <input type="number" class="form-control" name="dex_count_[]" id="dex_count" placeholder="مقدار اولیه به عدد " required/>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="dex_price">قیمت فی واحد</label>
-                                <input type="number" class="form-control" name="dex_price[]" id="dex_price" placeholder="مقدار اولیه به عدد " required/>
+                                <input type="number" class="form-control" name="dex_price_[]" id="dex_price" placeholder="مقدار اولیه به عدد " required/>
                             </div>
                         </div>
                          <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="dex_total_amount">هزینه کل</label>
-                                <input type="number" class="form-control" id="dex_total_amount_alt[]" placeholder="هزینه کل " disabled />
-                                <input type="hidden" class="form-control" name="dex_total_amount[]" id="dex_total_amount"  />
+                                <input type="number" class="form-control" id="dex_total_amount_alt_[]" placeholder="هزینه کل " disabled />
+                                <input type="hidden" class="form-control" name="dex_total_amount_[]" id="dex_total_amount"  />
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+
                     </div>
                     <!-- row[END] -->
 
+
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-xs-12">
+                            <div class="col-xs-10">
                                 <a class="btn btn-primary col-xs-12 add_field_button" id="add_new" data-toggle="tooltip" title="" data-original-title="Add New"><i class="ion-android-add-circle fa-lg"></i></a>
+                            </div>
+                            <div class="col-xs-2">
+                                <a class="btn btn-warning col-xs-12" id="calcolate" data-toggle="tooltip" title="" data-original-title="Sum Total"><i class="ion-calculator fa-lg"></i></a>
                             </div>
                         </div>
                     </div>
@@ -111,9 +117,9 @@
                     </div>
 
 
-                <input type="hidden" name="tr_acc_id" />
                 </div>
                 <div class="box-footer">
+                    <input type="text" id="sum" value="0" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع مصارف: </span>
                     <button type="submit" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
@@ -141,91 +147,64 @@
 
 </div>
 
+
 <script>
+// <select name="dex_unit[]" id="myselect[]"  class="form-control" required><option value="">واحدات</option>
+//var select ='<div class="col-sm-2">   <div class="form-group">   <label for="dex_unit">واحد</label>   <select name="dex_unit[]" id="myselect[]"  class="form-control" required> <option value="">واحدات</option> <?php //foreach($units as $unit) { echo '<option value="'.$unit->unit_id.'">'.$unit->unit_name.'</option>'; } ?></select>   </div>   </div>';
+// var select ='<select name="dex_unit[]" id="myselect[]"  class=" class="col-sm-2 form-control" required> <option value="">واحدات</option> <?php// foreach($units as $unit) { echo '<option value="'.$unit->unit_id.'">'.$unit->unit_name.'</option>'; } ?></select>  ';
+
 
 
 $(document).ready(function() {
   var max_fields = 10; //maximum input boxes allowed
   var wrapper = $(".input_fields_wrap"); //Fields wrapper
   var add_button = $(".add_field_button"); //Add button ID
+  var x = 0; //initlal text box count
+  var sum = parseFloat(0);
 
-  var x = 1; //initlal text box count
   $(add_button).click(function(e) { //on add input button click
     e.preventDefault();
     if (x < max_fields) { //max input box allowed
       x++; //text box increment
-      // $(wrapper).append('hIIIIIIIIIIIIIIII'); //add input box
-      $(wrapper).append('<div class="row"><div class="col-sm-3">    <div class="form-group">    <label for="dex_name">نام جنس</label><input type="text" class="form-control" name="dex_name[]" id="dex_name" placeholder="نام جنس" required/></div></div><div class="col-sm-2"><div class="form-group"><label for="dex_unit">واحد</label>                <select name="dex_unit[]" id="myselect[]"  class="form-control" required><option value="">واحدات</option> ' );
-
-// $(wrapper).append('<option> jimi </option>');
-// $(wrapper).append('<option> marp </option>');
-
-// $('select#dex_unit').find('option').each(function() {
-//     $(wrapper).append($(this).html());
-//      // '<option>'+ $(this).html()+ ' </option>'
-
-// });
+    sum = parseFloat(sum) + parseFloat($('#dex_total_amount_alt_'+x).val());
+        $(wrapper).append('<div class="row"><div class="col-sm-3">   <div class="form-group">   <label for="dex_name">نام جنس</label>     <input type="text" class="form-control" name="dex_name[]" id="dex_name" placeholder="نام جنس" required/>   </div>    </div>     <div class="col-sm-2">   <div class="form-group">   <label for="dex_unit">واحد</label>   <select name="dex_unit[]" id="myselect[]"  class="form-control" required> <option value="">واحدات</option> <?php foreach($units as $unit) { echo '<option value="'.$unit->unit_id.'">'.$unit->unit_name.'</option>'; } ?></select>   </div>   </div>    <div class="col-sm-2">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="dex_count[]" id="dex_count_'+x+'" placeholder="مقدار اولیه به عدد " required/>   </div>   </div>  <div class="col-sm-2">   <div class="form-group">   <label for="dex_price">قیمت فی واحد</label>   <input type="number" class="form-control" name="dex_price[]" id="dex_price_'+x+'" placeholder="مقدار اولیه به عدد " required/>    </div>   </div>    <div class="col-sm-2">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" id="dex_total_amount_alt_'+x+'" placeholder="هزینه کل " disabled />   <input type="hidden" class="form-control" name="dex_total_amount[]" id="dex_total_amount_'+x+'"  />   </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1"><i class="ion ion-trash-b text-red fa-lg"></i></a></div>   </div></div>');
+          }
 
 
+      $('#dex_price_'+x).keyup(function(event) {
+        var new_amm = $(this).val() * $('#dex_count_'+x).val();
+        $('#dex_total_amount_'+x).val(new_amm);
+        $('#dex_total_amount_alt_'+x).val(new_amm);
 
 
-
-        $(wrapper).append('</select>    </div></div><div class="col-sm-2"><div class="form-group"><label for="dex_count">تعداد</label><input type="number" class="form-control" name="dex_count[]" id="dex_count" placeholder="مقدار اولیه به عدد " required/></div></div><div class="col-sm-2"><div class="form-group"><label for="dex_price">قیمت فی واحد</label><input type="number" class="form-control" name="dex_price[]" id="dex_price" placeholder="مقدار اولیه به عدد " required/></div></div><div class="col-sm-3"><div class="form-group"><label for="dex_total_amount">هزینه کل</label><input type="number" class="form-control" id="dex_total_amount_alt" placeholder="هزینه کل " disabled /><input type="hidden" class="form-control" name="dex_total_amount[]" id="dex_total_amount"  /></div></div></div>'); //add input box
-    }
   });
+
+
+
+
+        // sum = parseFloat(sum) + parseFloat($('#dex_total_amount_alt'+x).val());
+
+
+  });
+$('#calcolate').click(function(event) {
+    alert(sum);
+});
+
 
   $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
     e.preventDefault();
     $(this).parent('div').remove();
     x--;
   });
+
+
 });
 
 
 
 
 
-
-
-
-
-
-
 $(document).ready(function() {
-
-
-
-
-
-
-
-
-
-
-
-
-    // // get transection type
-    // var $current_amount = $('#acc_amount').val();
-    // var $radio = $('input[name=tr_status]:checked').val();
-    // $('#myForm input').on('change', function() {
-    //    var $radio = $('input[name=tr_status]:checked', '#myForm').val();
-    // });
-    // // print remain || sum of current and old amount
-    // $('#tr_amount').keyup(function(event) {
-    //     $new_amount = $(this).val();
-    //     var $radio = $('input[name=tr_status]:checked', '#myForm').val();
-    //     if($radio == 1)
-    //     {
-    //         $remain_amount = parseFloat($current_amount) + parseFloat($new_amount);
-    //         $('#acc_amount').val($remain_amount);
-    //     }else
-    //     {
-    //         $remain_amount = parseFloat($current_amount) - parseFloat($new_amount);
-    //         $('#acc_amount').val($remain_amount);
-    //     }
-    // });
-
-
     // Date Picker
     $('#tarikh').persianDatepicker({
         altField: '#tarikhAlt',
@@ -233,7 +212,13 @@ $(document).ready(function() {
         format: 'D/MMMM/YYYY',
         observer: true,
     });
-
-
 }); // end document
 </script>
+
+
+
+
+
+
+
+

@@ -168,6 +168,12 @@ class Finance extends MY_Controller {
     }
 
 
+    public function insert_expence()
+    {
+        print_r($this->input->post());
+    }
+
+
 
 
 
