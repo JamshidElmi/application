@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 30, 2017 at 08:16 PM
+-- Generation Time: Oct 31, 2017 at 09:28 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -33,14 +33,15 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `acc_description` varchar(512) DEFAULT NULL COMMENT 'توضیحات',
   `acc_date` varchar(16) NOT NULL,
   `acc_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای صندوق اصلی عدد 1 برای حساب همکاران عدد 2 برای حساب مشتریان'
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
-(14, 'صندوق', '1000.00', '', '1509303898', 0);
+(15, 'صندوق همکار 1', '4880.00', '', '1509469146', 1),
+(18, 'صندوق اصلی', '1000.00', '', '1509481173', 0);
 
 -- --------------------------------------------------------
 
@@ -78,22 +79,17 @@ CREATE TABLE IF NOT EXISTS `daily_expences` (
   `dex_unit` int(11) NOT NULL COMMENT 'واحد مقیاسی',
   `dex_total_amount` decimal(10,2) NOT NULL,
   `dex_desc` varchar(512) NOT NULL,
-  `dex_date` varchar(16) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  `dex_date` varchar(16) NOT NULL,
+  `dex_tr_id` int(11) NOT NULL COMMENT 'ای دی ترانزکشن'
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `daily_expences`
 --
 
-INSERT INTO `daily_expences` (`dex_id`, `dex_bill_no`, `dex_shop`, `dex_name`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_desc`, `dex_date`) VALUES
-(2, '3453', 'sdf', 'sdf', '44.00', 4, 13, '444.00', 'asdfas adf', '34523452'),
-(3, '3453', 'sdf', 'sdf', '44.00', 4, 16, '444.00', 'asdfas adf', '34523452'),
-(4, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
-(5, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
-(6, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
-(7, '3453', 'sdf', 'sdf', '44.00', 4, 13, '444.00', 'asdfas adf', '34523452'),
-(8, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452'),
-(9, '3453', 'sdf', 'sdf', '44.00', 4, 19, '444.00', 'asdfas adf', '34523452');
+INSERT INTO `daily_expences` (`dex_id`, `dex_bill_no`, `dex_shop`, `dex_name`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_desc`, `dex_date`, `dex_tr_id`) VALUES
+(61, '27054', 'دوکان احمد', 'جنس 2', '33.00', 3, 4, '99.00', 'ثبت مصارف با 23 درصد کاهش از صندوق اصلی', '1509474761', 0),
+(62, '27054', 'دوکان احمد', 'جنس 2', '33.00', 3, 4, '99.00', 'ثبت مصارف با 23 درصد کاهش از صندوق اصلی', '1509474761', 0);
 
 -- --------------------------------------------------------
 
@@ -127,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
 INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_lname`, `emp_position`, `emp_salary`, `emp_join_date`, `emp_org_place`, `emp_cur_place`, `emp_address`, `emp_email`, `emp_phone`, `emp_gendar`, `emp_picture`, `emp_national_id`, `emp_biography`, `emp_type`) VALUES
 (1, 'کریم', 'کاظمی', 'مدیر گدام', '15000', '1508956089', 'کابل', 'هرات', 'شهر نو کابل افغانستان ین قالب به صورت هست و برای بخش کنترل پنل و مدیریت سایت های مختلف مناسب می باشد.\r\n\r\nنسخه اصلی این قالب می باشد که توسط به صورت رایگان قرار داده شده است. شهر نو کابل افغانستان ین قالب به صورت هست و برای بخش کنترل پنل و مدیریت سایت های مختلف مناسب می باشد.\r\n\r\nنسخه اصلی این قالب می باشد که توسط به صورت رایگان قرار داده شده است.', 'email@domain.com', '0780525265', 1, 'avatar51.png', '0255', 'شهر نو کابل افغانستان ین قالب به صورت هست و برای بخش کنترل پنل و مدیریت سایت های مختلف مناسب می باشد.\r\n\r\nنسخه اصلی این قالب می باشد که توسط به صورت رایگان قرار داده شده است. شهر نو کابل افغانستان ین قالب به صورت هست و برای بخش کنترل پنل و مدیریت سایت های مختلف مناسب می باشد. نسخه اصلی این قالب می باشد که توسط به صورت رایگان قرار داده شده است. شهر نو کابل افغانستان ین قالب به صورت هست و برای بخش کنترل پنل و مدیریت سایت های مختلف مناسب می باشد.\r\n\r\nنسخه اصلی این قالب می باشد که توسط به صورت رایگان قرار داده شده است.', 0),
 (3, 'سارا', 'شهیدی', 'سر آشپز', '15000', '1508863039', 'کابل', 'هرات', 'شهر نو کابل افغانستان', 'email@domain.com', '0780525265', 0, 'avatar2.png', '456789', '', 0),
-(6, 'محمد', 'میرزائی', 'مدیر مسئول', '15000', '1508863321', 'دایکندی ', 'کابل', 'کابل چهار قلعه وزیر آباد کوچه گل شب بو پلاک 52 نرسیده به سرک 7 بیست متری کوکاکولا.', 'email@domain.com', '078585454', 1, 'avatar04.png', '5865485', 'ویژگی های قالب و تفاوت های آن با قالب اصلی:\r\n\r\n۱- قالب به صورت کامل و حرفه ای فارسی و راست چین شده.\r\n\r\n۲- انتخاب تاریخ به صورت شمسی یا دیتا پیکر توسط کتاب خانه باباخانی اضافه شده.\r\n\r\n۳- ویرایشگر CK Editor فارسی و راست چین شده.\r\n\r\n۴- ویرایشگر TinyMCE فارسی و راست چین شده و به قالب اضافه شده.\r\n\r\n۵- همچنین فونت فارسی برای خوانایی بیشتر حروف و اعداد فارسی به قالب افزوده شد.\r\n\r\n', 0),
+(6, 'محمد', 'میرزائی', 'مدیر مسئول', '15000', '1509475427', 'دایکندی ', 'کابل', 'کابل چهار قلعه وزیر آباد کوچه گل شب بو پلاک 52 نرسیده به سرک 7 بیست متری کوکاکولا.', 'email@domain.com', '078585454', 1, 'avatar04.png', '5865485', 'ویژگی های قالب و تفاوت های آن با قالب اصلی:\r\n\r\n۱- قالب به صورت کامل و حرفه ای فارسی و راست چین شده.\r\n\r\n۲- انتخاب تاریخ به صورت شمسی یا دیتا پیکر توسط کتاب خانه باباخانی اضافه شده.\r\n\r\n۳- ویرایشگر CK Editor فارسی و راست چین شده.\r\n\r\n۴- ویرایشگر TinyMCE فارسی و راست چین شده و به قالب اضافه شده.\r\n\r\n۵- همچنین فونت فارسی برای خوانایی بیشتر حروف و اعداد فارسی به قالب افزوده شد.\r\n\r\n', 1),
 (7, 'رضا', 'شایان', 'مدیر گدام', '5000', '1509375783', 'بامیان', 'کابل ', 'چهار قلعه وزیر آباد فلان سرک فلان کوچه ', 'reza@farakhaan.com', '078565475', 1, 'avatar.png', '45685', 'کارمند خوب', 0);
 
 -- --------------------------------------------------------
@@ -206,15 +202,18 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_type` varchar(32) NOT NULL COMMENT 'نوعیت تراکنش: معاش/برداشت/ جمع/ مصارف/',
   `tr_date` varchar(16) NOT NULL,
   `tr_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'عدد 2 برای برداشت عدد 1 برای جمع',
-  `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق',
+  `tr_dex_id` int(11) DEFAULT NULL COMMENT 'ای دی مصارف روزانه'
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
 --
 
-INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`) VALUES
-(1, '', '1000.00', 'credit_debit', '1509372633', 1, 14);
+INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`, `tr_dex_id`) VALUES
+(2, 'افتتاح حساب', '5000.00', 'credit_debit', '1509469146', 1, 15, NULL),
+(8, 'افتتاح حساب', '1000.00', 'credit_debit', '1509481173', 1, 18, NULL),
+(11, '', '66.00', 'credit_debit', '1509481481', 1, 18, NULL);
 
 -- --------------------------------------------------------
 
@@ -333,7 +332,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `company_info`
 --
@@ -343,7 +342,7 @@ MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `daily_expences`
 --
 ALTER TABLE `daily_expences`
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
 --
 -- AUTO_INCREMENT for table `employees`
 --
@@ -363,7 +362,7 @@ MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `units`
 --

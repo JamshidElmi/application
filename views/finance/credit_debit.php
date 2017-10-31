@@ -78,7 +78,7 @@
     <div class="col-md-7">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">لیست صندوق های موجود در سیستم</h3>
+                <h3 class="box-title">لیست جمع و برداشت از حساب <?=$account->acc_name; ?></h3>
                 <div class="box-tools pull-right">
                     <a href="<?=site_url('finance/accounts'); ?>" class="btn btn-box-tool bg-blue" data-toggle="tooltip" title="" data-original-title="Accounts List"><i class="ion-lock-combination fa-lg"></i></a>
                 </div>
@@ -105,19 +105,32 @@
                             <td><span data-toggle="tooltip" title="" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
                             <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
                             <td class="text-center"><?=($transection->tr_status == 1) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
-                            <td><?=mds_date("Y/F/d ", $transection->tr_date); ?></td>
-                            <td><a href="" class="edit" id="<?=$transection->tr_id ?>"><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a>  <a class="remove" href="<?=site_url('finance/delete_transection/'.$transection->tr_id.'/'.$account->acc_id.'/'.$account->acc_amount); ?>"  ><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
+                            <td class="text-center"><?=mds_date("Y/F/d ", $transection->tr_date); ?></td>
+                            <td class="text-center"><!-- <a href="" class="edit" id="<?//=$transection->tr_id ?>"><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a> -->  <a class="remove" href="<?=site_url('finance/delete_transection/'.$transection->tr_id.'/'.$account->acc_id.'/'.$account->acc_amount); ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
                         </tr>
                         <?php ($transection->tr_status == 1) ? $credit += $transection->tr_amount : $debit += $transection->tr_amount; ?>
                         <?php endforeach ?>
                         <?php $remain =   $credit - $debit; ?>
+                        <?php $remain =   $remain - round($daily_expences); ?>
                     </tbody>
                     <thead>
+                    <?php if ($account->acc_type == 0): ?>
+                        <tr>
+                            <th></th>
+                            <th>مجموع مصارف روزانه</th>
+                            <th class="text-center bg-warning"><?=round($daily_expences); ?> افغانی</th>
+                            <th class="text-center"><i data-toggle="tooltip" title="" data-original-title="Daily Expences" class="ion ion-android-remove-circle fa-lg text-danger"></i></th>
+                            <th class="text-center"> الی امروز</th>
+                            <th class="text-center"><span class="label label-default "><i class="ion ion-trash-b fa-lg"></i></span></th>
+                        </tr>
+                    <?php endif ?>
                         <tr>
                             <th>#</th>
-                            <th>مجموعه:</th>
+                            <th>موجود در صندوق:</th>
                             <th class="text-center <?=($remain > 0)? 'bg-success' :'bg-danger'  ; ?>"><?=($remain > 0) ? '<span class="text-success">'.$remain.' افغانی</span>' : '<span class="text-danger">'.$remain.' افغانی</span>' ; ?></th>
-                            <th></th><th></th><th></th>
+                            <th></th>
+                            <th class="text-center"> </th>
+                            <th></th>
                         </tr>
                     </thead>
 

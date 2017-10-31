@@ -54,6 +54,29 @@ class finance_model extends MY_Model
         $this->_order_by = 'unit_id';
     }
 
+    public function daily_expences()
+    {
+        $this->_table_name = 'daily_expences';
+        $this->_primary_key = 'dex_id';
+        $this->_order_by = 'dex_id';
+    }
+
+    public function get_trans_dexs($acc_id)
+    {
+        $this->db->select_sum('tr_amount');
+        $this->db->from('transections');
+        $this->db->where(['tr_acc_id'=>$acc_id, 'tr_type' => 'daily_expence']);
+        $query = $this->db->get();
+        return $query->row()->tr_amount;
+    }
+
+    public function dex_transection_delete($dex_id)
+    {
+        $this->db->where(['tr_dex_id'=> $dex_id, 'tr_type'=> 'daily_expence']);
+        if($this->db->delete('transections'))
+        return true;
+    }
+
 
 
 

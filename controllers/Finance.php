@@ -23,7 +23,7 @@ class Finance extends MY_Controller {
 
         $this->template->content->view('finance/accounts', ['accounts' => $accounts]);
         $this->template->publish();
-    }
+    } // end accounts
 
     public function insert_account()
     {
@@ -64,9 +64,12 @@ class Finance extends MY_Controller {
         $this->template->description = 'برداشت از حساب و جمع در حساب';
         $account = $this->finance_model->data_get($acc_id, TRUE);
         $this->finance_model->transections();
-        $transections = $this->finance_model->data_get_by(['tr_acc_id'=> $acc_id]);
+        $transections = $this->finance_model->data_get_by(['tr_acc_id'=> $acc_id, 'tr_type'=> 'credit_debit']);
+        // get daily_expences SUM
+        $daily_expences = $this->finance_model->get_trans_dexs($acc_id);
 
-        $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections ]);
+
+        $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections, 'daily_expences' => $daily_expences ]);
         $this->template->publish();
     } // credit_debit
 
@@ -114,7 +117,7 @@ class Finance extends MY_Controller {
         sleep(1);
         $acc_id = $this->input->post('acc_id');
         $this->finance_model->data_delete($acc_id);
-    }
+    } // end delete_account
 
     public function delete_transection($tr_id, $acc_id, $acc_amount)
     {
@@ -141,7 +144,7 @@ class Finance extends MY_Controller {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
             redirect('finance/credit_debit/'.$acc_id);
         }
-    }
+    } // end delete_transection
 
     public function expences()
     {
@@ -152,7 +155,7 @@ class Finance extends MY_Controller {
 
         $this->template->content->view('finance/expences', ['expences' => $expences]);
         $this->template->publish();
-    }
+    } // end expences
 
     public function new_expence()
     {
@@ -165,16 +168,100 @@ class Finance extends MY_Controller {
 
         $this->template->content->view('finance/new_expence', ['acc_amount' => $account->acc_amount, 'units' => $units]);
         $this->template->publish();
-    }
+    } // end new_expence
 
 
     public function insert_expence()
     {
-        print_r($this->input->post());
-    }
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('dex_bill_no', 'شماره بل', 'numeric');
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->session->set_flashdata('form_errors', validation_errors());
+            redirect('finance/new_expence/');
+        }
+        else
+        {
+            $row = count($this->input->post('dex_unit'))-1;
+            // get account data
+            $this->finance_model->accounts();
+            $account = $this->finance_model->data_get_by(['acc_type'=>0], TRUE);
+
+            for($i=0; $i <= $row; $i++)
+            {
+                $data = array(
+                    'dex_shop'          => $this->input->post('dex_shop'),
+                    'dex_bill_no'       => $this->input->post('dex_bill_no'),
+                    'dex_name'          => $this->input->post('dex_name')[$i],
+                    'dex_count'         => $this->input->post('dex_count')[$i],
+                    'dex_price'         => $this->input->post('dex_price')[$i],
+                    'dex_total_amount'  => $this->input->post('dex_total_amount')[$i],
+                    'dex_unit'          => $this->input->post('dex_unit')[$i],
+                    'dex_date'          => $this->input->post('dex_date'),
+                    'dex_desc'          => $this->input->post('dex_desc')
+                );
+                $this->finance_model->daily_expences();
+                $result = $this->finance_model->data_save($data);
+                if(!is_int($result))
+                {
+                    $result = null;
+                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                    redirect('finance/new_expence/');
+                }
+                else
+                {
+
+                    $data_trans = array(
+                        'tr_amount'     => $this->input->post('dex_total_amount')[$i],
+                        'tr_date'       => $this->input->post('dex_date'),
+                        'tr_desc'       => $this->input->post('dex_desc'),
+                        'tr_type'       => 'daily_expence',
+                        'tr_status'     => 2,
+                        'tr_acc_id'     => $account->acc_id,
+                        'tr_dex_id'     => $result,
+                    );
+                    $this->finance_model->transections();
+                    $result_trans = $this->finance_model->data_save($data_trans);
+                    if(!is_int($result_trans))
+                    {
+                        $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                        redirect('finance/new_expence/');
+                    }
+                }
+            }
+            $this->finance_model->accounts();
+            $acc_remain = ($account->acc_amount) - ($this->input->post('dex_sum'));
+            $this->finance_model->data_save(['acc_amount'=> $acc_remain], $account->acc_id);
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/new_expence/');
+        }
+
+    } // end insert_expence
 
 
+    public function delete_daily_expence($dex_id,$dex_total_amount)
+    {
+        // delete trans row
+        if($this->finance_model->dex_transection_delete($dex_id))
+        {
+            $this->finance_model->daily_expences();
+            if($this->finance_model->data_delete($dex_id))
+            {
+                // get current amount of account
+                $this->finance_model->accounts();
+                $account = $this->finance_model->data_get_by(['acc_type'=> 0], TRUE);
+                $new_amount = $account->acc_amount + $dex_total_amount;
+                // Set new amount of account
+                $this->finance_model->data_save(['acc_amount'=>$new_amount],$account->acc_id);
+
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                redirect('finance/expences/');
+            }
+        }
+        $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+        redirect('finance/expences/');
+
+    } // end delete_daily_expence
 
 
-
-}
+} // end class

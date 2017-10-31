@@ -12,6 +12,9 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت مصارف روزانه</h3>
+                <div class="box-tools pull-right">
+                    <a href="<?=site_url('finance/expences'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Expences List"><i class="ion-android-list fa-lg"></i></a>
+                </div>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -59,43 +62,7 @@
 
                     <!-- row[] -->
                     <div class="input_fields_wrap">
-                    <!-- <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="dex_name">نام جنس</label>
-                                <input type="text" class="form-control" name="dex_name[]" id="dex_name" placeholder="نام جنس" required/>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label for="dex_unit">واحد</label>
-                                <select name="dex_unit[]" id="dex_unit" class="form-control" required>
-                                    <option value="">واحدات</option>
-                                    <?php //units(0) ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label for="dex_count">تعداد</label>
-                                <input type="number" class="form-control" name="dex_count_[]" id="dex_count" placeholder="مقدار اولیه به عدد " required/>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label for="dex_price">قیمت فی واحد</label>
-                                <input type="number" class="form-control" name="dex_price_[]" id="dex_price" placeholder="مقدار اولیه به عدد " required/>
-                            </div>
-                        </div>
-                         <div class="col-sm-3">
-                            <div class="form-group">
-                                <label for="dex_total_amount">هزینه کل</label>
-                                <input type="number" class="form-control" id="dex_total_amount_alt_[]" placeholder="هزینه کل " disabled />
-                                <input type="hidden" class="form-control" name="dex_total_amount_[]" id="dex_total_amount"  />
-                            </div>
-                        </div>
-                    </div> -->
-
+                    <!-- Fields Dynamicly will Added -->
                     </div>
                     <!-- row[END] -->
 
@@ -106,21 +73,22 @@
                                 <a class="btn btn-primary col-xs-12 add_field_button" id="add_new" data-toggle="tooltip" title="" data-original-title="Add New"><i class="ion-android-add-circle fa-lg"></i></a>
                             </div>
                             <div class="col-xs-2">
-                                <a class="btn btn-warning col-xs-12" id="calcolate" data-toggle="tooltip" title="" data-original-title="Sum Total"><i class="ion-calculator fa-lg"></i></a>
+                                <button  type=button class="btn btn-warning col-xs-12" id="calcolate"  data-toggle="tooltip" title="" data-original-title="Sum Total"><i class="ion-calculator fa-lg"></i></button>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="acc_description">توضیحات / یادداشت</label>
-                        <textarea type="number" rows="7" class="form-control" name="tr_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                        <textarea type="number" rows="7" class="form-control" name="dex_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
 
                 </div>
                 <div class="box-footer">
-                    <input type="text" id="sum" value="0" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع مصارف: </span>
-                    <button type="submit" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
+                    <input type="hidden" name=dex_sum id="sum" value="0" >
+                    <input type="text" id="sum_alt" readonly value="0 افغانی" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع مصارف: </span>
+                    <button type="submit" id="submit" disabled="disabled" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>
@@ -133,12 +101,12 @@
 
             <div class="info-box-content">
                 <span class="info-box-text">صندوق اصلی</span>
-                <span class="info-box-number"><?=$acc_amount; ?></span>
+                <span class="info-box-number"><?=$acc_amount; ?> افغانی</span>
 
-                <div class="progress">
-                    <div class="progress-bar" style="width: 50%"></div>
+                <div class="progress" style="height: 5px;">
+                    <div id="progress-bar" class="progress-bar" style="width: 100%;"></div>
                 </div>
-                <span class="progress-description">60 درصد کاهش</span>
+                <span class="progress-description">مصرفی ثبت نشده است</span>
             </div>
             <!-- /.info-box-content -->
         </div>
@@ -149,63 +117,54 @@
 
 
 <script>
-// <select name="dex_unit[]" id="myselect[]"  class="form-control" required><option value="">واحدات</option>
-//var select ='<div class="col-sm-2">   <div class="form-group">   <label for="dex_unit">واحد</label>   <select name="dex_unit[]" id="myselect[]"  class="form-control" required> <option value="">واحدات</option> <?php //foreach($units as $unit) { echo '<option value="'.$unit->unit_id.'">'.$unit->unit_name.'</option>'; } ?></select>   </div>   </div>';
-// var select ='<select name="dex_unit[]" id="myselect[]"  class=" class="col-sm-2 form-control" required> <option value="">واحدات</option> <?php// foreach($units as $unit) { echo '<option value="'.$unit->unit_id.'">'.$unit->unit_name.'</option>'; } ?></select>  ';
 
 
-
+// Generate Synamic Fields
 $(document).ready(function() {
-  var max_fields = 10; //maximum input boxes allowed
-  var wrapper = $(".input_fields_wrap"); //Fields wrapper
-  var add_button = $(".add_field_button"); //Add button ID
-  var x = 0; //initlal text box count
-  var sum = parseFloat(0);
+    var max_fields = 10; //maximum input boxes allowed
+    var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    var add_button = $(".add_field_button"); //Add button ID
+    var x = 0; //initlal text box count
+    var acc_amount = <?php echo $acc_amount; ?>;
+    var sum = parseFloat(0);
 
-  $(add_button).click(function(e) { //on add input button click
-    e.preventDefault();
-    if (x < max_fields) { //max input box allowed
-      x++; //text box increment
-    sum = parseFloat(sum) + parseFloat($('#dex_total_amount_alt_'+x).val());
-        $(wrapper).append('<div class="row"><div class="col-sm-3">   <div class="form-group">   <label for="dex_name">نام جنس</label>     <input type="text" class="form-control" name="dex_name[]" id="dex_name" placeholder="نام جنس" required/>   </div>    </div>     <div class="col-sm-2">   <div class="form-group">   <label for="dex_unit">واحد</label>   <select name="dex_unit[]" id="myselect[]"  class="form-control" required> <option value="">واحدات</option> <?php foreach($units as $unit) { echo '<option value="'.$unit->unit_id.'">'.$unit->unit_name.'</option>'; } ?></select>   </div>   </div>    <div class="col-sm-2">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="dex_count[]" id="dex_count_'+x+'" placeholder="مقدار اولیه به عدد " required/>   </div>   </div>  <div class="col-sm-2">   <div class="form-group">   <label for="dex_price">قیمت فی واحد</label>   <input type="number" class="form-control" name="dex_price[]" id="dex_price_'+x+'" placeholder="مقدار اولیه به عدد " required/>    </div>   </div>    <div class="col-sm-2">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" id="dex_total_amount_alt_'+x+'" placeholder="هزینه کل " disabled />   <input type="hidden" class="form-control" name="dex_total_amount[]" id="dex_total_amount_'+x+'"  />   </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1"><i class="ion ion-trash-b text-red fa-lg"></i></a></div>   </div></div>');
-          }
-
-
-      $('#dex_price_'+x).keyup(function(event) {
-        var new_amm = $(this).val() * $('#dex_count_'+x).val();
-        $('#dex_total_amount_'+x).val(new_amm);
-        $('#dex_total_amount_alt_'+x).val(new_amm);
-
-
-  });
-
-
-
-
-        // sum = parseFloat(sum) + parseFloat($('#dex_total_amount_alt'+x).val());
-
-
-  });
-$('#calcolate').click(function(event) {
-    alert(sum);
+    $(add_button).click(function(e) { //on add input button click
+        e.preventDefault();
+        if (x < max_fields) { //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div class="row"><div class="col-sm-3">   <div class="form-group">   <label for="dex_name">نام جنس</label>     <input type="text" class="form-control" name="dex_name[]" id="dex_name" placeholder="نام جنس" required/>   </div>    </div>     <div class="col-sm-2">   <div class="form-group">   <label for="dex_unit">واحد</label>   <select name="dex_unit[]" id="myselect[]"  class="form-control" required> <option value="">واحدات</option> <?php foreach($units as $unit) { echo '<option value="'.$unit->unit_id.'">'.$unit->unit_name.'</option>'; } ?></select>   </div>   </div>    <div class="col-sm-2">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="dex_count[]" id="dex_count_'+x+'" placeholder="تعداد عدد " required/>   </div>   </div>  <div class="col-sm-2">   <div class="form-group">   <label for="dex_price">قیمت فی واحد</label>   <input type="number" class="form-control" name="dex_price[]" id="dex_price_'+x+'" placeholder="قیمت عدد" required/>    </div>   </div>    <div class="col-sm-2">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" id="dex_total_amount_alt_'+x+'" placeholder="هزینه کل " disabled />   <input type="hidden" class="form-control" name="dex_total_amount[]" id="dex_total_amount_'+x+'"  />   </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" ><i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i></a></div>   </div></div>');
+        }
+        $('#dex_price_'+x).keyup(function(event) {
+            var new_amm = $(this).val() * $('#dex_count_'+x).val();
+            $('#dex_total_amount_'+x).val(new_amm);
+            $('#dex_total_amount_alt_'+x).val(new_amm);
+        });
+        $('#calcolate').attr('disabled', false);
+    });
+    $('#calcolate').click(function(event) {
+        for(var i=1; i<=x; i++)
+        {
+            sum +=  parseFloat($('#dex_total_amount_'+i).val());
+        }
+        $('.remove_field').css('display', 'none');
+        $('#sum').val(sum);
+        $('#sum_alt').val(sum+' افغانی');
+        $('#submit').attr('disabled', false);
+        var persentage = parseFloat(sum)*parseFloat(100)/parseFloat(acc_amount);
+        $('.info-box-number').html(acc_amount-sum+' افغانی باقیمانده');
+        sum = 0;
+        $('.progress-description').html(persentage+' درصد کاهش از صندوق');
+        $('#progress-bar').css('width', 100-persentage+'%');
+    });
+    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+        e.preventDefault();
+        $(this).parent('div').remove();
+        x--;
+    });
 });
 
-
-  $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-    e.preventDefault();
-    $(this).parent('div').remove();
-    x--;
-  });
-
-
-});
-
-
-
-
-
+// Date Picker
 $(document).ready(function() {
-    // Date Picker
     $('#tarikh').persianDatepicker({
         altField: '#tarikhAlt',
         altFormat: 'X',
