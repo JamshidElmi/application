@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 31, 2017 at 09:28 PM
+-- Generation Time: Nov 01, 2017 at 06:57 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
 (15, 'صندوق همکار 1', '4880.00', '', '1509469146', 1),
-(18, 'صندوق اصلی', '1000.00', '', '1509481173', 0);
+(18, 'صندوق اصلی', '1099.00', '', '1509481173', 0);
 
 -- --------------------------------------------------------
 
@@ -81,15 +81,14 @@ CREATE TABLE IF NOT EXISTS `daily_expences` (
   `dex_desc` varchar(512) NOT NULL,
   `dex_date` varchar(16) NOT NULL,
   `dex_tr_id` int(11) NOT NULL COMMENT 'ای دی ترانزکشن'
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `daily_expences`
 --
 
 INSERT INTO `daily_expences` (`dex_id`, `dex_bill_no`, `dex_shop`, `dex_name`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_desc`, `dex_date`, `dex_tr_id`) VALUES
-(61, '27054', 'دوکان احمد', 'جنس 2', '33.00', 3, 4, '99.00', 'ثبت مصارف با 23 درصد کاهش از صندوق اصلی', '1509474761', 0),
-(62, '27054', 'دوکان احمد', 'جنس 2', '33.00', 3, 4, '99.00', 'ثبت مصارف با 23 درصد کاهش از صندوق اصلی', '1509474761', 0);
+(61, '27054', 'دوکان احمد', 'جنس 2', '33.00', 3, 4, '99.00', 'ثبت مصارف با 23 درصد کاهش از صندوق اصلی', '1509474761', 0);
 
 -- --------------------------------------------------------
 
@@ -135,14 +134,13 @@ INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_lname`, `emp_position`, `emp
 CREATE TABLE IF NOT EXISTS `jobs` (
 `job_id` int(11) NOT NULL,
   `job_name` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jobs`
 --
 
 INSERT INTO `jobs` (`job_id`, `job_name`) VALUES
-(1, 'مدیر مسئول'),
 (2, 'مدیر مالی'),
 (3, 'مدیر گدام'),
 (4, 'آشپز'),
@@ -151,8 +149,7 @@ INSERT INTO `jobs` (`job_id`, `job_name`) VALUES
 (7, 'درایور'),
 (8, 'اجیر'),
 (10, 'سرباز'),
-(11, 'گارد'),
-(13, 'وظیفه جدید');
+(11, 'گارد');
 
 -- --------------------------------------------------------
 
@@ -174,20 +171,26 @@ INSERT INTO `migrations` (`version`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stocks`
+-- Table structure for table `stock_units`
 --
 
-CREATE TABLE IF NOT EXISTS `stocks` (
+CREATE TABLE IF NOT EXISTS `stock_units` (
 `st_id` int(11) NOT NULL,
   `st_name` varchar(256) NOT NULL,
   `st_unit` varchar(256) NOT NULL COMMENT 'واحد مقیاسی',
-  `st_count` int(11) NOT NULL,
-  `st_price` decimal(10,2) NOT NULL,
-  `st_total_price` decimal(10,0) NOT NULL COMMENT 'قیمت مجموعی از یک واحد جنس',
   `st_max_count` int(11) NOT NULL COMMENT 'حد اکثر مقدار قابل گنجایش در گدام',
-  `st_min_count` int(11) NOT NULL COMMENT 'تعداد قابل هشدار',
-  `st_date` varchar(16) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `st_min_count` int(11) NOT NULL COMMENT 'تعداد قابل هشدار'
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stock_units`
+--
+
+INSERT INTO `stock_units` (`st_id`, `st_name`, `st_unit`, `st_max_count`, `st_min_count`) VALUES
+(3, 'نوشابه سوپرکولا', '12', 50, 5),
+(5, 'آرد درجه یک', '19', 50, 5),
+(6, 'آرد درجه دوم', '24', 85, 3),
+(7, 'روغن نباتی', '23', 5, 2);
 
 -- --------------------------------------------------------
 
@@ -225,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `units` (
 `unit_id` int(11) NOT NULL,
   `unit_name` varchar(256) NOT NULL,
   `unit_type` tinyint(1) NOT NULL COMMENT 'آشپزخانه/رستورانت'
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `units`
@@ -243,7 +246,8 @@ INSERT INTO `units` (`unit_id`, `unit_name`, `unit_type`) VALUES
 (20, 'پاو', 0),
 (21, 'چهاریک', 0),
 (22, 'دقیقه', 0),
-(23, 'درجن', 0);
+(23, 'درجن', 0),
+(24, 'بوجی', 0);
 
 -- --------------------------------------------------------
 
@@ -301,9 +305,9 @@ ALTER TABLE `jobs`
  ADD PRIMARY KEY (`job_id`);
 
 --
--- Indexes for table `stocks`
+-- Indexes for table `stock_units`
 --
-ALTER TABLE `stocks`
+ALTER TABLE `stock_units`
  ADD PRIMARY KEY (`st_id`);
 
 --
@@ -342,7 +346,7 @@ MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `daily_expences`
 --
 ALTER TABLE `daily_expences`
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=68;
+MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT for table `employees`
 --
@@ -352,12 +356,12 @@ MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
+MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
--- AUTO_INCREMENT for table `stocks`
+-- AUTO_INCREMENT for table `stock_units`
 --
-ALTER TABLE `stocks`
-MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `stock_units`
+MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `transections`
 --
@@ -367,7 +371,7 @@ MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
+MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `users`
 --
