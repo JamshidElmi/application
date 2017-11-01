@@ -31,7 +31,6 @@
         <?php $scripts = array(
             'jquery'            => 'components/jquery/dist/jquery.min.js' ,
             'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
-
          ); ?>
 
         <?php echo $this->template->stylesheet->add($styles); ?>

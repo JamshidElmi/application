@@ -63,7 +63,7 @@
                      <div class="col-xs-5">
                         <label for="emp_phone">جنسیت</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-primary checked">
+                            <label class="btn btn-primary active">
                                 <input type="radio" name="emp_gendar" id="emp_gendar1" value="1" checked /> ذکور
                             </label>
                             <label class="btn btn-primary ">
@@ -75,7 +75,7 @@
                     <div class="col-xs-7 text-right">
                         <label for="emp_phone">بخش کاری</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-warning checked">
+                            <label class="btn btn-warning active">
                                 <input type="radio" name="emp_type" id="emp_type1" value="0" checked /> آشپزخانه
                             </label>
                             <label class="btn btn-warning ">

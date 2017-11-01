@@ -57,14 +57,14 @@
             <?php foreach ($units_coock as $coock): ?>
                 <a class="btn btn-app " id="coo_<?=$coock->unit_id ?>">
                     <span class="badge bg-red unit_coo_delete" id="<?=$coock->unit_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
-                    <i class="fa fa-cutlery"></i><?php echo $coock->unit_name ?>
+                    <i class="fa ion-ios-nutrition"></i><?php echo $coock->unit_name ?>
                 </a>
             <?php endforeach ?>
 
             </div>
             <!-- /.box-body -->
             <div class="overlay" id="overlay_coo" style="display: none;">
-                <i class="fa fa-refresh fa-spin"></i>
+                <i class="fa ion-load-d fa-spin"></i>
             </div>
         </div>
     </div>
@@ -85,13 +85,13 @@
             <?php foreach ($units_resturant as $resturant): ?>
                 <a class="btn btn-app" id="res_<?=$resturant->unit_id ?>">
                     <span class="badge bg-red unit_res_delete" id="<?=$resturant->unit_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
-                    <i class="fa fa-coffee"></i><?=$resturant->unit_name ?>
+                    <i class="fa ion-beer"></i><?=$resturant->unit_name ?>
                 </a>
             <?php endforeach ?>
             </div>
             <!-- /.box-body -->
             <div class="overlay" id="overlay_res" style="display: none;">
-                <i class="fa fa-refresh fa-spin"></i>
+                <i class="fa ion-load-d fa-spin"></i>
             </div>
         </div>
     </div>
