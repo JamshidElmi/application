@@ -48,6 +48,18 @@ class finance_model extends MY_Model
 
     }
 
+    public function stocks_join_units()
+    {
+        // $this->expences();
+
+        $this->db->from('stock_units');
+        $this->db->join('units', 'stock_units.st_unit = units.unit_id');
+        // $this->db->where('dex_bill_id', $bill_id);
+        $query = $this->db->get();
+        return $query->result();
+
+    }
+
     public function units()
     {
         $this->_table_name = 'units';

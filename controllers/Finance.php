@@ -323,12 +323,13 @@ class Finance extends MY_Controller {
         $this->template->description = 'خریداری اجناس برای گدام';
         $this->finance_model->accounts();
         $accounts = $this->finance_model->data_get_by(['acc_type' => 1]);
-        $this->finance_model->stock_units();
-        $stock_units = $this->finance_model->data_get();
-        $this->finance_model->units();
-        $units = $this->finance_model->data_get();
+        // $this->finance_model->stock_units();
+        // $stock_units = $this->finance_model->data_get();
+        // $this->finance_model->units();
+        // $units = $this->finance_model->data_get();
+        $stock_units = $this->finance_model->stocks_join_units();
         // view
-        $this->template->content->view('finance/buy_for_stock', ['accounts' => $accounts, 'units' => $units, 'stock_units' => $stock_units]);
+        $this->template->content->view('finance/buy_for_stock', ['accounts' => $accounts, 'stock_units' => $stock_units]);
         $this->template->publish();
     }
 
@@ -342,6 +343,11 @@ class Finance extends MY_Controller {
         // view
         $this->template->content->view('finance/bill_details', ['expences' => $expences, 'bill' => $bill]);
         $this->template->publish();
+    }
+
+    public function insert_stock_expence()
+    {
+        print_r($this->input->post());
     }
 
 
