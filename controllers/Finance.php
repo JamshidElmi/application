@@ -264,6 +264,48 @@ class Finance extends MY_Controller {
     } // end delete_daily_expence
 
 
+    public function edit_daily_expence($dex_id)
+    {
+        $this->template->description = 'ویرایش خریداری و مصارف ثبت شده';
+        $this->finance_model->daily_expences();
+        $dex = $this->finance_model->data_get($dex_id, TRUE);
+
+        $this->template->content->view('finance/edit_expence', ['expence' => $dex]);
+        $this->template->publish();
+
+    } // edit_daily_expence
+
+    public function update_expence($dex_id)
+    {
+        // Update Daily Expence
+        $this->finance_model->daily_expences();
+        $this->finance_model->data_save($this->input->post(), $dex_id);
+        // Update transection
+        $this->finance_model->transections();
+        $transection = $this->finance_model->data_get_by(['tr_dex_id' => $dex_id, 'tr_type' => 'daily_expence'], TRUE);
+        $this->finance_model->data_save(['tr_amount' => $this->input->post('dex_total_amount')], $transection->tr_id);
+        // Get Base Account
+        $this->finance_model->accounts();
+        $account = $this->finance_model->data_get_by(['acc_type' => 0], TRUE);
+        // Set New Acc_amount
+        $acc_new_amount = ($transection->tr_amount) + ($account->acc_amount);
+        $acc_new_amount = $acc_new_amount - $this->input->post('dex_total_amount');
+        // Update New acc_amount
+        $this->finance_model->data_save(['acc_amount' => $acc_new_amount], $account->acc_id);
+
+        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+        redirect('finance/expences/');
+    }
+
+    public function buy_stock()
+    {
+        $this->template->description = 'خریداری اجناس برای گدام';
+
+        $this->template->content->view('finance/buy_for_stock', ['expence' => $dex]);
+        $this->template->publish();
+    }
+
+
 
 
 } // end class

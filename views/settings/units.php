@@ -99,36 +99,66 @@
 
 <script>
 $(document).ready(function() {
-    $('.unit_res_delete').click(function() {
-        var unit_id = $(this).attr('id');
-        if (confirm('آیا با حذف این واحد موافق هستید؟'))
-        {
-            $(document).ajaxStart(function(){
-                $("#overlay_res").css('display','block');
-            });
-              $.post("<?php echo site_url('setting/delete_unit'); ?>",{unit_id:unit_id},function(response){});
-            $(document).ajaxStop(function(){
-                $("#overlay_res").css('display','none');
-                $(".msg_res").css('display','block');
-                $("a#res_"+unit_id).remove();
-            });
-        };
+    // delete unit restuarant
+    $('.unit_res_delete').confirm({
+        title: 'حذف',
+        content: 'آیا با حذف این واحد موافق هستید؟',
+        type: 'red',
+        rtl: true,
+        buttons: {
+            confirm: {
+                text: 'تایید',
+                btnClass: 'btn-red',
+                action: function () {
+                    var unit_id = this.$target.attr('id');
+                    $(document).ajaxStart(function(){
+                        $("#overlay_res").css('display','block');
+                    });
+                      $.post("<?php echo site_url('setting/delete_unit'); ?>",{unit_id:unit_id},function(response){});
+                    $(document).ajaxStop(function(){
+                        $("#overlay_res").css('display','none');
+                        $(".msg_res").css('display','block');
+                        $("a#res_"+unit_id).remove();
+                    });
+                }
+            },
+            cancel: {
+                text: 'انصراف',
+                action: function () {
+                }
+            }
+        }
     });
 
-    $('.unit_coo_delete').click(function() {
-        var unit_id = $(this).attr('id');
-        if (confirm('آیا با حذف این واحد موافق هستید؟'))
-        {
-            $(document).ajaxStart(function(){
-                $("#overlay_coo").css('display','block');
-            });
-              $.post("<?php echo site_url('setting/delete_unit'); ?>",{unit_id:unit_id},function(response){});
-            $(document).ajaxStop(function(){
-                $("#overlay_coo").css('display','none');
-                $(".msg_coo").css('display','block');
-                $("a#coo_"+unit_id).remove();
-            });
-        };
+    // delete unit coock
+    $('.unit_coo_delete').confirm({
+        title: 'حذف',
+        content: 'آیا با حذف این واحد موافق هستید؟',
+        type: 'red',
+        rtl: true,
+        buttons: {
+            confirm: {
+                text: 'تایید',
+                btnClass: 'btn-red',
+                action: function () {
+                    var unit_id = this.$target.attr('id');
+                    $(document).ajaxStart(function(){
+                        $("#overlay_coo").css('display','block');
+                    });
+                      $.post("<?php echo site_url('setting/delete_unit'); ?>",{unit_id:unit_id},function(response){});
+                    $(document).ajaxStop(function(){
+                        $("#overlay_coo").css('display','none');
+                        $(".msg_coo").css('display','block');
+                        $("a#coo_"+unit_id).remove();
+                    });
+                }
+            },
+            cancel: {
+                text: 'انصراف',
+                action: function () {
+                }
+            }
+        }
     });
 });
 

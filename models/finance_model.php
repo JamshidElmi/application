@@ -54,6 +54,13 @@ class finance_model extends MY_Model
         $this->_order_by = 'unit_id';
     }
 
+    public function stocks()
+    {
+        $this->_table_name = 'stocks';
+        $this->_primary_key = 'stock_id';
+        $this->_order_by = 'stock_id';
+    }
+
     public function daily_expences()
     {
         $this->_table_name = 'daily_expences';

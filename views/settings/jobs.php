@@ -65,20 +65,35 @@
 
 <script>
 $(document).ready(function() {
-    $('.job_delete').click(function() {
-        var job_id = $(this).attr('id');
-        if (confirm('آیا با حذف این وظیفه موافق هستید؟'))
-        {
-            $(document).ajaxStart(function(){
-                $("#overlay").css('display','block');
-            });
-              $.post("<?php echo site_url('setting/delete_job'); ?>",{job_id:job_id},function(response){});
-            $(document).ajaxStop(function(){
-                $("#overlay").css('display','none');
-                $(".msg_coo").css('display','block');
-                $("a#coo_"+job_id).remove();
-            });
-        };
+    // delete job
+    $('.job_delete').confirm({
+        title: 'حذف',
+        content: 'آیا با حذف این وظیفه موافق هستید؟',
+        type: 'red',
+        rtl: true,
+        buttons: {
+            confirm: {
+                text: 'تایید',
+                btnClass: 'btn-red',
+                action: function () {
+                    var job_id = this.$target.attr('id');
+                    $(document).ajaxStart(function(){
+                    $("#overlay").css('display','block');
+                    });
+                      $.post("<?php echo site_url('setting/delete_job'); ?>",{job_id:job_id},function(response){});
+                    $(document).ajaxStop(function(){
+                        $("#overlay").css('display','none');
+                        $(".msg_coo").css('display','block');
+                        $("a#coo_"+job_id).remove();
+                    });
+                }
+            },
+            cancel: {
+                text: 'انصراف',
+                action: function () {
+                }
+            }
+        }
     });
 });
 

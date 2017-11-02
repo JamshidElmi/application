@@ -78,21 +78,36 @@
 
 <script>
 $(document).ready(function() {
-    // delete stock unit
-    $('.st_delete').click(function() {
-        var unit_id = $(this).attr('id');
-        if (confirm('توجه! در صورت حذف این واحد در گدام جنسی با این واحد نباید موجود باشد، در غیر این صورت واحد حذف نخواهد شد.'))
-        {
-            $(document).ajaxStart(function(){
-                $("#overlay").css('display','block');
-            });
-              $.post("<?php echo site_url('setting/delete_stock_unit'); ?>",{unit_id:unit_id},function(response){});
-            $(document).ajaxStop(function(){
-                $("#overlay").css('display','none');
-                $(".msg_coo").css('display','block');
-                $("a#"+unit_id).remove();
-            });
-        };
+
+
+    $('.st_delete').confirm({
+        title: 'حذف',
+        content: 'توجه! در صورت حذف این واحد در گدام جنسی با این واحد نباید موجود باشد، در غیر این صورت واحد حذف نخواهد شد.',
+        type: 'red',
+        rtl: true,
+        buttons: {
+            confirm: {
+                text: 'تایید',
+                btnClass: 'btn-red',
+                action: function () {
+                    var unit_id = this.$target.attr('id');
+                    $(document).ajaxStart(function(){
+                        $("#overlay").css('display','block');
+                    });
+                      $.post("<?php echo site_url('setting/delete_stock_unit'); ?>",{unit_id:unit_id},function(response){});
+                    $(document).ajaxStop(function(){
+                        $("#overlay").css('display','none');
+                        $(".msg_coo").css('display','block');
+                        $("a#"+unit_id).remove();
+                    });
+                }
+            },
+            cancel: {
+                text: 'انصراف',
+                action: function () {
+                }
+            }
+        }
     });
 
     // edit stock unit
