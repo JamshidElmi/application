@@ -40,8 +40,8 @@ class finance_model extends MY_Model
     {
         // $this->expences();
 
-        $this->db->from('daily_expences');
-        $this->db->join('units', 'daily_expences.dex_unit = units.unit_id');
+        $this->db->from('expences');
+        $this->db->join('units', 'expences.dex_unit = units.unit_id');
         $query = $this->db->get();
         return $query->result();
 
@@ -61,9 +61,16 @@ class finance_model extends MY_Model
         $this->_order_by = 'stock_id';
     }
 
+    public function stock_units()
+    {
+        $this->_table_name = 'stock_units';
+        $this->_primary_key = 'st_id';
+        $this->_order_by = 'st_id';
+    }
+
     public function daily_expences()
     {
-        $this->_table_name = 'daily_expences';
+        $this->_table_name = 'expences';
         $this->_primary_key = 'dex_id';
         $this->_order_by = 'dex_id';
     }

@@ -154,7 +154,8 @@ $(document).ready(function() {
         $('.info-box-number').html(acc_amount-sum+' افغانی باقیمانده');
         sum = 0;
         $('.progress-description').html(persentage+' درصد کاهش از صندوق');
-        $('#progress-bar').css('width', 100-persentage+'%');
+        var persantage = Math.round(100-persentage);
+        $('#progress-bar').css('width', persantage +'%');
     });
     $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
         e.preventDefault();

@@ -98,6 +98,20 @@
 
                     </ul>
                 </li>
+
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-circle-o"></i> گدام
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('finance/expences'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف برای گدام</a></li>
+                        <li><a href="<?=site_url('finance/buy_stock'); ?>"><i class="fa fa-circle-o"></i> خرید برای گدام</a></li>
+
+                    </ul>
+                </li>
+
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پرداخت معاش کارمندان </a></li>
             </ul>
         </li>

@@ -300,8 +300,14 @@ class Finance extends MY_Controller {
     public function buy_stock()
     {
         $this->template->description = 'خریداری اجناس برای گدام';
+        $this->finance_model->accounts();
+        $accounts = $this->finance_model->data_get_by(['acc_type' => 1]);
+        $this->finance_model->stock_units();
+        $stock_units = $this->finance_model->data_get();
+        $this->finance_model->units();
+        $units = $this->finance_model->data_get();
 
-        $this->template->content->view('finance/buy_for_stock', ['expence' => $dex]);
+        $this->template->content->view('finance/buy_for_stock', ['accounts' => $accounts, 'units' => $units, 'stock_units' => $stock_units]);
         $this->template->publish();
     }
 
