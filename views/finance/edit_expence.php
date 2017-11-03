@@ -11,11 +11,11 @@
     <div class="col-md-8">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">فرم ویرایش مصارف روزانه</h3>
+                <h3 class="box-title">فرم ویرایش مصارف </h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="POST" id="myForm" action="<?=site_url('finance/update_expence/'.$expence->dex_id); ?>" >
+            <form role="form" method="POST" id="myForm" action="<?=site_url('finance/update_expence/'.$expence->dex_id.'/'.$expence->dex_bill_id); ?>" >
 
                 <div class="box-body">
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>

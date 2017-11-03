@@ -13,7 +13,7 @@
     <div class="col-md-12">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">لیست فاکتور های مصرفی</h3>
+                <h3 class="box-title">لیست مصارف روزانه</h3>
                 <div class="box-tools pull-right">
                     <a href="<?=site_url('finance/new_expence'); ?>" class="btn btn-box-tool bg-blue" data-toggle="tooltip" title="" data-original-title="New Expence"><i class="ion ion-plus fa-lg"></i></a>
                 </div>
@@ -28,35 +28,34 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>نام دوکان</th>
-                            <th class="text-center">شماره فاکتور</th>
-                            <th class="text-center">مجموع فاکتور</th>
-                            <th class="text-center">نوع مصرف</th>
-                            <th>توضیحات</th>
+                            <th>اسم جنس</th>
+                            <th class="text-center">تعداد / واحد</th>
+                            <th class="text-center">قیمت فی واحد</th>
+                            <th class="text-center">هزینه کل</th>
                             <th class="text-center">تاریخ</th>
                             <th class="text-center">عملیات</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $total_bills= null; $i = 1; foreach ($expences as $expence): ?>
-                        <tr id="tr_<?=$expence->bill_id  ?>">
+                        <?php $i = 1; foreach ($expences as $expence): ?>
+                        <tr id="tr_<?=$expence->dex_id  ?>">
                             <td><?=$i++ ?></td>
-                            <td ><?=$expence->bill_shop ?></td>
-                            <td class="text-center"><?=$expence->bill_no ?></td>
-                            <td class="text-center"><?=$expence->bill_total_amount ?> افغانی</td>   <span class="bg-purple"></span>
-                            <td class="text-center"><?=($expence->bill_type == 0) ? '<span class="label bg-orange">مصارف روزانه</span>' : '<span class="label bg-purple">خریداری برای گدام</span>' ?></td>
-                            <td ><span data-toggle="tooltip" title="" data-original-title="<?=$expence->bill_desc; ?>"><?=substr_fa($expence->bill_desc, 20); ?></span></td>
-                            <td class="text-center"><?=mds_date("Y/F/d ", $expence->bill_date); ?></td>
-                            <td class="text-center"><a href="<?=site_url('finance/bill_details/'.$expence->bill_id); ?>" class="edit" id="" data-toggle="tooltip" title="" data-original-title="Expences List"><span class="label label-default "><i class="fa ion-android-list fa-lg"></i></span></a>  <a class="remove" href="<?=site_url('finance/delete_bill_expence/'.$expence->bill_id.'/'.$expence->bill_total_amount); ?>"  ><span class="label label-danger "  data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span></a></td>
+                            <td ><?=$expence->dex_name ?></td>
+                            <td class="text-center"><?=$expence->dex_count ?> <?=$expence->unit_name ?></td>
+                            <td class="text-center"><?=$expence->dex_price ?> افغانی</td>
+                            <td class="text-center"><?=$expence->dex_total_amount ?> افغانی</td>
+                            <td class="text-center"><?=mds_date("Y/F/d ", $bill->bill_date); ?></td>
+                            <td class="text-center"><a href="<?=site_url('finance/edit_daily_expence/'.$expence->dex_id); ?>" class="edit" id=""><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a>  <a class="remove" href="<?=site_url('finance/delete_daily_expence/'.$expence->dex_id.'/'.$expence->dex_total_amount); ?>"  ><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
                         </tr>
-                        <?php $total_bills += $expence->bill_total_amount; ?>
                         <?php endforeach ?>
                     </tbody>
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th colspan="2">مجموعه فاکتورها:</th>
-                            <th class="bg-success text-center"><?=$total_bills." افغانی" ?></th><th></th>
+                            <th colspan="3" class="text-center">مجموعه:</th>
+                            <th class="text-center bg-success"><?=$bill->bill_total_amount ?></th>
+                            <th class="text-center">توضیحات:</th>
+                            <td><?=$bill->bill_desc ?></td>
                         </tr>
                     </thead>
 
@@ -105,8 +104,8 @@ $(document).ready(function() {
     });
 
     $('a.remove').confirm({
-        title: 'توجه!',
-        content: 'با حذف این فاکتور تمام مصارفی که در آن ثبت شده است حذف خواهد شد.',
+        title: 'حذف',
+        content: 'آیا با حذف این مصرف موافق هستید؟',
         type: 'red',
         rtl: true,
         buttons: {

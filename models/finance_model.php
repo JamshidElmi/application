@@ -31,17 +31,18 @@ class finance_model extends MY_Model
 
     public function expences()
     {
-        $this->_table_name = 'daily_expences';
+        $this->_table_name = 'expences';
         $this->_primary_key = 'dex_id';
         $this->_order_by = 'dex_id';
     }
 
-    public function get_join_expences($value='')
+    public function get_join_expences($bill_id)
     {
         // $this->expences();
 
         $this->db->from('expences');
         $this->db->join('units', 'expences.dex_unit = units.unit_id');
+        $this->db->where('dex_bill_id', $bill_id);
         $query = $this->db->get();
         return $query->result();
 
@@ -68,11 +69,11 @@ class finance_model extends MY_Model
         $this->_order_by = 'st_id';
     }
 
-    public function daily_expences()
+    public function bills()
     {
-        $this->_table_name = 'expences';
-        $this->_primary_key = 'dex_id';
-        $this->_order_by = 'dex_id';
+        $this->_table_name = 'bills';
+        $this->_primary_key = 'bill_id';
+        $this->_order_by = 'bill_id';
     }
 
     public function get_trans_dexs($acc_id)
@@ -84,12 +85,12 @@ class finance_model extends MY_Model
         return $query->row()->tr_amount;
     }
 
-    public function dex_transection_delete($dex_id)
-    {
-        $this->db->where(['tr_dex_id'=> $dex_id, 'tr_type'=> 'daily_expence']);
-        if($this->db->delete('transections'))
-        return true;
-    }
+    // public function dex_transection_delete($bill_id)
+    // {
+    //     $this->db->where(['bill_id'=> $bill_id, 'tr_type'=> 0]);
+    //     if($this->db->delete('bills'))
+    //     return true;
+    // }
 
 
 

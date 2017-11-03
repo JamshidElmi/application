@@ -13,7 +13,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت مصارف روزانه</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('finance/expences'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Expences List"><i class="ion-android-list fa-lg"></i></a>
+                    <a href="<?=site_url('finance/expences'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Bill List"><i class="ion-android-list fa-lg"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -27,33 +27,33 @@
                     <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="dex_shop">نام دوکان</label>
-                                <input type="text" class="form-control" name="dex_shop"  id="dex_shop" placeholder="نام دوکان"   />
+                                <label for="bill_shop">نام دوکان</label>
+                                <input type="text" class="form-control" name="bill_shop"  id="bill_shop" placeholder="نام دوکان"   />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="dex_bill_no">شماره فاکتور</label>
-                                <input type="text" class="form-control" name="dex_bill_no"  id="dex_bill_no" placeholder="شماره فاکتور"   />
+                                <label for="bill_no">شماره فاکتور</label>
+                                <input type="text" class="form-control" name="bill_no"  id="bill_no" placeholder="شماره فاکتور"   />
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label>تاریخ</label>
+                                <label for="tarikh">تاریخ</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
-                                    <input type="hidden" id="tarikhAlt" name="dex_date" class="form-control pull-right" style="z-index: 0;" >
+                                    <input type="hidden" id="tarikhAlt" name="bill_date" class="form-control pull-right" style="z-index: 0;" >
                                 </div>
                                 <!-- /.input group -->
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label for="dex_shop">موجودی صندوق</label>
-                                <input type="text" class="form-control" value="<?=$acc_amount; ?>" id="dex_shop" disabled />
+                                <label for="acc_amount">موجودی صندوق</label>
+                                <input type="text" class="form-control" value="<?=$acc_amount; ?>" id="acc_amount" disabled />
                                 <input type="hidden" name="acc_amount" value="<?=$acc_amount; ?>" id="acc_amount">
                             </div>
                         </div>
@@ -62,7 +62,7 @@
 
                     <!-- row[] -->
                     <div class="input_fields_wrap">
-                    <!-- Fields Dynamicly will Added -->
+                    <!-- Fields Dynamicly will Added Here -->
                     </div>
                     <!-- row[END] -->
 
@@ -80,13 +80,13 @@
 
                     <div class="form-group">
                         <label for="acc_description">توضیحات / یادداشت</label>
-                        <textarea type="number" rows="7" class="form-control" name="dex_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                        <textarea type="number" rows="7" class="form-control" name="bill_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
 
                 </div>
                 <div class="box-footer">
-                    <input type="hidden" name=dex_sum id="sum" value="0" >
+                    <input type="hidden" name=bill_sum id="sum" value="0" >
                     <input type="text" id="sum_alt" readonly value="0 افغانی" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع مصارف: </span>
                     <button type="submit" id="submit" disabled="disabled" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
@@ -149,13 +149,16 @@ $(document).ready(function() {
         $('.remove_field').css('display', 'none');
         $('#sum').val(sum);
         $('#sum_alt').val(sum+' افغانی');
-        $('#submit').attr('disabled', false);
         var persentage = parseFloat(sum)*parseFloat(100)/parseFloat(acc_amount);
         $('.info-box-number').html(acc_amount-sum+' افغانی باقیمانده');
+        if(sum > 0)
+        {
+            $('#submit').attr('disabled', false);
+        }
         sum = 0;
-        $('.progress-description').html(persentage+' درصد کاهش از صندوق');
-        var persantage = Math.round(100-persentage);
-        $('#progress-bar').css('width', persantage +'%');
+        var persentage = Math.round(100-persentage);
+        $('#progress-bar').css('width', persentage +'%');
+        $('.progress-description').html(persentage +' درصد کاهش از صندوق');
     });
     $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
         e.preventDefault();

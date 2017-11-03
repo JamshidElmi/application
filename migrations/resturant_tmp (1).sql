@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 01, 2017 at 06:57 PM
+-- Generation Time: Nov 03, 2017 at 08:19 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -40,8 +40,24 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
-(15, 'صندوق همکار 1', '4880.00', '', '1509469146', 1),
+(15, 'صندوق همکار 1', '4000.00', '', '1509469146', 1),
 (18, 'صندوق اصلی', '1099.00', '', '1509481173', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bills`
+--
+
+CREATE TABLE IF NOT EXISTS `bills` (
+`bill_id` int(11) NOT NULL,
+  `bill_no` varchar(64) DEFAULT NULL,
+  `bill_shop` varchar(256) DEFAULT NULL,
+  `bill_date` varchar(32) NOT NULL,
+  `bill_desc` varchar(512) DEFAULT NULL,
+  `bill_total_amount` decimal(10,2) NOT NULL,
+  `bill_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای کثر عدد 1 برای جمع'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -62,33 +78,6 @@ CREATE TABLE IF NOT EXISTS `company_info` (
   `ci_website` varchar(64) NOT NULL,
   `ci_type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `daily_expences`
---
-
-CREATE TABLE IF NOT EXISTS `daily_expences` (
-`dex_id` int(11) NOT NULL,
-  `dex_bill_no` varchar(16) DEFAULT NULL,
-  `dex_shop` varchar(256) DEFAULT NULL COMMENT 'اگر از بیرون بود نام دوکان/اگر از داخل بود فقط کلمه گدام',
-  `dex_name` varchar(256) NOT NULL,
-  `dex_price` decimal(10,2) NOT NULL,
-  `dex_count` int(11) NOT NULL,
-  `dex_unit` int(11) NOT NULL COMMENT 'واحد مقیاسی',
-  `dex_total_amount` decimal(10,2) NOT NULL,
-  `dex_desc` varchar(512) NOT NULL,
-  `dex_date` varchar(16) NOT NULL,
-  `dex_tr_id` int(11) NOT NULL COMMENT 'ای دی ترانزکشن'
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `daily_expences`
---
-
-INSERT INTO `daily_expences` (`dex_id`, `dex_bill_no`, `dex_shop`, `dex_name`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_desc`, `dex_date`, `dex_tr_id`) VALUES
-(61, '27054', 'دوکان احمد', 'جنس 2', '33.00', 3, 4, '99.00', 'ثبت مصارف با 23 درصد کاهش از صندوق اصلی', '1509474761', 0);
 
 -- --------------------------------------------------------
 
@@ -128,13 +117,29 @@ INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_lname`, `emp_position`, `emp
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `expences`
+--
+
+CREATE TABLE IF NOT EXISTS `expences` (
+`dex_id` int(11) NOT NULL,
+  `dex_name` varchar(256) NOT NULL,
+  `dex_price` decimal(10,2) NOT NULL,
+  `dex_count` int(11) NOT NULL,
+  `dex_unit` int(11) NOT NULL COMMENT 'واحد مقیاسی',
+  `dex_total_amount` decimal(10,2) NOT NULL,
+  `dex_bill_id` int(11) NOT NULL COMMENT 'ای دی فاکتور'
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jobs`
 --
 
 CREATE TABLE IF NOT EXISTS `jobs` (
 `job_id` int(11) NOT NULL,
   `job_name` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jobs`
@@ -206,14 +211,14 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_date` varchar(16) NOT NULL,
   `tr_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'عدد 2 برای برداشت عدد 1 برای جمع',
   `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق',
-  `tr_dex_id` int(11) DEFAULT NULL COMMENT 'ای دی مصارف روزانه'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `bill_id` int(11) DEFAULT NULL COMMENT 'ای دی بل'
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
 --
 
-INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`, `tr_dex_id`) VALUES
+INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`, `bill_id`) VALUES
 (2, 'افتتاح حساب', '5000.00', 'credit_debit', '1509469146', 1, 15, NULL),
 (8, 'افتتاح حساب', '1000.00', 'credit_debit', '1509481173', 1, 18, NULL),
 (11, '', '66.00', 'credit_debit', '1509481481', 1, 18, NULL);
@@ -281,22 +286,28 @@ ALTER TABLE `accounts`
  ADD PRIMARY KEY (`acc_id`);
 
 --
+-- Indexes for table `bills`
+--
+ALTER TABLE `bills`
+ ADD PRIMARY KEY (`bill_id`);
+
+--
 -- Indexes for table `company_info`
 --
 ALTER TABLE `company_info`
  ADD PRIMARY KEY (`ci_id`);
 
 --
--- Indexes for table `daily_expences`
---
-ALTER TABLE `daily_expences`
- ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`);
-
---
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
  ADD PRIMARY KEY (`emp_id`);
+
+--
+-- Indexes for table `expences`
+--
+ALTER TABLE `expences`
+ ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`), ADD KEY `dex_bill_id` (`dex_bill_id`);
 
 --
 -- Indexes for table `jobs`
@@ -314,7 +325,7 @@ ALTER TABLE `stock_units`
 -- Indexes for table `transections`
 --
 ALTER TABLE `transections`
- ADD PRIMARY KEY (`tr_id`), ADD KEY `tr_acc_id` (`tr_acc_id`);
+ ADD PRIMARY KEY (`tr_id`), ADD KEY `tr_acc_id` (`tr_acc_id`), ADD KEY `bill_id` (`bill_id`);
 
 --
 -- Indexes for table `units`
@@ -338,25 +349,30 @@ ALTER TABLE `users`
 ALTER TABLE `accounts`
 MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
+-- AUTO_INCREMENT for table `bills`
+--
+ALTER TABLE `bills`
+MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
 -- AUTO_INCREMENT for table `company_info`
 --
 ALTER TABLE `company_info`
 MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `daily_expences`
---
-ALTER TABLE `daily_expences`
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
 MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
+-- AUTO_INCREMENT for table `expences`
+--
+ALTER TABLE `expences`
+MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
+--
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `stock_units`
 --
@@ -366,7 +382,7 @@ MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -382,16 +398,18 @@ MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 
 --
--- Constraints for table `daily_expences`
+-- Constraints for table `expences`
 --
-ALTER TABLE `daily_expences`
+ALTER TABLE `expences`
+ADD CONSTRAINT `DEX_FK_BILL` FOREIGN KEY (`dex_bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
 ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
 
 --
 -- Constraints for table `transections`
 --
 ALTER TABLE `transections`
-ADD CONSTRAINT `TRANS_FK_ACC` FOREIGN KEY (`tr_acc_id`) REFERENCES `accounts` (`acc_id`) ON DELETE CASCADE;
+ADD CONSTRAINT `TRANS_FK_ACC` FOREIGN KEY (`tr_acc_id`) REFERENCES `accounts` (`acc_id`) ON DELETE CASCADE,
+ADD CONSTRAINT `TRANS_FK_BILL` FOREIGN KEY (`bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`
