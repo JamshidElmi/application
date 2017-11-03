@@ -122,9 +122,6 @@ $(document).ready(function() {
         $('#st_id').html('<input type="hidden" name="st_id" value="'+st_id+'">');
     });
 
-
-
-
-});
+}); // end Document
 
 </script>
