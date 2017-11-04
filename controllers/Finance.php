@@ -347,7 +347,119 @@ class Finance extends MY_Controller {
 
     public function insert_stock_expence()
     {
-        print_r($this->input->post());
+        // print_r($this->input->post()); die();
+        $data = $this->input->post();
+        // check btn type
+        if (isset($data['first']))
+        {
+            // insert BILL
+            $data_bill = array(
+                'bill_no'           => $data['bill_no'] ,
+                'bill_shop'         => $data['bill_shop'] ,
+                'bill_date'         => $data['bill_date'] ,
+                'bill_desc'         => $data['dex_desc'] ,
+                'bill_total_amount' => $data['dex_total_amount'] ,
+                'bill_type'         => 1
+            );
+            $this->finance_model->bills();
+            $bill_id = $this->finance_model->data_save($data_bill);
+            if (!is_int($bill_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+            $insert_ids['bill_id'] = $bill_id;
+            // insert TRANSECTION
+            $data_trans = array(
+                'tr_desc'   => $data['dex_desc'] ,
+                'tr_amount' => $data['dex_total_amount'] ,
+                'tr_type'   => 'buy_stocks',
+                'tr_date'   => $data['bill_date'] ,
+                'tr_status' => 2 ,
+                'tr_acc_id' => $data['acc_id'] ,
+                'bill_id'   => $bill_id
+            );
+            $this->finance_model->transections();
+            $trans_id = $this->finance_model->data_save($data_trans);
+            if (!is_int($trans_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+            $insert_ids['trans_id'] = $trans_id;
+            // update ACCOUNT
+            $this->finance_model->accounts();
+            $acc_id = $this->finance_model->data_save(['acc_amount' => $data['acc_amount']], $data['acc_id']);
+            if (!is_int($acc_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+            $insert_ids['acc_id'] = $acc_id;
+            $this->session->set_userdata('insert_ids', $insert_ids);
+            // insert DEX
+            $data_dex = array(
+                'dex_name'          => $data['st_unit_name'] ,
+                'dex_st_unit'       => $data['st_id'] ,
+                'dex_price'         => $data['dex_price'] ,
+                'dex_count'         => $data['dex_count'],
+                'dex_unit'          => $data['dex_unit_id'] ,
+                'dex_total_amount'  => $data['dex_total_amount']  ,
+                'dex_bill_id'       => $this->session->insert_ids['bill_id']
+            );
+            $this->finance_model->expences();
+            $dex_id = $this->finance_model->data_save($data_dex);
+            if (!is_int($dex_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+        }
+        else
+        {
+            // update BILL
+            $this->finance_model->bills();
+            $transection = $this->finance_model->data_get($this->session->insert_ids['bill_id'], TRUE);
+            $bill_total_amount = $transection->bill_total_amount + $data['dex_total_amount'];
+            $bill_id = $this->finance_model->data_save(['bill_total_amount' => $bill_total_amount], $this->session->insert_ids['bill_id']);
+            if (!is_int($bill_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+            // update TRANS
+            $this->finance_model->transections();
+            $transection = $this->finance_model->data_get($this->session->insert_ids['trans_id'], TRUE);
+            $tr_amount = $transection->tr_amount + $data['dex_total_amount'];
+            $trans_id = $this->finance_model->data_save(['tr_amount' => $tr_amount], $this->session->insert_ids['trans_id']);
+            if (!is_int($trans_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+            // update ACCOUNT
+            $this->finance_model->accounts();
+            $acc_id = $this->finance_model->data_save(['acc_amount' => $data['acc_amount']], $data['acc_id']);
+            if (!is_int($acc_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+            // insert DEX
+            $data_dex = array(
+                'dex_name'          => $data['st_unit_name'] ,
+                'dex_st_unit'       => $data['st_id'] ,
+                'dex_price'         => $data['dex_price'] ,
+                'dex_count'         => $data['dex_count'],
+                'dex_unit'          => $data['dex_unit_id'] ,
+                'dex_total_amount'  => $data['dex_total_amount']  ,
+                'dex_bill_id'       => $this->session->insert_ids['bill_id']
+            );
+            $this->finance_model->expences();
+            $dex_id = $this->finance_model->data_save($data_dex);
+            if (!is_int($dex_id)) {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/buy_stock/');
+            }
+
+        }
+
+        $this->session->set_userdata('bill_info', $data);
+        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+        redirect('finance/buy_stock');
     }
 
 
