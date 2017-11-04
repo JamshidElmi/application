@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 03, 2017 at 08:19 PM
+-- Generation Time: Nov 04, 2017 at 09:10 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -33,15 +33,16 @@ CREATE TABLE IF NOT EXISTS `accounts` (
   `acc_description` varchar(512) DEFAULT NULL COMMENT 'توضیحات',
   `acc_date` varchar(16) NOT NULL,
   `acc_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای صندوق اصلی عدد 1 برای حساب همکاران عدد 2 برای حساب مشتریان'
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
-(15, 'صندوق همکار 1', '4000.00', '', '1509469146', 1),
-(18, 'صندوق اصلی', '1099.00', '', '1509481173', 0);
+(15, 'صندوق همکار 1', '1500.00', '', '1509469146', 1),
+(18, 'صندوق اصلی', '1099.00', '', '1509481173', 0),
+(19, 'صندوق همکار 2', '1000.00', '', '1509815480', 1);
 
 -- --------------------------------------------------------
 
@@ -56,8 +57,15 @@ CREATE TABLE IF NOT EXISTS `bills` (
   `bill_date` varchar(32) NOT NULL,
   `bill_desc` varchar(512) DEFAULT NULL,
   `bill_total_amount` decimal(10,2) NOT NULL,
-  `bill_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای کثر عدد 1 برای جمع'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  `bill_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای کثر عدد 1 برای خرید گدام'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bills`
+--
+
+INSERT INTO `bills` (`bill_id`, `bill_no`, `bill_shop`, `bill_date`, `bill_desc`, `bill_total_amount`, `bill_type`) VALUES
+(2, '12312', 'دوکان', '1509824081', 'برای دومین بار ثبت خرید گدام', '2000.00', 1);
 
 -- --------------------------------------------------------
 
@@ -123,12 +131,23 @@ INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_lname`, `emp_position`, `emp
 CREATE TABLE IF NOT EXISTS `expences` (
 `dex_id` int(11) NOT NULL,
   `dex_name` varchar(256) NOT NULL,
+  `dex_st_unit` int(11) DEFAULT NULL COMMENT 'ای دی واحد جنس گدام',
   `dex_price` decimal(10,2) NOT NULL,
   `dex_count` int(11) NOT NULL,
   `dex_unit` int(11) NOT NULL COMMENT 'واحد مقیاسی',
   `dex_total_amount` decimal(10,2) NOT NULL,
   `dex_bill_id` int(11) NOT NULL COMMENT 'ای دی فاکتور'
-) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `expences`
+--
+
+INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_bill_id`) VALUES
+(1, 'نوشابه سوپرکولا', NULL, '100.00', 5, 12, '500.00', 2),
+(2, 'نوشابه سوپرکولا', 3, '100.00', 5, 12, '500.00', 2),
+(3, 'آرد درجه یک', 5, '100.00', 5, 19, '500.00', 2),
+(4, 'روغن نباتی', 7, '100.00', 5, 23, '500.00', 2);
 
 -- --------------------------------------------------------
 
@@ -212,7 +231,7 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'عدد 2 برای برداشت عدد 1 برای جمع',
   `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق',
   `bill_id` int(11) DEFAULT NULL COMMENT 'ای دی بل'
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
@@ -221,7 +240,9 @@ CREATE TABLE IF NOT EXISTS `transections` (
 INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`, `bill_id`) VALUES
 (2, 'افتتاح حساب', '5000.00', 'credit_debit', '1509469146', 1, 15, NULL),
 (8, 'افتتاح حساب', '1000.00', 'credit_debit', '1509481173', 1, 18, NULL),
-(11, '', '66.00', 'credit_debit', '1509481481', 1, 18, NULL);
+(11, '', '66.00', 'credit_debit', '1509481481', 1, 18, NULL),
+(12, 'افتتاح حساب', '1000.00', 'credit_debit', '1509815480', 1, 19, NULL),
+(14, 'برای دومین بار ثبت خرید گدام', '2000.00', 'buy_stocks', '1509824081', 2, 15, 2);
 
 -- --------------------------------------------------------
 
@@ -307,7 +328,7 @@ ALTER TABLE `employees`
 -- Indexes for table `expences`
 --
 ALTER TABLE `expences`
- ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`), ADD KEY `dex_bill_id` (`dex_bill_id`);
+ ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`), ADD KEY `dex_bill_id` (`dex_bill_id`), ADD KEY `dex_st_unit` (`dex_st_unit`);
 
 --
 -- Indexes for table `jobs`
@@ -347,12 +368,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `company_info`
 --
@@ -367,7 +388,7 @@ MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `expences`
 --
 ALTER TABLE `expences`
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=73;
+MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `jobs`
 --
@@ -382,7 +403,7 @@ MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `units`
 --
