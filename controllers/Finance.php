@@ -249,9 +249,6 @@ class Finance extends MY_Controller {
 
     public function delete_bill_expence($bill_id, $bill_total_amount ,$type = NULL)
     {
-
-
-
             // get current amount of account
             $this->finance_model->accounts();
 
@@ -299,6 +296,13 @@ class Finance extends MY_Controller {
         $this->template->publish();
 
     } // edit_daily_expence
+
+    public function delete_daily_expence($dex_id)
+    {
+        # delete dex and update bill & trans & acc
+    }
+
+
 
     public function update_expence($dex_id, $bill_id)
     {
@@ -470,7 +474,6 @@ class Finance extends MY_Controller {
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                 redirect('finance/buy_stock/');
             }
-
         }
 
         $this->session->set_userdata('bill_info', $data);
