@@ -145,14 +145,11 @@ class Finance extends MY_Controller {
         }
     } // end delete_transection
 
-    public function expences()
+    public function expences($bill_type)
     {
-        $this->template->description = 'لیست خریداری و مصارف روزانه';
-
-        // $this->finance_model->expences();
-        // $expences = $this->finance_model->get_join_expences();
+        $this->template->description = 'لیست خریداری گدام و مصارف روزانه';
         $this->finance_model->bills();
-        $expences = $this->finance_model->data_get_by(['bill_type'=>0]);
+        $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
         // view
         $this->template->content->view('finance/expences', ['expences' => $expences, 'expences' => $expences]);
         $this->template->publish();
@@ -257,19 +254,29 @@ class Finance extends MY_Controller {
         {
             // get current amount of account
             $this->finance_model->accounts();
-            $account = $this->finance_model->data_get_by(['acc_type'=> 0], TRUE);
+
+            if($acc_id == 0){
+                $account = $this->finance_model->data_get_by(['acc_type'=> 0], TRUE);
+            }
+            else{
+                $this->finance_model->transections();
+                $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'buy_stocks'], TURE);
+                $this->finance_model->accounts();
+                $account = $this->finance_model->data_get_by(['acc_id'=> $transection->tr_acc_id], TRUE);
+            }
+
             $new_amount = $account->acc_amount + $bill_total_amount;
             // Set new amount of account
             $acc_inserted = $this->finance_model->data_save(['acc_amount'=>$new_amount],$account->acc_id);
             if (is_int($acc_inserted))
             {
                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-                redirect('finance/expences/');
+                redirect('finance/expences/0');
             }
 
         }
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-        redirect('finance/expences/');
+        redirect('finance/expences/0');
 
     } // end delete_bill_expence
 
@@ -413,6 +420,7 @@ class Finance extends MY_Controller {
         }
         else
         {
+            $data['dex_sum'] += $this->input->post('dex_sum');
             // update BILL
             $this->finance_model->bills();
             $transection = $this->finance_model->data_get($this->session->insert_ids['bill_id'], TRUE);
@@ -460,6 +468,13 @@ class Finance extends MY_Controller {
         $this->session->set_userdata('bill_info', $data);
         $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
         redirect('finance/buy_stock');
+    }
+
+    public function end_buy()
+    {
+        $this->session->unset_userdata('bill_info');
+        $this->session->unset_userdata('insert_ids');
+        redirect('finance/expences/1');
     }
 
 

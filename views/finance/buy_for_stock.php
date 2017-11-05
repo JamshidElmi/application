@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 38baa77ecb05d0e03cf4cc430f78877542f01e1f
 <div class="row">
     <div class="col-md-8">
         <div class="box box-success">
@@ -84,19 +80,12 @@
                             <div class="col-sm-3">
                                 <div class="form-group">
                                   <label>واحد جنس</label>
-<<<<<<< HEAD
-                                   <select name="st_name_[]" id="st_name_" class="form-control">
-                                   <option value="">انتخاب کنید</option>
-                                   <?php foreach($stock_units as $stock_unit)
-                                    {
-                                        echo '<option value="'.$stock_unit->st_id.'" st-unit="'.$stock_unit->st_unit.'" st-max-count="'.$stock_unit->st_max_count.'" st-min-count="'.$stock_unit->st_min_count.'" >'.$stock_unit->st_name.'</option>';
-=======
+
                                    <select name="st_name" id="st_name" class="form-control">
                                    <option value="">انتخاب کنید</option>
                                    <?php foreach($stock_units as $stock_unit)
                                     {
                                         echo '<option st-id="'.$stock_unit->st_id.'" value="'.$stock_unit->st_unit.'" st-unit-name="'.$stock_unit->unit_name.'" st-max-count="'.$stock_unit->st_max_count.'" st-min-count="'.$stock_unit->st_min_count.'" >'.$stock_unit->st_name.'</option>';
->>>>>>> 38baa77ecb05d0e03cf4cc430f78877542f01e1f
                                     } ?>
                                     </select>
                                 </div>
@@ -104,46 +93,29 @@
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label for="dex_unit">واحد</label>
-<<<<<<< HEAD
-                                    <input name="dex_unit[]" id="dex_unit[]"  class="form-control" required readonly />
-=======
                                     <input name="dex_unit" id="dex_unit"  class="form-control" required readonly />
                                     <input type="hidden" name="dex_unit_id" id="dex_unit_id"  class="form-control" required readonly />
                                     <input type="hidden" name="st_unit_name" id="st_unit_name"  class="form-control" required readonly />
                                     <input type="hidden" name="st_id" id="st_id"  class="form-control" required readonly />
->>>>>>> 38baa77ecb05d0e03cf4cc430f78877542f01e1f
                                 </div>
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label for="dex_count">تعداد</label>
-<<<<<<< HEAD
-                                    <input type="number" class="form-control" name="dex_count[]" id="dex_count_'+x+'" placeholder="تعداد عدد " required/>
-=======
                                     <input type="number"  class="form-control" name="dex_count" id="dex_count" placeholder="تعداد عدد " required/>
->>>>>>> 38baa77ecb05d0e03cf4cc430f78877542f01e1f
                                 </div>
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <label for="dex_price">قیمت فی واحد</label>
-<<<<<<< HEAD
-                                    <input type="number" class="form-control" name="dex_price[]" id="dex_price_'+x+'" placeholder="قیمت عدد" required/>
-=======
                                     <input type="number" class="form-control" name="dex_price" id="dex_price" placeholder="قیمت عدد" required/>
->>>>>>> 38baa77ecb05d0e03cf4cc430f78877542f01e1f
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="dex_total_amount">هزینه کل</label>
-<<<<<<< HEAD
-                                    <input type="number" class="form-control" id="dex_total_amount_alt_'+x+'" placeholder="هزینه کل " disabled />
-                                    <input type="hidden" class="form-control" name="dex_total_amount[]" id="dex_total_amount_'+x+'"  />
-=======
                                     <input type="number" class="form-control" id="dex_total_amount_alt" placeholder="هزینه کل " disabled />
                                     <input type="hidden" class="form-control" name="dex_total_amount" id="dex_total_amount"  />
->>>>>>> 38baa77ecb05d0e03cf4cc430f78877542f01e1f
                                 </div>
                             </div>
                             <!-- <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" >
@@ -175,19 +147,14 @@
 
                 </div>
                 <div class="box-footer">
-<<<<<<< HEAD
-                    <input type="hidden" name=dex_sum id="sum" value="0" >
-                    <input type="text" id="sum_alt" readonly value="0 افغانی" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع مصارف: </span>
-                    <button type="submit" id="submit" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
-=======
                     <input type="hidden" name=dex_sum id="sum" value="<?=$this->session->bill_info['dex_sum']; ?>">
-                    <input type="text" id="sum_alt" readonly value="<?=$this->session->bill_info['dex_sum']; ?> افغانی" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع فاکتور: </span>
+                    <input type="text" id="sum_alt" readonly value="<?=$this->session->bill_info['dex_sum']; ?> افغانی" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع : </span>
                     <?php if ($this->session->bill_info): ?>
-                    <button type="submit" id="submit" name="second" disabled class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
+                    <button type="submit" id="submit" name="second" disabled class="btn btn-success">ذخیره و ادامه <i class="fa fa-save"></i></button>
                     <?php else: ?>
-                    <button type="submit" id="submit" name="first" disabled class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
+                    <button type="submit" id="submit" name="first" disabled class="btn btn-success">ذخیره و ادامه <i class="fa fa-save"></i></button>
                     <?php endif ?>
->>>>>>> 38baa77ecb05d0e03cf4cc430f78877542f01e1f
+                    <a href="<?=site_url('finance/end_buy'); ?>" class="btn btn-danger">ختم خرید <i class="fa ion-ios-cart fa-lg"></i></a>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>

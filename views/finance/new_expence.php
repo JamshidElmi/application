@@ -13,7 +13,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت مصارف روزانه</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('finance/expences'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Bill List"><i class="ion-android-list fa-lg"></i></a>
+                    <a href="<?=site_url('finance/expences/0'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Bill List"><i class="ion-android-list fa-lg"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->

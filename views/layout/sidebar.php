@@ -93,7 +93,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<?=site_url('finance/expences'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف روزانه</a></li>
+                        <li><a href="<?=site_url('finance/expences/0'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف روزانه</a></li>
                         <li><a href="<?=site_url('finance/new_expence'); ?>"><i class="fa fa-circle-o"></i> ثبت مصارف روزانه</a></li>
 
                     </ul>
@@ -106,7 +106,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<?=site_url('finance/expences'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف برای گدام</a></li>
+                        <li><a href="<?=site_url('finance/expences/1'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف برای گدام</a></li>
                         <li><a href="<?=site_url('finance/buy_stock'); ?>"><i class="fa fa-circle-o"></i> خرید برای گدام</a></li>
 
                     </ul>
