@@ -247,22 +247,30 @@ class Finance extends MY_Controller {
     } // end insert_expence
 
 
-    public function delete_bill_expence($bill_id,$bill_total_amount)
+    public function delete_bill_expence($bill_id, $bill_total_amount ,$type = NULL)
     {
-        $this->finance_model->bills();
-        if($this->finance_model->data_delete($bill_id))
-        {
+
+
+
             // get current amount of account
             $this->finance_model->accounts();
 
-            if($acc_id == 0){
+            if($type == NULL){
                 $account = $this->finance_model->data_get_by(['acc_type'=> 0], TRUE);
             }
             else{
                 $this->finance_model->transections();
                 $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'buy_stocks'], TURE);
                 $this->finance_model->accounts();
-                $account = $this->finance_model->data_get_by(['acc_id'=> $transection->tr_acc_id], TRUE);
+                $account = $this->finance_model->data_get($transection->tr_acc_id, TRUE);
+            }
+            if (is_int($account)) {
+                $this->finance_model->bills();
+                if(!$this->finance_model->data_delete($bill_id))
+                {
+                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                    redirect('finance/expences/0');
+                }
             }
 
             $new_amount = $account->acc_amount + $bill_total_amount;
@@ -274,7 +282,7 @@ class Finance extends MY_Controller {
                 redirect('finance/expences/0');
             }
 
-        }
+
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
         redirect('finance/expences/0');
 

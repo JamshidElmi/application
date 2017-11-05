@@ -315,7 +315,6 @@ $(document).ready(function() {
         $('#st_id').val(st_id);
     });
 
-
 }); // end document
 </script>
 
