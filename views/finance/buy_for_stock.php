@@ -1,12 +1,4 @@
-<style>
-.small-box h3 {
-    font-size: 30px;
-    font-weight: bold;
-    margin: 0 0 10px 0;
-    white-space: nowrap;
-    padding: 0;
-}
-</style>
+
 <div class="row">
     <div class="col-md-8">
         <div class="box box-success">
@@ -76,11 +68,56 @@
                     <!-- row[] -->
                     <div class="input_fields_wrap">
                     <!-- Fields Dynamicly will Added -->
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                  <label>واحد جنس</label>
+                                   <select name="st_name_[]" id="st_name_" class="form-control">
+                                   <option value="">انتخاب کنید</option>
+                                   <?php foreach($stock_units as $stock_unit)
+                                    {
+                                        echo '<option value="'.$stock_unit->st_id.'" st-unit="'.$stock_unit->st_unit.'" st-max-count="'.$stock_unit->st_max_count.'" st-min-count="'.$stock_unit->st_min_count.'" >'.$stock_unit->st_name.'</option>';
+                                    } ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="dex_unit">واحد</label>
+                                    <input name="dex_unit[]" id="dex_unit[]"  class="form-control" required readonly />
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="dex_count">تعداد</label>
+                                    <input type="number" class="form-control" name="dex_count[]" id="dex_count_'+x+'" placeholder="تعداد عدد " required/>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group">
+                                    <label for="dex_price">قیمت فی واحد</label>
+                                    <input type="number" class="form-control" name="dex_price[]" id="dex_price_'+x+'" placeholder="قیمت عدد" required/>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="dex_total_amount">هزینه کل</label>
+                                    <input type="number" class="form-control" id="dex_total_amount_alt_'+x+'" placeholder="هزینه کل " disabled />
+                                    <input type="hidden" class="form-control" name="dex_total_amount[]" id="dex_total_amount_'+x+'"  />
+                                </div>
+                            </div>
+                            <!-- <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" >
+                                <i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i>
+                            </a> -->
+                        </div>
+
+
                     </div>
                     <!-- row[END] -->
 
 
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <div class="row">
                             <div class="col-xs-10">
                                 <a class="btn btn-primary col-xs-12 add_field_button" id="add_new" data-toggle="tooltip" title="" data-original-title="Add New"><i class="ion-android-add-circle fa-lg"></i></a>
@@ -101,7 +138,7 @@
                 <div class="box-footer">
                     <input type="hidden" name=dex_sum id="sum" value="0" >
                     <input type="text" id="sum_alt" readonly value="0 افغانی" class="form-control col-xs-4 pull-left"><span class="pull-left">مجموع مصارف: </span>
-                    <button type="submit" id="submit" disabled="disabled" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
+                    <button type="submit" id="submit" class="btn btn-success">ذخیره  <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>
