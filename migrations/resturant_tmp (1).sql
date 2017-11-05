@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 04, 2017 at 09:10 PM
+-- Generation Time: Nov 05, 2017 at 06:53 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `bills` (
   `bill_desc` varchar(512) DEFAULT NULL,
   `bill_total_amount` decimal(10,2) NOT NULL,
   `bill_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای کثر عدد 1 برای خرید گدام'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bills`
@@ -136,18 +136,19 @@ CREATE TABLE IF NOT EXISTS `expences` (
   `dex_count` int(11) NOT NULL,
   `dex_unit` int(11) NOT NULL COMMENT 'واحد مقیاسی',
   `dex_total_amount` decimal(10,2) NOT NULL,
-  `dex_bill_id` int(11) NOT NULL COMMENT 'ای دی فاکتور'
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `dex_bill_id` int(11) NOT NULL COMMENT 'ای دی فاکتور',
+  `dex_tr_id` int(11) DEFAULT NULL COMMENT 'ای دی تراکنش'
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `expences`
 --
 
-INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_bill_id`) VALUES
-(1, 'نوشابه سوپرکولا', NULL, '100.00', 5, 12, '500.00', 2),
-(2, 'نوشابه سوپرکولا', 3, '100.00', 5, 12, '500.00', 2),
-(3, 'آرد درجه یک', 5, '100.00', 5, 19, '500.00', 2),
-(4, 'روغن نباتی', 7, '100.00', 5, 23, '500.00', 2);
+INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_bill_id`, `dex_tr_id`) VALUES
+(1, 'نوشابه سوپرکولا', NULL, '100.00', 5, 12, '500.00', 2, NULL),
+(2, 'نوشابه سوپرکولا', 3, '100.00', 5, 12, '500.00', 2, NULL),
+(3, 'آرد درجه یک', 5, '100.00', 5, 19, '500.00', 2, NULL),
+(5, 'روغن نباتی', 7, '100.00', 5, 23, '500.00', 2, 14);
 
 -- --------------------------------------------------------
 
@@ -231,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'عدد 2 برای برداشت عدد 1 برای جمع',
   `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق',
   `bill_id` int(11) DEFAULT NULL COMMENT 'ای دی بل'
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
@@ -328,7 +329,7 @@ ALTER TABLE `employees`
 -- Indexes for table `expences`
 --
 ALTER TABLE `expences`
- ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`), ADD KEY `dex_bill_id` (`dex_bill_id`), ADD KEY `dex_st_unit` (`dex_st_unit`);
+ ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`), ADD KEY `dex_bill_id` (`dex_bill_id`), ADD KEY `dex_st_unit` (`dex_st_unit`), ADD KEY `dex_tr_id` (`dex_tr_id`);
 
 --
 -- Indexes for table `jobs`
@@ -373,7 +374,7 @@ MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `company_info`
 --
@@ -388,7 +389,7 @@ MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `expences`
 --
 ALTER TABLE `expences`
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `jobs`
 --
@@ -403,7 +404,7 @@ MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -423,6 +424,7 @@ MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 ALTER TABLE `expences`
 ADD CONSTRAINT `DEX_FK_BILL` FOREIGN KEY (`dex_bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
+ADD CONSTRAINT `DEX_FK_TRANS` FOREIGN KEY (`dex_tr_id`) REFERENCES `transections` (`tr_id`) ON DELETE CASCADE,
 ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
 
 --
