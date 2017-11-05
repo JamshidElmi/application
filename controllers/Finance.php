@@ -149,6 +149,7 @@ class Finance extends MY_Controller {
     {
         $this->template->description = 'لیست خریداری گدام و مصارف روزانه';
         $this->finance_model->bills();
+        // $expences = $this->finance_model->dex_join_trans([]);
         $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
         // view
         $this->template->content->view('finance/expences', ['expences' => $expences, 'expences' => $expences]);
@@ -209,7 +210,6 @@ class Finance extends MY_Controller {
                     'dex_total_amount'  => $this->input->post('dex_total_amount')[$i],
                     'dex_bill_id'       => $inserted_bill_id
                 );
-
                 $result = $this->finance_model->data_save($data);
                 if(!is_int($result))
                 {
