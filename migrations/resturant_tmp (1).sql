@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.11
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2017 at 06:53 PM
--- Server version: 5.6.21
--- PHP Version: 5.6.3
+-- Generation Time: Nov 06, 2017 at 12:30 PM
+-- Server version: 10.1.13-MariaDB
+-- PHP Version: 5.6.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `resturant_tmp`
@@ -26,23 +26,23 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts`
 --
 
-CREATE TABLE IF NOT EXISTS `accounts` (
-`acc_id` int(11) NOT NULL,
+CREATE TABLE `accounts` (
+  `acc_id` int(11) NOT NULL,
   `acc_name` varchar(256) NOT NULL,
   `acc_amount` decimal(10,2) NOT NULL,
   `acc_description` varchar(512) DEFAULT NULL COMMENT 'توضیحات',
   `acc_date` varchar(16) NOT NULL,
   `acc_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای صندوق اصلی عدد 1 برای حساب همکاران عدد 2 برای حساب مشتریان'
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
-(15, 'صندوق همکار 1', '1500.00', '', '1509469146', 1),
-(18, 'صندوق اصلی', '1099.00', '', '1509481173', 0),
-(19, 'صندوق همکار 2', '1000.00', '', '1509815480', 1);
+(15, 'صندوق همکار 1', '2148.00', '', '1509469146', 1),
+(18, 'صندوق اصلی', '-459618.00', '', '1509481173', 0),
+(19, 'صندوق همکار 2', '200.00', '', '1509815480', 1);
 
 -- --------------------------------------------------------
 
@@ -50,22 +50,27 @@ INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `
 -- Table structure for table `bills`
 --
 
-CREATE TABLE IF NOT EXISTS `bills` (
-`bill_id` int(11) NOT NULL,
+CREATE TABLE `bills` (
+  `bill_id` int(11) NOT NULL,
   `bill_no` varchar(64) DEFAULT NULL,
   `bill_shop` varchar(256) DEFAULT NULL,
   `bill_date` varchar(32) NOT NULL,
   `bill_desc` varchar(512) DEFAULT NULL,
   `bill_total_amount` decimal(10,2) NOT NULL,
   `bill_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای کثر عدد 1 برای خرید گدام'
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bills`
 --
 
 INSERT INTO `bills` (`bill_id`, `bill_no`, `bill_shop`, `bill_date`, `bill_desc`, `bill_total_amount`, `bill_type`) VALUES
-(2, '12312', 'دوکان', '1509824081', 'برای دومین بار ثبت خرید گدام', '2000.00', 1);
+(8, '564', 'دوکان مصرف روزانه', '1509958722', '150 افغانی از 950صندوق اصلی کثر شد مصرف روزانه\r\n', '100.00', 0),
+(11, '3453', 'دوکان 1', '1509962332', 'یبلیس', '676.00', 1),
+(12, '44', 'دوکان 4', '1509962433', 'سیبسیشب', '500.00', 1),
+(13, '4564', 'دوکان علی', '1509962777', 'خرید از دوکان علی ', '300.00', 1),
+(14, '456465', 'دوکان اکبر', '1509962926', 'نتیسشب ', '270.00', 0),
+(15, '4535', 'hjgjhghf', '1509963883', 'jhnnkhkjhgjkgb', '98.00', 0);
 
 -- --------------------------------------------------------
 
@@ -73,8 +78,8 @@ INSERT INTO `bills` (`bill_id`, `bill_no`, `bill_shop`, `bill_date`, `bill_desc`
 -- Table structure for table `company_info`
 --
 
-CREATE TABLE IF NOT EXISTS `company_info` (
-`ci_id` int(11) NOT NULL,
+CREATE TABLE `company_info` (
+  `ci_id` int(11) NOT NULL,
   `ci_full_name` varchar(256) NOT NULL,
   `ci_boss_name` varchar(256) NOT NULL,
   `ci_manager_name` varchar(256) NOT NULL,
@@ -93,8 +98,8 @@ CREATE TABLE IF NOT EXISTS `company_info` (
 -- Table structure for table `employees`
 --
 
-CREATE TABLE IF NOT EXISTS `employees` (
-`emp_id` int(11) NOT NULL,
+CREATE TABLE `employees` (
+  `emp_id` int(11) NOT NULL,
   `emp_name` varchar(256) NOT NULL,
   `emp_lname` varchar(256) NOT NULL,
   `emp_position` varchar(120) NOT NULL,
@@ -110,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `employees` (
   `emp_national_id` char(16) DEFAULT NULL,
   `emp_biography` text,
   `emp_type` tinyint(1) NOT NULL COMMENT 'آشپزخانه یا رستورانت'
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `employees`
@@ -128,8 +133,8 @@ INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_lname`, `emp_position`, `emp
 -- Table structure for table `expences`
 --
 
-CREATE TABLE IF NOT EXISTS `expences` (
-`dex_id` int(11) NOT NULL,
+CREATE TABLE `expences` (
+  `dex_id` int(11) NOT NULL,
   `dex_name` varchar(256) NOT NULL,
   `dex_st_unit` int(11) DEFAULT NULL COMMENT 'ای دی واحد جنس گدام',
   `dex_price` decimal(10,2) NOT NULL,
@@ -138,17 +143,24 @@ CREATE TABLE IF NOT EXISTS `expences` (
   `dex_total_amount` decimal(10,2) NOT NULL,
   `dex_bill_id` int(11) NOT NULL COMMENT 'ای دی فاکتور',
   `dex_tr_id` int(11) DEFAULT NULL COMMENT 'ای دی تراکنش'
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `expences`
 --
 
 INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_bill_id`, `dex_tr_id`) VALUES
-(1, 'نوشابه سوپرکولا', NULL, '100.00', 5, 12, '500.00', 2, NULL),
-(2, 'نوشابه سوپرکولا', 3, '100.00', 5, 12, '500.00', 2, NULL),
-(3, 'آرد درجه یک', 5, '100.00', 5, 19, '500.00', 2, NULL),
-(5, 'روغن نباتی', 7, '100.00', 5, 23, '500.00', 2, 14);
+(15, 'جنس 2', NULL, '20.00', 5, 18, '100.00', 8, 21),
+(26, 'آرد درجه یک', 5, '10.00', 50, 19, '500.00', 11, 24),
+(27, 'نوشابه سوپرکولا', 3, '44.00', 4, 12, '176.00', 11, 24),
+(28, 'آرد درجه یک', 5, '100.00', 5, 19, '500.00', 12, 25),
+(30, 'آرد درجه یک', 5, '20.00', 5, 19, '100.00', 13, 26),
+(31, 'آرد درجه دوم', 6, '40.00', 5, 24, '200.00', 13, 26),
+(32, 'جنس 1', NULL, '100.00', 2, 4, '200.00', 14, 27),
+(33, 'جنس 2', NULL, '10.00', 2, 16, '20.00', 14, 27),
+(34, 'جنس 3', NULL, '10.00', 5, 22, '50.00', 14, 27),
+(35, 'fdr', NULL, '10.00', 5, 4, '50.00', 15, 28),
+(36, 'fgt', NULL, '8.00', 6, 4, '48.00', 15, 28);
 
 -- --------------------------------------------------------
 
@@ -156,10 +168,10 @@ INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_c
 -- Table structure for table `jobs`
 --
 
-CREATE TABLE IF NOT EXISTS `jobs` (
-`job_id` int(11) NOT NULL,
+CREATE TABLE `jobs` (
+  `job_id` int(11) NOT NULL,
   `job_name` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jobs`
@@ -182,7 +194,7 @@ INSERT INTO `jobs` (`job_id`, `job_name`) VALUES
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE IF NOT EXISTS `migrations` (
+CREATE TABLE `migrations` (
   `version` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -199,13 +211,13 @@ INSERT INTO `migrations` (`version`) VALUES
 -- Table structure for table `stock_units`
 --
 
-CREATE TABLE IF NOT EXISTS `stock_units` (
-`st_id` int(11) NOT NULL,
+CREATE TABLE `stock_units` (
+  `st_id` int(11) NOT NULL,
   `st_name` varchar(256) NOT NULL,
   `st_unit` varchar(256) NOT NULL COMMENT 'واحد مقیاسی',
   `st_max_count` int(11) NOT NULL COMMENT 'حد اکثر مقدار قابل گنجایش در گدام',
   `st_min_count` int(11) NOT NULL COMMENT 'تعداد قابل هشدار'
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `stock_units`
@@ -223,8 +235,8 @@ INSERT INTO `stock_units` (`st_id`, `st_name`, `st_unit`, `st_max_count`, `st_mi
 -- Table structure for table `transections`
 --
 
-CREATE TABLE IF NOT EXISTS `transections` (
-`tr_id` int(11) NOT NULL,
+CREATE TABLE `transections` (
+  `tr_id` int(11) NOT NULL,
   `tr_desc` varchar(512) DEFAULT NULL,
   `tr_amount` decimal(10,2) NOT NULL,
   `tr_type` varchar(32) NOT NULL COMMENT 'نوعیت تراکنش: معاش/برداشت/ جمع/ مصارف/',
@@ -232,18 +244,20 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'عدد 2 برای برداشت عدد 1 برای جمع',
   `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق',
   `bill_id` int(11) DEFAULT NULL COMMENT 'ای دی بل'
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
 --
 
 INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`, `bill_id`) VALUES
-(2, 'افتتاح حساب', '5000.00', 'credit_debit', '1509469146', 1, 15, NULL),
-(8, 'افتتاح حساب', '1000.00', 'credit_debit', '1509481173', 1, 18, NULL),
-(11, '', '66.00', 'credit_debit', '1509481481', 1, 18, NULL),
-(12, 'افتتاح حساب', '1000.00', 'credit_debit', '1509815480', 1, 19, NULL),
-(14, 'برای دومین بار ثبت خرید گدام', '2000.00', 'buy_stocks', '1509824081', 2, 15, 2);
+(21, '150 افغانی از 950صندوق اصلی کثر شد مصرف روزانه\r\n', '100.00', 'daily_expence', '1509958722', 2, 18, 8),
+(24, 'یبلیس', '676.00', 'buy_stocks', '1509962332', 2, 15, 11),
+(25, 'سیبسیشب', '500.00', 'buy_stocks', '1509962433', 2, 19, 12),
+(26, 'خرید از دوکان علی ', '300.00', 'buy_stocks', '1509962777', 2, 19, 13),
+(27, 'نتیسشب ', '270.00', 'daily_expence', '1509962926', 2, 18, 14),
+(28, 'jhnnkhkjhgjkgb', '98.00', 'daily_expence', '1509963883', 2, 18, 15),
+(29, 'dfg', '460000.00', 'credit_debit', '1509967713', 2, 18, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,11 +265,11 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 -- Table structure for table `units`
 --
 
-CREATE TABLE IF NOT EXISTS `units` (
-`unit_id` int(11) NOT NULL,
+CREATE TABLE `units` (
+  `unit_id` int(11) NOT NULL,
   `unit_name` varchar(256) NOT NULL,
   `unit_type` tinyint(1) NOT NULL COMMENT 'آشپزخانه/رستورانت'
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `units`
@@ -282,13 +296,13 @@ INSERT INTO `units` (`unit_id`, `unit_name`, `unit_type`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-`user_id` int(5) unsigned NOT NULL,
+CREATE TABLE `users` (
+  `user_id` int(5) UNSIGNED NOT NULL,
   `user_name` varchar(256) NOT NULL,
   `user_type` varchar(256) NOT NULL,
   `user_pass` varchar(256) NOT NULL,
   `emp_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -305,61 +319,69 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_type`, `user_pass`, `emp_id`)
 -- Indexes for table `accounts`
 --
 ALTER TABLE `accounts`
- ADD PRIMARY KEY (`acc_id`);
+  ADD PRIMARY KEY (`acc_id`);
 
 --
 -- Indexes for table `bills`
 --
 ALTER TABLE `bills`
- ADD PRIMARY KEY (`bill_id`);
+  ADD PRIMARY KEY (`bill_id`);
 
 --
 -- Indexes for table `company_info`
 --
 ALTER TABLE `company_info`
- ADD PRIMARY KEY (`ci_id`);
+  ADD PRIMARY KEY (`ci_id`);
 
 --
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
- ADD PRIMARY KEY (`emp_id`);
+  ADD PRIMARY KEY (`emp_id`);
 
 --
 -- Indexes for table `expences`
 --
 ALTER TABLE `expences`
- ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`), ADD KEY `dex_bill_id` (`dex_bill_id`), ADD KEY `dex_st_unit` (`dex_st_unit`), ADD KEY `dex_tr_id` (`dex_tr_id`);
+  ADD PRIMARY KEY (`dex_id`),
+  ADD KEY `dex_unit` (`dex_unit`),
+  ADD KEY `dex_bill_id` (`dex_bill_id`),
+  ADD KEY `dex_st_unit` (`dex_st_unit`),
+  ADD KEY `dex_tr_id` (`dex_tr_id`);
 
 --
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
- ADD PRIMARY KEY (`job_id`);
+  ADD PRIMARY KEY (`job_id`);
 
 --
 -- Indexes for table `stock_units`
 --
 ALTER TABLE `stock_units`
- ADD PRIMARY KEY (`st_id`);
+  ADD PRIMARY KEY (`st_id`);
 
 --
 -- Indexes for table `transections`
 --
 ALTER TABLE `transections`
- ADD PRIMARY KEY (`tr_id`), ADD KEY `tr_acc_id` (`tr_acc_id`), ADD KEY `bill_id` (`bill_id`);
+  ADD PRIMARY KEY (`tr_id`),
+  ADD KEY `tr_acc_id` (`tr_acc_id`),
+  ADD KEY `bill_id` (`bill_id`);
 
 --
 -- Indexes for table `units`
 --
 ALTER TABLE `units`
- ADD PRIMARY KEY (`unit_id`);
+  ADD PRIMARY KEY (`unit_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
- ADD PRIMARY KEY (`user_id`), ADD KEY `emp_id` (`emp_id`), ADD KEY `emp_id_2` (`emp_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `emp_id` (`emp_id`),
+  ADD KEY `emp_id_2` (`emp_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -369,52 +391,52 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `company_info`
 --
 ALTER TABLE `company_info`
-MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `expences`
 --
 ALTER TABLE `expences`
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+  MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `stock_units`
 --
 ALTER TABLE `stock_units`
-MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=17;
+  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+  MODIFY `user_id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
@@ -423,22 +445,22 @@ MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- Constraints for table `expences`
 --
 ALTER TABLE `expences`
-ADD CONSTRAINT `DEX_FK_BILL` FOREIGN KEY (`dex_bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
-ADD CONSTRAINT `DEX_FK_TRANS` FOREIGN KEY (`dex_tr_id`) REFERENCES `transections` (`tr_id`) ON DELETE CASCADE,
-ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
+  ADD CONSTRAINT `DEX_FK_BILL` FOREIGN KEY (`dex_bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `DEX_FK_TRANS` FOREIGN KEY (`dex_tr_id`) REFERENCES `transections` (`tr_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
 
 --
 -- Constraints for table `transections`
 --
 ALTER TABLE `transections`
-ADD CONSTRAINT `TRANS_FK_ACC` FOREIGN KEY (`tr_acc_id`) REFERENCES `accounts` (`acc_id`) ON DELETE CASCADE,
-ADD CONSTRAINT `TRANS_FK_BILL` FOREIGN KEY (`bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `TRANS_FK_ACC` FOREIGN KEY (`tr_acc_id`) REFERENCES `accounts` (`acc_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `TRANS_FK_BILL` FOREIGN KEY (`bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-ADD CONSTRAINT `USER_FK_EMP` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`);
+  ADD CONSTRAINT `USER_FK_EMP` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
