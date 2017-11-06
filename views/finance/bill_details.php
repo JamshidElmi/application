@@ -45,7 +45,7 @@
                             <td class="text-center"><?=$expence->dex_price ?> افغانی</td>
                             <td class="text-center"><?=$expence->dex_total_amount ?> افغانی</td>
                             <td class="text-center"><?=mds_date("Y/F/d ", $bill->bill_date); ?></td>
-                            <td class="text-center"><a href="<?=site_url('finance/edit_daily_expence/'.$expence->dex_id); ?>" class="edit" id=""><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a>  <a class="remove" href="<?=site_url('finance/delete_daily_expence/'.$expence->dex_id.'/'.$expence->dex_total_amount.'/'.$bill->bill_total_amount.'/'.$expence->tr_acc_id.'/'.$expence->bill_id.'/'.$expence->tr_id); ?>"  ><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
+                            <td class="text-center"><a href="<?=site_url('finance/edit_daily_expence/'.$expence->dex_id.'/'.$expence->tr_acc_id); ?>" class="edit" id=""><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a>  <a class="remove" href="<?=site_url('finance/delete_daily_expence/'.$expence->dex_id.'/'.$expence->dex_total_amount.'/'.$bill->bill_total_amount.'/'.$expence->tr_acc_id.'/'.$expence->bill_id.'/'.$expence->tr_id); ?>"  ><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
                         </tr>
                         <?php endforeach ?>
                     </tbody>

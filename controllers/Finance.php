@@ -287,8 +287,9 @@ class Finance extends MY_Controller {
         $this->template->description = 'ویرایش خریداری و مصارف ثبت شده';
         $this->finance_model->expences();
         $dex = $this->finance_model->data_get($dex_id, TRUE);
+        $stock_units = $this->finance_model->stocks_join_units();
         // view
-        $this->template->content->view('finance/edit_expence', ['expence' => $dex]);
+        $this->template->content->view('finance/edit_expence', ['expence' => $dex, 'stock_units' => $stock_units]);
         $this->template->publish();
 
     } // edit_daily_expence
@@ -319,12 +320,21 @@ class Finance extends MY_Controller {
 
     public function update_expence($dex_id, $bill_id)
     {
+        // print_r($this->input->post()); die();
+
         // get current expence
         $this->finance_model->expences();
         $expences = $this->finance_model->data_get($dex_id, TRUE);
         // Update Expence
         $old_amount = $expences->dex_total_amount;
-        $this->finance_model->data_save($this->input->post(), $dex_id);
+        if(!$this->input->post('dex_unit_name'))
+        {
+            $this->finance_model->data_save($this->input->post(), $dex_id);
+        }
+        else
+        {   $data = $this->input->post();
+            $this->finance_model->data_save(['dex_name' => $data['dex_st_name'],'dex_unit' => $data['dex_unit'],'dex_st_unit' => $data['dex_name'],'dex_count' => $data['dex_count'],'dex_price' => $data['dex_price'], 'dex_total_amount' => $data['dex_total_amount']], $dex_id);
+        }
         // get current bill
         $this->finance_model->bills();
         $bill = $this->finance_model->data_get($bill_id, TRUE);
@@ -373,6 +383,7 @@ class Finance extends MY_Controller {
         $dex_trans = $this->finance_model->dex_join_trans($bill_id);
         $this->finance_model->bills();
         $bill = $this->finance_model->data_get($bill_id, TRUE);
+
         // view
         $this->template->content->view('finance/bill_details', [ 'bill' => $bill, 'dex_trans' => $dex_trans]);
         $this->template->publish();

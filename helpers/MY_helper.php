@@ -126,7 +126,6 @@ if(!function_exists("alert"))
                     '.$txt.'
                 </div>';
     }
-
 }
 
 

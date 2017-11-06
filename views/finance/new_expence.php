@@ -156,9 +156,9 @@ $(document).ready(function() {
             $('#submit').attr('disabled', false);
         }
         sum = 0;
-        var persentage = Math.round(100-persentage);
-        $('#progress-bar').css('width', persentage +'%');
-        $('.progress-description').html(persentage +' درصد کاهش از صندوق');
+        var persentage_plus = Math.round(100-persentage);
+        $('#progress-bar').css('width', persentage_plus +'%');
+        $('.progress-description').html(Math.round(persentage) +' درصد کاهش از صندوق');
     });
     $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
         e.preventDefault();

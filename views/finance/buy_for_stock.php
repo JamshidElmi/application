@@ -233,9 +233,9 @@ $(document).ready(function() {
             $('#sum_alt').val(new_amm+' افغانی');
 
             var persentage = parseFloat(new_amm)*parseFloat(100)/parseFloat(acc_amount);
-            var persentage = Math.round(100-persentage);
-            $('#progress-bar').css('width', persentage +'%');
-            $('.progress-description').html(persentage +' درصد کاهش از صندوق');
+            var persentage_plus = Math.round(100-persentage);
+            $('#progress-bar').css('width', persentage_plus +'%');
+            $('.progress-description').html(Math.round(persentage) +' درصد کاهش از صندوق');
 
             if(remain >= 0){
                 $('#partner-box').addClass('bg-green').removeClass('bg-red');
@@ -278,9 +278,9 @@ $(document).ready(function() {
                 $('#sum_alt').val(new_amm+' افغانی');
 
                 var persentage = parseFloat(new_amm)*parseFloat(100)/parseFloat(acc_amount);
-                var persentage = Math.round(100-persentage);
-                $('#progress-bar').css('width', persentage +'%');
-                $('.progress-description').html(persentage +' درصد کاهش از صندوق');
+                var persentage_plus = Math.round(100-persentage);
+                $('#progress-bar').css('width', persentage_plus +'%');
+                $('.progress-description').html(Math.round(persentage) +' درصد کاهش از صندوق');
 
 
                 var remain = parseFloat(acc_amount) - parseFloat(new_amm);

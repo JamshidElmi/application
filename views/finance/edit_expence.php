@@ -7,6 +7,8 @@
     padding: 0;
 }
 </style>
+
+<?php echo $this->uri->segment(4); ?>
 <div class="row">
     <div class="col-md-8">
         <div class="box box-success">
@@ -30,9 +32,11 @@
                                 <?php if ($expence->dex_st_unit == null): ?>
                                     <input type="text" class="form-control" value="<?=$expence->dex_name; ?>" name="dex_name" id="dex_name" placeholder="نام جنس" required/>
                                 <?php else: ?>
-                                    <select name="dex_st_unit" id="dex_st_unit" class="form-control" >
-                                        <option value="<?=$expence->dex_st_unit; ?>" ><?=$expence->dex_name; ?></option>
-                                        <?php stock_units('stock_units', 'st_name', 'st_unit'); ?>
+                                    <select name="dex_name" id="dex_st_unit" class="form-control" >
+                                        <option value="<?=$expence->dex_st_unit; ?>" st-unit="<?=$expence->dex_unit ?>" ><?=$expence->dex_name; ?></option>
+                                        <?php foreach ($stock_units as $stock_unit): ?>
+                                                <option value="<?=$stock_unit->st_id ?>" st-max-count="<?=$stock_unit->st_max_count ?>" st-unit-name="<?=$stock_unit->unit_name ?>" st-unit="<?=$stock_unit->st_unit ?>"><?=$stock_unit->st_name ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 <?php endif ?>
                             </div>
@@ -43,10 +47,13 @@
                                 <?php if ($expence->dex_st_unit == null): ?>
                                     <select name="dex_unit" id="dex_unit" class="form-control" required>
                                         <?php units(0, $expence->dex_unit); ?>
-                                        <?php units(0); ?>
+                                        <?php //units(0); ?>
                                     </select>
                                 <?php else: ?>
-                                    <input type="text" name="dex_unit" class="form-control" readonly>
+                                    <input type="text" name="dex_unit_name" id="dex_unit_name" class="form-control" readonly>
+                                    <input type="text" name="dex_unit" id="dex_unit" class="form-control" readonly>
+                                    <input type="text" name="dex_unit_id" id="dex_unit_id" class="form-control" readonly>
+                                    <input type="text" name="dex_st_name" id="dex_st_name" class="form-control" readonly>
                                 <?php endif; ?>
 
                             </div>
@@ -106,6 +113,31 @@ $('#dex_count').keyup(function(event) {
 });
 
 
+        var id      = $(this).val();
+        var unit    = $("#dex_st_unit option:selected").attr('st-unit');
+        var dex_st_name    = $("#dex_st_unit option:selected").text();
+        var unit_name = $("#dex_st_unit option:selected").attr('st-unit-name');
+        var max     = $("#dex_st_unit option:selected").attr('st-max-count');
+        // alert(unit_name);
+        $('#dex_unit_name').val(unit_name); //
+        $('#dex_st_name').val(dex_st_name); //
+        $('#dex_unit').val(unit); //
+        $('#dex_count').attr('max', max); //
+        $('#dex_unit_id').val(id); //
+// set max count and unit
+    $('#dex_st_unit').change(function(event) {
+        var id      = $(this).val();
+        var unit    = $("#dex_st_unit option:selected").attr('st-unit');
+        var dex_st_name    = $("#dex_st_unit option:selected").text();
+        var unit_name = $("#dex_st_unit option:selected").attr('st-unit-name');
+        var max     = $("#dex_st_unit option:selected").attr('st-max-count');
+        // alert(unit_name);
+        $('#dex_unit_name').val(unit_name); //
+        $('#dex_st_name').val(dex_st_name); //
+        $('#dex_unit').val(unit); //
+        $('#dex_count').attr('max', max); //
+        $('#dex_unit_id').val(id); //
+    });
 
 
 });
