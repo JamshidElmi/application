@@ -149,8 +149,8 @@ class Finance extends MY_Controller {
     {
         $this->template->description = 'لیست خریداری گدام و مصارف روزانه';
         $this->finance_model->bills();
-        // $expences = $this->finance_model->dex_join_trans([]);
-        $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
+        // $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
+        $expences = $this->finance_model->bill_join_trans($bill_type);
         // view
         $this->template->content->view('finance/expences', ['expences' => $expences, 'expences' => $expences]);
         $this->template->publish();
@@ -251,20 +251,12 @@ class Finance extends MY_Controller {
     } // end insert_expence
 
 
-    public function delete_bill_expence($bill_id, $bill_total_amount ,$type = NULL)
+    public function delete_bill_expence($bill_id, $bill_total_amount ,$acc_id ,$type)
     {
             // get current amount of account
             $this->finance_model->accounts();
 
-            if($type == NULL){
-                $account = $this->finance_model->data_get_by(['acc_type'=> 0], TRUE);
-            }
-            else{
-                $this->finance_model->transections();
-                $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'buy_stocks'], TRUE);
-                $this->finance_model->accounts();
-                $account = $this->finance_model->data_get($transection->tr_acc_id, TRUE);
-            }
+            $account = $this->finance_model->data_get($acc_id, TRUE);
 
             $this->finance_model->bills();
             if(!$this->finance_model->data_delete($bill_id))
@@ -316,7 +308,7 @@ class Finance extends MY_Controller {
 
         $this->finance_model->accounts();
         $account = $this->finance_model->data_get($acc_id, TRUE);
-        $acc_remain = $account->acc_amount + $remain;
+        $acc_remain = $account->acc_amount + $cost_amount;
         $this->finance_model->data_save(['acc_amount' => $acc_remain], $acc_id);
 
         $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
@@ -443,7 +435,8 @@ class Finance extends MY_Controller {
                 'dex_count'         => $data['dex_count'],
                 'dex_unit'          => $data['dex_unit_id'] ,
                 'dex_total_amount'  => $data['dex_total_amount']  ,
-                'dex_bill_id'       => $this->session->insert_ids['bill_id']
+                'dex_bill_id'       => $this->session->insert_ids['bill_id'],
+                'dex_tr_id'         => $trans_id
             );
             $this->finance_model->expences();
             $dex_id = $this->finance_model->data_save($data_dex);
@@ -488,7 +481,8 @@ class Finance extends MY_Controller {
                 'dex_count'         => $data['dex_count'],
                 'dex_unit'          => $data['dex_unit_id'] ,
                 'dex_total_amount'  => $data['dex_total_amount']  ,
-                'dex_bill_id'       => $this->session->insert_ids['bill_id']
+                'dex_bill_id'       => $this->session->insert_ids['bill_id'],
+                'dex_tr_id'         => $this->session->insert_ids['trans_id']
             );
             $this->finance_model->expences();
             $dex_id = $this->finance_model->data_save($data_dex);
@@ -514,4 +508,3 @@ class Finance extends MY_Controller {
 
 
 } // end class
-

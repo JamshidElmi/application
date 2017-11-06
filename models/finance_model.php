@@ -115,6 +115,17 @@ class finance_model extends MY_Model
         return $query->result();
     }
 
+    public function bill_join_trans($bill_type)
+    {
+        $this->db->from('transections');
+        $this->db->join('bills', 'transections.bill_id = bills.bill_id');
+        // $this->db->from('expences');
+        // $this->db->join('units', 'units.unit_id = expences.dex_unit');
+        $this->db->where('bill_type', $bill_type);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 
 
 
