@@ -193,31 +193,10 @@ class Finance extends MY_Controller {
             $this->finance_model->bills();
             $inserted_bill_id = $this->finance_model->data_save($bill_data);
 
-            $row = count($this->input->post('dex_unit'))-1;
             // get account data
             $this->finance_model->accounts();
             $account = $this->finance_model->data_get_by(['acc_type'=>0], TRUE);
 
-            // inserting every expence data
-            $this->finance_model->expences();
-            for($i=0; $i <= $row; $i++)
-            {
-                $data = array(
-                    'dex_name'          => $this->input->post('dex_name')[$i],
-                    'dex_price'         => $this->input->post('dex_price')[$i],
-                    'dex_count'         => $this->input->post('dex_count')[$i],
-                    'dex_unit'          => $this->input->post('dex_unit')[$i],
-                    'dex_total_amount'  => $this->input->post('dex_total_amount')[$i],
-                    'dex_bill_id'       => $inserted_bill_id
-                );
-                $result = $this->finance_model->data_save($data);
-                if(!is_int($result))
-                {
-                    $result = null;
-                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-                    redirect('finance/new_expence/');
-                }
-            } // end for
             // insertign transection data
             $data_trans = array(
                 'tr_amount'     => $this->input->post('bill_sum'),
@@ -235,6 +214,31 @@ class Finance extends MY_Controller {
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                 redirect('finance/new_expence/');
             }
+
+            $row = count($this->input->post('dex_unit'))-1;
+
+            // inserting every expence data
+            $this->finance_model->expences();
+            for($i=0; $i <= $row; $i++)
+            {
+                $data = array(
+                    'dex_name'          => $this->input->post('dex_name')[$i],
+                    'dex_price'         => $this->input->post('dex_price')[$i],
+                    'dex_count'         => $this->input->post('dex_count')[$i],
+                    'dex_unit'          => $this->input->post('dex_unit')[$i],
+                    'dex_total_amount'  => $this->input->post('dex_total_amount')[$i],
+                    'dex_bill_id'       => $inserted_bill_id,
+                    'dex_tr_id'         => $result_trans,
+                );
+                $result = $this->finance_model->data_save($data);
+                if(!is_int($result))
+                {
+                    $result = null;
+                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                    redirect('finance/new_expence/');
+                }
+            } // end for
+
 
             // updating account data
             $this->finance_model->accounts();
@@ -257,31 +261,31 @@ class Finance extends MY_Controller {
             }
             else{
                 $this->finance_model->transections();
-                $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'buy_stocks'], TURE);
+                $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'buy_stocks'], TRUE);
                 $this->finance_model->accounts();
                 $account = $this->finance_model->data_get($transection->tr_acc_id, TRUE);
             }
-            if (is_int($account)) {
-                $this->finance_model->bills();
-                if(!$this->finance_model->data_delete($bill_id))
-                {
-                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-                    redirect('finance/expences/0');
-                }
+
+            $this->finance_model->bills();
+            if(!$this->finance_model->data_delete($bill_id))
+            {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('finance/expences/'.$type);
             }
 
+            $this->finance_model->accounts();
             $new_amount = $account->acc_amount + $bill_total_amount;
             // Set new amount of account
             $acc_inserted = $this->finance_model->data_save(['acc_amount'=>$new_amount],$account->acc_id);
             if (is_int($acc_inserted))
             {
                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-                redirect('finance/expences/0');
+                redirect('finance/expences/'.$type);
             }
 
 
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-        redirect('finance/expences/0');
+        redirect('finance/expences/'.$type);
 
     } // end delete_bill_expence
 
@@ -297,9 +301,26 @@ class Finance extends MY_Controller {
 
     } // edit_daily_expence
 
-    public function delete_daily_expence($dex_id)
+    public function delete_daily_expence($dex_id, $cost_amount, $total_amount, $acc_id, $bill_id, $tr_id)
     {
-        # delete dex and update bill & trans & acc
+        $remain = $total_amount - $cost_amount;
+
+        $this->finance_model->expences();
+        $this->finance_model->data_delete($dex_id);
+
+        $this->finance_model->bills();
+        $this->finance_model->data_save(['bill_total_amount' => $remain], $bill_id);
+
+        $this->finance_model->transections();
+        $this->finance_model->data_save(['tr_amount' => $remain], $tr_id);
+
+        $this->finance_model->accounts();
+        $account = $this->finance_model->data_get($acc_id, TRUE);
+        $acc_remain = $account->acc_amount + $remain;
+        $this->finance_model->data_save(['acc_amount' => $acc_remain], $acc_id);
+
+        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+        redirect('finance/bill_details/'.$bill_id);
     }
 
 
@@ -356,11 +377,12 @@ class Finance extends MY_Controller {
     {
         $this->template->description = 'لیست جزئیات فاکتور';
         $this->finance_model->expences();
-        $expences = $this->finance_model->get_join_expences($bill_id);
+        // $expences = $this->finance_model->get_join_expences($bill_id);
+        $dex_trans = $this->finance_model->dex_join_trans($bill_id);
         $this->finance_model->bills();
         $bill = $this->finance_model->data_get($bill_id, TRUE);
         // view
-        $this->template->content->view('finance/bill_details', ['expences' => $expences, 'bill' => $bill]);
+        $this->template->content->view('finance/bill_details', [ 'bill' => $bill, 'dex_trans' => $dex_trans]);
         $this->template->publish();
     }
 

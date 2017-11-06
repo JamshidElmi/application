@@ -104,13 +104,15 @@ class finance_model extends MY_Model
     //     return true;
     // }
 
-    public function dex_join_trans($dex_id)
+    public function dex_join_trans($bill_id)
     {
         $this->db->from('expences');
         $this->db->join('transections', 'expences.dex_tr_id = transections.tr_id');
-        $this->db->where('dex_id', $dex_id);
+        // $this->db->from('expences');
+        $this->db->join('units', 'units.unit_id = expences.dex_unit');
+        $this->db->where('bill_id', $bill_id);
         $query = $this->db->get();
-        return $query->row();
+        return $query->result();
     }
 
 
