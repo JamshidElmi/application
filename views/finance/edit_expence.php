@@ -27,16 +27,28 @@
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="dex_name">نام جنس</label>
-                                <input type="text" class="form-control" value="<?=$expence->dex_name; ?>" name="dex_name" id="dex_name" placeholder="نام جنس" required/>
+                                <?php if ($expence->dex_st_unit == null): ?>
+                                    <input type="text" class="form-control" value="<?=$expence->dex_name; ?>" name="dex_name" id="dex_name" placeholder="نام جنس" required/>
+                                <?php else: ?>
+                                    <select name="dex_st_unit" id="dex_st_unit" class="form-control" >
+                                        <option value="<?=$expence->dex_st_unit; ?>" ><?=$expence->dex_name; ?></option>
+                                        <?php stock_units('stock_units', 'st_name', 'st_unit'); ?>
+                                    </select>
+                                <?php endif ?>
                             </div>
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label for="dex_unit">واحد</label>
-                                <select name="dex_unit" id="dex_unit" class="form-control" required>
-                                    <?php units(0, $expence->dex_unit); ?>
-                                    <?php units(0); ?>
-                                </select>
+                                <?php if ($expence->dex_st_unit == null): ?>
+                                    <select name="dex_unit" id="dex_unit" class="form-control" required>
+                                        <?php units(0, $expence->dex_unit); ?>
+                                        <?php units(0); ?>
+                                    </select>
+                                <?php else: ?>
+                                    <input type="text" name="dex_unit" class="form-control" readonly>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -92,7 +104,6 @@ $('#dex_count').keyup(function(event) {
     $('#dex_total_amount').val(new_amm);
     $('#dex_total_amount_alt').val(new_amm);
 });
-
 
 
 

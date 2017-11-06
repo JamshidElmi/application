@@ -73,6 +73,31 @@ if(!function_exists("units"))
     }
 }
 
+if(!function_exists("stock_units"))
+{
+    /**
+     * Select Province
+     *
+     * @param   string  setting name
+     * @return  mixed   Array of valus on fixed column of row
+     */
+    function stock_units($tbl, $name, $id)
+    {
+        $ci = & get_instance();
+        // if($type != null){
+        //     $ci->db->where('unit_type' , $type);
+        // }
+        // $ci->db->limit(1);
+        $units = $ci->db->get($tbl)->result();
+        //var_dump($units);
+        // $item = explode(',', current($setting[0]));
+        foreach ($units as $unit)
+        {
+            echo "<option value='".$unit->$id."'>". $unit->$name ."</option>";
+        }
+    }
+}
+
 if(!function_exists("alert"))
 {
     function alert($txt, $type = 'success')
