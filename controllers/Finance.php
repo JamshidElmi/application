@@ -515,6 +515,17 @@ class Finance extends MY_Controller {
         redirect('finance/expences/1');
     }
 
+    public function salary_payment()
+    {
+        $this->template->description = 'پرداخت معاش کارمندان';
+        $this->finance_model->employees();
+        $employees = $this->finance_model->data_get();
+
+        // view
+        $this->template->content->view('finance/salary_payment', [ 'employees' => $employees]);
+        $this->template->publish();
+    }
+
 
 
 

@@ -139,32 +139,7 @@ $('#dex_count').keyup(function(event) {
         $('#dex_unit_id').val(id); //
     });
 
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}); // end document
 
 
 $(document).ready(function() {
@@ -176,12 +151,5 @@ $(document).ready(function() {
         observer: true,
     });
 }); // end document
+
 </script>
-
-
-
-
-
-
-
-

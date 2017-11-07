@@ -88,6 +88,13 @@ class finance_model extends MY_Model
         $this->_order_by = 'bill_id';
     }
 
+    public function employees()
+    {
+        $this->_table_name = 'employees';
+        $this->_primary_key = 'emp_id';
+        $this->_order_by = 'emp_id';
+    }
+
     public function get_trans_dexs($acc_id)
     {
         $this->db->select_sum('tr_amount');

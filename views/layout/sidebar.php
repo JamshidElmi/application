@@ -112,7 +112,7 @@
                     </ul>
                 </li>
 
-                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پرداخت معاش کارمندان </a></li>
+                <li><a href="<?=site_url('finance/salary_payment'); ?>"><i class="fa fa-circle-o "></i> پرداخت معاش کارمندان </a></li>
             </ul>
         </li>
 
