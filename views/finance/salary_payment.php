@@ -100,7 +100,7 @@
                         </div>
                     </div>
 
-                <input type="text" name="sal_payable" id="sal_payable">
+                <input type="hidden" name="sal_payable" id="sal_payable" >
                 </div>
                 <!-- /.box-body -->
 
@@ -188,15 +188,20 @@ $(document).ready(function() {
         $sal_fine   = $('#sal_fine').val();
         $sal_tax    = $('#sal_tax').val();
 
+        $total =  parseFloat($emp_salary) +  parseFloat($sal_bonus);
+        $total =  parseFloat($total) -  parseFloat($sal_fine);
+
         $sal_payable_new = parseFloat($emp_salary) - parseFloat($sal_amount);
         $sal_payable_new = parseFloat($sal_payable_new) + parseFloat($sal_bonus);
         $sal_payable_new = parseFloat($sal_payable_new) - parseFloat($sal_fine);
         if ($sal_tax > 0) {
             $tax = parseFloat($emp_salary) / 100 * parseFloat($sal_tax);
             $sal_payable_new = parseFloat($sal_payable_new) - parseFloat($tax);
+
+            $total =  parseFloat($total) - parseFloat($tax);
         }
 
-        $('#sal_payable').val($sal_payable_new);
+        $('#sal_payable').val($total);
         $('#sal_remain').val($sal_payable_new);
 
 

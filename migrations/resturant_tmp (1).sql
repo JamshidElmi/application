@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2017 at 12:30 PM
+-- Generation Time: Nov 07, 2017 at 01:05 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -208,6 +208,24 @@ INSERT INTO `migrations` (`version`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `salary`
+--
+
+CREATE TABLE `salary` (
+  `sal_id` int(11) NOT NULL,
+  `sal_amount` decimal(10,2) NOT NULL,
+  `sal_tax` decimal(10,2) NOT NULL,
+  `sal_bonus` decimal(10,2) NOT NULL,
+  `sal_fine` decimal(10,2) NOT NULL,
+  `sal_payable` decimal(10,2) NOT NULL,
+  `sal_date` varchar(16) NOT NULL,
+  `sal_month` int(2) NOT NULL,
+  `sal_emp_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stock_units`
 --
 
@@ -356,6 +374,12 @@ ALTER TABLE `jobs`
   ADD PRIMARY KEY (`job_id`);
 
 --
+-- Indexes for table `salary`
+--
+ALTER TABLE `salary`
+  ADD PRIMARY KEY (`sal_id`);
+
+--
 -- Indexes for table `stock_units`
 --
 ALTER TABLE `stock_units`
@@ -417,6 +441,11 @@ ALTER TABLE `expences`
 --
 ALTER TABLE `jobs`
   MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+--
+-- AUTO_INCREMENT for table `salary`
+--
+ALTER TABLE `salary`
+  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `stock_units`
 --
