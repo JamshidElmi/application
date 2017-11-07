@@ -67,6 +67,13 @@ class finance_model extends MY_Model
         $this->_order_by = 'unit_id';
     }
 
+    public function salary()
+    {
+        $this->_table_name = 'salary';
+        $this->_primary_key = 'sal_id';
+        $this->_order_by = 'sal_id';
+    }
+
     public function stocks()
     {
         $this->_table_name = 'stocks';

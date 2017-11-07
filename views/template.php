@@ -93,9 +93,9 @@
                 'vectormap-1' => 'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js' ,
                 'jvectormap-world' => 'plugins/jvectormap/jquery-jvectormap-world-mill-en.js' ,
                 'jquery.knob' => 'components/jquery-knob/dist/jquery.knob.min.js' ,
-                'moment.min' => 'components/moment/min/moment.min.js' ,
-                'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.js' ,
-                'bootstrap-datepicker' => 'components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' ,
+                // 'moment.min' => 'components/moment/min/moment.min.js' ,
+                // 'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.js' ,
+                // 'bootstrap-datepicker' => 'components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' ,
                 'bootstrap3-wysihtml5' => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' ,
                 'jquery.slimscroll' => 'components/jquery-slimscroll/jquery.slimscroll.min.js' ,
                 'fastclick' => 'components/fastclick/lib/fastclick.js' ,
@@ -104,8 +104,6 @@
                 'demo' => 'assets/js/demo.js',
                 'persian-date-0.1.8' => 'assets/js/persian-date.js',
                 'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
-
-
             );
          ?>
         <?php echo $this->template->javascript->add($script); ?>

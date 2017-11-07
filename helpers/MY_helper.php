@@ -150,6 +150,26 @@ if(!function_exists("options"))
     }
 }
 
+if(!function_exists("base_account"))
+{
+    /**
+     * Select [options]
+     *
+     * @param   string  setting name
+     * @return  mixed   Array of valus on fixed column of row
+     */
+    function base_account()
+    {
+        $ci = & get_instance();
+        // $ci->db->select($field);
+        $ci->db->where('acc_type' ,0);
+        $ci->db->limit(1);
+        $account_info = $ci->db->get('accounts')->row();
+        return $account_info;
+
+    }
+}
+
 
 if(!function_exists("permission"))
 {

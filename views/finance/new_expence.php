@@ -80,7 +80,7 @@
 
                     <div class="form-group">
                         <label for="acc_description">توضیحات / یادداشت</label>
-                        <textarea type="number" rows="7" class="form-control" name="bill_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                        <textarea rows="7" class="form-control" name="bill_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
 

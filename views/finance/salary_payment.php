@@ -6,7 +6,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url('user/insert'); ?>" method='POST' >
+            <form role="form" action="<?php echo site_url('finance/insert_salary'); ?>" method='POST' >
 
                 <div class="box-body">
                         <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
@@ -34,7 +34,7 @@
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
-                                    <input type="hidden" id="tarikhAlt" name="sal_date" class="form-control pull-right" style="z-index: 0;" >
+                                    <input type="hidden" id="tarikhAlt" name="sal_date"  class="form-control pull-right" style="z-index: 0;" >
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -42,13 +42,14 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="tarikh">تاریخ</label>
+                                <label for="tarikh">برج / ماه</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
                                     <input type="text" id="tarikh_month" class="form-control pull-right" style="z-index: 0;" readonly>
-                                    <input type="hidden" id="tarikhAlt_month" name="sal_month" class="form-control pull-right" style="z-index: 0;" >
+                                    <!-- <input type="text" id="tarikhAlt_month" name="sal_month" class="form-control pull-right" style="z-index: 0;" > -->
+                                    <input type="text" id="tarikhAlt_month" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -60,7 +61,8 @@
                                 <label for="sal_tax">مالیات</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><strong>%</strong></span>
-                                <input type="number"  class="form-control" id="sal_tax" step=".01" value="0" required />
+                                <input type="number"  class="form-control" id="sal_tax_alt" step=".01" value="0" required />
+                                <input type="hidden"  class="form-control" name="sal_tax" id="sal_tax" step=".01" value="0" required />
                               </div>
                         </div>
                         <div class="col-sm-4">
@@ -86,9 +88,9 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                                <label for="sal_amount">مقدار معاش پرداختی</label>
+                                <label for="sal_amount">مقدار پرداختی  معاش </label>
                             <div class="input-group">
-                                <input type="number"  class="form-control" id="sal_amount" step=".01" placeholder="اعشاری" required />
+                                <input type="number"  class="form-control" name="sal_amount" id="sal_amount" step=".01" placeholder="اعشاری" required />
                                 <span class="input-group-addon">افغانی</span>
                             </div>
                         </div>
@@ -100,6 +102,11 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label for="sal_desc">توضیحات / یادداشت</label>
+                        <textarea rows="5" class="form-control" name="sal_desc" id="sal_desc" placeholder="توضیحات / یادداشت" /></textarea>
+                    </div>
+
                 <input type="hidden" name="sal_payable" id="sal_payable" >
                 </div>
                 <!-- /.box-body -->
@@ -108,7 +115,7 @@
                     <button type="submit" id="submit" disabled="disabled" class="btn btn-primary">پرداخت معاش <i class="fa ion-cash"></i></button>
                     <button type="reset" class="btn btn-default">پاک کردن <i class="fa fa-refresh"></i></button>
                     <br>
-                    <small>لطفاً قبل از فشردن دکمه ایجاد حساب یکی از کارمندان را انتخاب کنید </small>
+                    <small>لطفاً قبل از فشردن دکمه پرداخت معاش یکی از کارمندان را انتخاب کنید </small>
                 </div>
 
             </form>
@@ -174,19 +181,43 @@ $(document).ready(function() {
     // Month Picker
     $('#tarikh_month').persianDatepicker({
         altField: '#tarikhAlt_month',
-        altFormat: 'M',
-        format: 'MMMM',
-        viewMode: 'month',
-        observer: true,
-        onlySelectOnDate: false
+        persianDigit: true,
+        autoClose: true,
+        yearPicker:{
+            enabled: false,
+        },
+        monthPicker:{
+            enabled: true,
+        },
+        dayPicker:{
+            enabled: false,
+        },
+        format: "MMMM",
+        toolbox: {
+            text: {
+                btnToday: 'این ماه'
+            },
+            justSelectOnDate: false
+        },
+        altFormat: "YYYY",
+        // altFieldFormatter: alt_font() ,
     });
+
+    // function alt_font(){
+    //     $('#year-picker').change(function() {
+    //             //alert($(this).val());
+    //             $('#yearpickerAlt').css("font-family", 'b titr');
+
+    //         });
+    // }
+
 
     $('#sal_amount').keyup(function(event) {
         $emp_salary = $('#emp_salary').val();
         $sal_amount = $(this).val();
         $sal_bonus  = $('#sal_bonus').val();
         $sal_fine   = $('#sal_fine').val();
-        $sal_tax    = $('#sal_tax').val();
+        $sal_tax    = $('#sal_tax_alt').val();
 
         $total =  parseFloat($emp_salary) +  parseFloat($sal_bonus);
         $total =  parseFloat($total) -  parseFloat($sal_fine);
@@ -200,9 +231,15 @@ $(document).ready(function() {
 
             $total =  parseFloat($total) - parseFloat($tax);
         }
+        else{
+            $('#sal_remain').val($sal_payable_new);
+            $('#sal_tax').val($tax);
+            $('#sal_payable').val($total);
+        }
 
-        $('#sal_payable').val($total);
-        $('#sal_remain').val($sal_payable_new);
+            $('#sal_remain').val($sal_payable_new);
+            $('#sal_tax').val($tax);
+            $('#sal_payable').val($total);
 
 
 
