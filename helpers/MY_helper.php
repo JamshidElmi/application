@@ -23,6 +23,7 @@ if ( ! function_exists('option'))
 
 
 
+
 if ( ! function_exists('show_date'))
 {
     /**
@@ -43,7 +44,6 @@ if ( ! function_exists('show_date'))
     }
 
 }
-
 
 
 if(!function_exists("setting_option"))

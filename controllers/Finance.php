@@ -578,44 +578,42 @@ class Finance extends MY_Controller {
         }
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
         redirect('finance/salary_payment/');
-
     }
 
 
-        public function pay_salary()
-        {
-            $this->template->description = 'پرداخت باقیمانده معاش کارمند';
-            // $date[0] ==> year   -|-   $date[0] ==> month
-            $date = explode('-', $this->input->post('date'));
-            $emp_id = $this->input->post('emp_id');
+    public function pay_salary()
+    {
+        $this->template->description = 'پرداخت باقیمانده معاش کارمند';
+        // $date[0] ==> year   -|-   $date[0] ==> month
+        $date = explode('-', $this->input->post('date'));
+        $emp_id = $this->input->post('emp_id');
 
-            $salaries = $this->finance_model->sal_join_trans_join_emp($emp_id, $date[0], $date[1]);
-            if(!$salaries){
-                $this->session->set_flashdata('form_errors', 'برای کارمند مورد نظر در برج وارد شده معاش پرداخت نشده است.');
-                redirect('finance/salary_payment/');
-            }
-
-            $this->finance_model->employees();
-            $employee = $this->finance_model->data_get($emp_id, TRUE);
-            // print_r($emp); die();
-
-            // view
-            $this->template->content->view('finance/pay_salary', ['salaries' => $salaries, 'employee' => $employee]);
-            $this->template->publish();
+        $salaries = $this->finance_model->sal_join_trans_join_emp($emp_id, $date[0], $date[1]);
+        if(!$salaries){
+            $this->session->set_flashdata('form_errors', 'برای کارمند مورد نظر در برج وارد شده معاش پرداخت نشده است.');
+            redirect('finance/salary_payment/');
         }
 
-        public function salary($emp_id)
-        {
-            $this->template->description = 'لیست پرداخت معاشات کارمندان';
+        $this->finance_model->employees();
+        $employee = $this->finance_model->data_get($emp_id, TRUE);
+        // print_r($emp); die();
 
-            $this->finance_model->salary();
-            $salary = $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
-            print_r($salary);
-            // $employees = $this->finance_model->sal_join_trans_join_emp($salary->);
-            // view
-            // $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
-            // $this->template->publish();
-        }
+        // view
+        $this->template->content->view('finance/pay_salary', ['salaries' => $salaries, 'employee' => $employee]);
+        $this->template->publish();
+    }
+
+    public function salary($emp_id)
+    {
+        $this->template->description = 'لیست پرداخت معاشات کارمندان';
+
+        $this->finance_model->salary();
+        $salary = $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
+        $employees = $this->finance_model->sal_join_trans_join_emp($emp_id);
+        // view
+        $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
+        $this->template->publish();
+    }
 
 
 
