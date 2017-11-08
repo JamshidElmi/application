@@ -23,6 +23,28 @@ if ( ! function_exists('option'))
 
 
 
+if ( ! function_exists('show_date'))
+{
+    /**
+     * Select Province
+     *
+     * @param   array   array of goten data from database
+     * @return  mixed   just options of a select input control
+     */
+    function show_date($format, $date)
+    {
+        $val = explode('-', $date);
+        // print_r($val);
+        $year = $val[0];
+        $month = $val[1];
+        $day = $val[2];
+        $show = mds_date($format,make_time('0','0','0',$day,$month,$year),0);
+        return $show;
+    }
+
+}
+
+
 
 if(!function_exists("setting_option"))
 {

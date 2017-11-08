@@ -564,6 +564,8 @@ class Finance extends MY_Controller {
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
         redirect('finance/salary_payment/');
 
+    }
+
 
         // public function pay_salary()
         // {
@@ -579,16 +581,17 @@ class Finance extends MY_Controller {
         {
             $this->template->description = 'لیست پرداخت معاشات کارمندان';
 
-            $this->finance_model->salary()
+            $this->finance_model->salary();
             $salary = $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
-            $employees = $this->finance_model->sal_join_trans_join_emp($emp_id);
+            print_r($salary);
+            // $employees = $this->finance_model->sal_join_trans_join_emp($salary->);
             // view
-            $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
-            $this->template->publish();
+            // $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
+            // $this->template->publish();
         }
 
 
-    }
+
 
 
 
