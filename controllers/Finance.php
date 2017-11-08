@@ -529,29 +529,45 @@ class Finance extends MY_Controller {
     public function insert_salary()
     {
         // print_r(base_account()->acc_id); die();
-        print_r($this->input->post()); die();
+        // print_r($this->input->post()); die();
 
         $data = $this->input->post();
 
         // insert salary
         $this->finance_model->salary();
         $sal_id = $this->finance_model->data_save($data);
+        if (is_int($sal_id))
+        {
+            $this->finance_model->transections();
+            $trans_data = array(
+                'tr_desc'   => $data['sal_desc'],
+                'tr_amount' => $data['sal_amount'],
+                'tr_type'   => 'salary',
+                'tr_date'   => $data['sal_date'],
+                'tr_status' => 2,
+                'tr_acc_id' => base_account()->acc_id,
+                'tr_sal_id' => $sal_id,
+                );
+            $trnas_id = $this->finance_model->data_save($trans_data);
+            if (is_int($trnas_id))
+            {
+                $this->finance_model->accounts();
+                $acc_remain_amount = base_account()->acc_amount - $data['sal_amount'];
+                $acc_id = $this->finance_model->data_save(['acc_amount' => $acc_remain_amount], base_account()->acc_id);
+                if (is_int($acc_id))
+                {
+                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                    redirect('finance/salary_payment/');
+                }
+            }
+        }
+        $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+        redirect('finance/salary_payment/');
 
-        $this->finance_model->transections();
-        $trans_data = array(
-            'tr_desc'   => $data['sal_desc'],
-            'tr_amount' => $data['sal_amount'],
-            'tr_type'   => 'salary',
-            'tr_date'   => $data['sal_date'],
-            'tr_status' => 2,
-            'tr_acc_id' => base_account()->acc_id,
-            'tr_sal_id' => $sal_id,
-            );
-        $this->finance_model->data_save($trans_data);
 
-        $this->finance_model->accounts();
-        $acc_remain_amount = base_account()->acc_amount - $data['sal_amount'];
-        $this->finance_model->data_save(['acc_amount' => $acc_remain_amount], base_account()->acc_id);
+
+
+
     }
 
 

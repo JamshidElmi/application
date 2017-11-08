@@ -49,7 +49,7 @@
                                     </div>
                                     <input type="text" id="tarikh_month" class="form-control pull-right" style="z-index: 0;" readonly>
                                     <!-- <input type="text" id="tarikhAlt_month" name="sal_month" class="form-control pull-right" style="z-index: 0;" > -->
-                                    <input type="text" id="tarikhAlt_month" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
+                                    <input type="hidden" id="tarikhAlt_month" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -176,12 +176,13 @@ $(document).ready(function() {
         altFormat: 'X',
         format: 'D/MMMM/YYYY',
         observer: true,
+        position: [-65,0]
     });
 
     // Month Picker
     $('#tarikh_month').persianDatepicker({
         altField: '#tarikhAlt_month',
-        persianDigit: true,
+        persianDigit: false,
         autoClose: true,
         yearPicker:{
             enabled: false,
@@ -199,8 +200,22 @@ $(document).ready(function() {
             },
             justSelectOnDate: false
         },
-        altFormat: "YYYY",
+        altFormat: "M",
         // altFieldFormatter: alt_font() ,
+
+        calendar: {
+                persian: {
+                    enabled: true,
+                    locale: 'en',
+                    leapYearMode: "algorithmic" // "astronomical"
+                },
+
+                gregorian: {
+                    enabled: false,
+                    locale: 'fa'
+                }
+            },
+        position: [-65,0]
     });
 
     // function alt_font(){

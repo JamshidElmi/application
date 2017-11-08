@@ -19,18 +19,25 @@
               'skins'           => 'assets/css/skins/_all-skins.min.css',
               'morris'          => 'components/morris.js/morris.css',
               'jvectormap'      => 'components/jvectormap/jquery-jvectormap.css',
-              'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
+              // 'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
               'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
-              'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
+              // 'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
+
+              'timepicker'      => 'assets/datepicker/dist/css/persian-datepicker.css',
+
+
               'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
               'jquery-confirm'  => 'plugins/jquery-confirm/jquery-confirm.min.css',
               'style'           => 'assets/css/style.css'
+
 
         ); ?>
         <!-- Exretnal Scripts -->
         <?php $scripts = array(
             'jquery'            => 'components/jquery/dist/jquery.min.js' ,
             'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
+            'datepicker'    => 'assets/datepicker/dist/js/persian-date.js' ,
+            'datepicker-js'    => 'assets/datepicker/dist/js/persian-datepicker.js' ,
          ); ?>
 
         <?php echo $this->template->stylesheet->add($styles); ?>
@@ -102,8 +109,8 @@
                 'adminlte' => 'assets/js/adminlte.min.js' ,
                 'dashboard' => 'assets/js/pages/dashboard.js' ,
                 'demo' => 'assets/js/demo.js',
-                'persian-date-0.1.8' => 'assets/js/persian-date.js',
-                'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
+                // 'persian-date-0.1.8' => 'assets/js/persian-date.js',
+                // 'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
             );
          ?>
         <?php echo $this->template->javascript->add($script); ?>
