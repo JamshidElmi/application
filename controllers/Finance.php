@@ -565,7 +565,27 @@ class Finance extends MY_Controller {
         redirect('finance/salary_payment/');
 
 
+        // public function pay_salary()
+        // {
+        //     $this->template->description = 'پرداخت باقیمانده معاش کارمند';
 
+        //     // emp = $this->finance_model->sal_join_trans_join_emp();
+        //     // view
+        //     $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
+        //     $this->template->publish();
+        // }
+
+        public function salary($emp_id)
+        {
+            $this->template->description = 'لیست پرداخت معاشات کارمندان';
+
+            $this->finance_model->salary()
+            $salary = $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
+            $employees = $this->finance_model->sal_join_trans_join_emp($emp_id);
+            // view
+            $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
+            $this->template->publish();
+        }
 
 
     }

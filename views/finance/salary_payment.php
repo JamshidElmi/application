@@ -147,7 +147,7 @@
                                     <td><?=$employee->emp_position; ?></td>
                                     <td><?=($employee->emp_type == 0) ? '<span class="badge bg-orange">آشپزخانه</span>' : '<span class="badge bg-green">رستورانت</span>' ; ?></td>
                                     <td><?=$employee->emp_salary; ?> افغانی</td>
-                                    <td class="text-center"><a class="label bg-gray" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>','<?=$employee->emp_salary?>');"><i class="fa fa-money fa-lg"></i></a></td>
+                                    <td class="text-center"><a class="label bg-green" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>','<?=$employee->emp_salary?>');"><i class="fa fa-money fa-lg"></i></a> <a class="label bg-gray" href="<?=site_url('finance/salary/'.$employee->emp_id); ?>"><i class="fa fa-list fa-lg"></i></a></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>

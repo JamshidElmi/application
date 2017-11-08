@@ -140,6 +140,16 @@ class finance_model extends MY_Model
         return $query->result();
     }
 
+    public function sal_join_trans_join_emp($emp_id)
+    {
+        $this->db->from('transections');
+        $this->db->join('salary', 'transections.tr_sal_id = salary.sal_id');
+        $this->db->where('tr_emp_id' , $emp_id);
+        $query = $this->db->get();
+        return $query->result();
+        // $this->db->join('employees', 'salary.sal_id = employees.emp_id');
+    }
+
 
 
 
