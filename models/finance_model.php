@@ -140,14 +140,19 @@ class finance_model extends MY_Model
         return $query->result();
     }
 
-    public function sal_join_trans_join_emp($emp_id)
+    public function sal_join_trans_join_emp($emp_id, $year, $month)
     {
-        $this->db->from('transections');
-        $this->db->join('salary', 'transections.tr_sal_id = salary.sal_id');
-        $this->db->where('tr_emp_id' , $emp_id);
+        $next_year = $year+1;
+        $last_year = $year-1;
+        $this->db->from('salary');
+        $this->db->join('transections', 'transections.tr_sal_id = salary.sal_id');
+        $this->db->where('sal_emp_id' , $emp_id);
+        $this->db->where('sal_date <' , $next_year.'-0-0');
+        $this->db->where('sal_date >' , $last_year.'-0-0');
+        $this->db->where('sal_month' , $month);
         $query = $this->db->get();
+        // echo $this->db->last_query(); die();
         return $query->result();
-        // $this->db->join('employees', 'salary.sal_id = employees.emp_id');
     }
 
 

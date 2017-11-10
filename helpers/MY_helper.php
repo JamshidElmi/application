@@ -36,8 +36,8 @@ if ( ! function_exists('show_date'))
         $val = explode('-', $date);
         // print_r($val);
         $year = $val[0];
-        $month = $val[1];
-        $day = $val[2];
+        $day = $val[1];
+        $month = $val[2];
         $show = mds_date($format,make_time('0','0','0',$day,$month,$year),0);
         return $show;
     }

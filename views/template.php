@@ -20,10 +20,11 @@
               'morris'          => 'components/morris.js/morris.css',
               'jvectormap'      => 'components/jvectormap/jquery-jvectormap.css',
               // 'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
-              'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
+              // 'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
               // 'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
 
-              'timepicker'      => 'assets/datepicker/dist/css/persian-datepicker.css',
+              'timepicker'      => 'plugins/persian-datepicker/persian-datepicker.css',
+              // 'timepicker-theme'=> 'plugins/persian-datepicker/theme/persian-datepicker-redblack.min.css',
 
 
               'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
@@ -36,8 +37,8 @@
         <?php $scripts = array(
             'jquery'            => 'components/jquery/dist/jquery.min.js' ,
             'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
-            'datepicker'    => 'assets/datepicker/dist/js/persian-date.js' ,
-            'datepicker-js'    => 'assets/datepicker/dist/js/persian-datepicker.js' ,
+            'persian-date'        => 'plugins/persian-datepicker/persian-date.js' ,
+            'datepicker'     => 'plugins/persian-datepicker/persian-datepicker.js' ,
          ); ?>
 
         <?php echo $this->template->stylesheet->add($styles); ?>

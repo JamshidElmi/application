@@ -3,7 +3,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">پرداخت معاش کارمند</h3>
-                <?php show_date('Y/m/d', '1395-10-5'); ?>
+                <?php // show_date('Y/m/d', '1395-10-5'); ?>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -58,29 +58,6 @@
 
                     <div class="row">
                         <div class="col-sm-4">
-                                <label for="sal_tax">مالیات</label>
-                            <div class="input-group">
-                                <span class="input-group-addon"><strong>%</strong></span>
-                                <input type="number"  class="form-control" id="sal_tax_alt" step=".01" value="0" required />
-                                <input type="hidden"  class="form-control" name="sal_tax" id="sal_tax" step=".01" value="0" required />
-                              </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="sal_fine">جریمه</label>
-                                <input type="number" name="sal_fine" class="form-control" id="sal_fine" step=".01"  value="0" required />
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label for="sal_bonus">انعام</label>
-                                <input type="number"  class="form-control" name="sal_bonus" id="sal_bonus" step=".01" value="0" required/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-4">
                                 <label for="emp_salary">معاش کارمند</label>
                             <div class="input-group">
                                 <input type="number"  class="form-control" id="emp_salary" step=".01" placeholder="مقدار باقیمانده" value="0" readonly>
@@ -107,7 +84,7 @@
                         <textarea rows="5" class="form-control" name="sal_desc" id="sal_desc" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
-                <input type="text" name="sal_payable" id="sal_payable" >
+                <input type="hidden" name="sal_payable" id="sal_payable" >
                 </div>
                 <!-- /.box-body -->
 
@@ -128,29 +105,54 @@
             </div>
             <!-- /.box-header -->
                 <div class="box-body no-padding">
+                <table class="table table-hover table-warning table-border">
+                    <tr>
+                        <th class="text-center bg-info">نام و تخلص</th>
+                        <th class="text-center bg-info">برج / ماه</th>
+                        <th class="text-center bg-info">معاش اصلی</th>
+                        <th class="text-center bg-info">باقیمانده معاش</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><?=$employee->emp_name.' '.$employee->emp_lname ?></td>
+                        <td class="text-center"><?=show_date('F', '1396-'.$salaries[0]->sal_month.'-01')?></td>
+                        <td class="text-center"><?=$employee->emp_salary?> افغانی</td>
+                        <td class="text-center"><?=$salaries[0]->sal_remain?> افغانی</td>
+                    </tr>
+
+                    <tr>
+                        <th class="text-center bg-info">مالیت</th>
+                        <th class="text-center bg-info">انهام</th>
+                        <th class="text-center bg-info">جریمه</th>
+                        <th class="text-center bg-info">معاش قابل پرداخت</th>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><?=$salaries[0]->sal_tax?> افغانی</td>
+                        <td class="text-center"><?=$salaries[0]->sal_bonus?> افغانی</td>
+                        <td class="text-center"><?=$salaries[0]->sal_fine?> افغانی</td>
+                        <td class="text-center"><?=$salaries[0]->sal_payable?> افغانی</td>
+                    </tr>
+                </table>
+
                     <table class="table table-hover table-warning">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>نام و تخلص</th>
-                                <th>وظیفه</th>
-                                <th>بخش کاری</th>
-                                <th>معاش</th>
-                                <th>پرداخت معاش</th>
+                                <th>مقدار پرداختی</th>
+                                <th>توضیحات</th>
+                                <th>تاریخ پرداخت</th>
+                                <th>عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $i = 1; foreach ($employees as $employee): ?>
+                            <?php $i = 1; foreach ($salaries as $salary): ?>
                                 <tr>
                                     <td><?=$i++ ?></td>
-                                    <td><?=$employee->emp_name. ' ' . $employee->emp_lname; ?></td>
-                                    <td><?=$employee->emp_position; ?></td>
-                                    <td><?=($employee->emp_type == 0) ? '<span class="badge bg-orange">آشپزخانه</span>' : '<span class="badge bg-green">رستورانت</span>' ; ?></td>
-                                    <td><?=$employee->emp_salary; ?> افغانی</td>
-                                    <!-- <td><?php // echo show_date('d/F/Y', '1395-10-5'); ?></td> -->
+                                    <td><?=$salary->tr_amount; ?> افغانی</td>
+                                    <td><?=$salary->tr_desc; ?> </td>
+                                    <td><?php  echo show_date('d/F/Y', $salary->tr_date); ?></td>
                                     <td class="text-center">
-                                        <a class="label bg-green" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>','<?=$employee->emp_salary?>');"  data-toggle="tooltip" title="" data-original-title="Pay Salary"><i class="fa fa-money fa-lg"></i></a>
-                                        <a class="label bg-gray" class="pay_salary" onclick="$('#emp_id').val(<?=$employee->emp_id; ?>);" id="<?=$employee->emp_id; ?>" data-toggle="modal" data-target="#myModal" ><i class="fa fa-list fa-lg" data-toggle="tooltip" title="" data-original-title="Pay Remian Salary / Payment List"></i></a>
+                                        <a class="label bg-green" ><i class="fa fa-money fa-lg"></i></a>
+                                        <a class="label bg-gray" class="pay_salary"  data-toggle="modal" data-target="#myModal" ><i class="fa fa-list fa-lg"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
@@ -182,7 +184,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                             <input type="text" id="tarikh_year_month" class="form-control pull-right" style="z-index: 0;" readonly>
-                            <input type="hidden" id="tarikhAlt_year_month" name="date" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
+                            <input type="hidden" id="tarikhAlt_year_month" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
                         </div>
                         <!-- /.input group -->
                         <input type="hidden" id="emp_id" name="emp_id"/>
@@ -200,13 +202,13 @@
 
 
 <script>
-function select_emp(id, name, lname, position, salary) {
-    $("#sal_emp_id").val(id);
-    $("#emp_full_name").val(name + ' ' + lname);
-    $("#emp_position").val(position);
-    $("#emp_salary").val(salary);
-    $("#submit").attr('disabled', false);
-}
+// function select_emp(id, name, lname, position, salary) {
+//     $("#sal_emp_id").val(id);
+//     $("#emp_full_name").val(name + ' ' + lname);
+//     $("#emp_position").val(position);
+//     $("#emp_salary").val(salary);
+//     $("#submit").attr('disabled', false);
+// }
 
 $(document).ready(function() {
     // Date Picker
@@ -283,7 +285,7 @@ $(document).ready(function() {
             enabled: false,
         },
         format: "YYYY/MMMM",
-        altFormat: "YYYY-M",
+        altFormat: "YYYY/M",
 
         calendar: {
                 persian: {
@@ -299,7 +301,7 @@ $(document).ready(function() {
         position: [-65,0]
     });
 
-
+/*
     $('#sal_amount').keyup(function(event) {
         $emp_salary = $('#emp_salary').val();
         $sal_amount = $(this).val();
@@ -317,10 +319,13 @@ $(document).ready(function() {
             $tax = parseFloat($emp_salary) / 100 * parseFloat($sal_tax);
             $sal_payable_new = parseFloat($sal_payable_new) - parseFloat($tax);
 
-            $total = parseFloat($total) - parseFloat($tax);
+            $total =  parseFloat($total) - parseFloat($tax);
         }
-
-
+        else{
+            $('#sal_remain').val($sal_payable_new);
+            $('#sal_tax').val($tax);
+            $('#sal_payable').val($total);
+        }
 
             $('#sal_remain').val($sal_payable_new);
             $('#sal_tax').val($tax);
@@ -329,7 +334,7 @@ $(document).ready(function() {
 
 
     });
-
+*/
 
 }); // end document
 </script>

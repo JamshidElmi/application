@@ -1,9 +1,3 @@
-<style>
-.table-border th , .table-border td , .table-border
-{
-    border:2px solid #BEBEBE;
-}
-</style>
 <div class="box box-primary box-solid">
     <div class="box-header with-border">
         <h3 class="box-title">اطلاعات کارمند: <?php echo ($employee->emp_gendar == 0) ? 'خانم' : 'آقای'; ?> <?=$employee->emp_name ." ". $employee->emp_lname ?></h3>
