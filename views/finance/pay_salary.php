@@ -119,7 +119,7 @@
                     </tr>
 
                     <tr>
-                        <th class="text-center bg-info">مالیت</th>
+                        <th class="text-center bg-info">مالیات</th>
                         <th class="text-center bg-info">جریمه</th>
                         <th class="text-center bg-info">انعام</th>
                         <th class="text-center bg-info">باقیمانده معاش</th>

@@ -634,8 +634,8 @@ class Finance extends MY_Controller {
             // echo $this->db->last_query();
         if ($emp_sal) {
             // echo $data['sal_remain']; die();
-            //$remain = $emp_sal->sal_remain - $data['sal_remain'];
-            $this->finance_model->data_save(['sal_remain' => $data['sal_remain']], $emp_sal->sal_id);
+            $amount = $emp_sal->sal_amount + $data['sal_amount'];
+            $this->finance_model->data_save(['sal_remain' => $data['sal_remain'], 'sal_amount' => $amount], $emp_sal->sal_id);
             // insert new trnasection
             $this->finance_model->transections();
             $this->finance_model->data_save([
@@ -663,9 +663,9 @@ class Finance extends MY_Controller {
         }
     } // end insert_salary_pay
 
-    public function delete_salary($tr_id)
+    public function delete_salary()
     {
-        sleep(1);
+        $tr_id = $this->input->post('tr_id');
         // get trnasection info
         $this->finance_model->transections();
         $transection = $this->finance_model->data_get($tr_id, TRUE);
