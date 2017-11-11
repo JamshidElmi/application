@@ -544,7 +544,7 @@ class Finance extends MY_Controller {
              TRUE
             );
         if ($emp_sal) {
-            $this->session->set_flashdata('form_errors', 'معاش کارمند برای این برج پرداخت شده است. درصورتی که معاش کارمند مورد نظر باقیمانده است از لیست کارمندان، باقیمانده معاش را بپردازید.');
+            $this->session->set_flashdata('form_warning', 'معاش کارمند برای این برج پرداخت شده است. درصورتی که معاش کارمند مورد نظر باقیمانده است از لیست کارمندان، باقیمانده معاش را بپردازید.');
             redirect('finance/salary_payment/');
          }
 
@@ -590,7 +590,7 @@ class Finance extends MY_Controller {
 
         $salaries = $this->finance_model->sal_join_trans_join_emp($emp_id, $date[0], $date[1]);
         if(!$salaries){
-            $this->session->set_flashdata('form_errors', 'برای کارمند مورد نظر در برج وارد شده معاش پرداخت نشده است.');
+            $this->session->set_flashdata('form_warning', 'برای کارمند مورد نظر در برج وارد شده معاش پرداخت نشده است.');
             redirect('finance/salary_payment/');
         }
 
@@ -613,6 +613,76 @@ class Finance extends MY_Controller {
         // view
         $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
         $this->template->publish();
+    }
+
+    public function insert_salary_pay()
+    {
+        // print_r($this->input->post());
+        // get the posts
+        $data = $this->input->post();
+        $this->finance_model->salary();
+        $new = current(explode('-', $this->input->post('sal_date')))+1;
+        $old = current(explode('-', $this->input->post('sal_date')))-1;
+        // check emp for this month of salary
+        $emp_sal = $this->finance_model->data_get_by(
+            ['sal_emp_id'   => $data['sal_emp_id'],
+             'sal_date <'   =>  $new."-0-0",
+             'sal_date >'   => $old."-0-0",
+             'sal_month'    => $data['sal_month'] ], true
+            );
+        // print_r($emp_sal->sal_id); die();
+            // echo $this->db->last_query();
+        if ($emp_sal) {
+            // echo $data['sal_remain']; die();
+            //$remain = $emp_sal->sal_remain - $data['sal_remain'];
+            $this->finance_model->data_save(['sal_remain' => $data['sal_remain']], $emp_sal->sal_id);
+            // insert new trnasection
+            $this->finance_model->transections();
+            $this->finance_model->data_save([
+                'tr_desc'   => $data['sal_desc'],
+                'tr_amount' => $data['sal_amount'],
+                'tr_type'   => 'salary',
+                'tr_date'   => $data['sal_date'],
+                'tr_status' => 2,
+                'tr_acc_id' => base_account()->acc_id,
+                'tr_sal_id' => $emp_sal->sal_id
+            ]);
+            // update base account
+            $acc_remain = base_account()->acc_amount - $data['sal_amount'];
+            $this->finance_model->accounts();
+            $this->finance_model->data_save(['acc_amount' => $acc_remain], base_account()->acc_id);
+            // view success
+            // view error
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/salary_payment/');
+        }
+        else
+        {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
+            redirect('finance/salary_payment/');
+        }
+    } // end insert_salary_pay
+
+    public function delete_salary($tr_id)
+    {
+        sleep(1);
+        // get trnasection info
+        $this->finance_model->transections();
+        $transection = $this->finance_model->data_get($tr_id, TRUE);
+        // update base account
+        $this->finance_model->accounts();
+        $acc_amount = base_account()->acc_amount + $transection->tr_amount;
+        $this->finance_model->data_save(['acc_amount' => $acc_amount], base_account()->acc_id);
+
+        $this->finance_model->salary();
+        $salary = $this->finance_model->data_get($transection->tr_sal_id);
+        $sal_amount = $salary->sal_amount - $transection->tr_amount;
+        $sal_remain = $salary->sal_remain + $transection->tr_amount;
+        $this->finance_model->data_save(['sal_amount' => $sal_amount, 'sal_remain' => $sal_remain], $transection->tr_sal_id);
+        // delete transection row
+        $this->finance_model->transections();
+        $this->finance_model->data_delete($tr_id);
+
     }
 
 

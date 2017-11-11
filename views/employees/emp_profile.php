@@ -48,7 +48,8 @@
                                 <th>بخش کاری: </th>
                                 <td><?=sys_type($employee->emp_type) ?>  </td>
                                 <th>تاریخ استخدام</th>
-                                <td><?=mds_date("l Y/F/d ", $employee->emp_join_date, 0); ?></td>
+                                <!-- <td><?//=mds_date("l Y/F/d ", $employee->emp_join_date, 0); ?></td> -->
+                                <td><?=show_date("l j F Y", $employee->emp_join_date); ?></td>
                             </tr>
                             <tr>
                                 <th>تخلص: </th>
@@ -56,7 +57,8 @@
                                 <th>پست: </th>
                                 <td><?=($employee->emp_position) ?>  </td>
                                 <th>تاریخ ختم قرارداد</th>
-                                <td><?=mds_date("l Y/F/d ", strtotime('+1 years', $employee->emp_join_date)); ?></td>
+                                <!-- <td><?//=mds_date("l Y/F/d ", strtotime('+1 years', $employee->emp_join_date)); ?></td> -->
+                                <td><?=show_date("l j F Y", $employee->emp_join_date); ?></td>
                             </tr>
                             <tr>
                                 <th>شماره تذکره: </th>

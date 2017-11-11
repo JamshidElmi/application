@@ -4,7 +4,7 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini">ممتاز</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>رستورانت هرات</b></span>
+      <span class="logo-lg"><b>رستورانت ممتاز هرات</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -12,8 +12,6 @@
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-
-
 
 
       <div class="navbar-custom-menu">

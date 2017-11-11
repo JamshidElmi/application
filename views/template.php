@@ -37,8 +37,8 @@
         <?php $scripts = array(
             'jquery'            => 'components/jquery/dist/jquery.min.js' ,
             'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
-            'persian-date'        => 'plugins/persian-datepicker/persian-date.js' ,
-            'datepicker'     => 'plugins/persian-datepicker/persian-datepicker.js' ,
+            'persian-date'      => 'plugins/persian-datepicker/persian-date.js' ,
+            'datepicker'        => 'plugins/persian-datepicker/persian-datepicker.js' ,
          ); ?>
 
         <?php echo $this->template->stylesheet->add($styles); ?>

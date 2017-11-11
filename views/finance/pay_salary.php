@@ -7,23 +7,23 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url('finance/insert_salary'); ?>" method='POST' >
+            <form role="form" action="<?php echo site_url('finance/insert_salary_pay'); ?>" method='POST' >
 
                 <div class="box-body">
                         <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
                         <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); } ?>
 
-                    <input type="hidden" name="sal_emp_id" class="form-control"   id="sal_emp_id" />
+                    <input type="hidden" name="sal_emp_id" class="form-control" value="<?=$employee->emp_id?>"  id="sal_emp_id"/>
 
 
                      <div class="form-group">
                         <label for="user_name">نام و تخلص کارمند</label>
-                        <input type="text" class="form-control"  id="emp_full_name" placeholder="نام و تخلص"  required  disabled>
+                        <input type="text" class="form-control"  id="emp_full_name" value='<?=$employee->emp_name.' '.$employee->emp_lname ?>' placeholder="نام و تخلص"  required  disabled>
                     </div>
 
                     <div class="form-group">
                         <label for="user_name">عنوان پست کارمند</label>
-                        <input type="text" class="form-control"  id="emp_position" placeholder="پست" disabled required>
+                        <input type="text" class="form-control" value="<?=$employee->emp_position ?>" id="emp_position" placeholder="پست" disabled required>
                     </div>
 
                     <div class="row">
@@ -48,8 +48,8 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" id="tarikh_month" class="form-control pull-right" style="z-index: 0;" readonly>
-                                    <input type="hidden" id="tarikhAlt_month" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
+                                    <input type="text" id="tarikh_month" value="<?=show_date('F', '1396-'.$salaries[0]->sal_month.'-01')?>" class="form-control pull-right" disabled style="z-index: 0;" readonly>
+                                    <input type="hidden" id="tarikhAlt_month" value="<?=$salaries[0]->sal_month ?>" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
                                 </div>
                                 <!-- /.input group -->
                             </div>
@@ -58,16 +58,16 @@
 
                     <div class="row">
                         <div class="col-sm-4">
-                                <label for="emp_salary">معاش کارمند</label>
+                                <label for="emp_salary">معاش قابل پرداخت</label>
                             <div class="input-group">
-                                <input type="number"  class="form-control" id="emp_salary" step=".01" placeholder="مقدار باقیمانده" value="0" readonly>
+                                <input type="number"  class="form-control" id="emp_salary" value="<?=$salaries[0]->sal_remain?>" step=".01" placeholder="مقدار باقیمانده" value="0" readonly>
                                 <span class="input-group-addon">افغانی</span>
                             </div>
                         </div>
                         <div class="col-sm-4">
                                 <label for="sal_amount">مقدار پرداختی  معاش </label>
                             <div class="input-group">
-                                <input type="number"  class="form-control" name="sal_amount" id="sal_amount" step=".01" placeholder="اعشاری" required />
+                                <input type="number"  class="form-control" max="<?=$salaries[0]->sal_remain?>" name="sal_amount" id="sal_amount" step=".01" placeholder="اعشاری" required />
                                 <span class="input-group-addon">افغانی</span>
                             </div>
                         </div>
@@ -84,7 +84,6 @@
                         <textarea rows="5" class="form-control" name="sal_desc" id="sal_desc" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
-                <input type="hidden" name="sal_payable" id="sal_payable" >
                 </div>
                 <!-- /.box-body -->
 
@@ -110,32 +109,34 @@
                         <th class="text-center bg-info">نام و تخلص</th>
                         <th class="text-center bg-info">برج / ماه</th>
                         <th class="text-center bg-info">معاش اصلی</th>
-                        <th class="text-center bg-info">باقیمانده معاش</th>
+                        <th class="text-center bg-info">معاش قابل پرداخت</th>
                     </tr>
                     <tr>
                         <td class="text-center"><?=$employee->emp_name.' '.$employee->emp_lname ?></td>
                         <td class="text-center"><?=show_date('F', '1396-'.$salaries[0]->sal_month.'-01')?></td>
                         <td class="text-center"><?=$employee->emp_salary?> افغانی</td>
-                        <td class="text-center"><?=$salaries[0]->sal_remain?> افغانی</td>
+                        <td class="text-center"><b><?=$salaries[0]->sal_payable?></b> افغانی</td>
                     </tr>
 
                     <tr>
                         <th class="text-center bg-info">مالیت</th>
-                        <th class="text-center bg-info">انهام</th>
                         <th class="text-center bg-info">جریمه</th>
-                        <th class="text-center bg-info">معاش قابل پرداخت</th>
+                        <th class="text-center bg-info">انعام</th>
+                        <th class="text-center bg-info">باقیمانده معاش</th>
                     </tr>
                     <tr>
-                        <td class="text-center"><?=$salaries[0]->sal_tax?> افغانی</td>
-                        <td class="text-center"><?=$salaries[0]->sal_bonus?> افغانی</td>
-                        <td class="text-center"><?=$salaries[0]->sal_fine?> افغانی</td>
-                        <td class="text-center"><?=$salaries[0]->sal_payable?> افغانی</td>
+                        <td class="text-center bg-danger"><?=$salaries[0]->sal_tax?> افغانی</td>
+                        <td class="text-center bg-danger"><?=$salaries[0]->sal_fine?> افغانی</td>
+                        <td class="text-center bg-success"><?=$salaries[0]->sal_bonus?> افغانی</td>
+                        <td class="text-center bg-danger text-danger"><b><?=$salaries[0]->sal_remain?></b> افغانی</td>
                     </tr>
                 </table>
+                <br>
+                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
                     <table class="table table-hover table-warning">
                         <thead>
-                            <tr>
+                            <tr class="bg-primary">
                                 <th>#</th>
                                 <th>مقدار پرداختی</th>
                                 <th>توضیحات</th>
@@ -145,70 +146,102 @@
                         </thead>
                         <tbody>
                             <?php $i = 1; foreach ($salaries as $salary): ?>
-                                <tr>
+                                <tr id="sal_<?php echo $salary->tr_id; ?>">
                                     <td><?=$i++ ?></td>
                                     <td><?=$salary->tr_amount; ?> افغانی</td>
                                     <td><?=$salary->tr_desc; ?> </td>
                                     <td><?php  echo show_date('d/F/Y', $salary->tr_date); ?></td>
                                     <td class="text-center">
-                                        <a class="label bg-green" ><i class="fa fa-money fa-lg"></i></a>
-                                        <a class="label bg-gray" class="pay_salary"  data-toggle="modal" data-target="#myModal" ><i class="fa fa-list fa-lg"></i></a>
+                                        <a class="sal_id_to_delete" href="#" id="<?php echo $salary->tr_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove" ><i class="fa ion-android-delete fa-lg text-danger"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
                 </table>
             </div>
-
             <!-- /.box-body -->
+            <div class="overlay" id="overlay" hidden>
+                <i class="fa ion ion-load-d fa-spin"></i>
+            </div>
         </div>
     </div>
 
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <form action="<?=site_url('finance/pay_salary');?>" method="POST">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">پرداخت باقیمانده معاش</h4>
-          </div>
-          <div class="modal-body">
-                <div class="form-group">
-                        <label for="tarikh">سال و ماه</label>
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="text" id="tarikh_year_month" class="form-control pull-right" style="z-index: 0;" readonly>
-                            <input type="hidden" id="tarikhAlt_year_month" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
-                        </div>
-                        <!-- /.input group -->
-                        <input type="hidden" id="emp_id" name="emp_id"/>
-                </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">پرداخت معاش</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">صرف نظر</button>
-          </div>
-        </div>
-    </form>
-  </div>
-</div>
 
 
 
 <script>
-// function select_emp(id, name, lname, position, salary) {
-//     $("#sal_emp_id").val(id);
-//     $("#emp_full_name").val(name + ' ' + lname);
-//     $("#emp_position").val(position);
-//     $("#emp_salary").val(salary);
-//     $("#submit").attr('disabled', false);
-// }
+
+$(document).ready(function() {
+    // delete job
+    $('.sal_id_to_delete').confirm({
+        title: 'حذف',
+        content: 'آیا با حذف این پرداخت موافق هستید؟',
+        type: 'red',
+        rtl: true,
+        buttons: {
+            confirm: {
+                text: 'تایید',
+                btnClass: 'btn-red',
+                action: function () {
+                    // var tr_id = $(this).attr('tr-id');
+                    var tr_id = this.$target.attr('id');
+                    $(document).ajaxStart(function(){
+                        $(".overlay").css('display','block');
+                    });
+                      $.post("<?php echo site_url('finance/delete_salary'); ?>",{tr_id:tr_id},function(response){
+                      });
+                    $(document).ajaxStop(function(){
+                        $(".overlay").css('display','none');
+                        $(".msg").css('display','block');
+                        $("tr#sal_"+tr_id).remove();
+                    });
+                }
+            },
+            cancel: {
+                text: 'انصراف',
+                action: function () {
+                }
+            }
+        }
+    });
+});
+
+
+// $(document).ready(function() {
+//     $('.sal_id_to_delete').click(function() {
+//         var tr_id = $(this).attr('tr-id');
+//         if (confirm('آیا با حذف این پرداخت موافق هستید؟'))
+//         {
+//             $(document).ajaxStart(function(){
+//                 $(".overlay").css('display','block');
+//             });
+//               $.post("<?php //echo site_url('finance/delete_salary'); ?>",{tr_id:tr_id},function(response){
+
+//               });
+//             $(document).ajaxStop(function(){
+//                 $(".overlay").css('display','none');
+//                 $(".msg").css('display','block');
+//                 $("tr#sal_"+tr_id).remove();
+//             });
+//         };
+//     });
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $(document).ready(function() {
     // Date Picker
@@ -231,110 +264,18 @@ $(document).ready(function() {
             },
     });
 
-    // Month Picker
-    $('#tarikh_month').persianDatepicker({
-        altField: '#tarikhAlt_month',
-        persianDigit: false,
-        autoClose: true,
-        yearPicker:{
-            enabled: false,
-        },
-        monthPicker:{
-            enabled: true,
-        },
-        dayPicker:{
-            enabled: false,
-        },
-        format: "MMMM",
-        toolbox: {
-            text: {
-                btnToday: 'این ماه'
-            },
-            justSelectOnDate: false
-        },
-        altFormat: "M",
 
-        calendar: {
-                persian: {
-                    enabled: true,
-                    locale: 'en',
-                    leapYearMode: "algorithmic" // "astronomical"
-                },
-                gregorian: {
-                    enabled: false,
-                    locale: 'fa'
-                }
-            },
-        position: [-65,0]
-    });
-
-
-
-     // Month Picker
-    $('#tarikh_year_month').persianDatepicker({
-        altField: '#tarikhAlt_year_month',
-        persianDigit: false,
-        autoClose: true,
-        yearPicker:{
-            enabled: true,
-        },
-        monthPicker:{
-            enabled: true,
-        },
-        dayPicker:{
-            enabled: false,
-        },
-        format: "YYYY/MMMM",
-        altFormat: "YYYY/M",
-
-        calendar: {
-                persian: {
-                    enabled: true,
-                    locale: 'en',
-                    leapYearMode: "algorithmic" // "astronomical"
-                },
-                gregorian: {
-                    enabled: false,
-                    locale: 'fa'
-                }
-            },
-        position: [-65,0]
-    });
-
-/*
     $('#sal_amount').keyup(function(event) {
         $emp_salary = $('#emp_salary').val();
         $sal_amount = $(this).val();
-        $sal_bonus  = $('#sal_bonus').val();
-        $sal_fine   = $('#sal_fine').val();
-        $sal_tax    = $('#sal_tax_alt').val();
 
-        $total =  parseFloat($emp_salary) +  parseFloat($sal_bonus);
-        $total =  parseFloat($total) -  parseFloat($sal_fine);
+        $sal_remain =  parseFloat($emp_salary) -  parseFloat($sal_amount);
 
-        $sal_payable_new = parseFloat($emp_salary) - parseFloat($sal_amount);
-        $sal_payable_new = parseFloat($sal_payable_new) + parseFloat($sal_bonus);
-        $sal_payable_new = parseFloat($sal_payable_new) - parseFloat($sal_fine);
-        if ($sal_tax > 0) {
-            $tax = parseFloat($emp_salary) / 100 * parseFloat($sal_tax);
-            $sal_payable_new = parseFloat($sal_payable_new) - parseFloat($tax);
-
-            $total =  parseFloat($total) - parseFloat($tax);
-        }
-        else{
-            $('#sal_remain').val($sal_payable_new);
-            $('#sal_tax').val($tax);
-            $('#sal_payable').val($total);
-        }
-
-            $('#sal_remain').val($sal_payable_new);
-            $('#sal_tax').val($tax);
-            $('#sal_payable').val($total);
-
-
+        $('#sal_remain').val($sal_remain);
+        $('#submit').attr('disabled', false);
 
     });
-*/
+
 
 }); // end document
 </script>
