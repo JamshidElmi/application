@@ -105,7 +105,7 @@
                             <td><span data-toggle="tooltip" title="" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
                             <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
                             <td class="text-center"><?=($transection->tr_status == 1) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
-                            <td class="text-center"><?=mds_date("Y/F/d ", $transection->tr_date); ?></td>
+                            <td class="text-center"><?=show_date('l d/F/Y', $transection->tr_date); ?></td>
                             <td class="text-center"><!-- <a href="" class="edit" id="<?//=$transection->tr_id ?>"><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a> -->  <a class="remove" href="<?=site_url('finance/delete_transection/'.$transection->tr_id.'/'.$account->acc_id.'/'.$account->acc_amount); ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
                         </tr>
                         <?php ($transection->tr_status == 1) ? $credit += $transection->tr_amount : $debit += $transection->tr_amount; ?>
@@ -173,9 +173,23 @@ $(document).ready(function() {
     // Date Picker
     $('#tarikh').persianDatepicker({
         altField: '#tarikhAlt',
-        altFormat: 'X',
         format: 'D/MMMM/YYYY',
         observer: true,
+
+        altFormat: 'YYYY-MM-DD',
+        observer: true,
+        position: [-65,0],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
+        },
     });
 
     $('a.remove').confirm({

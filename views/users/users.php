@@ -36,7 +36,7 @@
                             <td><?=$user->emp_lname ?></td>
                             <td><?=$user->emp_position ?></td>
                             <td><?=$user->user_name ?></td>
-                            <td><?=$user->emp_join_date ?></td>
+                            <td><?=show_date('l d/F/Y', $user->emp_join_date); ?></td>
                             <td><?=$user->emp_phone ?></td>
                             <td><?php echo ($user->emp_type == 0) ? '<span class="label label-warning">آشپزخانه</span>' : '<span class="label label-info">رستورات</span>' ?></td>
                             <td>

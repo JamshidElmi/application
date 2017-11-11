@@ -124,9 +124,23 @@ $(document).ready(function() {
     // Date Picker
     $('#tarikh').persianDatepicker({
         altField: '#tarikhAlt',
-        altFormat: 'X',
         format: 'D/MMMM/YYYY',
         observer: true,
+
+        altFormat: 'YYYY-MM-DD',
+        observer: true,
+        position: [-65,0],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
+        },
     });
 });
 

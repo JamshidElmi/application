@@ -107,7 +107,7 @@
                         <textarea rows="5" class="form-control" name="sal_desc" id="sal_desc" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
-                <input type="text" name="sal_payable" id="sal_payable" >
+                <input type="hidden" name="sal_payable" id="sal_payable" >
                 </div>
                 <!-- /.box-body -->
 

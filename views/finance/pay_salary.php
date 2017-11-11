@@ -100,7 +100,7 @@
     <div class="col-md-6">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">لیست کارمندان</h3>
+                <h3 class="box-title">لیست پرداخت معاش بابت برج <span class="label label-info"><?=show_date('F', '1396-'.$salaries[0]->sal_month.'-01')?></span></h3>
             </div>
             <!-- /.box-header -->
                 <div class="box-body no-padding">
@@ -150,7 +150,7 @@
                                     <td><?=$i++ ?></td>
                                     <td><?=$salary->tr_amount; ?> افغانی</td>
                                     <td><?=$salary->tr_desc; ?> </td>
-                                    <td><?php  echo show_date('d/F/Y', $salary->tr_date); ?></td>
+                                    <td><?=show_date('d/F/Y', $salary->tr_date); ?></td>
                                     <td class="text-center">
                                         <a class="sal_id_to_delete" href="#" id="<?php echo $salary->tr_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove" ><i class="fa ion-android-delete fa-lg text-danger"></i></a>
                                     </td>
@@ -207,40 +207,7 @@ $(document).ready(function() {
             }
         }
     });
-});
-
-
-// $(document).ready(function() {
-//     $('.sal_id_to_delete').click(function() {
-//         var tr_id = $(this).attr('tr-id');
-//         if (confirm('آیا با حذف این پرداخت موافق هستید؟'))
-//         {
-//             $(document).ajaxStart(function(){
-//                 $(".overlay").css('display','block');
-//             });
-//               $.post("<?php //echo site_url('finance/delete_salary'); ?>",{tr_id:tr_id},function(response){
-
-//               });
-//             $(document).ajaxStop(function(){
-//                 $(".overlay").css('display','none');
-//                 $(".msg").css('display','block');
-//                 $("tr#sal_"+tr_id).remove();
-//             });
-//         };
-//     });
-// });
-
-
-
-
-
-
-
-
-
-
-
-
+}); // end document
 
 
 $(document).ready(function() {

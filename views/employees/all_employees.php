@@ -1,4 +1,3 @@
-
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">لیست کارمندان </h3>
@@ -37,7 +36,7 @@
                             <td><?=$employee->emp_lname ?></td>
                             <td><?=$employee->emp_position ?></td>
                             <td><?=$employee->emp_salary ?></td>
-                            <td><?=$employee->emp_join_date ?></td>
+                            <td><?=show_date('l d/F/Y', $employee->emp_join_date); ?></td>
                             <td><?=$employee->emp_phone ?></td>
                             <td><?php echo ($employee->emp_type == 0) ? '<span class="label label-warning">آشپزخانه</span>' : '<span class="label label-info">رستورات</span>' ?></td>
                             <td>

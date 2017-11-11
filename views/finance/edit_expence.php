@@ -8,7 +8,6 @@
 }
 </style>
 
-<?php echo $this->uri->segment(4); ?>
 <div class="row">
     <div class="col-md-8">
         <div class="box box-success">
@@ -51,9 +50,9 @@
                                     </select>
                                 <?php else: ?>
                                     <input type="text" name="dex_unit_name" id="dex_unit_name" class="form-control" readonly>
-                                    <input type="text" name="dex_unit" id="dex_unit" class="form-control" readonly>
-                                    <input type="text" name="dex_unit_id" id="dex_unit_id" class="form-control" readonly>
-                                    <input type="text" name="dex_st_name" id="dex_st_name" class="form-control" readonly>
+                                    <input type="hidden" name="dex_unit" id="dex_unit" class="form-control" readonly>
+                                    <input type="hidden" name="dex_unit_id" id="dex_unit_id" class="form-control" readonly>
+                                    <input type="hidden" name="dex_st_name" id="dex_st_name" class="form-control" readonly>
                                 <?php endif; ?>
 
                             </div>
@@ -113,43 +112,33 @@ $('#dex_count').keyup(function(event) {
 });
 
 
-        var id      = $(this).val();
-        var unit    = $("#dex_st_unit option:selected").attr('st-unit');
-        var dex_st_name    = $("#dex_st_unit option:selected").text();
-        var unit_name = $("#dex_st_unit option:selected").attr('st-unit-name');
-        var max     = $("#dex_st_unit option:selected").attr('st-max-count');
-        // alert(unit_name);
-        $('#dex_unit_name').val(unit_name); //
-        $('#dex_st_name').val(dex_st_name); //
-        $('#dex_unit').val(unit); //
-        $('#dex_count').attr('max', max); //
-        $('#dex_unit_id').val(id); //
+var id      = $(this).val();
+var unit    = $("#dex_st_unit option:selected").attr('st-unit');
+var dex_st_name    = $("#dex_st_unit option:selected").text();
+var unit_name = $("#dex_st_unit option:selected").attr('st-unit-name');
+var max     = $("#dex_st_unit option:selected").attr('st-max-count');
+// alert(unit_name);
+$('#dex_unit_name').val(unit_name); //
+$('#dex_st_name').val(dex_st_name); //
+$('#dex_unit').val(unit); //
+$('#dex_count').attr('max', max); //
+$('#dex_unit_id').val(id); //
+
 // set max count and unit
-    $('#dex_st_unit').change(function(event) {
-        var id      = $(this).val();
-        var unit    = $("#dex_st_unit option:selected").attr('st-unit');
-        var dex_st_name    = $("#dex_st_unit option:selected").text();
-        var unit_name = $("#dex_st_unit option:selected").attr('st-unit-name');
-        var max     = $("#dex_st_unit option:selected").attr('st-max-count');
-        // alert(unit_name);
-        $('#dex_unit_name').val(unit_name); //
-        $('#dex_st_name').val(dex_st_name); //
-        $('#dex_unit').val(unit); //
-        $('#dex_count').attr('max', max); //
-        $('#dex_unit_id').val(id); //
-    });
+$('#dex_st_unit').change(function(event) {
+    var id      = $(this).val();
+    var unit    = $("#dex_st_unit option:selected").attr('st-unit');
+    var dex_st_name    = $("#dex_st_unit option:selected").text();
+    var unit_name = $("#dex_st_unit option:selected").attr('st-unit-name');
+    var max     = $("#dex_st_unit option:selected").attr('st-max-count');
+    // alert(unit_name);
+    $('#dex_unit_name').val(unit_name); //
+    $('#dex_st_name').val(dex_st_name); //
+    $('#dex_unit').val(unit); //
+    $('#dex_count').attr('max', max); //
+    $('#dex_unit_id').val(id); //
+});
 
-}); // end document
-
-
-$(document).ready(function() {
-    // Date Picker
-    $('#tarikh').persianDatepicker({
-        altField: '#tarikhAlt',
-        altFormat: 'X',
-        format: 'D/MMMM/YYYY',
-        observer: true,
-    });
 }); // end document
 
 </script>
