@@ -54,14 +54,17 @@
                             <th>#</th>
                             <th colspan="3" class="text-center">مجموعه:</th>
                             <th class="text-center bg-success"><?=$bill->bill_total_amount ?> افغانی</th>
-                            <th class="text-center">توضیحات:</th>
-                            <td><?=$bill->bill_desc ?></td>
+                            <th class="text-center"></th>
+                            <td></td>
                         </tr>
                     </thead>
 
                 </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer">
+                <p><strong>توضیحات:</strong> <?=$bill->bill_desc ?></p>
+            </div>
             <div class="overlay" id="overlay" hidden>
                 <i class="fa ion ion-load-d fa-spin"></i>
             </div>
