@@ -85,7 +85,7 @@
             <div class="row">
                 <?php foreach ($accounts as $account): ?>
                     <div class="col-sm-6" id="acc_<?=$account->acc_id ?>">
-                        <div class="small-box <?=($account->acc_type != 0)? 'bg-green' :'bg-orange' ; ?>">
+                        <div class="small-box <?php if($account->acc_type == 0) echo 'bg-orange'; else if($account->acc_type == 1) echo 'bg-green'; else echo 'bg-blue'; ?>">
                             <div class="icon">
                                 <i class="ion ion-lock-combination"></i>
                             </div>

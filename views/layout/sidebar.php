@@ -28,6 +28,9 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
 
+        <!-- menu header -->
+        <li class="header">آمار سیستم</li>
+
         <li class="active treeview">
             <a href="#">
                 <i class="fa fa-dashboard"></i> <span>صفحه نخست</span>

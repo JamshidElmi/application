@@ -95,7 +95,7 @@
                             <th>مقدار برداشت/جمع</th>
                             <th>وضعیت</th>
                             <th class="text-center">تاریخ</th>
-                            <th>فیصدی</th>
+                            <th>عملیات</th>
                         </tr>
                     </thead>
                     <tbody>
