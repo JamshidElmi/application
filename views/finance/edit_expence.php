@@ -32,7 +32,8 @@
                                     <input type="text" class="form-control" value="<?=$expence->dex_name; ?>" name="dex_name" id="dex_name" placeholder="نام جنس" required/>
                                 <?php else: ?>
                                     <select name="dex_name" id="dex_st_unit" class="form-control" >
-                                        <option value="<?=$expence->dex_st_unit; ?>" st-unit="<?=$expence->dex_unit ?>" ><?=$expence->dex_name; ?></option>
+                                        <option value="<?=$expence->dex_st_unit; ?>" st-unit-name="<?php foreach ($stock_units as $stock_unit){ if($stock_unit->st_id == $expence->dex_st_unit) {echo $stock_unit->unit_name;} } ?>"
+                                        st-unit="<?=$expence->dex_unit ?>" ><?=$expence->dex_name; ?></option>
                                         <?php foreach ($stock_units as $stock_unit): ?>
                                                 <option value="<?=$stock_unit->st_id ?>" st-max-count="<?=$stock_unit->st_max_count ?>" st-unit-name="<?=$stock_unit->unit_name ?>" st-unit="<?=$stock_unit->st_unit ?>"><?=$stock_unit->st_name ?></option>
                                         <?php endforeach ?>
@@ -112,12 +113,12 @@ $('#dex_count').keyup(function(event) {
 });
 
 
-var id      = $(this).val();
+var id      = $('#dex_st_unit option:selected').val();
 var unit    = $("#dex_st_unit option:selected").attr('st-unit');
 var dex_st_name    = $("#dex_st_unit option:selected").text();
 var unit_name = $("#dex_st_unit option:selected").attr('st-unit-name');
 var max     = $("#dex_st_unit option:selected").attr('st-max-count');
-// alert(unit_name);
+// alert(unit);
 $('#dex_unit_name').val(unit_name); //
 $('#dex_st_name').val(dex_st_name); //
 $('#dex_unit').val(unit); //

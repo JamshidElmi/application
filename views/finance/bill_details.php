@@ -53,7 +53,7 @@
                         <tr>
                             <th>#</th>
                             <th colspan="3" class="text-center">مجموعه:</th>
-                            <th class="text-center bg-success"><?=$bill->bill_total_amount ?></th>
+                            <th class="text-center bg-success"><?=$bill->bill_total_amount ?> افغانی</th>
                             <th class="text-center">توضیحات:</th>
                             <td><?=$bill->bill_desc ?></td>
                         </tr>

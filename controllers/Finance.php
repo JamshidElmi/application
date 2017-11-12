@@ -320,7 +320,7 @@ class Finance extends MY_Controller {
 
     public function update_expence($dex_id, $bill_id)
     {
-        // print_r($this->input->post()); die();
+        // print_r($this->input->post());
 
         // get current expence
         $this->finance_model->expences();
@@ -329,10 +329,13 @@ class Finance extends MY_Controller {
         $old_amount = $expences->dex_total_amount;
         if(!$this->input->post('dex_unit_name'))
         {
+            // echo 'dex_unit_name COME';  die();
             $this->finance_model->data_save($this->input->post(), $dex_id);
         }
         else
-        {   $data = $this->input->post();
+        {
+            // echo 'dex_unit_name NOT COME'; die();
+            $data = $this->input->post();
             $this->finance_model->data_save(['dex_name' => $data['dex_st_name'],'dex_unit' => $data['dex_unit'],'dex_st_unit' => $data['dex_name'],'dex_count' => $data['dex_count'],'dex_price' => $data['dex_price'], 'dex_total_amount' => $data['dex_total_amount']], $dex_id);
         }
         // get current bill
@@ -345,7 +348,13 @@ class Finance extends MY_Controller {
         $this->finance_model->data_save(['bill_total_amount' => $bill_total_amount], $bill_id);
         // Update transection
         $this->finance_model->transections();
-        $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'daily_expence'], TRUE);
+        if(!$this->input->post('dex_unit_name'))
+            $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'daily_expence'], TRUE);
+        else
+            $transection = $this->finance_model->data_get_by(['bill_id' => $bill_id, 'tr_type' => 'buy_stocks'], TRUE);
+
+        // echo $this->db->last_query();
+        // echo $transection->tr_id; die();
         $this->finance_model->data_save(['tr_amount' => $bill_total_amount], $transection->tr_id);
         // Get Base Account
         $this->finance_model->accounts();
