@@ -64,6 +64,20 @@
 
         <li class="treeview">
             <a href="#">
+                <i class="fa ion-person-add"></i> <span>مشتریان</span>
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+
+            <ul class="treeview-menu">
+                <li class="active"><a href="<?=site_url('customer/create'); ?>"><i class="fa fa-circle-o"></i> ثبت مشتری جدید </a></li>
+                <li><a href="<?=site_url('customer/'); ?>"><i class="fa fa-circle-o "></i> لیست مشتریان</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+            <a href="#">
                 <i class="fa fa-key"></i> <span>مدیریت دسترسی</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
