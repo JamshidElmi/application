@@ -2,7 +2,8 @@
     <div class="box-header with-border">
         <h3 class="box-title">فرم ثبت اطلاعات مشتری</h3>
         <div class="box-tools pull-right">
-            <a href="<?=site_url('finance/accounts'); ?>" class="btn btn-box-tool bg-blue" data-toggle="tooltip" title="" data-original-title="New Account"><i class="ion-lock-combination fa-lg"></i></a>
+            <a href="<?=site_url('finance/accounts'); ?>" class="btn btn-info btn-sm  bg-blue" data-toggle="tooltip" title="" data-original-title="New Account"><i class="ion-lock-combination fa-lg"></i></a>
+            <a href="<?=site_url('customer/'); ?>" class="btn btn-info btn-sm  bg-info" data-toggle="tooltip" title="" data-original-title="Customers List"><i class="ion-android-list fa-lg"></i></a>
         </div>
     </div>
     <!-- /.box-header -->

@@ -14,9 +14,9 @@ class Customer extends MY_Controller {
 	public function index()
 	{
         $this->template->description = 'لیست تمام مشتریان رستورانت و آشپزخانه';
-        $employees = $this->employee_model->data_get();
+        $customers = $this->customer_model->data_get();
 
-		$this->template->content->view('employees/all_employees', ['employees' => $employees]);
+		$this->template->content->view('customers/customers', ['customers' => $customers]);
         $this->template->publish();
 	}
 

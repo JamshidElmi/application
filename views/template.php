@@ -24,6 +24,7 @@
               // 'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
 
               'timepicker'      => 'plugins/persian-datepicker/persian-datepicker.css',
+              'data-table-bs' => 'components/datatables.net-bs/css/dataTables.bootstrap.css' ,
               // 'timepicker-theme'=> 'plugins/persian-datepicker/theme/persian-datepicker-redblack.min.css',
 
 
@@ -95,6 +96,8 @@
                 // 'jquery' => 'components/jquery/dist/jquery.min.js' ,
                 'jquery-ui' => 'components/jquery-ui/jquery-ui.min.js' ,
                 'bootstrap' => 'components/bootstrap/dist/js/bootstrap.min.js' ,
+                'data-table' => 'components/datatables.net/js/jquery.dataTables.js' ,
+                'data-table-bs' => 'components/datatables.net-bs/js/dataTables.bootstrap.js' ,
                 'raphael' => 'components/raphael/raphael.min.js' ,
                 'morris' => 'components/morris.js/morris.min.js' ,
                 'sparkline' => 'components/jquery-sparkline/dist/jquery.sparkline.min.js' ,
