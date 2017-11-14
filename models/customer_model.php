@@ -24,6 +24,13 @@ class customer_model extends MY_Model
     //     return $query->result();
     // }
 
+    public function accounts()
+    {
+        $this->_table_name = 'accounts';
+        $this->_primary_key = 'acc_id';
+        $this->_order_by = 'acc_id';
+    }
+
 
 
 }

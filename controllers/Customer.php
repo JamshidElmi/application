@@ -23,34 +23,28 @@ class Customer extends MY_Controller {
     public function create()
     {
         $this->template->description = 'ثبت مشتری جدید در سیستم';
-        $this->template->content->view('customers/create');
+        $this->customer_model->accounts();
+        $accounts = $this->customer_model->data_get_by(['acc_type' => 2]);
+        // view
+        $this->template->content->view('customers/create', ['accounts' => $accounts]);
         $this->template->publish();
     }
 
-/*
+
     public function insert()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('emp_name', 'نام کارمند', 'required|trim');
-        $this->form_validation->set_rules('emp_lname', 'تخلص کارمند', 'required|trim');
-        $this->form_validation->set_rules('emp_position', 'پست', 'required');
-        $this->form_validation->set_rules('emp_salary', 'معاش کارمند', 'required|numeric');
-        $this->form_validation->set_rules('emp_join_date', 'تاریخ استخدام', 'required');
-        $this->form_validation->set_rules('emp_org_place', 'سکونت اصلی', 'required');
-        $this->form_validation->set_rules('emp_cur_place', 'سکونت فعلی', 'required');
-        $this->form_validation->set_rules('emp_address', 'آدرس کامل کارمند', 'required');
-        $this->form_validation->set_rules('emp_phone', 'شماره تماس', 'required|numeric');
-        // $this->form_validation->set_rules('emp_picture', 'عکس', 'required');
-        $this->form_validation->set_rules('emp_email', 'ایمیل آدرس', 'valid_email');
-        $this->form_validation->set_rules('emp_biography_no', 'شماره تذکره', 'numeric');
-
-        $config['upload_path']          = './assets/img/profiles';
-        $config['allowed_types']        = 'gif|jpg|png';
-        $config['max_size']             = 250;
-        $config['max_width']            = 400;
-        $config['max_height']           = 400;
-
-        $this->load->library('upload', $config);
+        $this->form_validation->set_rules('cus_name', 'نام مشتری', 'required|trim');
+        $this->form_validation->set_rules('cus_lname', 'تخلص مشتری', 'required|trim');
+        $this->form_validation->set_rules('cus_job', 'وظیفه مشتری', 'required');
+        $this->form_validation->set_rules('cus_join_date', 'تاریخ ثبت', 'required');
+        $this->form_validation->set_rules('cus_org_place', 'سکونت اصلی', 'required');
+        $this->form_validation->set_rules('cus_cur_place', 'سکونت فعلی', 'required');
+        $this->form_validation->set_rules('cus_address', 'آدرس کامل مشتری', 'required');
+        $this->form_validation->set_rules('cus_phones', 'شماره های تماس', 'required');
+        // $this->form_validation->set_rules('cus_picture', 'عکس', 'required');
+        $this->form_validation->set_rules('cus_email', 'ایمیل آدرس', 'valid_email');
+        $this->form_validation->set_rules('cus_biography_no', 'شماره تذکره', 'numeric');
 
         if ($this->form_validation->run() == FALSE)
         {
@@ -59,32 +53,53 @@ class Customer extends MY_Controller {
         }
         else
         {
-            if ( ! $this->upload->do_upload('emp_picture'))
+            // print_r($this->input->post()); die();
+            // Set data
+            $data = $this->input->post();
+            if( $_FILES['cus_picture']['name'] )
             {
-                $this->session->set_flashdata('file_errors', $this->upload->display_errors());
-                redirect('employee/create');
+                $config['upload_path']          = './assets/img/customers';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 250;
+                $config['max_width']            = 400;
+                $config['max_height']           = 400;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('cus_picture'))
+                {
+                    $this->session->set_flashdata('file_errors', $this->upload->display_errors());
+                    redirect('employee/create');
+                }
+                else
+                {
+
+                    // Get file name
+                    $file = $this->upload->data();
+                    $file_name = $file['file_name'];
+                    $data['cus_picture'] = $file_name;
+                    // Inserting data
+                    $this->customer_model->data_save($data);
+                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                    redirect('customer/create');
+                }
             }
             else
             {
-                // Get file name
-                $file = $this->upload->data();
-                $file_name = $file['file_name'];
-                // Set data
-                $data = $this->input->post();
-                $data['emp_picture'] = $file_name;
                 // Inserting data
-                $this->employee_model->data_save($data);
+                $this->customer_model->data_save($data);
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
-                redirect('employee/');
+                redirect('customer/create');
             }
-        }
+
+        } // validation else
     } // end insert
 
 
 
     public function view($emp_id)
     {
-        $this->template->description = 'اطلاعات کارمندان برای چاپ';
+        $this->template->description = 'اطلاعات مشتریان برای چاپ';
         $this->load->model('user_model');
 
         $employee = $this->employee_model->data_get($emp_id);
@@ -179,6 +194,6 @@ class Customer extends MY_Controller {
         $this->employee_model->data_delete($emp_id);
     }
 
-*/
+
 
 }
