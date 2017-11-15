@@ -16,6 +16,7 @@
               'ionicons'        => 'components/Ionicons/css/ionicons.min.css',
               'AdminLTE'        => 'assets/css/AdminLTE.css',
               'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
+              'style'           => 'assets/css/style.css'
 
         ); ?>
         <!-- Exretnal Scripts -->

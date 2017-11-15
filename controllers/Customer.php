@@ -42,6 +42,7 @@ class Customer extends MY_Controller {
         $this->form_validation->set_rules('cus_cur_place', 'سکونت فعلی', 'required');
         $this->form_validation->set_rules('cus_address', 'آدرس کامل مشتری', 'required');
         $this->form_validation->set_rules('cus_phones', 'شماره های تماس', 'required');
+        $this->form_validation->set_rules('cus_unique_id', 'کد مشترک', 'is_unique[customers.cus_unique_id]');
         // $this->form_validation->set_rules('cus_picture', 'عکس', 'required');
         $this->form_validation->set_rules('cus_email', 'ایمیل آدرس', 'valid_email');
         $this->form_validation->set_rules('cus_biography_no', 'شماره تذکره', 'numeric');
@@ -99,12 +100,13 @@ class Customer extends MY_Controller {
     public function view($cus_id)
     {
         $this->template->description = 'اطلاعات مشتریان برای چاپ';
-        $this->load->model('user_model');
-
-        $customer = $this->customer_model->data_get($cus_id);
-        $users = $this->user_model->data_get_by(['cus_id'=>$cus_id]);
-
-        $this->template->content->view('customers/cus_profile', ['customer' => $customer, 'users' => $users]);
+        // get customer
+        $customer = $this->customer_model->data_get($cus_id, TRUE);
+        // get account info
+        $this->customer_model->accounts();
+        $account = $this->customer_model->data_get($customer->cus_acc_id, TRUE);
+        // view
+        $this->template->content->view('customers/view', ['customer' => $customer, 'account' => $account]);
         $this->template->publish();
     } // end view
 
