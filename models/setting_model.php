@@ -36,6 +36,27 @@ class setting_model extends MY_Model
         $this->_order_by = 'unit_id';
     }
 
+    public function menu_category()
+    {
+        $this->_table_name = 'menu_category';
+        $this->_primary_key = 'mc_id';
+        $this->_order_by = 'mc_id';
+    }
+
+    public function sub_menus()
+    {
+        $this->_table_name = 'sub_menus';
+        $this->_primary_key = 'sm_id';
+        $this->_order_by = 'sm_id';
+    }
+
+    public function base_menus()
+    {
+        $this->_table_name = 'base_menus';
+        $this->_primary_key = 'bm_id';
+        $this->_order_by = 'bm_id';
+    }
+
 
 
 }

@@ -134,6 +134,21 @@
         </li>
 
 
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-key"></i> <span>مدیریت منو</span>
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+
+            <ul class="treeview-menu">
+                <li><a href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o "></i> ثبت منو برای آشپزخانه </a></li>
+                <li><a href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o "></i> ثبت منو برای رستورانت </a></li>
+            </ul>
+        </li>
+
+
 
         <!-- menu header -->
         <li class="header">بخش تنظیمات</li>
@@ -150,6 +165,7 @@
                 <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای مقیاسی </a></li>
                 <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> ثبت وظیفه </a></li>
                 <li><a href="<?=site_url('setting/stock_units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای گدام </a></li>
+                <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o "></i> ثبت نوعیت منو </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>
