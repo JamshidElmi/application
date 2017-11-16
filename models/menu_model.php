@@ -45,6 +45,14 @@ class menu_model extends MY_Model
         $this->_order_by = 'sm_id';
     }
 
+    public function base_join_sub_menus()
+    {
+        $this->db->from('base_menus');
+        $this->db->join('sub_menus', 'base_menus.bm_id = sub_menus.sm_bm_id');
+        $this->db->where(['bm_type'=> 0]);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
 
 }

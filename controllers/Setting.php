@@ -163,4 +163,75 @@ class Setting extends MY_Controller {
 
 
 
+
+
+
+
+
+
+
+
+
+
+    public function desks()
+    {
+        $this->template->description = 'ایجاد میز جدید و لیست میز های موجود در رستورانت';
+        $this->setting_model->desks();
+        $desks = $this->setting_model->data_get();
+
+        $this->template->content->view('settings/desks', ['desks' => $desks]);
+        $this->template->publish();
+    } // end units
+
+    public function save_desk()
+    {
+        $data = $this->input->post();
+        if($this->input->post('desk_id'))
+        {
+            // Update Desk
+            $this->setting_model->desks();
+            unset($data['desk_id']);
+            $desk = $this->setting_model->data_save($data, $this->input->post('desk_id'));
+            if ($desk) {
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                redirect('setting/desks');
+            }
+            else
+            {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('setting/desks');
+            }
+        }
+        else
+        {
+            // Insert Desk
+            $this->setting_model->desks();
+            $desk = $this->setting_model->data_save($data);
+            if ($desk) {
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                redirect('setting/desks');
+            }
+            else
+            {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('setting/desks');
+            }
+        }
+
+    }
+
+    public function delete_desk()
+    {
+        sleep(1);
+        $this->setting_model->desks();
+
+        $desk_id = $this->input->post('desk_id');
+        $this->setting_model->data_delete($desk_id);
+    }
+
+
+
+
+
+
 }
