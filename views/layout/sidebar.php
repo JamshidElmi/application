@@ -78,7 +78,7 @@
 
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-key"></i> <span>مدیریت دسترسی</span>
+                <i class="fa ion-key fa-lg"></i> <span>مدیریت دسترسی</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
@@ -133,18 +133,43 @@
             </ul>
         </li>
 
+        <!-- menu header -->
+        <li class="header">مدیریت منوها</li>
 
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-key"></i> <span>مدیریت منو</span>
+                <i class="fa ion-navicon-round"></i> <span>منوها</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
             </a>
 
             <ul class="treeview-menu">
-                <li><a href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o "></i> ثبت منو برای آشپزخانه </a></li>
-                <li><a href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o "></i> ثبت منو برای رستورانت </a></li>
+=               <li class="treeview">
+                    <a href="#"><i class="fa fa-circle-o"></i> منوی آشپزخانه
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو اصلی</a></li>
+                        <li><a href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i> ثبت زیر منو</a></li>
+
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-circle-o"></i> منوی رستورانت
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو</a></li>
+                        <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o"></i> ثبت نوع منو</a></li>
+
+                    </ul>
+                </li>
             </ul>
         </li>
 
@@ -166,6 +191,7 @@
                 <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> ثبت وظیفه </a></li>
                 <li><a href="<?=site_url('setting/stock_units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای گدام </a></li>
                 <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o "></i> ثبت نوعیت منو </a></li>
+                <li><a href="<?=site_url('setting/desks'); ?>"><i class="fa fa-circle-o "></i> ثبت میز </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>

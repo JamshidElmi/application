@@ -57,6 +57,13 @@ class setting_model extends MY_Model
         $this->_order_by = 'bm_id';
     }
 
+    public function desks()
+    {
+        $this->_table_name = 'desks';
+        $this->_primary_key = 'desk_id';
+        $this->_order_by = 'desk_id';
+    }
+
 
 
 }

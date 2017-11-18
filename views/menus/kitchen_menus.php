@@ -51,7 +51,7 @@
 
 
     <div class="col-sm-8">
-        <div class="box box-info box-solid">
+        <div class="box box-warning box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست منو های اصلی </h3>
                 <div class="box-tools pull-right">
@@ -62,22 +62,26 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="msg_res" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
+                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
 
-                <ul class="users-list clearfix">
-                    <li>
-                        <img width="90" class="img-thumbnail" src="<?=site_url('assets/img/menus/avatar.png'); ?>" >
-                        <a class="users-list-name" href="#">الکساندر گراهامبل</a>
-                        <span class="users-list-date">امروز</span>
-                    </li>
-                </ul>
+                    <ul class="users-list clearfix">
+
+                        <?php foreach ($base_menus as $base_menu): ?>
+                            <li id="bm_<?=$base_menu->bm_id ?>" >
+                                <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
+                                <a class="users-list-name" href="#" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
+                                <span class=" base_manu_delete" id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
+                            </li>
+                        <?php endforeach ?>
+
+                    </ul>
 
 
 
             </div>
             <!-- /.box-body -->
-            <div class="overlay" id="overlay_res" style="display: none;">
+            <div class="overlay" id="overlay" style="display: none;">
                 <i class="fa ion-load-d fa-spin"></i>
             </div>
         </div>
@@ -87,9 +91,9 @@
 <script>
 $(document).ready(function() {
     // delete unit restuarant
-    $('.mc_res_delete').confirm({
+    $('.base_manu_delete').confirm({
         title: 'حذف',
-        content: 'آیا با حذف این نوعیت منو موافق هستید؟',
+        content: 'آیا با حذف این منو منو موافق هستید؟',
         type: 'red',
         rtl: true,
         buttons: {
@@ -97,15 +101,15 @@ $(document).ready(function() {
                 text: 'تایید',
                 btnClass: 'btn-red',
                 action: function () {
-                    var mc_id = this.$target.attr('id');
+                    var bm_id = this.$target.attr('id');
                     $(document).ajaxStart(function(){
-                        $("#overlay_res").css('display','block');
+                        $("#overlay").css('display','block');
                     });
-                      $.post("<?php echo site_url('setting/delete_mc'); ?>",{mc_id:mc_id},function(response){});
+                      $.post("<?php echo site_url('menu/delete_bm'); ?>",{bm_id:bm_id},function(response){});
                     $(document).ajaxStop(function(){
-                        $("#overlay_res").css('display','none');
-                        $(".msg_res").css('display','block');
-                        $("a#res_"+mc_id).remove();
+                        $("#overlay").css('display','none');
+                        $(".msg").css('display','block');
+                        $("li#bm_"+bm_id).remove();
                     });
                 }
             },

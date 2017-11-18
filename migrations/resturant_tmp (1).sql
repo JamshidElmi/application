@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2017 at 12:13 PM
+-- Generation Time: Nov 16, 2017 at 04:07 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -69,7 +69,8 @@ CREATE TABLE `base_menus` (
 --
 
 INSERT INTO `base_menus` (`bm_id`, `bm_name`, `bm_price`, `bm_desc`, `bm_picture`, `bm_type`, `bm_cat_id`) VALUES
-(1, '456', '456.00', '456', 'avatar.png', 0, NULL);
+(1, 'منوی درجه یک ', '456.00', 'منوی درجه یک برای میهمانان اختصاصی', 'avatar.png', 0, NULL),
+(2, 'منوی درجه دوم', '480.00', 'توضیحات مربوط به منوی درجه دوم', 'avatar04.png', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -154,6 +155,26 @@ INSERT INTO `customers` (`cus_id`, `cus_unique_id`, `cus_name`, `cus_lname`, `cu
 (1, 'OGoYC8', 'احمد', 'احمدی', '146486', 'کارمند دولت', 'شرکت مشارکت ', 'کابل ', 'غزنی ', 'کابل کوته سنگی سرک اول', 'email@domain.com', 'www.domain.com', '0777181828', '1396-08-23', 1, 'avatar2.png', 'مشتری خوب حساب است', 'ضامن ', '0785864255', 'آدرس کامل موجود نیست ', 0, 26),
 (3, 'uStjnc', 'احسان جدید', 'ابراهیمی', '3453', 'کارمند دولت ', 'وطن ', 'کابل ', 'غزنی ', '       چوک غزنی ', 'email@domain.com', '', '0785865844', '1396-08-23', 0, 'avatar5.png', 'پسر خوب', '', '', '', 1, 25),
 (5, '8kIXLt', 'مهدی', 'رحیمی', '34563', 'دانشجو', '', 'کابل ', 'بامیان ', 'آدرس دقیق مهدی جان', 'email@domain.com', '', '078595485#02015458455', '1396-08-24', 1, 'avatar04.png', '', '', '', '', 1, 23);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `desks`
+--
+
+CREATE TABLE `desks` (
+  `desk_id` int(11) NOT NULL,
+  `desk_name` varchar(512) NOT NULL,
+  `desk_capacity` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `desks`
+--
+
+INSERT INTO `desks` (`desk_id`, `desk_name`, `desk_capacity`) VALUES
+(1, 'میز شماره دو', 8),
+(4, 'میز شماره یک', 6);
 
 -- --------------------------------------------------------
 
@@ -279,6 +300,21 @@ CREATE TABLE `migrations` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `ord_id` int(11) NOT NULL,
+  `ord_date` date NOT NULL,
+  `ord_time` time NOT NULL,
+  `ord_price` decimal(10,0) NOT NULL,
+  `ord_desk_id` int(11) DEFAULT NULL COMMENT 'ای دی میز',
+  `ord_cus_id` int(11) DEFAULT NULL COMMENT 'ای دی مشتری'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `salary`
 --
 
@@ -340,6 +376,28 @@ CREATE TABLE `sub_menus` (
   `sm_desc` varchar(512) DEFAULT NULL,
   `sm_bm_id` int(11) DEFAULT NULL COMMENT 'ای دی منوی اصلی'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sub_menus`
+--
+
+INSERT INTO `sub_menus` (`sm_id`, `sm_name`, `sm_desc`, `sm_bm_id`) VALUES
+(1, 'زیر منوی اول', 'توضیحات اول', 1),
+(2, 'زیر منوی دوم', 'توضیحات دوم', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_orders`
+--
+
+CREATE TABLE `sub_orders` (
+  `sord_id` int(11) NOT NULL,
+  `sord_bm_id` int(11) NOT NULL,
+  `sord_count` int(11) NOT NULL,
+  `sord_price` int(11) NOT NULL,
+  `sord_ord_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
 
 -- --------------------------------------------------------
 
@@ -472,6 +530,12 @@ ALTER TABLE `customers`
   ADD KEY `cus_acc_id_2` (`cus_acc_id`);
 
 --
+-- Indexes for table `desks`
+--
+ALTER TABLE `desks`
+  ADD PRIMARY KEY (`desk_id`);
+
+--
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
@@ -500,6 +564,14 @@ ALTER TABLE `menu_category`
   ADD PRIMARY KEY (`mc_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`ord_id`),
+  ADD KEY `ord_cus_id` (`ord_cus_id`),
+  ADD KEY `ord_desk_id` (`ord_desk_id`);
+
+--
 -- Indexes for table `salary`
 --
 ALTER TABLE `salary`
@@ -517,6 +589,14 @@ ALTER TABLE `stock_units`
 ALTER TABLE `sub_menus`
   ADD PRIMARY KEY (`sm_id`),
   ADD KEY `SM_FK_BM` (`sm_bm_id`);
+
+--
+-- Indexes for table `sub_orders`
+--
+ALTER TABLE `sub_orders`
+  ADD PRIMARY KEY (`sord_id`),
+  ADD KEY `SORF_FK_ORD` (`sord_ord_id`),
+  ADD KEY `sord_ord_id` (`sord_ord_id`);
 
 --
 -- Indexes for table `transections`
@@ -554,7 +634,7 @@ ALTER TABLE `accounts`
 -- AUTO_INCREMENT for table `base_menus`
 --
 ALTER TABLE `base_menus`
-  MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `bills`
 --
@@ -570,6 +650,11 @@ ALTER TABLE `company_info`
 --
 ALTER TABLE `customers`
   MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `desks`
+--
+ALTER TABLE `desks`
+  MODIFY `desk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `employees`
 --
@@ -591,6 +676,11 @@ ALTER TABLE `jobs`
 ALTER TABLE `menu_category`
   MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
@@ -604,7 +694,12 @@ ALTER TABLE `stock_units`
 -- AUTO_INCREMENT for table `sub_menus`
 --
 ALTER TABLE `sub_menus`
-  MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `sub_orders`
+--
+ALTER TABLE `sub_orders`
+  MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `transections`
 --
@@ -637,6 +732,12 @@ ALTER TABLE `expences`
   ADD CONSTRAINT `DEX_FK_BILL` FOREIGN KEY (`dex_bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `DEX_FK_TRANS` FOREIGN KEY (`dex_tr_id`) REFERENCES `transections` (`tr_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
+
+--
+-- Constraints for table `sub_orders`
+--
+ALTER TABLE `sub_orders`
+  ADD CONSTRAINT `SORD_FK_ORD` FOREIGN KEY (`sord_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `transections`
