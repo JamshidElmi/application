@@ -2,15 +2,15 @@
     <div class="col-sm-4">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">ثبت منو برای آشپزخانه</h3>
+                <h3 class="box-title">ثبت منو برای رستورانت</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add New"><i class="fa fa-plus"></i></a>
+                    <a href="<?=site_url('menu/resturant_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add New"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <?php $bm_id = (isset($bm->bm_id))?$bm->bm_id:'' ?>
-            <form role="form" method="POST" action="<?=site_url('menu/insert_kitchen_menu/'.$bm_id); ?>" enctype="multipart/form-data">
+            <form role="form" method="POST" action="<?=site_url('menu/insert_resturant_menu/'.$bm_id); ?>" enctype="multipart/form-data">
 
                 <div class="box-body">
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
@@ -18,12 +18,33 @@
                     <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
 
                     <div class="form-group">
-                        <label for="bm_name">نام منوی اصلی</label>
+                        <label for="bm_cat_id">انتخاب نوع منو</label>
+                        <select name="bm_cat_id" id="bm_cat_id" class="form-control" required>
+                            <?php if ($bm->bm_cat_id): ?>
+                                <?php foreach ($menu_cat as $cat): ?>
+                                    <?php if ($bm->bm_cat_id == $cat->mc_id): ?>
+                                        <option value="<?=$cat->mc_id ?>"><?=$cat->mc_name ?></option>
+                                        <?php foreach ($menu_cat as $cat): ?>
+                                            <option value="<?=$cat->mc_id ?>"><?=$cat->mc_name ?></option>
+                                        <?php endforeach ?>
+                                    <?php endif ?>
+                                <?php endforeach ?>
+                            <?php else: ?>
+                                <option value="">انتخاب کنید</option>
+                                <?php foreach ($menu_cat as $cat): ?>
+                                    <option value="<?=$cat->mc_id ?>"><?=$cat->mc_name ?></option>
+                                <?php endforeach ?>
+                            <?php endif ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bm_name">نام منو</label>
                         <input type="text" class="form-control" value="<?=(isset($bm->bm_name))?$bm->bm_name:''?>" name="bm_name" id="bm_name" placeholder="کباب، قابلی، نوشیدنی" required/>
                     </div>
 
                     <div class="form-group">
-                        <label for="bm_price">قیمت فی خوراک</label>
+                        <label for="bm_price">قیمت فی واحد</label>
                         <input type="number" class="form-control" value="<?=(isset($bm->bm_price))?$bm->bm_price:''?>" name="bm_price" id="bm_price" placeholder="اعشاری" required/>
                     </div>
 
@@ -56,9 +77,9 @@
 
 
     <div class="col-sm-8">
-        <div class="box box-warning box-solid">
+        <div class="box box-primary box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">لیست منو های اصلی </h3>
+                <h3 class="box-title">لیست منو های رستورانت </h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -76,8 +97,8 @@
                             <li id="bm_<?=$base_menu->bm_id ?>" >
                                 <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
                                 <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
+                                <a class="btn btn-default btn-xs" href="<?=site_url('menu/resturant_menus/'.$base_menu->bm_id); ?>"><span id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>
                                 <span class="base_manu_delete" id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
-                                <a class="btn btn-default btn-xs" href="<?=site_url('menu/kitchen_menus/'.$base_menu->bm_id); ?>"><span id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>
                             </li>
                         <?php endforeach ?>
                     </ul>

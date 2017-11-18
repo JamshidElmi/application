@@ -50,7 +50,7 @@
 
         <li class="treeview">
             <a href="#">
-                <i class="fa fa-users"></i> <span>کارمندان</span>
+                <i class="fa ion-ios-people fa-lg"></i> <span>کارمندان</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
@@ -64,7 +64,7 @@
 
         <li class="treeview">
             <a href="#">
-                <i class="fa ion-person-add"></i> <span>مشتریان</span>
+                <i class="fa ion-person-add fa-lg"></i> <span>مشتریان</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
@@ -138,7 +138,7 @@
 
         <li class="treeview">
             <a href="#">
-                <i class="fa ion-navicon-round"></i> <span>منوها</span>
+                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> <span>منوها</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
