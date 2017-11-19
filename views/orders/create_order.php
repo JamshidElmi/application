@@ -4,13 +4,13 @@
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت سفارش برای آشپزخانه</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add New Menu"><i class="fa fa-plus"></i></a>
+                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <?php $bm_id = (isset($bm->bm_id))?$bm->bm_id:'' ?>
-            <form role="form" method="POST" action="<?=site_url('menu/insert_resturant_menu/'.$bm_id); ?>" enctype="multipart/form-data">
+            <form role="form" method="POST" action="<?=site_url('order/insert_kitchen_order/'); ?>">
 
                 <div class="box-body">
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
@@ -21,10 +21,10 @@
                         <label for="emp_phone">روش پرداخت</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active" id="order_type01">
-                                <input type="radio" name="order_type" id="order_type1" value="1" checked=""> نقد
+                                <input type="radio" id="order_type1" value="0" checked=""> نقد
                             </label>
                             <label class="btn btn-primary " id="order_type02">
-                                <input type="radio" name="order_type" id="order_type2" value="2"> مشتری
+                                <input type="radio" id="order_type2" value="1"> مشتری
                             </label>
                         </div>
                     </div>
@@ -32,27 +32,51 @@
                     <div id="cus_list"></div>
 
                     <div class="form-group">
-                        <label for="bm_name">نام منو</label>
-                        <input type="text" class="form-control" value="<?=(isset($bm->bm_name))?$bm->bm_name:''?>" name="bm_name" id="bm_name" placeholder="کباب، قابلی، نوشیدنی" required/>
+                        <label>تاریخ</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                            <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
+                            <input type="hidden" id="dateAlt" name="ord_date" class="form-control pull-right" style="z-index: 0;" >
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="bm_price">قیمت فی واحد</label>
-                        <input type="number" class="form-control" value="<?=(isset($bm->bm_price))?$bm->bm_price:''?>" name="bm_price" id="bm_price" placeholder="اعشاری" required/>
+                        <label>زمان</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon"><i class="fa ion-clock fa-lg"></i></div>
+                            <input type="text" id="time" class="form-control pull-right" style="z-index: 0;" readonly>
+                            <input type="hidden" id="timeAlt" name="ord_time" class="form-control pull-right" style="z-index: 0;" >
+                        </div>
                     </div>
 
-                    <?php if (isset($bm->bm_picture)): ?>
-                        <a href="#" id="choose_file" style="float: left" data-toggle="tooltip" title="" data-original-title="Click For Change Image"><img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$bm->bm_picture) ?>" alt=""></a>
-                        <div class="clearfix"></div>
-                        <div id="file"></div>
-                    <?php else: ?>
-                        <div class="form-group">
-                            <label for="bm_picture">عکس</label>
-                            <input type="file" name="bm_picture" id="bm_picture" required />
-                            <p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>قیمت فی خوراک</label>
+                                <div class="input-group date">
+                                    <input type="text" id="bm_price" name="bm_price" class="form-control" readonly/>
+                                    <div class="input-group-addon">افغانی</div>
+                                </div>
+                            </div>
                         </div>
-                    <?php endif ?>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>تعداد</label>
+                                <div class="input-group date">
+                                    <input type="text" id="ord_count" class="form-control"/>
+                                    <div class="input-group-addon">سرویس</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label>قیمت کل</label>
+                        <div class="input-group date">
+                            <input type="text" id="ord_price" name="ord_price" class="form-control"/>
+                            <div class="input-group-addon">سرویس</div>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="bm_desc">توضیحات</label>
@@ -90,7 +114,7 @@
                             <li id="bm_<?=$base_menu->bm_id ?>" >
                                 <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
                                 <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
-                                <a class="btn bg-green btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
+                                <a class="btn bg-green btn-xs" href="#" id="<?=$base_menu->bm_id ?>"><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
                                 <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-android-apps fa-lg"></i></span></a>
                             </li>
                             <div class="modal fade" id="modal-<?=$base_menu->bm_id ?>">
@@ -149,13 +173,84 @@
 <script>
 $(document).ready(function() {
 
+    $('.set_menu').click(function(event) {
+        var menu_id = $(this).attr('id');
+        var menu_peice = $(this).attr('id');
+        }
+    );
+
+
     $('#order_type02').click(function(event) {
-        $('#cus_list').html('<div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>');
+        $('#cus_list').html('<div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>');
+
+        $('#bm_cat_id').change(function () {
+            var cus_acc_id = $('#bm_cat_id :selected').attr('cus-acc-id');
+            var cus_id = $('#bm_cat_id :selected').val();
+        });
+
     });
 
     $('#order_type01').click(function(event) {
         $('#cus_list>div').remove();
     });
+
+    $('#ord_count').keyup(function(event) {
+        var ord_count = $(this).val();
+        var bm_price = $('#bm_price').val();
+        var ord_price = parseFloat(ord_count) * parseFloat(bm_price);
+        $('#ord_price').val(ord_price);
+    });
+
+
+
+
+
+    // date
+    $('#tarikh').persianDatepicker({
+        altField: '#dateAlt',
+        format: 'D MMMM YYYY',
+        observer: true,
+
+        altFormat: 'YYYY-MM-DD',
+        observer: true,
+        position: [-65,0],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
+        },
+    });
+
+    // time
+    $('#time').persianDatepicker({
+        altField: '#timeAlt',
+        format: 'HH:mm',
+        observer: true,
+
+        altFormat: 'HH:mm',
+        observer: true,
+        position: [-65,0],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
+        },
+        onlyTimePicker: true,
+    });
+
+
 
 });
 

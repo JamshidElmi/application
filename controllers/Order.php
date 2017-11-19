@@ -46,9 +46,9 @@ class Order extends MY_Controller {
         $this->template->publish();
     }
 
-    public function insert_kitchen_menu($bm_id = NULL)
+    public function insert_kitchen_order()
     {
-        // print_r($_FILES['bm_picture']['name']); die();
+        print_r($this->input->post()); die();
 
         $data = $this->input->post();
         $data['bm_type']                = 0;
