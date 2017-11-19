@@ -154,7 +154,6 @@
                     <ul class="treeview-menu">
                         <li><a href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو اصلی</a></li>
                         <li><a href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i> ثبت زیر منو</a></li>
-
                     </ul>
                 </li>
 
@@ -167,7 +166,39 @@
                     <ul class="treeview-menu">
                         <li><a href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو</a></li>
                         <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o"></i> ثبت نوع منو</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
 
+        <li class="treeview">
+            <a href="#">
+                <i class="fa ion-ios-bell fa-lg"></i> <span>سفارشات</span>
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+
+            <ul class="treeview-menu">
+=               <li class="treeview">
+                    <a href="#"><i class="fa fa-circle-o"></i> سفارشات آشپزخانه
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('order/create_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-circle-o"></i> سفارشات رشتورانت
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
                     </ul>
                 </li>
             </ul>
