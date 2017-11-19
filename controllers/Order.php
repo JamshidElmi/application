@@ -48,71 +48,36 @@ class Order extends MY_Controller {
 
     public function insert_kitchen_order()
     {
-        print_r($this->input->post()); die();
+        // print_r($this->input->post()); die();
 
         $data = $this->input->post();
-        $data['bm_type']                = 0;
-        $config['upload_path']          = './assets/img/menus';
-        $config['allowed_types']        = 'gif|jpg|png';
-        $config['max_size']             = 250;
-        $config['max_width']            = 400;
-        $config['max_height']           = 400;
+        unset($data['bm_cat_id']);
+        unset($data['ord_bm_id']);
+        unset($data['bm_price']);
 
-        $this->load->library('upload', $config);
-
-        if($_FILES['bm_picture']['name'])
+        print_r($data); die();
+        // Inserting data
+        $this->order_model->orders();
+        $insert = $this->order_model->data_save(['ord_desc'=>$data['ord_desc'],'ord_desc'=>$data['ord_desc'], ]);
+        if(is_int($insert))
         {
-            if ( ! $this->upload->do_upload('bm_picture'))
-            {
-                $this->session->set_flashdata('file_errors', $this->upload->display_errors());
-                redirect('menu/kitchen_menus');
-            }
-            else
-            {
-                // Get file name
-                $file = $this->upload->data();
-                $file_name = $file['file_name'];
-                $data['bm_picture'] = $file_name;
-                // print_r($data); die();
-                // Inserting data
-                $this->menu_model->base_menus();
-                if($bm_id == NULL)
-                    $insert = $this->menu_model->data_save($data);
-                else
-                    $insert = $this->menu_model->data_save($data, $bm_id);
-
-                if(is_int($insert))
-                {
-                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
-                    redirect('menu/kitchen_menus');
-                }
-                else
-                {
-                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
-                    redirect('menu/kitchen_menus');
-                }
-            }
+            // $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+            // redirect('menu/kitchen_menus');
+            $this->order_model->customers();
+            $customer = $this->order_model->data_get($this->input->post('ord_cus_id'), true);
+            $this->order_model->accounts();
+            $account = $this->order_model->data_get($customer->cus_acc_id, true);
+            $this->order_model->transections();
+            $this->order_model->data_save([
+                'tr_desc'
+                ]);
         }
         else
         {
-            // Inserting data
-            $this->menu_model->base_menus();
-            if($bm_id == NULL)
-                $insert = $this->menu_model->data_save($data);
-            else
-                $insert = $this->menu_model->data_save($data, $bm_id);
-
-            if(is_int($insert))
-            {
-                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
-                redirect('menu/kitchen_menus');
-            }
-            else
-            {
-                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
-                redirect('menu/kitchen_menus');
-            }
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
+            redirect('menu/kitchen_menus');
         }
+
     } // end insert_kitchen_menu
 
     public function delete_bm()

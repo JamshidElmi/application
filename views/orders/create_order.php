@@ -71,16 +71,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label>قیمت کل</label>
+                        <label>قیمت مجموعی </label>
                         <div class="input-group date">
                             <input type="text" id="ord_price" name="ord_price" class="form-control"/>
-                            <div class="input-group-addon">سرویس</div>
+                            <div class="input-group-addon">افغانی</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="bm_desc">توضیحات</label>
-                        <textarea rows="5" class="form-control" name="bm_desc" id="bm_desc"  ><?=(isset($bm->bm_desc))?$bm->bm_desc:''?></textarea>
+                        <label for="ord_desc">توضیحات</label>
+                        <textarea rows="5" class="form-control" name="ord_desc" id="ord_desc"  ></textarea>
+                    </div>
+
+                    <div class="">
+                        <input type="text" name="ord_cus_id" id="ord_cus_id">
+                        <input type="text" name="ord_bm_id" id="ord_bm_id">
                     </div>
 
                 </div>
@@ -114,8 +119,9 @@
                             <li id="bm_<?=$base_menu->bm_id ?>" >
                                 <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
                                 <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
-                                <a class="btn bg-green btn-xs" href="#" id="<?=$base_menu->bm_id ?>"><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
-                                <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-android-apps fa-lg"></i></span></a>
+                                <!-- <a class="btn bg-gray btn-xs select-menu-disabled" disabled><span  data-toggle="tooltip" title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a> -->
+                                <a class="btn bg-green btn-xs select-menu" id="<?=$base_menu->bm_id ?>" bm-price="<?=$base_menu->bm_price ?>" ><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
+                                <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-clipboard fa-lg"></i></span></a>
                             </li>
                             <div class="modal fade" id="modal-<?=$base_menu->bm_id ?>">
                                 <div class="modal-dialog ">
@@ -186,6 +192,9 @@ $(document).ready(function() {
         $('#bm_cat_id').change(function () {
             var cus_acc_id = $('#bm_cat_id :selected').attr('cus-acc-id');
             var cus_id = $('#bm_cat_id :selected').val();
+            $('#ord_cus_id').val(cus_id);
+            // $('.select-menu').css('display', 'inline-block');
+            // $('.select-menu-disabled').css('display', 'none');
         });
 
     });
@@ -201,7 +210,10 @@ $(document).ready(function() {
         $('#ord_price').val(ord_price);
     });
 
-
+    $('.select-menu').click(function(event) {
+       $('#ord_bm_id').val($(this).attr('id'));
+       $('#bm_price').val($(this).attr('bm-price'));
+    });
 
 
 
