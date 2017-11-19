@@ -38,11 +38,11 @@ class Order extends MY_Controller {
         $this->order_model->customers();
         $customers = $this->order_model->data_get();
         $this->order_model->base_menus();
-        $bm = $this->order_model->order_join_sub_order();
-        // $bm = $this->order_model->data_get_by(['bm_type' => 0]);
+        $bm = $this->order_model->data_get_by(['bm_type' => 0]);
+        $base_sub_menu = $this->order_model->order_join_sub_order();
 
          // view
-        $this->template->content->view('orders/create_order', ['customers' => $customers, 'bm' => $bm]);
+        $this->template->content->view('orders/create_order', ['customers' => $customers, 'bm' => $bm, 'base_sub_menu' => $base_sub_menu]);
         $this->template->publish();
     }
 

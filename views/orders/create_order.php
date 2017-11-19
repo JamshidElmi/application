@@ -4,7 +4,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت سفارش برای آشپزخانه</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('menu/resturant_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add New"><i class="fa fa-plus"></i></a>
+                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add New Menu"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -90,36 +90,55 @@
                             <li id="bm_<?=$base_menu->bm_id ?>" >
                                 <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
                                 <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
-                                <a class="btn btn-default btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="Use"><i class="fa fa-share fa-lg "></i></span></a>
+                                <a class="btn bg-green btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
+                                <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-android-apps fa-lg"></i></span></a>
                             </li>
-                             <div class="modal fade " id="modal-<?=$base_menu->bm_id ?>">
-                                  <div class="modal-dialog ">
+                            <div class="modal fade" id="modal-<?=$base_menu->bm_id ?>">
+                                <div class="modal-dialog ">
                                     <div class="modal-content">
-                                      <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title"><?php  ?></h4>
-                                      </div>
-                                      <div class="modal-body">
-                                        <p>محتوا</p>
-                                      </div>
-                                      <div class="modal-footer">
-                                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">خروج</button>
-                                        <button type="button" class="btn btn-primary">ذخیره</button>
-                                      </div>
+                                        <div class="modal-header">
+                                            <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title"><?=$base_menu->bm_name ?></h4>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr class="bg-gray">
+                                                        <th>#</th>
+                                                        <th>زیر منو </th>
+                                                        <th>توضیحات</th>
+                                                    </tr>
+                                                    <?php $i = 1; foreach ($base_sub_menu as $sub_menu): ?>
+                                                        <?php  if ($sub_menu->sm_bm_id == $base_menu->bm_id): ?>
+                                                             <tr>
+                                                                <td><?=$i++ ?></td>
+                                                                <td><strong><?=$sub_menu->sm_name ?></strong></td>
+                                                                <td><?=$sub_menu->sm_desc ?></td>
+                                                            </tr>
+                                                        <?php endif ?>
+                                                    <?php endforeach ?>
+                                                </tbody>
+                                            </table>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-danger " data-dismiss="modal">بستن</button>
+                                        </div>
                                     </div>
                                     <!-- /.modal-content -->
-                                  </div>
-                                  <!-- /.modal-dialog -->
                                 </div>
-                                <!-- /.modal -->
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
                         <?php endforeach ?>
                     </ul>
 
 
-
-            </div>
-            <!-- /.box-body -->
+                </div>
+                <!-- /.box-body -->
             <div class="overlay" id="overlay" style="display: none;">
                 <i class="fa ion-load-d fa-spin"></i>
             </div>
@@ -130,51 +149,14 @@
 <script>
 $(document).ready(function() {
 
-
-$('#order_type02').click(function(event) {
-    $('#cus_list').html('<div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>');
-});
-
-$('#order_type01').click(function(event) {
-    $('#cus_list>div').remove();
-});
-
-
-
-
-
-
-
-    // delete unit restuarant
-    $('.base_manu_delete').confirm({
-        title: 'حذف',
-        content: 'آیا با حذف این منو موافق هستید؟',
-        type: 'red',
-        rtl: true,
-        buttons: {
-            confirm: {
-                text: 'تایید',
-                btnClass: 'btn-red',
-                action: function () {
-                    var bm_id = this.$target.attr('id');
-                    $(document).ajaxStart(function(){
-                        $("#overlay").css('display','block');
-                    });
-                      $.post("<?php echo site_url('menu/delete_bm'); ?>",{bm_id:bm_id},function(response){});
-                    $(document).ajaxStop(function(){
-                        $("#overlay").css('display','none');
-                        $(".msg").css('display','block');
-                        $("li#bm_"+bm_id).remove();
-                    });
-                }
-            },
-            cancel: {
-                text: 'انصراف',
-                action: function () {
-                }
-            }
-        }
+    $('#order_type02').click(function(event) {
+        $('#cus_list').html('<div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>');
     });
+
+    $('#order_type01').click(function(event) {
+        $('#cus_list>div').remove();
+    });
+
 });
 
 </script>
