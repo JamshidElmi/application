@@ -126,6 +126,33 @@ class Order extends MY_Controller {
     } // end insert_kitchen_menu
 
 
+    public function create_resturant_order()
+    {
+        $this->template->description = 'ثبت سفارش برای رستورانت';
+        $this->order_model->menu_category();
+        $menu_categories = $this->order_model->data_get();
+
+        // view
+        $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories]);
+        $this->template->publish();
+    }
+
+    public function jq_menu_list($mc_id)
+    {
+        $this->order_model->base_menus();
+        $base_menus = $this->order_model->data_get_by(['bm_type' => 1, 'bm_cat_id' => $mc_id]);
+
+        foreach ($base_menus as $base_menu)
+        {
+            echo "<li id='bm_".$base_menu->bm_id."' >";
+                echo '<img width="100" class="img-thumbnail" src="'.site_url('assets/img/menus/'.$base_menu->bm_picture).'" >';
+                echo '<a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="'.$base_menu->bm_desc.'">'.$base_menu->bm_name.'</a>';
+                echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'"     ><span title="" data-original-title="Use"><i class="fa fa-plus "></i></span></a>&nbsp;';
+                echo '<a class="btn bg-orange btn-xs btn_add" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'" bm-price="'.$base_menu->bm_price.'"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
+            echo '</li>';
+        }
+    }
+
 
 
 

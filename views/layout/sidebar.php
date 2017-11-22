@@ -198,7 +198,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
+                        <li><a href="<?=site_url('order/create_resturant_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
                     </ul>
                 </li>
             </ul>
