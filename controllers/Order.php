@@ -51,34 +51,50 @@ class Order extends MY_Controller {
         // print_r($this->input->post()); die();
 
         $data = $this->input->post();
-        unset($data['bm_cat_id']);
-        unset($data['ord_bm_id']);
-        unset($data['bm_price']);
-
-        print_r($data); die();
         // Inserting data
         $this->order_model->orders();
-        $insert = $this->order_model->data_save(['ord_desc'=>$data['ord_desc'],'ord_desc'=>$data['ord_desc'], ]);
-        if(is_int($insert))
+        $insert_ord_id = $this->order_model->data_save(['ord_desc'=>$data['ord_desc'],'ord_date'=>$data['ord_date'],'ord_time'=>$data['ord_time'],'ord_price'=>$data['ord_price'],'ord_type'=> 'kitchen', 'ord_cus_id'=>$data['ord_cus_id'] ]);
+        if(is_int($insert_ord_id))
         {
-            // $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
-            // redirect('menu/kitchen_menus');
+            $this->order_model->sub_orders();
+            $insert_sord_id = $this->order_model->data_save(['sord_bm_id'=>$data['sord_bm_id'],'sord_count'=>$data['sord_count'],'sord_price'=>$data['ord_price'],'sord_ord_id'=>$insert_ord_id ]);
             $this->order_model->customers();
-            $customer = $this->order_model->data_get($this->input->post('ord_cus_id'), true);
+            $customer = $this->order_model->data_get($data['ord_cus_id'], true);
             $this->order_model->accounts();
             $account = $this->order_model->data_get($customer->cus_acc_id, true);
+            $acc_new_amount = $account->acc_amount - $data['tr_amount'];
+            $this->order_model->data_save(['acc_amount' => $acc_new_amount], $account->acc_id);
+
             $this->order_model->transections();
             $this->order_model->data_save([
-                'tr_desc'
+                'tr_desc' => $data['ord_desc'],
+                'tr_amount' => $data['tr_amount'],
+                'tr_type' => 'kitchen_order',
+                'tr_date' => $data['ord_date'],
+                'tr_status' => 1,
+                'tr_acc_id' => $account->acc_id,
+                'tr_ord_id' => $insert_ord_id,
                 ]);
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+            redirect('order/create_order');
         }
         else
         {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
-            redirect('menu/kitchen_menus');
+            redirect('order/create_order');
         }
 
     } // end insert_kitchen_menu
+
+    public function kitchen_orders()
+    {
+        $this->template->description = 'لیست سفارشات آشپزخانه';
+        $orders = $this->order_model->order_join_customer();
+
+         // view
+        $this->template->content->view('orders/kitchen_orders', ['orders' => $orders]);
+        $this->template->publish();
+    }
 
     public function delete_bm()
     {

@@ -192,7 +192,7 @@
                 </li>
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> سفارشات رشتورانت
+                    <a href="#"><i class="fa fa-circle-o"></i> سفارشات رستورانت
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>

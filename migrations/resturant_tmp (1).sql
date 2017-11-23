@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2017 at 09:03 PM
+-- Generation Time: Nov 23, 2017 at 12:16 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -40,10 +40,10 @@ CREATE TABLE `accounts` (
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
-(20, 'حساب اصلی', '12275.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
+(20, 'حساب اصلی', '2275.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
 (21, 'همکار شماره یک', '10600.00', 'افتتاح حساب', '1396-08-20', 1),
 (22, 'همکار شماره دو', '50000.00', 'افتتاح حساب همکار', '1396-08-20', 1),
-(23, 'مشتری شماره یک', '2000.00', 'افتتاح حساب', '1396-08-21', 2),
+(23, 'مشتری شماره یک', '1500.00', 'افتتاح حساب', '1396-08-21', 2),
 (24, 'همکار شماره سه', '5000.00', 'افتتاح حساب همکار 3', '1396-08-21', 1),
 (25, 'مشتری شماره دو', '2500.00', 'افتتاح حساب مشتری 2', '1396-08-21', 2),
 (26, 'صندوق مشتری جدید', '50000.00', 'افتتاح حساب', '1396-08-23', 2);
@@ -71,10 +71,10 @@ CREATE TABLE `base_menus` (
 INSERT INTO `base_menus` (`bm_id`, `bm_name`, `bm_price`, `bm_desc`, `bm_picture`, `bm_type`, `bm_cat_id`) VALUES
 (1, 'منوی درجه اول', '456.00', '', 'avatar.png', 0, NULL),
 (5, 'منوی درجه چهار', '560.00', 'توضیحات', 'avatar3.png', 0, NULL),
-(6, 'کوکاکولا', '20.00', 'توضیحات لازم و ضروری', 'avatar22.png', 1, NULL),
+(6, 'کوکاکولا', '20.00', 'توضیحات لازم و ضروری', 'avatar042.png', 1, 4),
 (7, 'منوی درجه چهارم', '560.00', '', 'avatar5.png', 0, NULL),
 (8, 'منوی درجه هشت', '456.00', '', 'avatar1.png', 0, NULL),
-(9, 'چلو کباب ایرانی', '120.00', 'چلو کباب اصل ایرانی', 'avatar51.png', 1, NULL);
+(9, 'چلو کباب ایرانی', '120.00', 'چلو کباب اصل ایرانی', 'avatar2.png', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -289,7 +289,8 @@ CREATE TABLE `menu_category` (
 
 INSERT INTO `menu_category` (`mc_id`, `mc_name`) VALUES
 (1, 'کباب'),
-(3, 'کباب با برنج ');
+(3, 'کباب با برنج '),
+(4, 'نوشیدنی ها');
 
 -- --------------------------------------------------------
 
@@ -313,9 +314,21 @@ CREATE TABLE `orders` (
   `ord_date` date NOT NULL,
   `ord_time` time NOT NULL,
   `ord_price` decimal(10,0) NOT NULL,
+  `ord_type` varchar(16) NOT NULL COMMENT 'نوعیت سفارش آشپزخانه / رستورانت',
   `ord_desk_id` int(11) DEFAULT NULL COMMENT 'ای دی میز',
   `ord_cus_id` int(11) DEFAULT NULL COMMENT 'ای دی مشتری'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
+(2, '10 سفارش از منوی درجه اول', '1396-09-02', '13:31:00', '4560', 'kitchen', NULL, 5),
+(3, '4000 پرداخت شد 560 باقی', '1396-09-02', '14:24:00', '4560', 'kitchen', NULL, 5),
+(4, '', '1396-09-02', '15:09:00', '4560', 'kitchen', NULL, 5),
+(5, '', '1396-09-02', '15:15:00', '912', 'kitchen', NULL, 5),
+(6, '', '1396-09-02', '15:15:00', '912', 'kitchen', NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -343,7 +356,8 @@ CREATE TABLE `salary` (
 
 INSERT INTO `salary` (`sal_id`, `sal_amount`, `sal_remain`, `sal_tax`, `sal_bonus`, `sal_fine`, `sal_payable`, `sal_date`, `sal_month`, `sal_desc`, `sal_emp_id`) VALUES
 (20, '7000.00', '7600.00', '450.00', '200.00', '150.00', '14400.00', '1396-08-21', 8, 'پرداخت ابتدائی ', 1),
-(21, '8000.00', '6430.00', '750.00', '300.00', '120.00', '14130.00', '1396-08-21', 1, 'پرداخت اولیه', 1);
+(21, '8000.00', '6430.00', '750.00', '300.00', '120.00', '14130.00', '1396-08-21', 1, 'پرداخت اولیه', 1),
+(22, '10000.00', '4250.00', '450.00', '200.00', '500.00', '14050.00', '1396-09-02', 10, '', 1);
 
 -- --------------------------------------------------------
 
@@ -409,6 +423,17 @@ CREATE TABLE `sub_orders` (
   `sord_ord_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
 
+--
+-- Dumping data for table `sub_orders`
+--
+
+INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_count`, `sord_price`, `sord_ord_id`) VALUES
+(1, 1, 10, 4560, 2),
+(2, 1, 10, 4560, 3),
+(3, 1, 10, 4560, 4),
+(4, 1, 2, 912, 5),
+(5, 1, 2, 912, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -448,7 +473,14 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 (59, 'افتتاح حساب', '5000.00', 'credit_debit', '1396-08-21', 1, 24, NULL, NULL, NULL),
 (60, 'افتتاح حساب', '2500.00', 'credit_debit', '1396-08-21', 1, 25, NULL, NULL, NULL),
 (61, '', '5000.00', 'credit_debit', '1396-08-21', 1, 20, NULL, NULL, NULL),
-(62, 'افتتاح حساب', '50000.00', 'credit_debit', '1396-08-23', 1, 26, NULL, NULL, NULL);
+(62, 'افتتاح حساب', '50000.00', 'credit_debit', '1396-08-23', 1, 26, NULL, NULL, NULL),
+(63, '', '5000.00', 'salary', '1396-09-02', 2, 20, NULL, 22, NULL),
+(64, '', '5000.00', 'salary', '1396-09-02', 2, 20, NULL, 22, NULL),
+(65, '10 سفارش از منوی درجه اول', '4560.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 2),
+(66, '4000 پرداخت شد 560 باقی', '4000.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 3),
+(67, '', '4000.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 4),
+(68, '', '500.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 5),
+(69, '', '500.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -689,17 +721,17 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `menu_category`
 --
 ALTER TABLE `menu_category`
-  MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 --
 -- AUTO_INCREMENT for table `stock_units`
 --
@@ -714,12 +746,12 @@ ALTER TABLE `sub_menus`
 -- AUTO_INCREMENT for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-  MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT for table `units`
 --

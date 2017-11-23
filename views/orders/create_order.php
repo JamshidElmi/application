@@ -1,10 +1,10 @@
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-5">
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت سفارش برای آشپزخانه</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
+                    <a href="<?=site_url('order/kitchen_orders'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -17,7 +17,7 @@
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
                     <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
 
-                    <div class="form-group">
+                   <!--  <div class="form-group">
                         <label for="emp_phone">روش پرداخت</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
                             <label class="btn btn-primary active" id="order_type01">
@@ -27,25 +27,31 @@
                                 <input type="radio" id="order_type2" value="1"> مشتری
                             </label>
                         </div>
-                    </div>
+                    </div> -->
+
+                    <div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>
 
                     <div id="cus_list"></div>
-
-                    <div class="form-group">
-                        <label>تاریخ</label>
-                        <div class="input-group date">
-                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                            <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
-                            <input type="hidden" id="dateAlt" name="ord_date" class="form-control pull-right" style="z-index: 0;" >
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>تاریخ</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
+                                    <input type="hidden" id="dateAlt" name="ord_date" class="form-control pull-right" style="z-index: 0;" >
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>زمان</label>
-                        <div class="input-group date">
-                            <div class="input-group-addon"><i class="fa ion-clock fa-lg"></i></div>
-                            <input type="text" id="time" class="form-control pull-right" style="z-index: 0;" readonly>
-                            <input type="hidden" id="timeAlt" name="ord_time" class="form-control pull-right" style="z-index: 0;" >
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>زمان</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon"><i class="fa ion-clock fa-lg"></i></div>
+                                    <input type="text" id="time" class="form-control pull-right" style="z-index: 0;" readonly>
+                                    <input type="hidden" id="timeAlt" name="ord_time" class="form-control pull-right" style="z-index: 0;" >
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -63,7 +69,7 @@
                             <div class="form-group">
                                 <label>تعداد</label>
                                 <div class="input-group date">
-                                    <input type="text" id="ord_count" class="form-control"/>
+                                    <input type="number" name="sord_count" id="ord_count" class="form-control" readonly />
                                     <div class="input-group-addon">سرویس</div>
                                 </div>
                             </div>
@@ -73,10 +79,33 @@
                     <div class="form-group">
                         <label>قیمت مجموعی </label>
                         <div class="input-group date">
-                            <input type="text" id="ord_price" name="ord_price" class="form-control"/>
+                            <input type="text" id="ord_price" name="ord_price" class="form-control" readonly/>
                             <div class="input-group-addon">افغانی</div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>مقدار پرداختی</label>
+                                <div class="input-group date">
+                                    <input type="number" id="tr_amount" name="tr_amount" class="form-control" readonly />
+                                    <div class="input-group-addon">افغانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>باقیمانده</label>
+                                <div class="input-group date">
+                                    <input type="number"  id="remain" class="form-control" readonly />
+                                    <div class="input-group-addon">افغانی</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <div class="form-group">
                         <label for="ord_desc">توضیحات</label>
@@ -84,13 +113,13 @@
                     </div>
 
                     <div class="">
-                        <input type="text" name="ord_cus_id" id="ord_cus_id">
-                        <input type="text" name="ord_bm_id" id="ord_bm_id">
+                        <input type="hidden" name="ord_cus_id" id="ord_cus_id">
+                        <input type="hidden" name="sord_bm_id" id="ord_bm_id">
                     </div>
 
                 </div>
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
+                    <button type="submit" id="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>
@@ -98,13 +127,12 @@
     </div>
 
 
-    <div class="col-sm-8">
+    <div class="col-sm-7">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست منو های آشپزخانه </h3>
                 <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
+                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
                 </div>
                 <!-- /.box-tools -->
             </div>
@@ -185,22 +213,12 @@ $(document).ready(function() {
         }
     );
 
-
-    $('#order_type02').click(function(event) {
-        $('#cus_list').html('<div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>');
-
-        $('#bm_cat_id').change(function () {
-            var cus_acc_id = $('#bm_cat_id :selected').attr('cus-acc-id');
-            var cus_id = $('#bm_cat_id :selected').val();
-            $('#ord_cus_id').val(cus_id);
-            // $('.select-menu').css('display', 'inline-block');
-            // $('.select-menu-disabled').css('display', 'none');
-        });
-
-    });
-
-    $('#order_type01').click(function(event) {
-        $('#cus_list>div').remove();
+    $('#bm_cat_id').change(function () {
+        var cus_acc_id = $('#bm_cat_id :selected').attr('cus-acc-id');
+        var cus_id = $('#bm_cat_id :selected').val();
+        $('#ord_cus_id').val(cus_id);
+        $('#ord_count').attr('readonly', false);
+        $('#tr_amount').attr('readonly', false);
     });
 
     $('#ord_count').keyup(function(event) {
@@ -213,6 +231,13 @@ $(document).ready(function() {
     $('.select-menu').click(function(event) {
        $('#ord_bm_id').val($(this).attr('id'));
        $('#bm_price').val($(this).attr('bm-price'));
+    });
+
+    $('#tr_amount').keyup(function(event) {
+        var ord_price = $('#ord_price').val();
+        var tr_amount = $(this).val();
+        var remain = parseFloat(ord_price) - parseFloat(tr_amount);
+        $('#remain').val(remain);
     });
 
 
