@@ -36,6 +36,7 @@ class order_model extends MY_Model
         $this->_order_by = 'bm_id';
     }
 
+<<<<<<< HEAD
     public function accounts()
     {
         $this->_table_name = 'accounts';
@@ -48,6 +49,13 @@ class order_model extends MY_Model
         $this->_table_name = 'transections';
         $this->_primary_key = 'tr_id';
         $this->_order_by = 'tr_id';
+=======
+    public function menu_category()
+    {
+        $this->_table_name = 'menu_category';
+        $this->_primary_key = 'mc_id';
+        $this->_order_by = 'mc_id';
+>>>>>>> master
     }
 
     public function order_join_sub_order()
