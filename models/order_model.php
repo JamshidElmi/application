@@ -57,18 +57,18 @@ class order_model extends MY_Model
         $this->_order_by    = 'tr_id';
     }
 
+    public function desks()
+    {
+        $this->_table_name  = 'desks';
+        $this->_primary_key = 'desk_id';
+        $this->_order_by    = 'desk_id';
+    }
+
     public function menu_category()
     {
         $this->_table_name  = 'menu_category';
         $this->_primary_key = 'mc_id';
         $this->_order_by    = 'mc_id';
-    }
-
-    public function menu_category()
-    {
-        $this->_table_name = 'menu_category';
-        $this->_primary_key = 'mc_id';
-        $this->_order_by = 'mc_id';
     }
 
     public function order_join_sub_order()

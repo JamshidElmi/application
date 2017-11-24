@@ -1,24 +1,20 @@
 <div class="row">
     <div class="col-sm-5">
-        <div class="box box-success">
+        <div class="box box-warning">
             <div class="box-header with-border">
-                <h3 class="box-title">ثبت سفارش برای آشپزخانه</h3>
+                <h3 class="box-title">ویرایش سفارش </h3>
                 <div class="box-tools pull-right">
                     <a href="<?=site_url('order/kitchen_orders'); ?>" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php $bm_id = (isset($bm->bm_id))?$bm->bm_id:'' ?>
-            <form role="form" method="POST" action="<?=site_url('order/insert_kitchen_order/'); ?>">
+            <form role="form" method="POST" action="<?=site_url('order/update_kitchen_order/'); ?>">
 
                 <div class="box-body">
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
                     <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
-
-
-                    <div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>
 
                     <div class="row">
                         <div class="col-sm-6">
@@ -26,8 +22,8 @@
                                 <label>تاریخ</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                    <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
-                                    <input type="hidden" id="dateAlt" name="ord_date" class="form-control pull-right" style="z-index: 0;" >
+                                    <input type="text" id="tarikh" value="<?=show_date("l j F Y", $order->ord_date); ?>" class="form-control pull-right" style="z-index: 0;" readonly>
+                                    <input type="hidden" id="dateAlt" value="<?=$order->ord_date ?>" name="ord_date" class="form-control pull-right" style="z-index: 0;" >
                                 </div>
                             </div>
                         </div>
@@ -36,8 +32,8 @@
                                 <label>زمان</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon"><i class="fa ion-clock fa-lg"></i></div>
-                                    <input type="text" id="time" class="form-control pull-right" style="z-index: 0;" readonly>
-                                    <input type="hidden" id="timeAlt" name="ord_time" class="form-control pull-right" style="z-index: 0;" >
+                                    <input type="text" id="time" value="<?=$order->ord_time ?>" class="form-control pull-right" style="z-index: 0;" readonly>
+                                    <input type="hidden" id="timeAlt" value="<?=$order->ord_time ?>" name="ord_time" class="form-control pull-right" style="z-index: 0;" >
                                 </div>
                             </div>
                         </div>
@@ -48,7 +44,7 @@
                             <div class="form-group">
                                 <label>قیمت فی خوراک</label>
                                 <div class="input-group date">
-                                    <input type="text" id="bm_price" name="bm_price" class="form-control" readonly/>
+                                    <input type="text" id="bm_price" value="<?=$base_menu->bm_price ?>" name="bm_price" class="form-control" readonly/>
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>
@@ -57,7 +53,7 @@
                             <div class="form-group">
                                 <label>تعداد</label>
                                 <div class="input-group date">
-                                    <input type="number" name="sord_count" id="ord_count" class="form-control" readonly />
+                                    <input type="number" name="sord_count" value="<?=$sub_order->sord_count ?>" id="ord_count" class="form-control" />
                                     <div class="input-group-addon">سرویس</div>
                                 </div>
                             </div>
@@ -72,42 +68,20 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>مقدار پرداختی</label>
-                                <div class="input-group date">
-                                    <input type="number" id="tr_amount" name="tr_amount" class="form-control" readonly />
-                                    <div class="input-group-addon">افغانی</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label>باقیمانده</label>
-                                <div class="input-group date">
-                                    <input type="number"  id="remain" class="form-control" readonly />
-                                    <div class="input-group-addon">افغانی</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
                     <div class="form-group">
                         <label for="ord_desc">توضیحات</label>
-                        <textarea rows="5" class="form-control" name="ord_desc" id="ord_desc"  ></textarea>
+                        <textarea rows="5" class="form-control" name="ord_desc" id="ord_desc"><?=$order->ord_desc ?></textarea>
                     </div>
 
                     <div class="">
-                        <input type="hidden" name="ord_cus_id" id="ord_cus_id">
-                        <input type="hidden" name="sord_bm_id" id="ord_bm_id">
+                        <input type="hidden" value="<?=$sub_order->sord_bm_id ?>" name="sord_bm_id" id="ord_bm_id">
+                        <input type="hidden" value="<?=$order->ord_id ?>" name="ord_id" id="ord_id">
+                        <input type="hidden" value="<?=$sub_order->sord_id ?>" name="sord_id" id="sord_id">
                     </div>
 
                 </div>
                 <div class="box-footer">
-                    <button type="submit" id="submit" class="btn btn-success" disabled>ذخیره <i class="fa fa-save"></i></button>
+                    <button type="submit" id="submit" class="btn btn-success" >ذخیره <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>
@@ -182,7 +156,6 @@
                         <?php endforeach ?>
                     </ul>
 
-
                 </div>
                 <!-- /.box-body -->
             <div class="overlay" id="overlay" style="display: none;">
@@ -194,6 +167,11 @@
 
 <script>
 $(document).ready(function() {
+
+    var ord_count = $('#ord_count').val();
+    var bm_price = $('#bm_price').val();
+    var ord_price = parseFloat(ord_count) * parseFloat(bm_price);
+    $('#ord_price').val(ord_price);
 
     $('.set_menu').click(function(event) {
         var menu_id = $(this).attr('id');
@@ -230,52 +208,54 @@ $(document).ready(function() {
     });
 
 
+    $('#tarikh').click(function(event) {
+        // date
+        $('#tarikh').persianDatepicker({
+            altField: '#dateAlt',
+            format: 'D MMMM YYYY',
+            observer: true,
 
-    // date
-    $('#tarikh').persianDatepicker({
-        altField: '#dateAlt',
-        format: 'D MMMM YYYY',
-        observer: true,
-
-        altFormat: 'YYYY-MM-DD',
-        observer: true,
-        position: [-67,200],
-        calendar: {
-            persian: {
-                enabled: true,
-                locale: 'en',
-                leapYearMode: "algorithmic" // "astronomical"
+            altFormat: 'YYYY-MM-DD',
+            observer: true,
+            position: [-67,200],
+            calendar: {
+                persian: {
+                    enabled: true,
+                    locale: 'en',
+                    leapYearMode: "algorithmic" // "astronomical"
+                },
+                gregorian: {
+                    enabled: false,
+                    locale: 'en'
+                }
             },
-            gregorian: {
-                enabled: false,
-                locale: 'en'
-            }
-        },
+        });
     });
 
-    // time
-    $('#time').persianDatepicker({
-        altField: '#timeAlt',
-        format: 'HH:mm',
-        observer: true,
+    $('#time').click(function(event) {
+        // time
+        $('#time').persianDatepicker({
+            altField: '#timeAlt',
+            format: 'HH:mm',
+            observer: true,
 
-        altFormat: 'HH:mm',
-        observer: true,
-        position: [-67,200],
-        calendar: {
-            persian: {
-                enabled: true,
-                locale: 'en',
-                leapYearMode: "algorithmic" // "astronomical"
+            altFormat: 'HH:mm',
+            observer: true,
+            position: [-67,200],
+            calendar: {
+                persian: {
+                    enabled: true,
+                    locale: 'en',
+                    leapYearMode: "algorithmic" // "astronomical"
+                },
+                gregorian: {
+                    enabled: false,
+                    locale: 'en'
+                }
             },
-            gregorian: {
-                enabled: false,
-                locale: 'en'
-            }
-        },
-        onlyTimePicker: true,
+            onlyTimePicker: true,
+        });
     });
-
 
 
 });
