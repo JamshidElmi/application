@@ -4,7 +4,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت سفارش برای رستورانت</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('menu/resturant_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
+                    <a href="<?=site_url('order/resturant_orders'); ?>" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
                 </div>
 
             </div>

@@ -89,7 +89,7 @@ class Order extends MY_Controller {
     public function kitchen_orders()
     {
         $this->template->description = 'لیست سفارشات آشپزخانه';
-        $orders = $this->order_model->order_join_customer();
+        $orders = $this->order_model->order_join_customer('kitchen');
 
          // view
         $this->template->content->view('orders/kitchen_orders', ['orders' => $orders]);
@@ -193,6 +193,30 @@ class Order extends MY_Controller {
             redirect('order/create_resturant_order');
         }
 
+    }
+
+    public function resturant_orders()
+    {
+        $this->template->description = 'لیست سفارشات رستورانت';
+        // $orders = $this->order_model->order_join_customer('resturant','base_acc');
+        $this->order_model->orders();
+        $orders = $this->order_model->data_get_by(['ord_type' => 'resturant']);
+        foreach ($orders as $order)
+        {
+            if($order->ord_cus_id == base_account()->acc_id)
+            {
+                $this->order_model->sub_orders();
+                $sub_orders = $this->order_model->data_get_by(['sord_ord_id' => $order->ord_id]);
+            }
+            else
+            {
+                $sub_orders = $this->order_model->order_join_customer('resturant','base_acc');
+            }
+        }
+
+         // view
+        $this->template->content->view('orders/resturant_orders', ['orders' => $orders, 'sub_orders' => $sub_orders]);
+        $this->template->publish();
     }
 
 
