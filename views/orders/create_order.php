@@ -4,7 +4,11 @@
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت سفارش برای آشپزخانه</h3>
                 <div class="box-tools pull-right">
+<<<<<<< HEAD
                     <a href="<?=site_url('order/kitchen_orders'); ?>" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
+=======
+                    <a href="<?=site_url('order/kitchen_orders'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
+>>>>>>> master
                 </div>
             </div>
             <!-- /.box-header -->
@@ -17,9 +21,27 @@
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
                     <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
 
+<<<<<<< HEAD
 
                     <div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>
 
+=======
+                   <!--  <div class="form-group">
+                        <label for="emp_phone">روش پرداخت</label> &nbsp;&nbsp;&nbsp;
+                        <div id="radios" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active" id="order_type01">
+                                <input type="radio" id="order_type1" value="0" checked=""> نقد
+                            </label>
+                            <label class="btn btn-primary " id="order_type02">
+                                <input type="radio" id="order_type2" value="1"> مشتری
+                            </label>
+                        </div>
+                    </div> -->
+
+                    <div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label><select name="bm_cat_id" id="bm_cat_id" class="form-control" required><option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>
+
+                    <div id="cus_list"></div>
+>>>>>>> master
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -69,6 +91,7 @@
                         <div class="input-group date">
                             <input type="text" id="ord_price" name="ord_price" class="form-control" readonly/>
                             <div class="input-group-addon">افغانی</div>
+<<<<<<< HEAD
                         </div>
                     </div>
 
@@ -93,6 +116,32 @@
                         </div>
                     </div>
 
+=======
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>مقدار پرداختی</label>
+                                <div class="input-group date">
+                                    <input type="number" id="tr_amount" name="tr_amount" class="form-control" readonly />
+                                    <div class="input-group-addon">افغانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>باقیمانده</label>
+                                <div class="input-group date">
+                                    <input type="number"  id="remain" class="form-control" readonly />
+                                    <div class="input-group-addon">افغانی</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+>>>>>>> master
 
 
                     <div class="form-group">
@@ -107,7 +156,11 @@
 
                 </div>
                 <div class="box-footer">
+<<<<<<< HEAD
                     <button type="submit" id="submit" class="btn btn-success" disabled>ذخیره <i class="fa fa-save"></i></button>
+=======
+                    <button type="submit" id="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
+>>>>>>> master
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>
@@ -219,7 +272,10 @@ $(document).ready(function() {
     $('.select-menu').click(function(event) {
        $('#ord_bm_id').val($(this).attr('id'));
        $('#bm_price').val($(this).attr('bm-price'));
+<<<<<<< HEAD
        $('#submit').attr('disabled', false);
+=======
+>>>>>>> master
     });
 
     $('#tr_amount').keyup(function(event) {

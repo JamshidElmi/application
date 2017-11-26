@@ -89,7 +89,11 @@ class Order extends MY_Controller {
     public function kitchen_orders()
     {
         $this->template->description = 'لیست سفارشات آشپزخانه';
+<<<<<<< HEAD
         $orders = $this->order_model->order_join_customer('kitchen');
+=======
+        $orders = $this->order_model->order_join_customer();
+>>>>>>> master
 
          // view
         $this->template->content->view('orders/kitchen_orders', ['orders' => $orders]);
