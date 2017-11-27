@@ -57,19 +57,12 @@ class order_model extends MY_Model
         $this->_order_by    = 'tr_id';
     }
 
-<<<<<<< HEAD
+
     public function desks()
     {
         $this->_table_name  = 'desks';
         $this->_primary_key = 'desk_id';
         $this->_order_by    = 'desk_id';
-=======
-    public function menu_category()
-    {
-        $this->_table_name  = 'menu_category';
-        $this->_primary_key = 'mc_id';
-        $this->_order_by    = 'mc_id';
->>>>>>> master
     }
 
     public function menu_category()
@@ -88,19 +81,12 @@ class order_model extends MY_Model
         return $query->result();
     }
 
-<<<<<<< HEAD
+
     public function order_join_customer($ord_type)
     {
         $this->db->from('orders');
         $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
         $this->db->where(['ord_type'=> $ord_type]);
-=======
-    public function order_join_customer()
-    {
-        $this->db->from('orders');
-        $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
-        $this->db->where(['ord_type'=> 'kitchen']);
->>>>>>> master
         $query = $this->db->get();
         return $query->result();
     }

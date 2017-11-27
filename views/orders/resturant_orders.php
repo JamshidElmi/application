@@ -27,7 +27,7 @@
                 <?php $i = 1; foreach ($orders as $order): ?>
                 <tr id="ord_<?=$order->ord_id ?>">
                     <td><?=$i++;  ?></td>
-                    <td><?=($order->ord_cus_id == base_account()->acc_id) 'پرداخت نقد' ? : ?></td>
+                    <td><?=($order->ord_cus_id == base_account()->acc_id) ? 'پرداخت نقد' : '' ?></td>
                     <td></td>
                     <td><span  data-toggle="tooltip" title="" data-original-title="Phone: "></span></td>
                     <td><?=show_date("l j F Y", $order->ord_date); ?> </td>

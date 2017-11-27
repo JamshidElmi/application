@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">لیست سفارشات </h3>
@@ -113,6 +112,3 @@ $(function () {
 })
 
 </script>
-=======
-<?php print_r($orders) ?>
->>>>>>> master
