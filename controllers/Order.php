@@ -132,8 +132,8 @@ class Order extends MY_Controller {
         foreach ($base_menus as $base_menu)
         {
             echo "<li id='bm_".$base_menu->bm_id."' >";
-                echo '<img width="100" class="img-thumbnail" src="'.site_url('assets/img/menus/'.$base_menu->bm_picture).'" >';
-                echo '<a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="'.$base_menu->bm_desc.'">'.$base_menu->bm_name.'</a>';
+                echo '<img width="100" class="img-thumbnail" src="'.site_url('assets/img/menus/'.$base_menu->bm_picture).'" data-toggle="tooltip" title="" data-original-title=" af">';
+                echo '<a class="users-list-name" href="#"  style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="'.$base_menu->bm_desc.'">'.$base_menu->bm_name.'</a>';
                 echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'"  bm-price="'.$base_menu->bm_price.'"   ><span title="" data-original-title="Use"><i class="fa fa-plus "></i></span></a>&nbsp;';
                 echo '<a class="btn bg-red btn-xs btn_minus" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'" bm-price="'.$base_menu->bm_price.'"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
             echo '</li>';

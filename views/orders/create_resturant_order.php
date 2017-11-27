@@ -190,10 +190,10 @@ $(document).ready(function() {
 
                     }
                     else{
-                        $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_'+id+'" value="1"/>');
-                        $('#order_inputs').append('<input type="text" name="sord_bm_id[]" value="'+id+'" id="id_'+id+'" />');
-                        $('#order_inputs').append('<input type="text" name="sord_price[]" value="0" id="sord_price_'+id+'" />');
-                        $('#order_inputs').append('<input type="text" name="bm_price[]" value="'+price+'" id="price_'+id+'" /><div class="clear-fix">');
+                        $('#order_inputs').append('<input type="hidden" name="sord_count[]" id="order_'+id+'" value="1"/>');
+                        $('#order_inputs').append('<input type="hidden" name="sord_bm_id[]" value="'+id+'" id="id_'+id+'" />');
+                        $('#order_inputs').append('<input type="hidden" name="sord_price[]" value="0" id="sord_price_'+id+'" />');
+                        $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="'+price+'" id="price_'+id+'" /><div class="clear-fix">');
                         $('#order_list').append('<a href="" class="btn-app" style="border: 0; background: none;"><span class="badge bg-green" id="count_'+id+'">1</span><img width="40" id="pic_'+id+'" class="img-thumbnail" src="<?php echo site_url().'assets/img/menus/' ?>'+pic+' " alt=""></a>');
                         $('#order_list>b').remove();
 
