@@ -101,4 +101,14 @@ class order_model extends MY_Model
         return $query->result();
     }
 
+    public function get_sub_order_join_menu($order_id)
+    {
+        $this->db->from('sub_orders');
+        $this->db->join('base_menus', 'sub_orders.sord_bm_id = base_menus.bm_id');
+        $this->db->join('menu_category', 'menu_category.mc_id = base_menus.bm_cat_id');
+        $this->db->where('sord_ord_id', $order_id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 }

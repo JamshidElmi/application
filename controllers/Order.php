@@ -210,6 +210,7 @@ class Order extends MY_Controller {
 
     public function resturant_payment($ord_id)
     {
+        $this->template->description = 'پرداخت باقیمانده هزینه سفارش رستورانت';
         $this->order_model->transections();
         $transections = $this->order_model->data_get_by(['tr_type' => 'resturant', 'tr_ord_id' => $ord_id]);
 
@@ -271,6 +272,17 @@ class Order extends MY_Controller {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
             redirect('order/resturant_payment/'.$data['tr_ord_id']);
         }
+    }
+
+    public function sub_orders($order_id)
+    {
+        $this->order_model->sub_orders();
+        $sub_orders = $this->order_model->get_sub_order_join_menu($order_id);
+
+
+        // view
+        $this->template->content->view('orders/resturant_sub_orders', ['sub_orders' => $sub_orders]);
+        $this->template->publish();
     }
 
 
@@ -363,6 +375,7 @@ class Order extends MY_Controller {
 
     public function kitchen_payment($ord_id)
     {
+        $this->template->description = 'پرداخت باقیمانده هزینه سفارش آشپزخانه';
         $this->order_model->transections();
         $transections = $this->order_model->data_get_by(['tr_type' => 'kitchen_order', 'tr_ord_id' => $ord_id]);
 

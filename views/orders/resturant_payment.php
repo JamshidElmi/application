@@ -1,4 +1,4 @@
-<?php echo (!is_array($customer)) ? $customer : 'Not array' ; ?>
+<?php //print_r( (is_array($customer)) ? ($customer) :  'Not array' ); ?>
 
 <?php
 $total = 0;
@@ -69,7 +69,7 @@ $final_total = $order->ord_price-$total;
                     </div>
 
                     <div class="">
-                        <input type="hidden" value="<?=$customer->cus_acc_id ?>" name="tr_acc_id" id="acc_id">
+                        <input type="hidden" value="<?=(is_array($customer)) ? ($customer['cus_acc_id']) :  $customer->cus_acc_id ; ?>" name="tr_acc_id" id="acc_id">
                         <input type="hidden" value="<?=$order->ord_id ?>" name="tr_ord_id" id="ord_id">
                         <!-- <input type="hidden"  name="sord_id" id="sord_id"> -->
                     </div>
@@ -89,7 +89,7 @@ $final_total = $order->ord_price-$total;
 <div class="col-md-7">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">لیست پرداخت برای سفارش <?=$customer->cus_name ?> <?=$customer->cus_lname ?></h3>
+                <h3 class="box-title">لیست پرداخت برای سفارش <?=(is_array($customer)) ? ($customer['cus_name']) :  $customer->cus_name.' '.$customer->cus_lname ; ?> </h3>
             </div>
             <!-- /.box-header -->
                 <div class="box-body ">

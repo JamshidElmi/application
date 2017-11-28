@@ -4,8 +4,8 @@
         <i class="fa fa-plus"></i></a>
     </div>
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">سفارش مشتریان</a></li>
-        <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">سفارشات نقد</a></li>
+        <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false">سفارشات نقد</a></li>
+        <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">سفارش مشتریان</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
@@ -36,6 +36,7 @@
                         <td><?=$order->ord_desc ?></td>
                         <td class="text-center">
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
+                            <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
                             <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                             <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php //echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
@@ -92,6 +93,7 @@
                         <td><?=$order->ord_desc ?></td>
                         <td>
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
+                            <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
                             <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                             <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php //echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
