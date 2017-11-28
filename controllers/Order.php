@@ -208,6 +208,71 @@ class Order extends MY_Controller {
         $this->template->publish();
     }
 
+    public function resturant_payment($ord_id)
+    {
+        $this->order_model->transections();
+        $transections = $this->order_model->data_get_by(['tr_type' => 'resturant', 'tr_ord_id' => $ord_id]);
+
+        $this->order_model->orders();
+        $order = $this->order_model->data_get($ord_id);
+
+        if($order->ord_cus_id != base_account()->acc_id)
+        {
+            $this->order_model->customers();
+            $customer = $this->order_model->data_get_by(['cus_id'=>$order->ord_cus_id], true);
+        }
+        else{
+            $customer = array('cus_name' => base_account()->acc_name, 'cus_acc_id' => base_account()->acc_id );
+
+
+
+
+            // $customer[0]['cus_name'] = base_account()->acc_name;
+
+            // array(
+            // 'cus_name' => base_account()->acc_name,
+            // 'cus_acc_id' => base_account()->acc_id
+            // );
+        }
+
+        // view
+        $this->template->content->view('orders/resturant_payment', ['transections' => $transections,'order' => $order, 'customer' => $customer]);
+        $this->template->publish();
+    }
+
+    public function insert_resturant_payment()
+    {
+        $data = $this->input->post();
+        $data['tr_type'] = 'resturant';
+        $data['tr_status'] = 2;
+        // print_r($data); die();
+
+        $this->order_model->accounts();
+        $account = $this->order_model->data_get($data['tr_acc_id']);
+        $acc_amount = $account->acc_amount - $data['tr_amount'];
+        $insert_acc = $this->order_model->data_save(['acc_amount'=>$acc_amount], $data['tr_acc_id']);
+        if (is_int($insert_acc))
+        {
+            $this->order_model->transections();
+            $insert_trans = $this->order_model->data_save($data);
+            if(is_int($insert_trans))
+            {
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                redirect('order/resturant_payment/'.$data['tr_ord_id']);
+            }
+            else
+            {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
+                redirect('order/resturant_payment/'.$data['tr_ord_id']);
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
+            redirect('order/resturant_payment/'.$data['tr_ord_id']);
+        }
+    }
+
 
 
 

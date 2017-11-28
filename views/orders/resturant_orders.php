@@ -18,13 +18,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>نام و تخلص</th>
-                        <th>کد مشتری</th>
-                        <th>شماره تماس</th>
-                        <th>تاریخ سفارش</th>
-                        <th>هزینه کل</th>
+                        <th>صندوق</th>
+                        <th class="text-center">تاریخ سفارش</th>
+                        <th class="text-center">هزینه کل</th>
                         <th>توضیحات</th>
-                        <th>عملیات</th>
+                        <th class="text-center">عملیات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,14 +30,12 @@
                     <?php if ($order->ord_cus_id == base_account()->acc_id): ?>
                     <tr id="ord_<?=$order->ord_id ?>">
                         <td><?=$i++;  ?></td>
-                        <td><?=($order->ord_cus_id == base_account()->acc_id) ? 'پرداخت نقد' : '' ?></td>
-                        <td></td>
-                        <td><span  data-toggle="tooltip" title="" data-original-title="Phone: "></span></td>
-                        <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
+                         <td><?=base_account()->acc_name  ?></td>
+                        <td class="text-center"><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
                         <td><?=$order->ord_desc ?></td>
-                        <td>
-                            <a href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
+                        <td class="text-center">
+                            <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                             <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php //echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
@@ -50,13 +46,11 @@
                 <tfoot>
                     <tr>
                         <th>#</th>
-                        <th>نام و تخلص</th>
-                        <th>کد مشتری</th>
-                        <th>شماره تماس</th>
-                        <th>تاریخ سفارش</th>
-                        <th>هزینه کل</th>
+                        <th>صندوق</th>
+                        <th class="text-center">تاریخ سفارش</th>
+                        <th class="text-center">هزینه کل</th>
                         <th>توضیحات</th>
-                        <th>عملیات</th>
+                        <th class="text-center">عملیات</th>
                     </tr>
                 </tfoot>
             </table>
@@ -72,7 +66,7 @@
             <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
             <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
-            <table id="example2" class="table table-bordered table-hover table-striped">
+            <table id="example1" class="table table-bordered table-hover table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -92,12 +86,12 @@
                         <td><?=$i++;  ?></td>
                         <td><?=$order->cus_name ?> <?=$order->cus_lname ?></td>
                         <td><?=$order->cus_unique_id ?></td>
-                        <td><span  data-toggle="tooltip" title="" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('#',$order->cus_phones)) ?></span></td>
+                        <td><span  data-toggle="tooltip" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('#',$order->cus_phones)) ?></span></td>
                         <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
                         <td><?=$order->ord_desc ?></td>
                         <td>
-                            <a href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
+                            <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                             <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php //echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
@@ -123,13 +117,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
 
 
 
@@ -171,8 +158,21 @@ $(document).ready(function() {
 });
 
 
+
+
 $(function () {
     $('#example2').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : true
+    })
+})
+
+$(function () {
+    $('#example1').DataTable({
         'paging'      : true,
         'lengthChange': true,
         'searching'   : true,
