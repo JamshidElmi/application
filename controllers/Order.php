@@ -199,13 +199,12 @@ class Order extends MY_Controller {
     public function resturant_orders()
     {
         $this->template->description = 'لیست سفارشات رستورانت';
-        // $orders = $this->order_model->order_join_customer('resturant','base_acc');
+        $orders = $this->order_model->order_join_customer('resturant');
         $this->order_model->orders();
-        $orders = $this->order_model->data_get_by(['ord_type' => 'resturant']);
-
+        $orders_base_acc = $this->order_model->data_get_by(['ord_type' => 'resturant']);
 
          // view
-        $this->template->content->view('orders/resturant_orders', ['orders' => $orders]);
+        $this->template->content->view('orders/resturant_orders', ['orders' => $orders, 'orders_base_acc' => $orders_base_acc]);
         $this->template->publish();
     }
 

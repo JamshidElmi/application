@@ -91,6 +91,14 @@ class order_model extends MY_Model
         return $query->result();
     }
 
-
+    public function order_join_customer_base_acc($ord_type)
+    {
+        $this->db->from('orders');
+        $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
+        $this->db->where('ord_cus_id', base_account()->acc_id);
+        // $this->db->where(['ord_type' => $ord_type]);
+        $query = $this->db->get();
+        return $query->result();
+    }
 
 }
