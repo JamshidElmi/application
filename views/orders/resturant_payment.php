@@ -1,4 +1,4 @@
-<?php echo (!is_array($customer)) ? print_r($customer) : 'Not array' ; ?>
+<?php echo (!is_array($customer)) ? $customer : 'Not array' ; ?>
 
 <?php
 $total = 0;
