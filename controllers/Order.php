@@ -57,7 +57,7 @@ class Order extends MY_Controller {
         if(is_int($insert_ord_id))
         {
             $this->order_model->sub_orders();
-            $insert_sord_id = $this->order_model->data_save(['sord_bm_id'=>$data['sord_bm_id'],'sord_count'=>$data['sord_count'],'sord_price'=>$data['ord_price'],'sord_ord_id'=>$insert_ord_id ]);
+            $this->order_model->data_save(['sord_bm_id'=>$data['sord_bm_id'],'sord_count'=>$data['sord_count'],'sord_price'=>$data['ord_price'],'sord_ord_id'=>$insert_ord_id ]);
             $this->order_model->customers();
             $customer = $this->order_model->data_get($data['ord_cus_id'], true);
             $this->order_model->accounts();
@@ -134,8 +134,8 @@ class Order extends MY_Controller {
             echo "<li id='bm_".$base_menu->bm_id."' >";
                 echo '<img width="100" class="img-thumbnail" src="'.site_url('assets/img/menus/'.$base_menu->bm_picture).'" data-toggle="tooltip" title="" data-original-title=" af">';
                 echo '<a class="users-list-name" href="#"  style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="'.$base_menu->bm_desc.'">'.$base_menu->bm_name.'</a>';
-                echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'"  bm-price="'.$base_menu->bm_price.'"   ><span title="" data-original-title="Use"><i class="fa fa-plus "></i></span></a>&nbsp;';
-                echo '<a class="btn bg-red btn-xs btn_minus" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'" bm-price="'.$base_menu->bm_price.'"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
+                echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'"  bm-price="'.$base_menu->bm_price.'" bm-name="'.$base_menu->bm_name.'"  ><span title="" data-original-title="Use"><i class="fa fa-plus "></i></span></a>&nbsp;';
+                echo '<a class="btn bg-red btn-xs btn_minus" bm-id="'.$base_menu->bm_id.'" menu-pic="'.$base_menu->bm_picture.'" bm-price="'.$base_menu->bm_price.'" bm-name="'.$base_menu->bm_name.'"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
             echo '</li>';
         }
     }
@@ -154,7 +154,7 @@ class Order extends MY_Controller {
             for ($i=0; $i < $count  ; $i++)
             {
                 $this->order_model->sub_orders();
-                $insert_sord_id = $this->order_model->data_save(['sord_bm_id'=>$data['sord_bm_id'][$i],'sord_count'=>$data['sord_count'][$i],'sord_price'=>$data['sord_price'][$i],'sord_ord_id'=>$insert_ord_id ]);
+                $this->order_model->data_save(['sord_bm_id'=>$data['sord_bm_id'][$i],'sord_count'=>$data['sord_count'][$i],'sord_price'=>$data['sord_price'][$i],'sord_ord_id'=>$insert_ord_id ]);
             }
 
             if($data['ord_cus_id'] != base_account()->acc_id.'_')
@@ -224,16 +224,6 @@ class Order extends MY_Controller {
         }
         else{
             $customer = array('cus_name' => base_account()->acc_name, 'cus_acc_id' => base_account()->acc_id );
-
-
-
-
-            // $customer[0]['cus_name'] = base_account()->acc_name;
-
-            // array(
-            // 'cus_name' => base_account()->acc_name,
-            // 'cus_acc_id' => base_account()->acc_id
-            // );
         }
 
         // view
@@ -278,11 +268,29 @@ class Order extends MY_Controller {
     {
         $this->order_model->sub_orders();
         $sub_orders = $this->order_model->get_sub_order_join_menu($order_id);
-
+        $this->order_model->menu_category();
+        $menu_categories = $this->order_model->data_get();
 
         // view
-        $this->template->content->view('orders/resturant_sub_orders', ['sub_orders' => $sub_orders]);
+        $this->template->content->view('orders/resturant_sub_orders', ['sub_orders' => $sub_orders, 'menu_categories' => $menu_categories]);
         $this->template->publish();
+    }
+
+    public function update_sub_order()
+    {
+
+        print_r($this->input->post());
+        $data = $this->input->post();
+
+        $this->order_model->orders();
+        $order = $this->order_model->data_get($data['sord_ord_id']);
+
+        if($order->ord_cus_id == base_account()->acc_id)
+        {
+            $this->order_model->customers();
+            $account = $this->order_model->data_get($order->ord_cus_id);
+        }
+
     }
 
 
@@ -361,7 +369,7 @@ class Order extends MY_Controller {
         if(is_int($insert_ord_id))
         {
             $this->order_model->orders();
-            $insert_sord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date'=>$data['ord_date'], 'ord_time'=>$data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
+            $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date'=>$data['ord_date'], 'ord_time'=>$data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
 
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
             redirect('order/kitchen_orders');
@@ -434,7 +442,7 @@ class Order extends MY_Controller {
         $this->order_model->accounts();
         $account = $this->order_model->data_get($tr_acc_id);
         $acc_amount = $account->acc_amount + $trans->tr_amount;
-        $insert_acc = $this->order_model->data_save(['acc_amount'=>$acc_amount], $tr_acc_id);
+        $this->order_model->data_save(['acc_amount'=>$acc_amount], $tr_acc_id);
 
         $this->order_model->transections();
         $this->order_model->data_delete($tr_id);
