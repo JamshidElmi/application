@@ -285,12 +285,11 @@ class Order extends MY_Controller {
         $this->order_model->orders();
         $order = $this->order_model->data_get($data['sord_ord_id']);
 
-        if($order->ord_cus_id == base_account()->acc_id)
-        {
-            $this->order_model->customers();
-            $account = $this->order_model->data_get($order->ord_cus_id);
-        }
+        $this->order_model->orders();
+        $account = $this->order_model->data_get($order->ord_cus_id);
 
+        $this->order_model->transection();
+        $transection = $this->order_model->data_get_by(['tr_ord_id' => $order->ord_id, 'tr_type' => 'resturant']);
     }
 
 
