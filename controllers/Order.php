@@ -402,5 +402,7 @@ class Order extends MY_Controller
         $this->order_model->data_delete($tr_id);
     }
 
+    // TODO: expence from stock must effect on customer and will related in stock, customer, menus.
+
 
 }
