@@ -19,16 +19,27 @@
               'skins'           => 'assets/css/skins/_all-skins.min.css',
               'morris'          => 'components/morris.js/morris.css',
               'jvectormap'      => 'components/jvectormap/jquery-jvectormap.css',
-              'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
-              'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
-              'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
-              'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
+              // 'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
+              // 'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
+              // 'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
+
+              'timepicker'      => 'plugins/persian-datepicker/persian-datepicker.css',
+              'data-table-bs' => 'components/datatables.net-bs/css/dataTables.bootstrap.css' ,
+              // 'timepicker-theme'=> 'plugins/persian-datepicker/theme/persian-datepicker-redblack.min.css',
+
+
+              'wysihtml5'       => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css',
+              'jquery-confirm'  => 'plugins/jquery-confirm/jquery-confirm.min.css',
+              'style'           => 'assets/css/style.css'
+
 
         ); ?>
         <!-- Exretnal Scripts -->
         <?php $scripts = array(
-            'jquery' => 'components/jquery/dist/jquery.min.js' ,
-
+            'jquery'            => 'components/jquery/dist/jquery.min.js' ,
+            'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
+            'persian-date'      => 'plugins/persian-datepicker/persian-date.js' ,
+            'datepicker'        => 'plugins/persian-datepicker/persian-datepicker.js' ,
          ); ?>
 
         <?php echo $this->template->stylesheet->add($styles); ?>
@@ -69,12 +80,13 @@
                 </section>
                 <!-- /.content -->
             </div>
-        <?php
-            /* Footer Layout */
-            echo $this->template->widget("footer");
-            /* Left Control Panel Layout */
-            echo $this->template->widget("controlsidebar");
-        ?>
+            <?php
+                /* Footer Layout */
+                echo $this->template->widget("footer");
+                /* Left Control Panel Layout */
+                echo $this->template->widget("controlsidebar");
+            ?>
+
             <div class="control-sidebar-bg"></div>
         </div> <!-- wrapper -->
 
@@ -84,25 +96,25 @@
                 // 'jquery' => 'components/jquery/dist/jquery.min.js' ,
                 'jquery-ui' => 'components/jquery-ui/jquery-ui.min.js' ,
                 'bootstrap' => 'components/bootstrap/dist/js/bootstrap.min.js' ,
+                'data-table' => 'components/datatables.net/js/jquery.dataTables.js' ,
+                'data-table-bs' => 'components/datatables.net-bs/js/dataTables.bootstrap.js' ,
                 'raphael' => 'components/raphael/raphael.min.js' ,
                 'morris' => 'components/morris.js/morris.min.js' ,
                 'sparkline' => 'components/jquery-sparkline/dist/jquery.sparkline.min.js' ,
                 'vectormap-1' => 'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js' ,
                 'jvectormap-world' => 'plugins/jvectormap/jquery-jvectormap-world-mill-en.js' ,
                 'jquery.knob' => 'components/jquery-knob/dist/jquery.knob.min.js' ,
-                'moment.min' => 'components/moment/min/moment.min.js' ,
-                'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.js' ,
-                'bootstrap-datepicker' => 'components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' ,
+                // 'moment.min' => 'components/moment/min/moment.min.js' ,
+                // 'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.js' ,
+                // 'bootstrap-datepicker' => 'components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js' ,
                 'bootstrap3-wysihtml5' => 'plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js' ,
                 'jquery.slimscroll' => 'components/jquery-slimscroll/jquery.slimscroll.min.js' ,
                 'fastclick' => 'components/fastclick/lib/fastclick.js' ,
                 'adminlte' => 'assets/js/adminlte.min.js' ,
                 'dashboard' => 'assets/js/pages/dashboard.js' ,
                 'demo' => 'assets/js/demo.js',
-                'persian-date-0.1.8' => 'assets/js/persian-date.js',
-                'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
-
-
+                // 'persian-date-0.1.8' => 'assets/js/persian-date.js',
+                // 'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
             );
          ?>
         <?php echo $this->template->javascript->add($script); ?>

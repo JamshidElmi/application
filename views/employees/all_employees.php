@@ -1,4 +1,3 @@
-
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">لیست کارمندان </h3>
@@ -11,7 +10,9 @@
             <div class="box-body table-responsive no-padding">
                 <div class="col-sm-6">
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); } ?>
+                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
                 </div>
+
 
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
@@ -35,7 +36,7 @@
                             <td><?=$employee->emp_lname ?></td>
                             <td><?=$employee->emp_position ?></td>
                             <td><?=$employee->emp_salary ?></td>
-                            <td><?=$employee->emp_join_date ?></td>
+                            <td><?=show_date('l d/F/Y', $employee->emp_join_date); ?></td>
                             <td><?=$employee->emp_phone ?></td>
                             <td><?php echo ($employee->emp_type == 0) ? '<span class="label label-warning">آشپزخانه</span>' : '<span class="label label-info">رستورات</span>' ?></td>
                             <td>
@@ -70,6 +71,7 @@ $(document).ready(function() {
               });
             $(document).ajaxStop(function(){
                 $(".overlay").css('display','none');
+                $(".msg").css('display','block');
                 $("tr#emp_"+emp_id).remove();
             });
         };

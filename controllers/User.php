@@ -12,7 +12,7 @@ class User extends MY_Controller {
 
 	}
 
-    public function index($value='')
+    public function index()
     {
         $this->template->description = 'لسیت حساب های کاربری ';
         $users = $this->user_model->join_user_emp();
@@ -94,23 +94,24 @@ class User extends MY_Controller {
                 $data = $this->input->post();
                 unset($data['old_pass']);
                 $user_new_id = $this->user_model->data_save($data, $user_id);
+                if(is_int($user_new_id))
+                {
+                    // Updating Done
+                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                    redirect('user/');
+                }
+                else
+                {
+                    // Updating Failed
+                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، لطفاً دوباره سیع نمائید.');
+                    redirect('user/');
+                }
             }
 
-            if(is_int($user_new_id))
-            {
-                // Updating Done
-                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-                redirect('user/');
-            }
-            else
-            {
-                // Updating Failed
-                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، لطفاً دوباره سیع نمائید.');
-                redirect('user/');
-            }
+
         }
-
-
     }
+
+
 
 }

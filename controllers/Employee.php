@@ -14,7 +14,6 @@ class Employee extends MY_Controller {
 	public function index()
 	{
         $this->template->description = 'لیست تمام کارمندان رستورانت و آشپزخانه';
-
         $employees = $this->employee_model->data_get();
 
 		$this->template->content->view('employees/all_employees', ['employees' => $employees]);
@@ -52,7 +51,6 @@ class Employee extends MY_Controller {
 
         $this->load->library('upload', $config);
 
-
         if ($this->form_validation->run() == FALSE)
         {
             $this->session->set_flashdata('form_errors', validation_errors() );
@@ -60,8 +58,6 @@ class Employee extends MY_Controller {
         }
         else
         {
-
-
             if ( ! $this->upload->do_upload('emp_picture'))
             {
                 $this->session->set_flashdata('file_errors', $this->upload->display_errors());
@@ -80,45 +76,26 @@ class Employee extends MY_Controller {
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
                 redirect('employee/');
             }
-
-
         }
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    } // end insert
 
     public function view($emp_id)
     {
-        echo '<h1>emp Profile</h1>';
+        $this->template->description = 'اطلاعات کارمندان برای چاپ';
+        $this->load->model('user_model');
+
+        $employee = $this->employee_model->data_get($emp_id);
+        $users = $this->user_model->data_get_by(['emp_id'=>$emp_id]);
+
+        $this->template->content->view('employees/emp_profile', ['employee' => $employee, 'users' => $users]);
+        $this->template->publish();
+    } // end view
+
+    public function print_profile($emp_id)
+    {
+        $this->template->set_template('print_template');
+        $this->view($emp_id);
     }
-
-
-
-
-
-
-
-
-
 
     public function edit($emp_id)
     {
@@ -128,9 +105,6 @@ class Employee extends MY_Controller {
         $this->template->content->view('employees/edit', ['employee' => $employee]);
         $this->template->publish();
     }
-
-
-
 
     public function update($emp_id)
     {
@@ -155,7 +129,6 @@ class Employee extends MY_Controller {
 
         $this->load->library('upload', $config);
 
-
         if ($this->form_validation->run() == FALSE)
         {
             $this->session->set_flashdata('form_errors', validation_errors() );
@@ -163,7 +136,6 @@ class Employee extends MY_Controller {
         }
         else
         {
-
             if($_FILES['emp_picture']['name'])
             {
                 if ( ! $this->upload->do_upload('emp_picture'))
@@ -195,25 +167,14 @@ class Employee extends MY_Controller {
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
                 redirect('employee/');
             }
-
-
-
         }
-    }
-
-
-
-
-
-
+    } // end update
 
     public function delete()
     {
         $emp_id = $this->input->post('emp_id');
         $this->employee_model->data_delete($emp_id);
-
     }
-
 
 
 

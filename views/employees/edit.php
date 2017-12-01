@@ -59,7 +59,7 @@
                         <div class="form-group">
                             <label for="emp_picture">عکس</label>
                             <input type="file" name="emp_picture" id="emp_picture" />
-                            <p class="small">حجم فایل باید کمتر از 100 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
+                            <p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
                         </div>
                     </div>
                     <div class="col-sm-6 text-left">
@@ -71,7 +71,7 @@
 
 
                 <div class="row">
-                     <div class="col-xs-6">
+                     <div class="col-xs-5">
                         <label for="emp_phone">جنسیت</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
                         <?php $male = NULL; $fmale = NULL; $male_a = NULL; $fmale_a = NULL;
@@ -85,7 +85,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-6 text-right">
+                    <div class="col-xs-7 text-right">
                         <label for="emp_phone">بخش کاری</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
                         <?php $cook = NULL;$restur = NULL; $cook_a = NULL;$restur_a = NULL;
@@ -152,11 +152,22 @@
 $(document).ready(function () {
     $('#tarikh').persianDatepicker({
         altField: '#tarikhAlt',
-        altFormat: 'X',
         format: 'D MMMM YYYY ساعت  HH:mm a',
         observer: true,
-        timePicker: {
-            enabled: true
+
+        altFormat: 'YYYY-MM-DD',
+        observer: true,
+        position: [-65,0],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
         },
 
     });

@@ -41,6 +41,7 @@ function __autoload($classname)
 |
 */
 $config['base_url'] = 'http://cms.af/';
+// $config['base_url'] = 'http://localhost:3131/mis_resturant/resturant/';
 
 /*
 |--------------------------------------------------------------------------

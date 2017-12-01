@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">هرات</span>
+      <span class="logo-mini">ممتاز</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>رستورانت هرات</b></span>
+      <span class="logo-lg"><b>رستورانت ممتاز هرات</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -12,8 +12,6 @@
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-
-
 
 
       <div class="navbar-custom-menu">
@@ -234,16 +232,16 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?=base_url('assets/img/user2-160x160.jpg'); ?>" class="user-image" alt="User Image">
+              <img src="<?=base_url('assets/img/profiles/'.$this->session->emp_info->emp_picture); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs">مدیر عمومی</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?=base_url('assets/img/user2-160x160.jpg'); ?>" class="img-circle" alt="User Image">
+                <img src="<?=base_url('assets/img/profiles/'.$this->session->emp_info->emp_picture); ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  محمد میرزائی | مدیر کل
+                  <?=$this->session->emp_info->emp_name ?> <?=$this->session->emp_info->emp_lname ?> | <?=$this->session->emp_info->emp_position ?>
                   <small>مدیریت آشپزخانه</small>
                 </p>
               </li>
