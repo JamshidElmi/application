@@ -43,6 +43,7 @@
                             <div class="form-group">
                                 <label for="sord_count">تعداد</label>
                                 <input type="number" class="form-control" name="sord_count" id="sord_count" required/>
+
                             </div>
                         </div>
                     </div>
@@ -231,9 +232,10 @@
             var mc_id = $('#menu_category :selected').val();
             var urls = '<?php echo base_url() . 'order/jq_menu_list/' ?>' + mc_id;
             // alert(mc_id);
+            var loading = $(".overlay");
 
             $(document).ajaxStart(function () {
-                $(".overlay").css('display', 'block');
+                loading.css('display', 'block');
             });
             $.ajax({
                 type: "POST",
@@ -244,6 +246,7 @@
                     $('.msg').attr('hidden', true);
                     $('#selection-msg').attr('hidden', true);
 
+
                     // btn add(+) is clicked
                     $('.btn_add').click(function (event) {
                         var id = $(this).attr('bm-id');
@@ -251,7 +254,7 @@
                         var pic = $(this).attr('menu-pic');
                         var name = $(this).attr('bm-name');
                         // alert(price);
-                        $('#img').attr('src', '<?=site_url('assets/img/menus/') ?>' + pic);
+                        $("#img").attr('src', '<?=site_url('assets/img/menus/') ?>' + pic);
                         $('#bm_name').val(name);
                         $('#bm_price').val(price);
                         $('#sord_bm_id').val(id);
@@ -270,7 +273,7 @@
             });
 
             $(document).ajaxStop(function () {
-                $(".overlay").css('display', 'none');
+                loading.css('display', 'none');
             });
 
 
