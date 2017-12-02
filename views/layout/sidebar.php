@@ -125,6 +125,7 @@
                     <ul class="treeview-menu">
                         <li><a href="<?=site_url('finance/expences/1'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف برای گدام</a></li>
                         <li><a href="<?=site_url('finance/buy_stock'); ?>"><i class="fa fa-circle-o"></i> خرید برای گدام</a></li>
+                        <li><a href="<?=site_url('finance/expence_stock'); ?>"><i class="fa fa-circle-o"></i> مصرف از گدام</a></li>
 
                     </ul>
                 </li>

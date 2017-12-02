@@ -8,14 +8,14 @@
 }
 </style>
 <div class="row">
-
+<?php $segment =  $this->uri->segment(3); ?>
 
     <div class="col-md-12">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست فاکتور های مصرفی</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('finance/new_expence'); ?>" class="btn btn-box-tool bg-blue" data-toggle="tooltip" title="" data-original-title="New Expence"><i class="ion ion-plus fa-lg"></i></a>
+                    <a href="<?=($segment == 0) ? site_url('finance/new_expence') : site_url('finance/buy_stock') ; ?>" class="btn btn-box-tool bg-green" data-toggle="tooltip" title="" data-original-title="New Expence"><i class="ion ion-plus fa-lg"></i></a>
                 </div>
                 <!-- /.box-tools -->
             </div>

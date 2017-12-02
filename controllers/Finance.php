@@ -147,7 +147,8 @@ class Finance extends MY_Controller {
 
     public function expences($bill_type)
     {
-        $this->template->description = 'لیست خریداری گدام و مصارف روزانه';
+
+        $this->template->description = ($bill_type == 0) ? ' لیست خریداری مصارف روزانه' : ' لیست خریداری مصارف گدام ';
         $this->finance_model->bills();
         // $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
         $expences = $this->finance_model->bill_join_trans($bill_type);
@@ -458,6 +459,11 @@ class Finance extends MY_Controller {
                 'dex_bill_id'       => $this->session->insert_ids['bill_id'],
                 'dex_tr_id'         => $trans_id
             );
+
+//            $this->finance_model->stocks();
+//            $stock = $this->finance_model->data_get_by(['stock_st_id' => $data['st_id']], TRUE);
+//            $this->fincace_model->data_save(['stock_count']);
+
             $this->finance_model->expences();
             $dex_id = $this->finance_model->data_save($data_dex);
             if (!is_int($dex_id)) {

@@ -228,10 +228,8 @@
 
 
         $('#menu_category').change(function (event) {
-            // alert($('#menu_category :selected').text());
             var mc_id = $('#menu_category :selected').val();
             var urls = '<?php echo base_url() . 'order/jq_menu_list/' ?>' + mc_id;
-            // alert(mc_id);
             var loading = $(".overlay");
 
             $(document).ajaxStart(function () {
@@ -245,7 +243,6 @@
                     $("#menu_list").html(response);
                     $('.msg').attr('hidden', true);
                     $('#selection-msg').attr('hidden', true);
-
 
                     // btn add(+) is clicked
                     $('.btn_add').click(function (event) {
@@ -265,21 +262,13 @@
                         var sord_new_count = $('#sord_count').val();
                         var new_total = bm_new_price * sord_new_count;
                         $('#sord_price').val(new_total);
-
-
                     });
-
                 }
             });
-
             $(document).ajaxStop(function () {
                 loading.css('display', 'none');
             });
-
-
-        });
-
-
+        })
     }); // end document
 
 
