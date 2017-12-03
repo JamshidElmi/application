@@ -72,6 +72,13 @@ class order_model extends MY_Model
         $this->_order_by = 'mc_id';
     }
 
+    public function stock_units()
+    {
+        $this->_table_name = 'stock_units';
+        $this->_primary_key = 'st_id';
+        $this->_order_by = 'st_id';
+    }
+
     public function order_join_sub_order()
     {
         $this->db->from('sub_menus');
@@ -82,11 +89,16 @@ class order_model extends MY_Model
     }
 
 
-    public function order_join_customer($ord_type)
+    public function order_join_customer($ord_type, $limit = NULL)
     {
         $this->db->from('orders');
         $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
         $this->db->where(['ord_type'=> $ord_type]);
+        if ($limit != NUll)
+        {
+            $this->db->limit($limit);
+        }
+        $this->db->order_by('ord_id DESC');
         $query = $this->db->get();
         return $query->result();
     }

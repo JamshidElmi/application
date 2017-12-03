@@ -18,6 +18,11 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="st_max_count">قیمت فی واحد</label>
+                        <input type="number" class="form-control" name="st_price" id="st_price" placeholder="قیمت فی واحد" required/>
+                    </div>
+
+                    <div class="form-group">
                         <label for="st_unit">واحد مقیاسی</label>
                         <select name="st_unit" id="st_unit" class="form-control" required>
                             <option value="">انتخاب کنید</option>
@@ -60,9 +65,9 @@
             <div class="box-body">
                 <div class="msg_coo" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($units as $unit): ?>
-                <a class="btn btn-app" id="<?=$unit->st_id ?>"  data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Max: <?=$unit->st_max_count; ?>   &ensp;&ensp;    Min: <?=$unit->st_min_count; ?>">
-                    <span class="badge bg-gray ">  <i class="fa fa-edit fa-lg text-black st_edit" id="<?=$unit->st_id ?>" st-name="<?=$unit->st_name ?>" st-max="<?=$unit->st_max_count ?>" st-min="<?=$unit->st_min_count ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red st_delete" id="<?=$unit->st_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
-                    <i class="fa ion-pricetags" ></i><?php echo $unit->st_name ?>
+                <a style="height: 80px;" class="btn btn-app" id="<?=$unit->st_id ?>"  data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Max: <?=$unit->st_max_count; ?>   &ensp;&ensp;    Min: <?=$unit->st_min_count; ?>">
+                    <span class="badge bg-gray ">  <i class="fa fa-edit fa-lg text-black st_edit" id="<?=$unit->st_id ?>" st-name="<?=$unit->st_name ?>" st-price="<?=$unit->st_price ?>" st-max="<?=$unit->st_max_count ?>" st-min="<?=$unit->st_min_count ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red st_delete" id="<?=$unit->st_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
+                    <i class="fa " >  <?=$unit->st_count ?> </i><b><?=$unit->st_name ?></b> <p> <?=$unit->st_price ?> افغانی</p>
                 </a>
             <?php endforeach ?>
             </div>
@@ -114,9 +119,11 @@ $(document).ready(function() {
         var st_name = $(this).attr('st-name');
         var st_min = $(this).attr('st-min');
         var st_max = $(this).attr('st-max');
+        var st_price = $(this).attr('st-price');
         $('#st_name').val(st_name);
         $('#st_min_count').val(st_min);
         $('#st_max_count').val(st_max);
+        $('#st_price').val(st_price);
         $('#st_id').html('<input type="hidden" name="st_id" value="'+st_id+'">');
     });
 

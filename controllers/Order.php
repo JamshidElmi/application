@@ -405,4 +405,19 @@ class Order extends MY_Controller
     // TODO: expence from stock must effect on customer and will related in stock, customer, menus.
 
 
+    public function expence_stock()
+    {
+        $this->template->description = 'ثبت مصارف از گدام برای سفارشات ';
+        $orders = $this->order_model->order_join_customer('kitchen',30);
+        $this->order_model->stock_units();
+        $stocks = $this->order_model->data_get();
+
+
+
+        // view
+        $this->template->content->view('orders/expence_stock', ['orders' => $orders, 'stocks' => $stocks]);
+        $this->template->publish();
+    }
+
+
 }
