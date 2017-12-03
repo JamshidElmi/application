@@ -4,7 +4,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت مصارف از گدام</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('order/stock_expences'); ?>" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
+                    <a href="<?=site_url('order/stock_expences'); ?>" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Stock's Expences"><i class="fa fa-list-ul fa-lg"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -19,22 +19,22 @@
 
                     <div class="row">
                         <div class="col-xs-4">
-                            <div class="input-group">
+                            <div class="form-group">
                                 <label for="">نام مشتری</label>
                                 <input type="text" class="form-control" id="cus_name" readonly>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <div class="input-group">
+                            <div class="form-group">
                                 <label for="">تخلص مشتری</label>
                                 <input type="text" class="form-control" id="cus_lname" readonly>
                             </div>
                         </div>
                         <div class="col-xs-4">
-                            <div class="input-group">
+                            <div class="form-group">
                                 <label for="">هزینه کلی</label>
                                 <input type="text" class="form-control" id="ord_price" readonly>
-                                <input type="hidden" class="form-control" name="ord_id" id="ord_id" readonly>
+                                <input type="hidden" class="form-control" name="stock_ord_id" id="ord_id" readonly>
                             </div>
                         </div>
                     </div>
@@ -49,10 +49,10 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-10">
-                                <a class="btn btn-primary col-xs-12 add_field_button" disabled id="add_new" data-toggle="tooltip" title="" data-original-title="Add New"><i class="ion-android-add-circle fa-lg"></i></a>
+                                <button class="btn btn-primary col-xs-12 add_field_button" disabled id="add_new" data-toggle="tooltip" title="" data-original-title="Add New"><i class="ion-android-add-circle fa-lg"></i></button>
                             </div>
                             <div class="col-xs-2">
-                                <button  type=button class="btn btn-warning col-xs-12" id="calcolate"  data-toggle="tooltip" title="" data-original-title="Sum Total"><i class="ion-calculator fa-lg"></i></button>
+                                <button  type=button class="btn btn-warning col-xs-12" disabled id="calcolate"  data-toggle="tooltip" title="" data-original-title="Sum Total"><i class="ion-calculator fa-lg"></i></button>
                             </div>
                         </div>
                     </div>
@@ -72,9 +72,9 @@
 
 
     <div class="col-sm-7">
-        <div class="box box-primary box-solid">
+        <div class="box box-info box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">لیست منو های آشپزخانه </h3>
+                <h3 class="box-title"> لیست سفارش مشتریان آشپزخانه</h3>
                 <div class="box-tools pull-right">
                     <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
                 </div>
@@ -82,6 +82,9 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                <div class="progress" style="background-color: #e6e6e6;">
+                    <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" style="width: 0%"><b></b></div>
+                </div>
                 <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
 
@@ -105,7 +108,7 @@
                                 <td><?=$customer->cus_unique_id ?></td>
                                 <td class="text-center"><b><?=$customer->ord_price ?></b> افغانی </td>
                                 <td class="text-center">
-                                    <a href="#"><span class="label label-default select_order" ord-id="<?=$customer->ord_id ?>" cus-name="<?=$customer->cus_name ?>" cus-lname="<?=$customer->cus_lname ?>" ord-price="<?=$customer->ord_price ?>" data-toggle="tooltip" title="" data-original-title="User Order"><i class="fa ion-forward fa-lg"></i></span></a>
+                                    <a href="#"><span class="label label-default select_order" ord-id="<?=$customer->ord_id ?>" cus-name="<?=$customer->cus_name ?>" cus-lname="<?=$customer->cus_lname ?>" ord-price="<?=$customer->ord_price ?>" data-toggle="tooltip" title="" data-original-title="Use Order"><i class="fa ion-forward fa-lg"></i></span></a>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -138,7 +141,7 @@
     $(document).ready(function() {
         var max_fields = 30; //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap"); //Fields wrapper
-        var add_button = $(".add_field_button"); //Add button ID
+        var add_button = $("#add_new"); //Add button ID
         var x = 0; //initlal text box count
         var sum = parseFloat(0);
 
@@ -146,9 +149,7 @@
             e.preventDefault();
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="row"><div class="col-sm-4">   <div class="form-group">   <label for="dex_unit">انتخاب جنس</label>   <select name="st_unit[]" id="st_unit_'+x+'"  class="form-control" required> <option value="">انتخاب جنس</option> <?php foreach ($stocks as $stock): ?><option st-price="<?=$stock->st_price ?>" value="<?=$stock->st_id ?>" st_price="<?=$stock->st_price ?>"><?=$stock->st_name?></option><?php endforeach ?></select>   </div>   </div>    <div class="col-sm-3">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="st_count[]" id="st_count_'+x+'" placeholder="تعداد عدد " required/>   </div>   </div>      <div class="col-sm-3">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" name"st_total_price" id="st_total_price_'+x+'" placeholder="هزینه کل " disabled />     </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" ><i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i></a></div>   </div></div>');
-
-
+                $(wrapper).append('<div class="row"><div class="col-sm-4">   <div class="form-group">   <label for="dex_unit">انتخاب جنس</label>   <select name="stock_st_id[]" id="st_unit_'+x+'"  class="form-control" required> <option value="">انتخاب جنس</option> <?php foreach ($stocks as $stock): ?><option st-price="<?=$stock->st_price ?>" value="<?=$stock->st_id ?>" st_price="<?=$stock->st_price ?>"><?=$stock->st_name?></option><?php endforeach ?></select>   </div>   </div>    <div class="col-sm-3">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="stock_count[]" id="st_count_'+x+'" placeholder="تعداد عدد " required/>   </div>   </div>      <div class="col-sm-3">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" name="stock_total_price[]" id="st_total_price_'+x+'" placeholder="هزینه کل " readonly />     </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" ><i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i></a></div>   </div></div>');
             }
             $('#st_unit_'+x).change(function () {
                 // alert($('#st_unit_'+x+' :selected').attr('st-price'));
@@ -157,8 +158,25 @@
                 $('#st_count_'+x).keyup(function () {
                     var st_total_price = $(this).val() * st_price;
                     $('#st_total_price_'+x).val(st_total_price);
+
+
                 });
+
             });
+        });
+
+        $('#calcolate').click(function () {
+            for(var i=1; i<=x; i++)
+            {
+                sum +=  parseFloat($('#st_total_price_'+i).val());
+            }
+//            parseFloat(sum)*parseFloat(100)/parseFloat(acc_amount);
+            var persent = parseFloat(sum)*parseFloat(100)/parseFloat($('#ord_price').val());
+            $('.progress-bar').css('width',100-Math.round(persent)+'%');
+            $('.progress-bar>b').text($('#ord_price').val() - sum+' افغانی ');
+            $('#submit').attr('disabled', false);
+            $(this).attr('disabled', true);
+            $('#add_new').attr('disabled', true);
         });
 
 
@@ -196,8 +214,11 @@ $(document).ready(function() {
         $('#cus_name').val(cus_name);
         $('#cus_lname').val(cus_lname);
         $('#ord_price').val(ord_price);
+        $('.progress-bar>b').text(ord_price+' افغانی');
+        $('.progress-bar').css('width', '100%');
 
         $('#add_new').attr('disabled', false);
+        $('#calcolate').attr('disabled', false);
     });
 
     // date

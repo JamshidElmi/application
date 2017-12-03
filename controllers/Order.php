@@ -14,7 +14,7 @@ class Order extends MY_Controller
 
     public function index()
     {
-
+        # codes...
     }
 
     public function kitchen_menus($bm_id = NULL)
@@ -45,12 +45,10 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/create_order', ['customers' => $customers, 'bm' => $bm, 'base_sub_menu' => $base_sub_menu]);
         $this->template->publish();
-    }
+    } // end create_order
 
     public function insert_kitchen_order()
     {
-        // print_r($this->input->post()); die();
-
         $data = $this->input->post();
         // Inserting data
         $this->order_model->orders();
@@ -82,7 +80,7 @@ class Order extends MY_Controller
             redirect('order/create_order');
         }
 
-    } // end insert_kitchen_menu
+    } // end insert_kitchen_order
 
     public function kitchen_orders()
     {
@@ -93,7 +91,7 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/kitchen_orders', ['orders' => $orders]);
         $this->template->publish();
-    }
+    } // end kitchen_orders
 
     public function delete_bm()
     {
@@ -103,7 +101,7 @@ class Order extends MY_Controller
         $bm_id = $this->input->post('bm_id');
         $this->menu_model->data_delete($bm_id);
 
-    } // end insert_kitchen_menu
+    } // end delete_bm
 
 
     public function create_resturant_order()
@@ -119,7 +117,7 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks]);
         $this->template->publish();
-    }
+    } // end create_resturant_order
 
     public function jq_menu_list($mc_id)
     {
@@ -135,7 +133,7 @@ class Order extends MY_Controller
             echo '<a class="btn bg-red btn-xs btn_minus" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '" bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
             echo '</li>';
         }
-    }
+    } // end jq_menu_list
 
     public function insert_resturant_order()
     {
@@ -184,7 +182,7 @@ class Order extends MY_Controller
             redirect('order/create_resturant_order');
         }
 
-    }
+    } // end insert_resturant_order
 
     public function resturant_orders()
     {
@@ -196,7 +194,7 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/resturant_orders', ['orders' => $orders, 'orders_base_acc' => $orders_base_acc]);
         $this->template->publish();
-    }
+    } // end resturant_orders
 
     public function resturant_payment($ord_id)
     {
@@ -217,7 +215,7 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/resturant_payment', ['transections' => $transections, 'order' => $order, 'customer' => $customer]);
         $this->template->publish();
-    }
+    } // end resturant_payment
 
     public function insert_resturant_payment()
     {
@@ -244,7 +242,7 @@ class Order extends MY_Controller
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/resturant_payment/' . $data['tr_ord_id']);
         }
-    }
+    } // end insert_resturant_payment
 
     public function sub_orders($order_id)
     {
@@ -256,7 +254,7 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/resturant_sub_orders', ['sub_orders' => $sub_orders, 'menu_categories' => $menu_categories]);
         $this->template->publish();
-    }
+    } // end sub_orders
 
     public function update_sub_order()
     {
@@ -301,7 +299,7 @@ class Order extends MY_Controller
 
         $this->order_model->orders();
         $this->order_model->data_delete($ord_id);
-    }
+    } // end delete_kitchen_order
 
     public function edit_kitchen_order($ord_id)
     {
@@ -320,7 +318,7 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/edit_kitchen_order', ['order' => $order, 'sub_order' => $sub_order, 'base_menu' => $base_menu, 'bm' => $bm]);
         $this->template->publish();
-    }
+    } // end edit_kitchen_order
 
     public function update_kitchen_order()
     {
@@ -356,7 +354,7 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/kitchen_payment', ['transections' => $transections, 'order' => $order, 'customer' => $customer]);
         $this->template->publish();
-    }
+    } // end kitchen_payment
 
     public function insert_kitchen_payment()
     {
@@ -383,7 +381,7 @@ class Order extends MY_Controller
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/kitchen_payment/' . $data['tr_ord_id']);
         }
-    }
+    } // end insert_kitchen_payment
 
     public function delete_kitchen_transection()
     {
@@ -400,24 +398,51 @@ class Order extends MY_Controller
 
         $this->order_model->transections();
         $this->order_model->data_delete($tr_id);
-    }
+    } // end delete_kitchen_transection
 
-    // TODO: expence from stock must effect on customer and will related in stock, customer, menus.
-
+    /*
+     *
+     * TODO: expence from stock must effect on customer and will related in stock, customer, menus.
+     *
+     * */
 
     public function expence_stock()
     {
         $this->template->description = 'ثبت مصارف از گدام برای سفارشات ';
-        $orders = $this->order_model->order_join_customer('kitchen',30);
+        $orders = $this->order_model->order_join_customer('kitchen', 30);
         $this->order_model->stock_units();
         $stocks = $this->order_model->data_get();
-
-
 
         // view
         $this->template->content->view('orders/expence_stock', ['orders' => $orders, 'stocks' => $stocks]);
         $this->template->publish();
-    }
+    } // end expence_stock
+
+    public function insert_stock_expence()
+    {
+        $data   = $this->input->post();
+        $count  = count($data['stock_count']);
+        /* insert all stock expences */
+        for ($i = 0; $i < $count; $i++) {
+            $this->order_model->stocks();
+            $this->order_model->data_save([
+                'stock_ord_id'      => $data['stock_ord_id'],
+                'stock_st_id'       => $data['stock_st_id'][$i],
+                'stock_count'       => $data['stock_count'][$i],
+                'stock_total_price' => $data['stock_total_price'][$i]
+            ]);
+            /* update stocks */
+            $this->order_model->stock_units();
+            $stock_unit = $this->order_model->data_get($data['stock_st_id'][$i]);
+            $this->order_model->data_save(['st_count' => $stock_unit->st_count - $data['stock_count'][$i]], $data['stock_st_id'][$i]);
+        }
+        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+        redirect('order/expence_stock');
+    } // end insert_stock_expence
+
+    /* TODO: list of stock expences */
+    /* TODO: edit */
+    /* TODO: delete */
 
 
 }

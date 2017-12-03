@@ -1,7 +1,8 @@
 <?php
+
 /**
-* Menu Model class
-*/
+ * Menu Model class
+ */
 class order_model extends MY_Model
 {
     protected $_table_name = 'orders';
@@ -79,6 +80,13 @@ class order_model extends MY_Model
         $this->_order_by = 'st_id';
     }
 
+    public function stocks()
+    {
+        $this->_table_name = 'stocks';
+        $this->_primary_key = 'stpck_id';
+        $this->_order_by = 'stpck_id';
+    }
+
     public function order_join_sub_order()
     {
         $this->db->from('sub_menus');
@@ -93,9 +101,8 @@ class order_model extends MY_Model
     {
         $this->db->from('orders');
         $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
-        $this->db->where(['ord_type'=> $ord_type]);
-        if ($limit != NUll)
-        {
+        $this->db->where(['ord_type' => $ord_type]);
+        if ($limit != NUll) {
             $this->db->limit($limit);
         }
         $this->db->order_by('ord_id DESC');
