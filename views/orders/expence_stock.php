@@ -159,7 +159,6 @@
                     var st_total_price = $(this).val() * st_price;
                     $('#st_total_price_'+x).val(st_total_price);
 
-
                 });
 
             });

@@ -440,9 +440,32 @@ class Order extends MY_Controller
         redirect('order/expence_stock');
     } // end insert_stock_expence
 
-    /* TODO: list of stock expences */
     /* TODO: edit */
+
+
+    /* TODO: list of stock expences */
+    public function stock_expences($order_id)
+    {
+        $this->template->description = 'لیست مصارف برای سفارشات آشپزخانه';
+        $this->order_model->stocks();
+        $stocks = $this->order_model->stock_join_stock_unit($order_id);
+        $this->order_model->orders();
+        $order = $this->order_model->order_join_customer_by_id($order_id);
+
+        // view
+        $this->template->content->view('orders/stock_expences', ['order' => $order, 'stocks' => $stocks]);
+        $this->template->publish();
+    } // end     public function stock_expences
+
     /* TODO: delete */
+    public function delete_expence_order()
+    {
+        sleep(1);
+        $stock_id = $this->input->post('stock_id');
+        $this->order_model->stocks();
+        $this->order_model->data_delete($stock_id);
+    } // end delete_expence_order
 
 
-}
+
+} // end Class
