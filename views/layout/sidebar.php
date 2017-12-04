@@ -138,14 +138,14 @@
 
         <li class="treeview">
             <a href="#">
-                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> <span>منوها</span>
+                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> منوها
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
             </a>
 
             <ul class="treeview-menu">
-=               <li class="treeview">
+               <li class="treeview">
                     <a href="#"><i class="fa fa-circle-o"></i> منوی آشپزخانه
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
@@ -180,13 +180,14 @@
             </a>
 
             <ul class="treeview-menu">
-=               <li class="treeview">
+               <li class="treeview">
                     <a href="#"><i class="fa fa-circle-o"></i> سفارشات آشپزخانه
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="<?=site_url('order/kitchen_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات </a></li>
                         <li><a href="<?=site_url('order/create_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
                     </ul>
                 </li>
@@ -198,6 +199,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="<?=site_url('order/resturant_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات</a></li>
                         <li><a href="<?=site_url('order/create_resturant_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
                     </ul>
                 </li>

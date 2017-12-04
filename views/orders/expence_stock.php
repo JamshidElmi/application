@@ -82,7 +82,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="progress" style="background-color: #e6e6e6;">
+                <div class="progress active" style="background-color: #e6e6e6;">
                     <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" style="width: 0%"><b></b></div>
                 </div>
                 <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
@@ -108,7 +108,8 @@
                                 <td><?=$customer->cus_unique_id ?></td>
                                 <td class="text-center"><b><?=$customer->ord_price ?></b> افغانی </td>
                                 <td class="text-center">
-                                    <a href="#"><span class="label label-default select_order" ord-id="<?=$customer->ord_id ?>" cus-name="<?=$customer->cus_name ?>" cus-lname="<?=$customer->cus_lname ?>" ord-price="<?=$customer->ord_price ?>" data-toggle="tooltip" title="" data-original-title="Use Order"><i class="fa ion-forward fa-lg"></i></span></a>
+                                    <a href="#"><span class="label label-success select_order" ord-id="<?=$customer->ord_id ?>" cus-name="<?=$customer->cus_name ?>" cus-lname="<?=$customer->cus_lname ?>" ord-price="<?=$customer->ord_price ?>" data-toggle="tooltip" title="" data-original-title="Use Order"><i class="fa ion-forward fa-lg"></i></span></a>
+                                    <a href="<?=site_url('order/stock_expences/'.$customer->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Stock Expences for this Order"><i class="fa fa-list fa-lg"></i></span></a>
                                 </td>
                             </tr>
                         <?php endforeach ?>

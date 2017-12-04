@@ -147,7 +147,6 @@ class Finance extends MY_Controller {
 
     public function expences($bill_type)
     {
-
         $this->template->description = ($bill_type == 0) ? ' لیست خریداری مصارف روزانه' : ' لیست خریداری مصارف گدام ';
         $this->finance_model->bills();
         // $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
@@ -254,27 +253,27 @@ class Finance extends MY_Controller {
 
     public function delete_bill_expence($bill_id, $bill_total_amount ,$acc_id ,$type)
     {
-            // get current amount of account
-            $this->finance_model->accounts();
+        // get current amount of account
+        $this->finance_model->accounts();
 
-            $account = $this->finance_model->data_get($acc_id, TRUE);
+        $account = $this->finance_model->data_get($acc_id, TRUE);
 
-            $this->finance_model->bills();
-            if(!$this->finance_model->data_delete($bill_id))
-            {
-                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-                redirect('finance/expences/'.$type);
-            }
+        $this->finance_model->bills();
+        if(!$this->finance_model->data_delete($bill_id))
+        {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+            redirect('finance/expences/'.$type);
+        }
 
-            $this->finance_model->accounts();
-            $new_amount = $account->acc_amount + $bill_total_amount;
-            // Set new amount of account
-            $acc_inserted = $this->finance_model->data_save(['acc_amount'=>$new_amount],$account->acc_id);
-            if (is_int($acc_inserted))
-            {
-               $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-                redirect('finance/expences/'.$type);
-            }
+        $this->finance_model->accounts();
+        $new_amount = $account->acc_amount + $bill_total_amount;
+        // Set new amount of account
+        $acc_inserted = $this->finance_model->data_save(['acc_amount'=>$new_amount],$account->acc_id);
+        if (is_int($acc_inserted))
+        {
+           $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/expences/'.$type);
+        }
 
 
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
@@ -628,7 +627,7 @@ class Finance extends MY_Controller {
         $this->template->description = 'لیست پرداخت معاشات کارمندان';
 
         $this->finance_model->salary();
-        $salary = $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
+        $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
         $employees = $this->finance_model->sal_join_trans_join_emp($emp_id);
         // view
         $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
@@ -704,6 +703,8 @@ class Finance extends MY_Controller {
         $this->finance_model->data_delete($tr_id);
 
     }
+
+    /* TODO: Partners section insertion, Edition, Deletion */
 
 
 

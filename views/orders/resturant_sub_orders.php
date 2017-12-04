@@ -55,9 +55,9 @@
                     </div>
 
 
-                    <input type="text" class="form-control" name="sord_bm_id" id="sord_bm_id" placeholder="اعشاری" required readonly/>
-                    <input type="text" class="form-control" name="sord_id" id="sord_id" placeholder="اعشاری" required readonly/>
-                    <input type="text" class="form-control" name="sord_ord_id" id="sord_ord_id" placeholder="اعشاری" required readonly/>
+                    <input type="hidden" class="form-control" name="sord_bm_id" id="sord_bm_id" placeholder="اعشاری" required readonly/>
+                    <input type="hidden" class="form-control" name="sord_id" id="sord_id" placeholder="اعشاری" required readonly/>
+                    <input type="hidden" class="form-control" name="sord_ord_id" id="sord_ord_id" placeholder="اعشاری" required readonly/>
 
 
                 </div>

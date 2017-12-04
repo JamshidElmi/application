@@ -440,8 +440,6 @@ class Order extends MY_Controller
         redirect('order/expence_stock');
     } // end insert_stock_expence
 
-    /* TODO: edit */
-
 
     /* TODO: list of stock expences */
     public function stock_expences($order_id)
@@ -466,6 +464,22 @@ class Order extends MY_Controller
         $this->order_model->data_delete($stock_id);
     } // end delete_expence_order
 
+    /* TODO: edit */
+    public function update_stock_expence($srock_id, $ord_id)
+    {
+        $this->order_model->stocks();
+        if ($this->order_model->data_save($this->input->post(), $srock_id))
+        {
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('order/stock_expences/' . $ord_id);
+        }
+        else
+        {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
+            redirect('order/stock_expences/' . $ord_id);
+        }
+
+    }
 
 
 } // end Class
