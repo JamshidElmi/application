@@ -87,6 +87,13 @@ class order_model extends MY_Model
         $this->_order_by = 'stock_id';
     }
 
+    public function discounts()
+    {
+        $this->_table_name = 'discounts';
+        $this->_primary_key = 'disc_id';
+        $this->_order_by = 'disc_id';
+    }
+
     public function order_join_sub_order()
     {
         $this->db->from('sub_menus');

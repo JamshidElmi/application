@@ -63,11 +63,25 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>قیمت مجموعی </label>
-                        <div class="input-group date">
-                            <input type="text" id="ord_price" name="ord_price" class="form-control" readonly/>
-                            <div class="input-group-addon">افغانی</div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>قیمت مجموعی </label>
+                                <div class="input-group date">
+                                    <input type="text" id="ord_price" name="ord_price" class="form-control" readonly/>
+                                    <div class="input-group-addon">افغانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>تخفیف </label>
+                                <select name="ord_discount" id="ord_discount" class="form-control" ord-price="">
+                                    <?php foreach ($discounts as $discount) : ?>
+                                        <option value="<?=$discount->disc_persent ?>"><?=$discount->disc_name ?> (<?=round($discount->disc_persent) ?>%)</option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -212,6 +226,7 @@ $(document).ready(function() {
         var bm_price = $('#bm_price').val();
         var ord_price = parseFloat(ord_count) * parseFloat(bm_price);
         $('#ord_price').val(ord_price);
+        $('#ord_discount').attr('ord-price', ord_price);
     });
 
     $('.select-menu').click(function(event) {
@@ -226,6 +241,14 @@ $(document).ready(function() {
         var tr_amount = $(this).val();
         var remain = parseFloat(ord_price) - parseFloat(tr_amount);
         $('#remain').val(remain);
+    });
+
+    $('#ord_discount').change(function () {
+        var ord_discount = $('#ord_discount :selected').val();
+        var ord_price = $('#ord_discount').attr('ord-price');
+        var discount = ord_discount / 100 * ord_price;
+        var ord_price = ord_price - discount;
+        $('#ord_price').val(ord_price);
     });
 
 
