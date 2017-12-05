@@ -525,7 +525,7 @@ class Finance extends MY_Controller {
         $this->session->set_userdata('bill_info', $data);
         $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
         redirect('finance/buy_stock');
-    }
+    } // end insert_stock_expence
 
     public function end_buy()
     {
@@ -543,7 +543,7 @@ class Finance extends MY_Controller {
         // view
         $this->template->content->view('finance/salary_payment', ['employees' => $employees]);
         $this->template->publish();
-    }
+    } // end salary_payment
 
     public function insert_salary()
     {
@@ -597,7 +597,7 @@ class Finance extends MY_Controller {
         }
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
         redirect('finance/salary_payment/');
-    }
+    } // end insert_salary
 
 
     public function pay_salary()
@@ -620,7 +620,7 @@ class Finance extends MY_Controller {
         // view
         $this->template->content->view('finance/pay_salary', ['salaries' => $salaries, 'employee' => $employee]);
         $this->template->publish();
-    }
+    } // end pay_salary
 
     public function salary($emp_id)
     {
@@ -632,12 +632,10 @@ class Finance extends MY_Controller {
         // view
         $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
         $this->template->publish();
-    }
+    } // end salary
 
     public function insert_salary_pay()
     {
-        // print_r($this->input->post());
-        // get the posts
         $data = $this->input->post();
         $this->finance_model->salary();
         $new = current(explode('-', $this->input->post('sal_date')))+1;
@@ -649,8 +647,6 @@ class Finance extends MY_Controller {
              'sal_date >'   => $old."-0-0",
              'sal_month'    => $data['sal_month'] ], true
             );
-        // print_r($emp_sal->sal_id); die();
-            // echo $this->db->last_query();
         if ($emp_sal) {
             // echo $data['sal_remain']; die();
             $amount = $emp_sal->sal_amount + $data['sal_amount'];
@@ -701,11 +697,26 @@ class Finance extends MY_Controller {
         // delete transection row
         $this->finance_model->transections();
         $this->finance_model->data_delete($tr_id);
-
     }
 
     /* TODO: Partners section insertion, Edition, Deletion */
 
+    /* TODO: must get the partner id from session */
+    public function partner_credit_debit($acc_id,$part_id)
+    {
+        $this->template->description = 'برداشت از حساب و جمع در حساب';
+        $account = $this->finance_model->data_get($acc_id, TRUE);
+        $this->finance_model->partners();
+        $partner = $this->finance_model->partner_join_employee($part_id);
+        $this->finance_model->transections();
+        $transections = $this->finance_model->data_get_by(['tr_acc_id'=> $acc_id, 'tr_type'=> 'credit_debit']);
+        // get daily_expences SUM
+        $daily_expences = $this->finance_model->get_trans_dexs($acc_id);
+        // view
+        $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections, 'daily_expences' => $daily_expences ]);
+        $this->template->publish();
+    } // end partner_credit_debit
+    
 
 
 } // end class
