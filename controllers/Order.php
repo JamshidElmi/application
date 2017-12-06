@@ -89,7 +89,6 @@ class Order extends MY_Controller
         $this->template->description = 'لیست سفارشات آشپزخانه';
         $orders = $this->order_model->order_join_customer('kitchen');
 
-
         // view
         $this->template->content->view('orders/kitchen_orders', ['orders' => $orders]);
         $this->template->publish();
@@ -115,9 +114,11 @@ class Order extends MY_Controller
         $customers = $this->order_model->data_get();
         $this->order_model->desks();
         $desks = $this->order_model->data_get();
+        $this->order_model->discounts();
+        $discounts = $this->order_model->data_get();
 
         // view
-        $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks]);
+        $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts]);
         $this->template->publish();
     } // end create_resturant_order
 
@@ -312,13 +313,16 @@ class Order extends MY_Controller
         $this->order_model->sub_orders();
         $sub_order = $this->order_model->data_get_by(['sord_ord_id' => $ord_id], true);
 
+        $this->order_model->discounts();
+        $discounts = $this->order_model->data_get();
+
         $this->order_model->base_menus();
         $base_menu = $this->order_model->data_get($sub_order->sord_bm_id, true);
 
         $bm = $this->order_model->data_get_by(['bm_type' => 0]);
 
         // view
-        $this->template->content->view('orders/edit_kitchen_order', ['order' => $order, 'sub_order' => $sub_order, 'base_menu' => $base_menu, 'bm' => $bm]);
+        $this->template->content->view('orders/edit_kitchen_order', ['order' => $order, 'sub_order' => $sub_order, 'base_menu' => $base_menu, 'bm' => $bm, 'discounts' => $discounts]);
         $this->template->publish();
     } // end edit_kitchen_order
 

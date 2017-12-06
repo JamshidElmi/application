@@ -77,6 +77,7 @@
                             <div class="form-group">
                                 <label>تخفیف </label>
                                 <select name="ord_discount" id="ord_discount" class="form-control" ord-price="">
+                                    <option value="">انتخاب تخفیف</option>
                                     <?php foreach ($discounts as $discount) : ?>
                                         <option value="<?=$discount->disc_persent ?>"><?=$discount->disc_name ?> (<?=round($discount->disc_persent) ?>%)</option>
                                     <?php endforeach ?>

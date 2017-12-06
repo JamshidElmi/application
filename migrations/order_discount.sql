@@ -43,12 +43,13 @@ INSERT INTO `discounts` (`disc_id`, `disc_name`, `disc_persent`) VALUES
 
 -- --------------------------------------------------------
 
+
 --
 -- Table structure for table `orders`
 --
 
 CREATE TABLE IF NOT EXISTS `orders` (
-`ord_id` int(11) NOT NULL,
+  `ord_id` int(11) NOT NULL,
   `ord_desc` varchar(512) DEFAULT NULL,
   `ord_date` date NOT NULL,
   `ord_time` time NOT NULL,
@@ -64,10 +65,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
 --
 
 INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`, `ord_discount`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
-(31, '200 رسید', '1396-09-04', '00:00:00', '400', '0.00', 'resturant', 0, 20),
-(32, '50 pary', '1396-09-07', '20:06:00', '80', '0.00', 'resturant', 4, 5),
-(33, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '1396-09-11', '18:20:00', '22800', '0.00', 'kitchen', NULL, 5),
-(34, '50% تخفیف 5000 قیمت اصلی 500 باقی', '1396-09-14', '22:54:00', '2500', '50.00', 'kitchen', NULL, 3);
+  (31, '200 رسید', '1396-09-04', '00:00:00', '400', '0.00', 'resturant', 0, 20),
+  (32, '50 pary', '1396-09-07', '20:06:00', '80', '0.00', 'resturant', 4, 5),
+  (33, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '1396-09-11', '18:20:00', '22800', '0.00', 'kitchen', NULL, 5),
+  (34, '50% تخفیف 5000 قیمت اصلی 500 باقی', '1396-09-14', '22:54:00', '2500', '50.00', 'kitchen', NULL, 3);
 
 --
 -- Indexes for dumped tables
@@ -77,13 +78,13 @@ INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`,
 -- Indexes for table `discounts`
 --
 ALTER TABLE `discounts`
- ADD PRIMARY KEY (`disc_id`);
+  ADD PRIMARY KEY (`disc_id`);
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
- ADD PRIMARY KEY (`ord_id`), ADD KEY `ord_cus_id` (`ord_cus_id`), ADD KEY `ord_desk_id` (`ord_desk_id`), ADD KEY `ord_desk_id_2` (`ord_desk_id`), ADD KEY `ord_cus_id_2` (`ord_cus_id`);
+  ADD PRIMARY KEY (`ord_id`), ADD KEY `ord_cus_id` (`ord_cus_id`), ADD KEY `ord_desk_id` (`ord_desk_id`), ADD KEY `ord_desk_id_2` (`ord_desk_id`), ADD KEY `ord_cus_id_2` (`ord_cus_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -91,7 +92,6 @@ ALTER TABLE `orders`
 
 --
 -- AUTO_INCREMENT for table `discounts`
---
 ALTER TABLE `discounts`
 MODIFY `disc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
