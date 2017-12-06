@@ -713,7 +713,7 @@ class Finance extends MY_Controller {
         // get daily_expences SUM
         $daily_expences = $this->finance_model->get_trans_dexs($acc_id);
         // view
-        $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections, 'daily_expences' => $daily_expences ]);
+        $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections, 'daily_expences' => $daily_expences, 'partner' => $partner ]);
         $this->template->publish();
     } // end partner_credit_debit
     

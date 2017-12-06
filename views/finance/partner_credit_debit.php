@@ -26,7 +26,7 @@
                         <input type="text" class="form-control" value="<?=$account->acc_name; ?>"  id="acc_name" placeholder="نام صندوق" required  readonly/>
                     </div>
 
-                    <?php ?>
+                    <?php echo  $partner->part_persent / 100 * $account->acc_amount; ?>
 
                     <div class="form-group">
                         <label for="acc_amount">مقدار موجود</label>
