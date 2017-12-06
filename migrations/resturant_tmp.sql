@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2017 at 11:50 AM
+-- Generation Time: Dec 06, 2017 at 12:27 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 5.6.21
 
@@ -45,8 +45,8 @@ INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `
 (22, 'همکار شماره دو', '50000.00', 'افتتاح حساب همکار', '1396-08-20', 1),
 (23, 'مشتری شماره یک', '-9940.00', 'افتتاح حساب', '1396-08-21', 2),
 (24, 'همکار شماره سه', '5000.00', 'افتتاح حساب همکار 3', '1396-08-21', 1),
-(25, 'مشتری شماره دو', '2500.00', 'افتتاح حساب مشتری 2', '1396-08-21', 2),
-(26, 'صندوق مشتری جدید', '50000.00', 'افتتاح حساب', '1396-08-23', 2);
+(25, 'مشتری شماره دو', '-7500.00', 'افتتاح حساب مشتری 2', '1396-08-21', 2),
+(26, 'صندوق مشتری جدید', '30000.00', 'افتتاح حساب', '1396-08-23', 2);
 
 -- --------------------------------------------------------
 
@@ -193,6 +193,27 @@ INSERT INTO `desks` (`desk_id`, `desk_name`, `desk_capacity`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `discounts`
+--
+
+CREATE TABLE `discounts` (
+  `disc_id` int(11) NOT NULL,
+  `disc_name` varchar(64) NOT NULL,
+  `disc_persent` decimal(10,2) NOT NULL COMMENT 'درصد تخفیف'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول تخفیفات';
+
+--
+-- Dumping data for table `discounts`
+--
+
+INSERT INTO `discounts` (`disc_id`, `disc_name`, `disc_persent`) VALUES
+(1, 'بدون تخفیف', '0.00'),
+(2, 'تخفیف درجه یک فامیلی', '30.00'),
+(4, 'تخفیف ویژه', '100.00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employees`
 --
 
@@ -325,6 +346,7 @@ CREATE TABLE `orders` (
   `ord_date` date NOT NULL,
   `ord_time` time NOT NULL,
   `ord_price` decimal(10,0) NOT NULL,
+  `ord_discount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `ord_type` varchar(16) NOT NULL COMMENT 'نوعیت سفارش آشپزخانه / رستورانت',
   `ord_desk_id` int(11) DEFAULT NULL COMMENT 'ای دی میز',
   `ord_cus_id` int(11) DEFAULT NULL COMMENT 'ای دی مشتری'
@@ -334,10 +356,12 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
-(31, '200 رسید', '1396-09-04', '00:00:00', '380', 'resturant', 0, 20),
-(32, '50 pary', '1396-09-07', '20:06:00', '60', 'resturant', 4, 5),
-(33, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '1396-09-11', '18:20:00', '22800', 'kitchen', NULL, 5);
+INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`, `ord_discount`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
+(31, '200 رسید', '1396-09-04', '00:00:00', '420', '50.00', 'resturant', 0, 20),
+(32, '50 pary', '1396-09-07', '20:06:00', '60', '0.00', 'resturant', 4, 5),
+(33, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '1396-09-11', '18:20:00', '22800', '0.00', 'kitchen', NULL, 5),
+(34, '1400 باقی 10000 پرداخت 22800 کلی', '1396-09-15', '13:03:00', '11400', '50.00', 'kitchen', NULL, 3),
+(35, '', '1396-09-15', '13:06:00', '22800', '0.00', 'kitchen', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -488,11 +512,13 @@ CREATE TABLE `sub_orders` (
 --
 
 INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_count`, `sord_price`, `sord_ord_id`) VALUES
-(27, 6, 3, 60, 31),
+(27, 6, 5, 100, 31),
 (28, 11, 4, 120, 31),
 (29, 12, 4, 200, 31),
 (30, 6, 3, 60, 32),
-(31, 1, 50, 22800, 33);
+(31, 1, 50, 22800, 33),
+(32, 1, 50, 11400, 34),
+(33, 1, 50, 22800, 35);
 
 -- --------------------------------------------------------
 
@@ -547,7 +573,9 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 (90, '', '2000.00', 'salary', '1396-09-14', 2, 20, NULL, 25, NULL, NULL),
 (91, '', '2000.00', 'salary', '1396-09-14', 2, 20, NULL, 26, NULL, NULL),
 (92, '', '3000.00', 'salary', '1396-09-14', 2, 20, NULL, 27, NULL, NULL),
-(93, '', '8000.00', 'salary', '1396-09-14', 2, 20, NULL, 24, NULL, NULL);
+(93, '', '8000.00', 'salary', '1396-09-14', 2, 20, NULL, 24, NULL, NULL),
+(94, '1400 باقی 10000 پرداخت 22800 کلی', '10000.00', 'kitchen_order', '1396-09-15', 1, 25, NULL, NULL, 34, NULL),
+(95, '', '20000.00', 'kitchen_order', '1396-09-15', 1, 26, NULL, NULL, 35, NULL);
 
 -- --------------------------------------------------------
 
@@ -645,6 +673,12 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `desks`
   ADD PRIMARY KEY (`desk_id`);
+
+--
+-- Indexes for table `discounts`
+--
+ALTER TABLE `discounts`
+  ADD PRIMARY KEY (`disc_id`);
 
 --
 -- Indexes for table `employees`
@@ -809,7 +843,7 @@ ALTER TABLE `menu_category`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `partners`
 --
@@ -839,12 +873,12 @@ ALTER TABLE `sub_menus`
 -- AUTO_INCREMENT for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-  MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 --
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 --
 -- AUTO_INCREMENT for table `units`
 --
