@@ -40,10 +40,12 @@ class Order extends MY_Controller
         $customers = $this->order_model->data_get();
         $this->order_model->base_menus();
         $bm = $this->order_model->data_get_by(['bm_type' => 0]);
+        $this->order_model->discounts();
+        $discounts = $this->order_model->data_get();
         $base_sub_menu = $this->order_model->order_join_sub_order();
 
         // view
-        $this->template->content->view('orders/create_order', ['customers' => $customers, 'bm' => $bm, 'base_sub_menu' => $base_sub_menu]);
+        $this->template->content->view('orders/create_order', ['customers' => $customers, 'bm' => $bm, 'base_sub_menu' => $base_sub_menu, 'discounts' => $discounts]);
         $this->template->publish();
     } // end create_order
 
@@ -52,7 +54,7 @@ class Order extends MY_Controller
         $data = $this->input->post();
         // Inserting data
         $this->order_model->orders();
-        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);
+        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);
         if (is_int($insert_ord_id)) {
             $this->order_model->sub_orders();
             $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['ord_price'], 'sord_ord_id' => $insert_ord_id]);
@@ -103,7 +105,7 @@ class Order extends MY_Controller
 
     } // end delete_bm
 
-
+    /* TODO: Discount must set on resturant orders */
     public function create_resturant_order()
     {
         $this->template->description = 'ثبت سفارش برای رستورانت';

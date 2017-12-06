@@ -220,11 +220,12 @@
             </a>
 
             <ul class="treeview-menu">
-                <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای مقیاسی </a></li>
-                <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> ثبت وظیفه </a></li>
-                <li><a href="<?=site_url('setting/stock_units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای گدام </a></li>
-                <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o "></i> ثبت نوعیت منو </a></li>
+                <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> واحدات مقیاسی </a></li>
+                <li><a href="<?=site_url('setting/stock_units'); ?>"><i class="fa fa-circle-o "></i> واحدات گدام </a></li>
+                <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i>وظایف </a></li>
+                <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o "></i> نوعیت منو </a></li>
                 <li><a href="<?=site_url('setting/desks'); ?>"><i class="fa fa-circle-o "></i> ثبت میز </a></li>
+                <li><a href="<?=site_url('setting/discounts'); ?>"><i class="fa fa-circle-o "></i> تخفیفات </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>
