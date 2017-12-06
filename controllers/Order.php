@@ -122,7 +122,7 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end create_resturant_order
 
-    public function jq_menu_list($mc_id)
+    public function jq_menu_list($mc_id,$type = 'add')
     {
         // sleep(1);
         $this->order_model->base_menus();
@@ -132,8 +132,15 @@ class Order extends MY_Controller
             echo "<li id='bm_" . $base_menu->bm_id . "' >";
             echo '<img width="100" class="img-thumbnail" src="' . site_url('assets/img/menus/' . $base_menu->bm_picture) . '" data-toggle="tooltip" title="" data-original-title=" af">';
             echo '<a class="users-list-name" href="#"  style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="' . $base_menu->bm_desc . '">' . $base_menu->bm_name . '</a>';
-            echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  ><span title="" data-original-title="Use"><i class="fa fa-plus "></i></span></a>&nbsp;';
-            echo '<a class="btn bg-red btn-xs btn_minus" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '" bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
+            if ($type == "add")
+            {
+                echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  ><span title="" data-original-title="Use"><i class="fa fa-plus"></i></span></a>&nbsp;';
+                echo '<a class="btn bg-red btn-xs btn_minus" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '" bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
+            }
+            else
+            {
+                echo '<a class="btn bg-orange btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  ><span title="" data-original-title="Use">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>&nbsp;';
+            }
             echo '</li>';
         }
     } // end jq_menu_list
@@ -246,16 +253,19 @@ class Order extends MY_Controller
             redirect('order/resturant_payment/' . $data['tr_ord_id']);
         }
     } // end insert_resturant_payment
-
+    /* TODO: add new item on order must be include. */
     public function sub_orders($order_id)
     {
+        $this->template->description = 'ویرایش سفارش برای رستورانت';
         $this->order_model->sub_orders();
         $sub_orders = $this->order_model->get_sub_order_join_menu($order_id);
         $this->order_model->menu_category();
         $menu_categories = $this->order_model->data_get();
+        $this->order_model->orders();
+        $order = $this->order_model->data_get($order_id);
 
         // view
-        $this->template->content->view('orders/resturant_sub_orders', ['sub_orders' => $sub_orders, 'menu_categories' => $menu_categories]);
+        $this->template->content->view('orders/resturant_sub_orders', ['sub_orders' => $sub_orders, 'menu_categories' => $menu_categories, 'order' => $order]);
         $this->template->publish();
     } // end sub_orders
 
@@ -272,7 +282,7 @@ class Order extends MY_Controller
         $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['sord_price']], $data['sord_id']);
         // set new ord price
         $new_ord_price = $order->ord_price - $sub_order->sord_price;
-        $new_ord_price = $new_ord_price + $data['sord_price'];
+        $new_ord_price = $new_ord_price + $data['sord_price'] - $order->ord_discount / 100 * $data['sord_price'];
         // save new ord price
         $this->order_model->orders();
         $this->order_model->data_save(['ord_price' => $new_ord_price], $data['sord_ord_id']);
@@ -406,11 +416,6 @@ class Order extends MY_Controller
         $this->order_model->data_delete($tr_id);
     } // end delete_kitchen_transection
 
-    /*
-     *
-     * TODO: expence from stock must effect on customer and will related in stock, customer, menus.
-     *
-     * */
 
     public function expence_stock()
     {
@@ -447,7 +452,6 @@ class Order extends MY_Controller
     } // end insert_stock_expence
 
 
-    /* TODO: list of stock expences */
     public function stock_expences($order_id)
     {
         $this->template->description = 'لیست مصارف برای سفارشات آشپزخانه';
@@ -461,7 +465,6 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end     public function stock_expences
 
-    /* TODO: delete */
     public function delete_expence_order()
     {
         sleep(1);
@@ -470,7 +473,6 @@ class Order extends MY_Controller
         $this->order_model->data_delete($stock_id);
     } // end delete_expence_order
 
-    /* TODO: edit */
     public function update_stock_expence($srock_id, $ord_id)
     {
         $this->order_model->stocks();

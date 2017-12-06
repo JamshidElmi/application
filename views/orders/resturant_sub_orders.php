@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <label for="bm_price">قیمت فی خوراک</label>
+                                <label for="bm_price">قیمت فی واحد</label>
                                 <input type="number" class="form-control" id="bm_price" placeholder="اعشاری" required readonly/>
                             </div>
                         </div>
@@ -52,6 +52,7 @@
                     <div class="form-group">
                         <label for="sord_price">هزینه کلی</label>
                         <input type="number" class="form-control" name="sord_price" id="sord_price" placeholder="اعشاری" required readonly/>
+                        <div class="help-block">  (تخفیف <?=round($order->ord_discount) ?>%) </div>
                     </div>
 
 
@@ -115,9 +116,9 @@
             <div class="box-body">
                 <div class="msg" hidden><?= alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
-                <ul class="users-list clearfix">
+                <ul class="users-list clearfix table-responsive">
 
-                    <table class="table">
+                    <table class="table ">
                         <tbody>
                         <tr>
                             <th>#</th>
@@ -162,8 +163,7 @@
 
 <script>
     $(document).ready(function () {
-
-        $('.edit_sord_id').click(function (event) {
+        $('.edit_sord_id').click(function () {
             var sord_id = $(this).attr('id');
             var bm_name = $(this).attr('bm-name');
             var sord_count = $(this).attr('sord-count');
@@ -183,16 +183,13 @@
             $('#submit').attr('disabled', false);
             $('#menu_category').attr('disabled', false);
 
-            $('#sord_count').keyup(function (event) {
+            $('#sord_count').keyup(function () {
                 var count = $(this).val();
                 var price = $('#bm_price').val();
                 var total = count * price;
                 $('#sord_price').val(total);
             });
-
-
         });
-
 
         // delete unit restuarant
         $('.sord_id_to_delete').confirm({
@@ -226,10 +223,9 @@
             }
         });
 
-
         $('#menu_category').change(function (event) {
             var mc_id = $('#menu_category :selected').val();
-            var urls = '<?php echo base_url() . 'order/jq_menu_list/' ?>' + mc_id;
+            var urls = '<?php echo base_url() . 'order/jq_menu_list/' ?>' + mc_id +'/edit';
             var loading = $(".overlay");
 
             $(document).ajaxStart(function () {
@@ -270,6 +266,4 @@
             });
         })
     }); // end document
-
-
 </script>

@@ -33,7 +33,7 @@
                          <td><?=base_account()->acc_name  ?></td>
                         <td class="text-center"><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
-                        <td><?=$order->ord_desc ?></td>
+                        <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
                         <td class="text-center">
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
@@ -89,7 +89,7 @@
                         <td><span  data-toggle="tooltip" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('#',$order->cus_phones)) ?></span></td>
                         <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
-                        <td><?=$order->ord_desc ?></td>
+                        <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 15); ?></span></td>
                         <td>
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>

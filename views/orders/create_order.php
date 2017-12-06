@@ -152,7 +152,7 @@
                                 <a class="btn bg-green btn-xs select-menu" id="<?=$base_menu->bm_id ?>" bm-price="<?=$base_menu->bm_price ?>" ><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
                                 <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-clipboard fa-lg"></i></span></a>
                             </li>
-                            <div class="modal fade" id="modal-<?=$base_menu->bm_id ?>">
+                            <div class="modal fade modal-warning" id="modal-<?=$base_menu->bm_id ?>">
                                 <div class="modal-dialog ">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -162,9 +162,9 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <table class="table">
+                                            <table class="table table-bordered table-responsive">
                                                 <tbody>
-                                                    <tr class="bg-gray">
+                                                    <tr class="bg-primary">
                                                         <th>#</th>
                                                         <th>زیر منو </th>
                                                         <th>توضیحات</th>
