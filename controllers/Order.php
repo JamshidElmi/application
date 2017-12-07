@@ -152,7 +152,7 @@ class Order extends MY_Controller
 
         // Inserting data
         $this->order_model->orders();
-        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_type' => 'resturant', 'ord_desk_id' => $data['ord_desk_id'], 'ord_cus_id' => ($data['ord_cus_id'] == base_account()->acc_id . '_') ? base_account()->acc_id : $data['ord_cus_id']]);
+        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'resturant', 'ord_desk_id' => $data['ord_desk_id'], 'ord_cus_id' => ($data['ord_cus_id'] == base_account()->acc_id . '_') ? base_account()->acc_id : $data['ord_cus_id']]);
         if (is_int($insert_ord_id)) {
             $count = count($data['sord_price']);
             for ($i = 0; $i < $count; $i++) {
@@ -193,7 +193,7 @@ class Order extends MY_Controller
         }
 
     } // end insert_resturant_order
-
+    // TODO: include the discount persent to list
     public function resturant_orders()
     {
         $this->template->description = 'لیست سفارشات رستورانت';
@@ -215,6 +215,9 @@ class Order extends MY_Controller
         $this->order_model->orders();
         $order = $this->order_model->data_get($ord_id);
 
+        $this->order_model->discounts();
+        $discounts = $this->order_model->data_get();
+
         if ($order->ord_cus_id != base_account()->acc_id) {
             $this->order_model->customers();
             $customer = $this->order_model->data_get_by(['cus_id' => $order->ord_cus_id], true);
@@ -223,7 +226,7 @@ class Order extends MY_Controller
         }
 
         // view
-        $this->template->content->view('orders/resturant_payment', ['transections' => $transections, 'order' => $order, 'customer' => $customer]);
+        $this->template->content->view('orders/resturant_payment', ['transections' => $transections, 'order' => $order, 'customer' => $customer, 'discounts' => $discounts]);
         $this->template->publish();
     } // end resturant_payment
 
@@ -232,7 +235,15 @@ class Order extends MY_Controller
         $data = $this->input->post();
         $data['tr_type'] = 'resturant';
         $data['tr_status'] = 2;
-        // print_r($data); die();
+//         print_r($data); die();
+
+        if (isset($data['ord_price']))
+        {
+            $this->order_model->orders();
+            $this->order_model->data_save(['ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount']], $data['tr_ord_id']);
+            unset($data['ord_price']);
+        }
+        unset($data['ord_discount']);
 
         $this->order_model->accounts();
         $account = $this->order_model->data_get($data['tr_acc_id']);
@@ -244,11 +255,15 @@ class Order extends MY_Controller
             if (is_int($insert_trans)) {
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
                 redirect('order/resturant_payment/' . $data['tr_ord_id']);
-            } else {
+            }
+            else
+            {
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
                 redirect('order/resturant_payment/' . $data['tr_ord_id']);
             }
-        } else {
+        }
+        else
+        {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/resturant_payment/' . $data['tr_ord_id']);
         }
@@ -488,6 +503,8 @@ class Order extends MY_Controller
         }
 
     }
+
+    /* TODO: MAKE A PROFISSNAL CV  */
 
 
 } // end Class

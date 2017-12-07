@@ -250,10 +250,9 @@ $(document).ready(function() {
                         var curr_total = $('#total_amount').val();
                         // alert(curr_total);
 
-                        // total = total + parseFloat(curr_total);
                         $('#sord_price_'+id).val(sord_total);
                         $('#total_amount').val(total);
-
+                        $('#ord_discount').attr('ord-price',total); //
 
                         if(new_val == 0)
                         {
@@ -265,16 +264,12 @@ $(document).ready(function() {
                             $('#sord_price_'+id).remove();
                         }
                     }
-
-
                 });
-
 
                 // alert(response);
                 if(response == ''){
                     $('.msg').attr('hidden', false);
                 }
-
             }
         });
         $(document).ajaxStop(function(){
@@ -290,8 +285,12 @@ $(document).ready(function() {
         var discount = ord_discount / 100 * ord_price;
         var ord_price = ord_price - discount;
         $('#total_amount').val(ord_price);
-    });
+        $('#menu_list').html('');
+        $('#selection-msg').attr('hidden', false);
+        $('#menu_category').attr('disabled', true);
 
+
+    });
 
 
 
@@ -314,7 +313,7 @@ $(document).ready(function() {
                 enabled: false,
                 locale: 'en'
             }
-        },
+        }
     });
 
     // time
@@ -337,7 +336,7 @@ $(document).ready(function() {
                 locale: 'en'
             }
         },
-        onlyTimePicker: true,
+        onlyTimePicker: true
     });
 
 });
