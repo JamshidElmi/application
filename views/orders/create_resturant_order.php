@@ -17,8 +17,22 @@
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
                     <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
-
-                    <div class="form-group"><label for="ord_cus_id">انتخاب مشتری</label><select name="ord_cus_id" id="ord_cus_id" class="form-control"><option value="<?=base_account()->acc_id ?>_">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group"><label for="ord_cus_id">انتخاب مشتری</label><select name="ord_cus_id" id="ord_cus_id" class="form-control"><option value="<?=base_account()->acc_id ?>_">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?></option><?php endforeach ?></select></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="bm_cat_id">انتخاب میز</label>
+                                <select name="ord_desk_id" id="ord_desk_id" class="form-control">
+                                    <option>انتخاب کنید</option>
+                                    <?php foreach ($desks as $desk): ?>
+                                        <option value="<?=$desk->desk_id ?>"><?=$desk->desk_name .' ('.$desk->desk_capacity.')' ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
 
                     <div class="row">
@@ -56,11 +70,11 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="bm_cat_id">انتخاب میز</label>
-                                <select name="ord_desk_id" id="ord_desk_id" class="form-control">
-                                    <option>انتخاب کنید</option>
-                                    <?php foreach ($desks as $desk): ?>
-                                        <option value="<?=$desk->desk_id ?>"><?=$desk->desk_name .' ('.$desk->desk_capacity.')' ?></option>
+                                <label>تخفیف </label>
+                                <select name="ord_discount" id="ord_discount" class="form-control" ord-price="">
+                                    <option value="">انتخاب تخفیف</option>
+                                    <?php foreach ($discounts as $discount) : ?>
+                                        <option value="<?=$discount->disc_persent ?>"><?=$discount->disc_name ?> (<?=round($discount->disc_persent) ?>%)</option>
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -187,6 +201,7 @@ $(document).ready(function() {
                         total = total + parseFloat(curr_total);
                         $('#sord_price_'+id).val(sord_total);
                         $('#total_amount').val(total);
+                        $('#ord_discount').attr('ord-price',total); //
 
                     }
                     else{
@@ -235,10 +250,9 @@ $(document).ready(function() {
                         var curr_total = $('#total_amount').val();
                         // alert(curr_total);
 
-                        // total = total + parseFloat(curr_total);
                         $('#sord_price_'+id).val(sord_total);
                         $('#total_amount').val(total);
-
+                        $('#ord_discount').attr('ord-price',total); //
 
                         if(new_val == 0)
                         {
@@ -250,16 +264,12 @@ $(document).ready(function() {
                             $('#sord_price_'+id).remove();
                         }
                     }
-
-
                 });
-
 
                 // alert(response);
                 if(response == ''){
                     $('.msg').attr('hidden', false);
                 }
-
             }
         });
         $(document).ajaxStop(function(){
@@ -269,6 +279,18 @@ $(document).ready(function() {
 
     });
 
+    $('#ord_discount').change(function () {
+        var ord_discount = $('#ord_discount :selected').val();
+        var ord_price = $('#ord_discount').attr('ord-price');
+        var discount = ord_discount / 100 * ord_price;
+        var ord_price = ord_price - discount;
+        $('#total_amount').val(ord_price);
+        $('#menu_list').html('');
+        $('#selection-msg').attr('hidden', false);
+        $('#menu_category').attr('disabled', true);
+
+
+    });
 
 
 
@@ -291,7 +313,7 @@ $(document).ready(function() {
                 enabled: false,
                 locale: 'en'
             }
-        },
+        }
     });
 
     // time
@@ -314,7 +336,7 @@ $(document).ready(function() {
                 locale: 'en'
             }
         },
-        onlyTimePicker: true,
+        onlyTimePicker: true
     });
 
 });

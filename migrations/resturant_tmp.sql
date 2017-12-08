@@ -1,21 +1,11 @@
 -- phpMyAdmin SQL Dump
-<<<<<<< HEAD
 -- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2017 at 08:34 PM
+-- Generation Time: Dec 08, 2017 at 07:56 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
-=======
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: Nov 23, 2017 at 12:15 PM
--- Server version: 10.1.13-MariaDB
--- PHP Version: 5.6.21
->>>>>>> master
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,11 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-<<<<<<< HEAD
 /*!40101 SET NAMES utf8 */;
-=======
-/*!40101 SET NAMES utf8mb4 */;
->>>>>>> master
 
 --
 -- Database: `resturant_tmp`
@@ -40,43 +26,27 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `accounts` (
 `acc_id` int(11) NOT NULL,
-=======
-CREATE TABLE `accounts` (
-  `acc_id` int(11) NOT NULL,
->>>>>>> master
   `acc_name` varchar(256) NOT NULL,
   `acc_amount` decimal(10,2) NOT NULL,
   `acc_description` varchar(512) DEFAULT NULL COMMENT 'توضیحات',
   `acc_date` date NOT NULL,
   `acc_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای صندوق اصلی عدد 1 برای حساب همکاران عدد 2 برای حساب مشتریان'
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `accounts`
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
-<<<<<<< HEAD
-(20, 'حساب اصلی', '2525.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
-(21, 'همکار شماره یک', '10600.00', 'افتتاح حساب', '1396-08-20', 1),
+(20, ' حساب اصلی جدید', '-24475.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
+(21, 'همکار شماره یک', '-400.00', 'افتتاح حساب', '1396-08-20', 1),
 (22, 'همکار شماره دو', '50000.00', 'افتتاح حساب همکار', '1396-08-20', 1),
-(23, 'مشتری شماره یک', '10110.00', 'افتتاح حساب', '1396-08-21', 2),
-=======
-(20, 'حساب اصلی', '2275.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
-(21, 'همکار شماره یک', '10600.00', 'افتتاح حساب', '1396-08-20', 1),
-(22, 'همکار شماره دو', '50000.00', 'افتتاح حساب همکار', '1396-08-20', 1),
-(23, 'مشتری شماره یک', '1500.00', 'افتتاح حساب', '1396-08-21', 2),
->>>>>>> master
+(23, 'مشتری شماره یک', '-9940.00', 'افتتاح حساب', '1396-08-21', 2),
 (24, 'همکار شماره سه', '5000.00', 'افتتاح حساب همکار 3', '1396-08-21', 1),
-(25, 'مشتری شماره دو', '2500.00', 'افتتاح حساب مشتری 2', '1396-08-21', 2),
-(26, 'صندوق مشتری جدید', '50000.00', 'افتتاح حساب', '1396-08-23', 2);
+(25, 'مشتری شماره دو', '-7600.00', 'افتتاح حساب مشتری 2', '1396-08-21', 2),
+(26, 'صندوق مشتری جدید', '30000.00', 'افتتاح حساب', '1396-08-23', 2);
 
 -- --------------------------------------------------------
 
@@ -84,48 +54,35 @@ INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `
 -- Table structure for table `base_menus`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `base_menus` (
 `bm_id` int(11) NOT NULL,
-=======
-CREATE TABLE `base_menus` (
-  `bm_id` int(11) NOT NULL,
->>>>>>> master
   `bm_name` varchar(512) NOT NULL,
   `bm_price` decimal(10,2) DEFAULT NULL,
   `bm_desc` varchar(512) DEFAULT NULL,
   `bm_picture` varchar(256) DEFAULT NULL,
   `bm_type` tinyint(1) NOT NULL COMMENT 'عدد صفر برای آشپزخانه عدد یک برای رستورانت',
   `bm_cat_id` int(11) DEFAULT NULL COMMENT 'ای دی کتگوری منو'
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `base_menus`
 --
 
 INSERT INTO `base_menus` (`bm_id`, `bm_name`, `bm_price`, `bm_desc`, `bm_picture`, `bm_type`, `bm_cat_id`) VALUES
-(1, 'منوی درجه اول', '456.00', '', 'avatar.png', 0, NULL),
-(5, 'منوی درجه چهار', '560.00', 'توضیحات', 'avatar3.png', 0, NULL),
-<<<<<<< HEAD
-(6, 'کوکاکولا', '20.00', 'توضیحات لازم و ضروری', 'avatar32.png', 1, 4),
-(7, 'منوی درجه چهارم', '560.00', '', 'avatar5.png', 0, NULL),
-(8, 'منوی درجه هشت', '456.00', '', 'avatar1.png', 0, NULL),
-(9, 'چلو کباب ایرانی', '120.00', 'چلو کباب اصل ایرانی', 'avatar2.png', 1, 3),
-(10, 'کوبیده', '200.00', 'اختصاصی', 'avatar041.png', 1, 1),
-(11, 'کافی', '30.00', 'کافی ', 'avatar52.png', 1, 4),
-(12, 'کاپجینو', '50.00', 'کافی', 'avatar4.png', 1, 4),
-(13, 'نوشابه', '20.00', 'نوشابه', 'avatar33.png', 1, 4),
-(14, 'جوس انار', '25.00', 'جوس', 'avatar23.png', 1, 4);
-=======
-(6, 'کوکاکولا', '20.00', 'توضیحات لازم و ضروری', 'avatar042.png', 1, 4),
-(7, 'منوی درجه چهارم', '560.00', '', 'avatar5.png', 0, NULL),
-(8, 'منوی درجه هشت', '456.00', '', 'avatar1.png', 0, NULL),
-(9, 'چلو کباب ایرانی', '120.00', 'چلو کباب اصل ایرانی', 'avatar2.png', 1, 3);
->>>>>>> master
+(1, 'منوی درجه اول', '456.00', '', '11111.jpg', 0, NULL),
+(5, 'منوی درجه دوم', '560.00', 'توضیحات', '22222.jpg', 0, NULL),
+(6, 'کوکاکولا', '20.00', 'توضیحات لازم و ضروری', '3.jpg', 1, 4),
+(7, 'منوی درجه سوم', '560.00', '', '3333.jpg', 0, NULL),
+(8, 'منوی درجه چهارم', '456.00', '', '5555.jpg', 0, NULL),
+(9, 'چلو کباب ایرانی', '120.00', 'چلو کباب اصل ایرانی', '9.jpg', 1, 3),
+(10, 'جوجه کباب', '200.00', 'اختصاصی', '15.jpg', 1, 1),
+(11, 'کوکاکولا متوسط', '30.00', 'کافی ', '4.jpg', 1, 4),
+(12, 'اسپرایت', '50.00', 'کافی', '2.jpg', 1, 4),
+(13, 'زرشک پلو', '20.00', 'نوشابه', '16.jpg', 1, 4),
+(14, 'برگر متوسط', '25.00', 'جوس', '13.jpg', 1, 4),
+(15, 'قابلی', '250.00', '', '8.jpg', 1, 3),
+(16, 'کباب گوساله', '520.00', '', '7.jpg', 1, 1),
+(17, 'برگر', '50.00', '', '10.jpg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -133,24 +90,15 @@ INSERT INTO `base_menus` (`bm_id`, `bm_name`, `bm_price`, `bm_desc`, `bm_picture
 -- Table structure for table `bills`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `bills` (
 `bill_id` int(11) NOT NULL,
-=======
-CREATE TABLE `bills` (
-  `bill_id` int(11) NOT NULL,
->>>>>>> master
   `bill_no` varchar(64) DEFAULT NULL,
   `bill_shop` varchar(256) DEFAULT NULL,
   `bill_date` date NOT NULL,
   `bill_desc` varchar(512) DEFAULT NULL,
   `bill_total_amount` decimal(10,2) NOT NULL,
-  `bill_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای کثر عدد 1 برای خرید گدام'
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
+  `bill_type` tinyint(4) NOT NULL COMMENT 'عدد 0 برای مصارف روزانه عدد 1 برای خرید گدام'
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bills`
@@ -158,7 +106,8 @@ CREATE TABLE `bills` (
 
 INSERT INTO `bills` (`bill_id`, `bill_no`, `bill_shop`, `bill_date`, `bill_desc`, `bill_total_amount`, `bill_type`) VALUES
 (16, '45854', 'دوکان مصارف روزانه', '1396-04-05', 'صرف پنج قلم جنس صحت است مجموع خریداری 2495 افغانی', '1925.00', 0),
-(17, '23622', 'دوکان همکار صداقت', '1396-06-13', '4 قلم جنس صحت است مصارف گدام و خریداری برای گدام از همکار شماره یک', '7200.00', 1);
+(17, '23622', 'دوکان همکار صداقت', '1396-06-13', '4 قلم جنس صحت است مصارف گدام و خریداری برای گدام از همکار شماره یک', '7200.00', 1),
+(18, '34875', 'دوکان احمد', '1396-09-09', 'یبل سییب', '11000.00', 1);
 
 -- --------------------------------------------------------
 
@@ -166,13 +115,8 @@ INSERT INTO `bills` (`bill_id`, `bill_no`, `bill_shop`, `bill_date`, `bill_desc`
 -- Table structure for table `company_info`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `company_info` (
 `ci_id` int(11) NOT NULL,
-=======
-CREATE TABLE `company_info` (
-  `ci_id` int(11) NOT NULL,
->>>>>>> master
   `ci_full_name` varchar(256) NOT NULL,
   `ci_boss_name` varchar(256) NOT NULL,
   `ci_manager_name` varchar(256) NOT NULL,
@@ -191,13 +135,8 @@ CREATE TABLE `company_info` (
 -- Table structure for table `customers`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `customers` (
 `cus_id` int(11) NOT NULL,
-=======
-CREATE TABLE `customers` (
-  `cus_id` int(11) NOT NULL,
->>>>>>> master
   `cus_unique_id` varchar(16) NOT NULL,
   `cus_name` varchar(128) NOT NULL,
   `cus_lname` varchar(128) NOT NULL,
@@ -219,11 +158,7 @@ CREATE TABLE `customers` (
   `cus_ref_address` text,
   `cus_type` tinyint(1) NOT NULL COMMENT 'عدد صفر آشپزخانه عدد یک رستورانت ',
   `cus_acc_id` int(11) NOT NULL COMMENT 'ای دی صندوق مشتری'
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `customers`
@@ -240,19 +175,11 @@ INSERT INTO `customers` (`cus_id`, `cus_unique_id`, `cus_name`, `cus_lname`, `cu
 -- Table structure for table `desks`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `desks` (
 `desk_id` int(11) NOT NULL,
   `desk_name` varchar(512) NOT NULL,
   `desk_capacity` int(3) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-=======
-CREATE TABLE `desks` (
-  `desk_id` int(11) NOT NULL,
-  `desk_name` varchar(512) NOT NULL,
-  `desk_capacity` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `desks`
@@ -266,16 +193,32 @@ INSERT INTO `desks` (`desk_id`, `desk_name`, `desk_capacity`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `discounts`
+--
+
+CREATE TABLE IF NOT EXISTS `discounts` (
+  `disc_id` int(11) NOT NULL,
+  `disc_name` varchar(64) NOT NULL,
+  `disc_persent` decimal(10,2) NOT NULL COMMENT 'درصد تخفیف'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول تخفیفات';
+
+--
+-- Dumping data for table `discounts`
+--
+
+INSERT INTO `discounts` (`disc_id`, `disc_name`, `disc_persent`) VALUES
+(1, 'بدون تخفیف', '0.00'),
+(2, 'تخفیف درجه یک فامیلی', '30.00'),
+(4, 'تخفیف ویژه', '100.00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employees`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `employees` (
 `emp_id` int(11) NOT NULL,
-=======
-CREATE TABLE `employees` (
-  `emp_id` int(11) NOT NULL,
->>>>>>> master
   `emp_name` varchar(256) NOT NULL,
   `emp_lname` varchar(256) NOT NULL,
   `emp_position` varchar(120) NOT NULL,
@@ -291,11 +234,7 @@ CREATE TABLE `employees` (
   `emp_national_id` char(16) DEFAULT NULL,
   `emp_biography` text,
   `emp_type` tinyint(1) NOT NULL COMMENT 'آشپزخانه یا رستورانت'
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `employees`
@@ -313,13 +252,8 @@ INSERT INTO `employees` (`emp_id`, `emp_name`, `emp_lname`, `emp_position`, `emp
 -- Table structure for table `expences`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `expences` (
 `dex_id` int(11) NOT NULL,
-=======
-CREATE TABLE `expences` (
-  `dex_id` int(11) NOT NULL,
->>>>>>> master
   `dex_name` varchar(256) NOT NULL,
   `dex_st_unit` int(11) DEFAULT NULL COMMENT 'ای دی واحد جنس گدام',
   `dex_price` decimal(10,2) NOT NULL,
@@ -328,11 +262,7 @@ CREATE TABLE `expences` (
   `dex_total_amount` decimal(10,2) NOT NULL,
   `dex_bill_id` int(11) NOT NULL COMMENT 'ای دی فاکتور',
   `dex_tr_id` int(11) DEFAULT NULL COMMENT 'ای دی تراکنش'
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `expences`
@@ -344,7 +274,10 @@ INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_c
 (39, 'گوشت سینه مرغ', NULL, '125.00', 5, 15, '625.00', 16, 49),
 (42, 'آرد درجه دوم', 6, '80.00', 5, 24, '400.00', 17, 50),
 (43, 'آرد درجه یک', 5, '1200.00', 3, 19, '3600.00', 17, 50),
-(44, 'روغن نباتی', 7, '800.00', 4, 23, '3200.00', 17, 50);
+(44, 'روغن نباتی', 7, '800.00', 4, 23, '3200.00', 17, 50),
+(45, 'آرد درجه یک', 5, '1500.00', 5, 19, '7500.00', 18, 86),
+(46, 'آرد درجه یک', 5, '1300.00', 2, 19, '2600.00', 18, 86),
+(47, 'آرد درجه یک', 5, '900.00', 1, 19, '900.00', 18, 86);
 
 -- --------------------------------------------------------
 
@@ -352,17 +285,10 @@ INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_c
 -- Table structure for table `jobs`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `jobs` (
 `job_id` int(11) NOT NULL,
   `job_name` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
-=======
-CREATE TABLE `jobs` (
-  `job_id` int(11) NOT NULL,
-  `job_name` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jobs`
@@ -376,8 +302,7 @@ INSERT INTO `jobs` (`job_id`, `job_name`) VALUES
 (6, 'صفاکار'),
 (7, 'درایور'),
 (8, 'اجیر'),
-(10, 'سرباز'),
-(11, 'گارد');
+(10, 'سرباز');
 
 -- --------------------------------------------------------
 
@@ -385,17 +310,10 @@ INSERT INTO `jobs` (`job_id`, `job_name`) VALUES
 -- Table structure for table `menu_category`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `menu_category` (
 `mc_id` int(11) NOT NULL,
   `mc_name` varchar(256) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='نوع منو یا اسم نوعیت منو که زیر شاخه این جدول لیست منو میباش';
-=======
-CREATE TABLE `menu_category` (
-  `mc_id` int(11) NOT NULL,
-  `mc_name` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='نوع منو یا اسم نوعیت منو که زیر شاخه این جدول لیست منو میباش';
->>>>>>> master
 
 --
 -- Dumping data for table `menu_category`
@@ -412,11 +330,7 @@ INSERT INTO `menu_category` (`mc_id`, `mc_name`) VALUES
 -- Table structure for table `migrations`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `migrations` (
-=======
-CREATE TABLE `migrations` (
->>>>>>> master
   `version` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -426,40 +340,49 @@ CREATE TABLE `migrations` (
 -- Table structure for table `orders`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `orders` (
 `ord_id` int(11) NOT NULL,
-=======
-CREATE TABLE `orders` (
-  `ord_id` int(11) NOT NULL,
->>>>>>> master
   `ord_desc` varchar(512) DEFAULT NULL,
   `ord_date` date NOT NULL,
   `ord_time` time NOT NULL,
   `ord_price` decimal(10,0) NOT NULL,
+  `ord_discount` decimal(10,2) NOT NULL DEFAULT '0.00',
   `ord_type` varchar(16) NOT NULL COMMENT 'نوعیت سفارش آشپزخانه / رستورانت',
   `ord_desk_id` int(11) DEFAULT NULL COMMENT 'ای دی میز',
   `ord_cus_id` int(11) DEFAULT NULL COMMENT 'ای دی مشتری'
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
->>>>>>> master
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
-<<<<<<< HEAD
-(31, '200 رسید', '1396-09-04', '00:00:00', '380', 'resturant', 0, 20);
-=======
-(2, '10 سفارش از منوی درجه اول', '1396-09-02', '13:31:00', '4560', 'kitchen', NULL, 5),
-(3, '4000 پرداخت شد 560 باقی', '1396-09-02', '14:24:00', '4560', 'kitchen', NULL, 5),
-(4, '', '1396-09-02', '15:09:00', '4560', 'kitchen', NULL, 5),
-(5, '', '1396-09-02', '15:15:00', '912', 'kitchen', NULL, 5),
-(6, '', '1396-09-02', '15:15:00', '912', 'kitchen', NULL, 5);
->>>>>>> master
+INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`, `ord_discount`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
+(31, '200 رسید', '1396-09-04', '00:00:00', '1020', '30.00', 'resturant', 0, 20),
+(32, '50 pary', '1396-09-07', '20:06:00', '42', '30.00', 'resturant', 4, 5),
+(33, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '1396-09-11', '18:20:00', '22800', '0.00', 'kitchen', NULL, 5),
+(34, '1400 باقی 10000 پرداخت 22800 کلی', '1396-09-15', '13:03:00', '11400', '30.00', 'kitchen', NULL, 3),
+(35, '', '1396-09-15', '13:06:00', '15960', '30.00', 'kitchen', NULL, 1),
+(36, '150 اصلی ', '1396-09-15', '20:52:00', '105', '30.00', 'resturant', 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `partners`
+--
+
+CREATE TABLE IF NOT EXISTS `partners` (
+`part_id` int(11) NOT NULL,
+  `part_emp_id` int(11) NOT NULL,
+  `part_persent` decimal(10,2) NOT NULL COMMENT 'درصدی سهامدار'
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `partners`
+--
+
+INSERT INTO `partners` (`part_id`, `part_emp_id`, `part_persent`) VALUES
+(1, 3, '50.00'),
+(2, 6, '50.00');
 
 -- --------------------------------------------------------
 
@@ -467,13 +390,8 @@ INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`,
 -- Table structure for table `salary`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `salary` (
 `sal_id` int(11) NOT NULL,
-=======
-CREATE TABLE `salary` (
-  `sal_id` int(11) NOT NULL,
->>>>>>> master
   `sal_amount` decimal(10,2) NOT NULL,
   `sal_remain` decimal(10,2) NOT NULL,
   `sal_tax` decimal(10,2) NOT NULL,
@@ -484,11 +402,7 @@ CREATE TABLE `salary` (
   `sal_month` int(2) NOT NULL,
   `sal_desc` varchar(512) DEFAULT NULL,
   `sal_emp_id` int(11) NOT NULL
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `salary`
@@ -497,7 +411,35 @@ CREATE TABLE `salary` (
 INSERT INTO `salary` (`sal_id`, `sal_amount`, `sal_remain`, `sal_tax`, `sal_bonus`, `sal_fine`, `sal_payable`, `sal_date`, `sal_month`, `sal_desc`, `sal_emp_id`) VALUES
 (20, '7000.00', '7600.00', '450.00', '200.00', '150.00', '14400.00', '1396-08-21', 8, 'پرداخت ابتدائی ', 1),
 (21, '8000.00', '6430.00', '750.00', '300.00', '120.00', '14130.00', '1396-08-21', 1, 'پرداخت اولیه', 1),
-(22, '10000.00', '4250.00', '450.00', '200.00', '500.00', '14050.00', '1396-09-02', 10, '', 1);
+(22, '10000.00', '4250.00', '450.00', '200.00', '500.00', '14050.00', '1396-09-02', 10, '', 1),
+(23, '10000.00', '4950.00', '450.00', '500.00', '100.00', '14450.00', '1396-09-14', 5, '', 1),
+(24, '10000.00', '0.00', '0.00', '0.00', '0.00', '10000.00', '1396-09-14', 1, '', 3),
+(25, '2000.00', '8000.00', '0.00', '0.00', '0.00', '10000.00', '1396-09-14', 2, '', 3),
+(26, '2000.00', '8000.00', '0.00', '0.00', '0.00', '10000.00', '1396-09-14', 3, '', 3),
+(27, '3000.00', '7000.00', '0.00', '0.00', '0.00', '10000.00', '1396-09-14', 9, '', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stocks`
+--
+
+CREATE TABLE IF NOT EXISTS `stocks` (
+`stock_id` int(11) NOT NULL,
+  `stock_count` int(11) NOT NULL,
+  `stock_total_price` decimal(10,2) NOT NULL,
+  `stock_st_id` int(11) NOT NULL,
+  `stock_ord_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stocks`
+--
+
+INSERT INTO `stocks` (`stock_id`, `stock_count`, `stock_total_price`, `stock_st_id`, `stock_ord_id`) VALUES
+(4, 5, '100.00', 3, 33),
+(5, 1, '1000.00', 5, 33),
+(7, 5, '100.00', 3, 33);
 
 -- --------------------------------------------------------
 
@@ -505,32 +447,25 @@ INSERT INTO `salary` (`sal_id`, `sal_amount`, `sal_remain`, `sal_tax`, `sal_bonu
 -- Table structure for table `stock_units`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `stock_units` (
 `st_id` int(11) NOT NULL,
-=======
-CREATE TABLE `stock_units` (
-  `st_id` int(11) NOT NULL,
->>>>>>> master
   `st_name` varchar(256) NOT NULL,
+  `st_price` decimal(10,2) NOT NULL,
   `st_unit` varchar(256) NOT NULL COMMENT 'واحد مقیاسی',
   `st_max_count` int(11) NOT NULL COMMENT 'حد اکثر مقدار قابل گنجایش در گدام',
+  `st_count` int(11) NOT NULL COMMENT 'تعداد موجود در گدام',
   `st_min_count` int(11) NOT NULL COMMENT 'تعداد قابل هشدار'
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `stock_units`
 --
 
-INSERT INTO `stock_units` (`st_id`, `st_name`, `st_unit`, `st_max_count`, `st_min_count`) VALUES
-(3, 'نوشابه سوپرکولا', '12', 50, 5),
-(5, 'آرد درجه یک', '19', 50, 5),
-(6, 'آرد درجه دوم', '24', 85, 3),
-(7, 'روغن نباتی', '23', 5, 2);
+INSERT INTO `stock_units` (`st_id`, `st_name`, `st_price`, `st_unit`, `st_max_count`, `st_count`, `st_min_count`) VALUES
+(3, 'نوشابه سوپرکولا', '20.00', '12', 50, 40, 5),
+(5, 'آرد درجه یک', '1000.00', '19', 50, -5, 5),
+(6, 'آرد درجه دوم', '1100.00', '24', 85, 6, 3),
+(7, 'روغن نباتی', '250.00', '23', 5, 6, 2);
 
 -- --------------------------------------------------------
 
@@ -538,21 +473,12 @@ INSERT INTO `stock_units` (`st_id`, `st_name`, `st_unit`, `st_max_count`, `st_mi
 -- Table structure for table `sub_menus`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `sub_menus` (
 `sm_id` int(11) NOT NULL,
   `sm_name` varchar(256) NOT NULL,
   `sm_desc` varchar(512) DEFAULT NULL,
   `sm_bm_id` int(11) DEFAULT NULL COMMENT 'ای دی منوی اصلی'
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
-=======
-CREATE TABLE `sub_menus` (
-  `sm_id` int(11) NOT NULL,
-  `sm_name` varchar(256) NOT NULL,
-  `sm_desc` varchar(512) DEFAULT NULL,
-  `sm_bm_id` int(11) DEFAULT NULL COMMENT 'ای دی منوی اصلی'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `sub_menus`
@@ -573,39 +499,28 @@ INSERT INTO `sub_menus` (`sm_id`, `sm_name`, `sm_desc`, `sm_bm_id`) VALUES
 -- Table structure for table `sub_orders`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `sub_orders` (
 `sord_id` int(11) NOT NULL,
-=======
-CREATE TABLE `sub_orders` (
-  `sord_id` int(11) NOT NULL,
->>>>>>> master
   `sord_bm_id` int(11) NOT NULL,
   `sord_count` int(11) NOT NULL,
   `sord_price` int(11) NOT NULL,
   `sord_ord_id` int(11) DEFAULT NULL
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
->>>>>>> master
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
 
 --
 -- Dumping data for table `sub_orders`
 --
 
 INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_count`, `sord_price`, `sord_ord_id`) VALUES
-<<<<<<< HEAD
-(27, 6, 3, 60, 31),
+(27, 10, 5, 1000, 31),
 (28, 11, 4, 120, 31),
-(29, 12, 4, 200, 31);
-=======
-(1, 1, 10, 4560, 2),
-(2, 1, 10, 4560, 3),
-(3, 1, 10, 4560, 4),
-(4, 1, 2, 912, 5),
-(5, 1, 2, 912, 6);
->>>>>>> master
+(29, 12, 4, 200, 31),
+(30, 6, 3, 60, 32),
+(31, 1, 50, 22800, 33),
+(32, 1, 50, 11400, 34),
+(33, 1, 50, 15960, 35),
+(34, 6, 10, 200, 36),
+(35, 11, 3, 90, 36);
 
 -- --------------------------------------------------------
 
@@ -613,13 +528,8 @@ INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_count`, `sord_price`, `
 -- Table structure for table `transections`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `transections` (
 `tr_id` int(11) NOT NULL,
-=======
-CREATE TABLE `transections` (
-  `tr_id` int(11) NOT NULL,
->>>>>>> master
   `tr_desc` varchar(512) DEFAULT NULL,
   `tr_amount` decimal(10,2) NOT NULL,
   `tr_type` varchar(32) NOT NULL COMMENT 'نوعیت تراکنش: معاش/برداشت/ جمع/ مصارف/',
@@ -628,45 +538,48 @@ CREATE TABLE `transections` (
   `tr_acc_id` int(11) DEFAULT NULL COMMENT 'ای دی صندوق',
   `bill_id` int(11) DEFAULT NULL COMMENT 'ای دی بل',
   `tr_sal_id` int(11) DEFAULT NULL COMMENT 'ای دی معاش کارمند',
-  `tr_ord_id` int(11) DEFAULT NULL COMMENT 'ای دی سفارش'
-<<<<<<< HEAD
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
+  `tr_ord_id` int(11) DEFAULT NULL COMMENT 'ای دی سفارش',
+  `tr_part_id` int(11) DEFAULT NULL COMMENT 'ای دی سهامداران'
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
 --
 
-INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`, `bill_id`, `tr_sal_id`, `tr_ord_id`) VALUES
-(44, 'افتتاح حساب', '15000.00', 'credit_debit', '1396-08-20', 1, 21, NULL, NULL, NULL),
-(45, 'افتتاح حساب', '50000.00', 'credit_debit', '1396-08-20', 1, 22, NULL, NULL, NULL),
-(47, '3000 جمع برای همکار', '3000.00', 'credit_debit', '1396-08-21', 1, 21, NULL, NULL, NULL),
-(48, '1000 برداشت از همکار', '1000.00', 'credit_debit', '1396-08-20', 2, 21, NULL, NULL, NULL),
-(49, 'صرف پنج قلم جنس صحت است مجموع خریداری 2495 افغانی', '1925.00', 'daily_expence', '1396-04-05', 2, 20, 16, NULL, NULL),
-(50, '4 قلم جنس صحت است مصارف گدام و خریداری برای گدام از همکار شماره یک', '7200.00', 'buy_stocks', '1396-06-13', 2, 21, 17, NULL, NULL),
-(51, NULL, '6760.00', '', '0000-00-00', 0, NULL, NULL, NULL, NULL),
-(52, 'پرداخت ابتدائی ', '5000.00', 'salary', '1396-08-21', 2, 20, NULL, 20, NULL),
-(53, '2000 پرداخت دوباره ', '2000.00', 'salary', '1396-08-21', 2, 20, NULL, 20, NULL),
-(54, 'پرداخت اولیه', '5000.00', 'salary', '1396-08-21', 2, 20, NULL, 21, NULL),
-(55, '3000 پرداخت ', '3000.00', 'salary', '1396-08-21', 2, 20, NULL, 21, NULL),
-(58, 'افتتاح حساب', '2000.00', 'credit_debit', '1396-08-21', 1, 23, NULL, NULL, NULL),
-(59, 'افتتاح حساب', '5000.00', 'credit_debit', '1396-08-21', 1, 24, NULL, NULL, NULL),
-(60, 'افتتاح حساب', '2500.00', 'credit_debit', '1396-08-21', 1, 25, NULL, NULL, NULL),
-(61, '', '5000.00', 'credit_debit', '1396-08-21', 1, 20, NULL, NULL, NULL),
-(62, 'افتتاح حساب', '50000.00', 'credit_debit', '1396-08-23', 1, 26, NULL, NULL, NULL),
-(63, '', '5000.00', 'salary', '1396-09-02', 2, 20, NULL, 22, NULL),
-(64, '', '5000.00', 'salary', '1396-09-02', 2, 20, NULL, 22, NULL),
-<<<<<<< HEAD
-(83, '200 رسید', '200.00', 'resturant', '1396-09-04', 2, 20, NULL, NULL, 31);
-=======
-(65, '10 سفارش از منوی درجه اول', '4560.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 2),
-(66, '4000 پرداخت شد 560 باقی', '4000.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 3),
-(67, '', '4000.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 4),
-(68, '', '500.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 5),
-(69, '', '500.00', 'kitchen_order', '1396-09-02', 1, 23, NULL, NULL, 6);
->>>>>>> master
+INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date`, `tr_status`, `tr_acc_id`, `bill_id`, `tr_sal_id`, `tr_ord_id`, `tr_part_id`) VALUES
+(44, 'افتتاح حساب', '15000.00', 'credit_debit', '1396-08-20', 1, 21, NULL, NULL, NULL, NULL),
+(45, 'افتتاح حساب', '50000.00', 'credit_debit', '1396-08-20', 1, 22, NULL, NULL, NULL, NULL),
+(47, '3000 جمع برای همکار', '3000.00', 'credit_debit', '1396-08-21', 1, 21, NULL, NULL, NULL, NULL),
+(48, '1000 برداشت از همکار', '1000.00', 'credit_debit', '1396-08-20', 2, 21, NULL, NULL, NULL, NULL),
+(49, 'صرف پنج قلم جنس صحت است مجموع خریداری 2495 افغانی', '1925.00', 'daily_expence', '1396-04-05', 2, 20, 16, NULL, NULL, NULL),
+(50, '4 قلم جنس صحت است مصارف گدام و خریداری برای گدام از همکار شماره یک', '7200.00', 'buy_stocks', '1396-06-13', 2, 21, 17, NULL, NULL, NULL),
+(51, NULL, '6760.00', '', '0000-00-00', 0, NULL, NULL, NULL, NULL, NULL),
+(52, 'پرداخت ابتدائی ', '5000.00', 'salary', '1396-08-21', 2, 20, NULL, 20, NULL, NULL),
+(53, '2000 پرداخت دوباره ', '2000.00', 'salary', '1396-08-21', 2, 20, NULL, 20, NULL, NULL),
+(54, 'پرداخت اولیه', '5000.00', 'salary', '1396-08-21', 2, 20, NULL, 21, NULL, NULL),
+(55, '3000 پرداخت ', '3000.00', 'salary', '1396-08-21', 2, 20, NULL, 21, NULL, NULL),
+(58, 'افتتاح حساب', '2000.00', 'credit_debit', '1396-08-21', 1, 23, NULL, NULL, NULL, NULL),
+(59, 'افتتاح حساب', '5000.00', 'credit_debit', '1396-08-21', 1, 24, NULL, NULL, NULL, NULL),
+(60, 'افتتاح حساب', '2500.00', 'credit_debit', '1396-08-21', 1, 25, NULL, NULL, NULL, NULL),
+(61, '', '5000.00', 'credit_debit', '1396-08-21', 1, 20, NULL, NULL, NULL, NULL),
+(62, 'افتتاح حساب', '50000.00', 'credit_debit', '1396-08-23', 1, 26, NULL, NULL, NULL, NULL),
+(63, '', '5000.00', 'salary', '1396-09-02', 2, 20, NULL, 22, NULL, NULL),
+(64, '', '5000.00', 'salary', '1396-09-02', 2, 20, NULL, 22, NULL, NULL),
+(83, '200 رسید', '200.00', 'resturant', '1396-09-04', 2, 20, NULL, NULL, 31, NULL),
+(84, '50 pary', '50.00', 'resturant', '1396-09-07', 1, 23, NULL, NULL, 32, NULL),
+(85, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '20000.00', 'kitchen_order', '1396-09-11', 1, 23, NULL, NULL, 33, NULL),
+(86, 'یبل سییب', '11000.00', 'buy_stocks', '1396-09-09', 2, 21, 18, NULL, NULL, NULL),
+(87, '', '5000.00', 'salary', '1396-09-14', 2, 20, NULL, 23, NULL, NULL),
+(88, '', '5000.00', 'salary', '1396-09-14', 2, 20, NULL, 23, NULL, NULL),
+(89, '', '2000.00', 'salary', '1396-09-14', 2, 20, NULL, 24, NULL, NULL),
+(90, '', '2000.00', 'salary', '1396-09-14', 2, 20, NULL, 25, NULL, NULL),
+(91, '', '2000.00', 'salary', '1396-09-14', 2, 20, NULL, 26, NULL, NULL),
+(92, '', '3000.00', 'salary', '1396-09-14', 2, 20, NULL, 27, NULL, NULL),
+(93, '', '8000.00', 'salary', '1396-09-14', 2, 20, NULL, 24, NULL, NULL),
+(94, '1400 باقی 10000 پرداخت 22800 کلی', '10000.00', 'kitchen_order', '1396-09-15', 1, 25, NULL, NULL, 34, NULL),
+(95, '', '20000.00', 'kitchen_order', '1396-09-15', 1, 26, NULL, NULL, 35, NULL),
+(96, '150 اصلی ', '100.00', 'resturant', '1396-09-15', 1, 25, NULL, NULL, 36, NULL),
+(97, '', '0.00', 'resturant', '1396-09-17', 2, 23, NULL, NULL, 32, NULL);
 
 -- --------------------------------------------------------
 
@@ -674,19 +587,11 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 -- Table structure for table `units`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `units` (
 `unit_id` int(11) NOT NULL,
   `unit_name` varchar(256) NOT NULL,
   `unit_type` tinyint(1) NOT NULL COMMENT 'آشپزخانه/رستورانت'
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-=======
-CREATE TABLE `units` (
-  `unit_id` int(11) NOT NULL,
-  `unit_name` varchar(256) NOT NULL,
-  `unit_type` tinyint(1) NOT NULL COMMENT 'آشپزخانه/رستورانت'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `units`
@@ -713,22 +618,13 @@ INSERT INTO `units` (`unit_id`, `unit_name`, `unit_type`) VALUES
 -- Table structure for table `users`
 --
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS `users` (
 `user_id` int(5) unsigned NOT NULL,
-=======
-CREATE TABLE `users` (
-  `user_id` int(5) UNSIGNED NOT NULL,
->>>>>>> master
   `user_name` varchar(256) NOT NULL,
   `user_type` varchar(256) NOT NULL,
   `user_pass` varchar(256) NOT NULL,
   `emp_id` int(11) DEFAULT NULL
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
->>>>>>> master
 
 --
 -- Dumping data for table `users`
@@ -745,203 +641,127 @@ INSERT INTO `users` (`user_id`, `user_name`, `user_type`, `user_pass`, `emp_id`)
 -- Indexes for table `accounts`
 --
 ALTER TABLE `accounts`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`acc_id`);
-=======
-  ADD PRIMARY KEY (`acc_id`);
->>>>>>> master
 
 --
 -- Indexes for table `base_menus`
 --
 ALTER TABLE `base_menus`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`bm_id`), ADD KEY `SB_FK_SM` (`bm_cat_id`), ADD KEY `bm_cat_id` (`bm_cat_id`);
-=======
-  ADD PRIMARY KEY (`bm_id`),
-  ADD KEY `SB_FK_SM` (`bm_cat_id`),
-  ADD KEY `bm_cat_id` (`bm_cat_id`);
->>>>>>> master
 
 --
 -- Indexes for table `bills`
 --
 ALTER TABLE `bills`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`bill_id`);
-=======
-  ADD PRIMARY KEY (`bill_id`);
->>>>>>> master
 
 --
 -- Indexes for table `company_info`
 --
 ALTER TABLE `company_info`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`ci_id`);
-=======
-  ADD PRIMARY KEY (`ci_id`);
->>>>>>> master
 
 --
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`cus_id`), ADD UNIQUE KEY `cus_unique_id` (`cus_unique_id`), ADD KEY `cus_acc_id` (`cus_acc_id`), ADD KEY `cus_acc_id_2` (`cus_acc_id`);
-=======
-  ADD PRIMARY KEY (`cus_id`),
-  ADD UNIQUE KEY `cus_unique_id` (`cus_unique_id`),
-  ADD KEY `cus_acc_id` (`cus_acc_id`),
-  ADD KEY `cus_acc_id_2` (`cus_acc_id`);
->>>>>>> master
 
 --
 -- Indexes for table `desks`
 --
 ALTER TABLE `desks`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`desk_id`);
-=======
-  ADD PRIMARY KEY (`desk_id`);
->>>>>>> master
+
+--
+-- Indexes for table `discounts`
+--
+ALTER TABLE `discounts`
+ ADD PRIMARY KEY (`disc_id`);
 
 --
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`emp_id`);
-=======
-  ADD PRIMARY KEY (`emp_id`);
->>>>>>> master
 
 --
 -- Indexes for table `expences`
 --
 ALTER TABLE `expences`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`dex_id`), ADD KEY `dex_unit` (`dex_unit`), ADD KEY `dex_bill_id` (`dex_bill_id`), ADD KEY `dex_st_unit` (`dex_st_unit`), ADD KEY `dex_tr_id` (`dex_tr_id`);
-=======
-  ADD PRIMARY KEY (`dex_id`),
-  ADD KEY `dex_unit` (`dex_unit`),
-  ADD KEY `dex_bill_id` (`dex_bill_id`),
-  ADD KEY `dex_st_unit` (`dex_st_unit`),
-  ADD KEY `dex_tr_id` (`dex_tr_id`);
->>>>>>> master
 
 --
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`job_id`);
-=======
-  ADD PRIMARY KEY (`job_id`);
->>>>>>> master
 
 --
 -- Indexes for table `menu_category`
 --
 ALTER TABLE `menu_category`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`mc_id`);
-=======
-  ADD PRIMARY KEY (`mc_id`);
->>>>>>> master
 
 --
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`ord_id`), ADD KEY `ord_cus_id` (`ord_cus_id`), ADD KEY `ord_desk_id` (`ord_desk_id`), ADD KEY `ord_desk_id_2` (`ord_desk_id`), ADD KEY `ord_cus_id_2` (`ord_cus_id`);
-=======
-  ADD PRIMARY KEY (`ord_id`),
-  ADD KEY `ord_cus_id` (`ord_cus_id`),
-  ADD KEY `ord_desk_id` (`ord_desk_id`),
-  ADD KEY `ord_desk_id_2` (`ord_desk_id`),
-  ADD KEY `ord_cus_id_2` (`ord_cus_id`);
->>>>>>> master
+
+--
+-- Indexes for table `partners`
+--
+ALTER TABLE `partners`
+ ADD PRIMARY KEY (`part_id`), ADD KEY `PARTNER_FK_EMP` (`part_emp_id`);
 
 --
 -- Indexes for table `salary`
 --
 ALTER TABLE `salary`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`sal_id`);
-=======
-  ADD PRIMARY KEY (`sal_id`);
->>>>>>> master
+
+--
+-- Indexes for table `stocks`
+--
+ALTER TABLE `stocks`
+ ADD PRIMARY KEY (`stock_id`), ADD KEY `stock_st_id` (`stock_st_id`), ADD KEY `STOCK_FK_ORD` (`stock_ord_id`);
 
 --
 -- Indexes for table `stock_units`
 --
 ALTER TABLE `stock_units`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`st_id`);
-=======
-  ADD PRIMARY KEY (`st_id`);
->>>>>>> master
 
 --
 -- Indexes for table `sub_menus`
 --
 ALTER TABLE `sub_menus`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`sm_id`), ADD KEY `SM_FK_BM` (`sm_bm_id`);
-=======
-  ADD PRIMARY KEY (`sm_id`),
-  ADD KEY `SM_FK_BM` (`sm_bm_id`);
->>>>>>> master
 
 --
 -- Indexes for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`sord_id`), ADD KEY `SORF_FK_ORD` (`sord_ord_id`), ADD KEY `sord_ord_id` (`sord_ord_id`);
-=======
-  ADD PRIMARY KEY (`sord_id`),
-  ADD KEY `SORF_FK_ORD` (`sord_ord_id`),
-  ADD KEY `sord_ord_id` (`sord_ord_id`);
->>>>>>> master
 
 --
 -- Indexes for table `transections`
 --
 ALTER TABLE `transections`
-<<<<<<< HEAD
- ADD PRIMARY KEY (`tr_id`), ADD KEY `tr_acc_id` (`tr_acc_id`), ADD KEY `bill_id` (`bill_id`), ADD KEY `tr_sal_id` (`tr_sal_id`), ADD KEY `TR_FK_ORD` (`tr_ord_id`);
-=======
-  ADD PRIMARY KEY (`tr_id`),
-  ADD KEY `tr_acc_id` (`tr_acc_id`),
-  ADD KEY `bill_id` (`bill_id`),
-  ADD KEY `tr_sal_id` (`tr_sal_id`),
-  ADD KEY `TR_FK_ORD` (`tr_ord_id`);
->>>>>>> master
+ ADD PRIMARY KEY (`tr_id`), ADD KEY `tr_acc_id` (`tr_acc_id`), ADD KEY `bill_id` (`bill_id`), ADD KEY `tr_sal_id` (`tr_sal_id`), ADD KEY `TR_FK_ORD` (`tr_ord_id`), ADD KEY `TRANS_FK_PART` (`tr_part_id`);
 
 --
 -- Indexes for table `units`
 --
 ALTER TABLE `units`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`unit_id`);
-=======
-  ADD PRIMARY KEY (`unit_id`);
->>>>>>> master
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-<<<<<<< HEAD
  ADD PRIMARY KEY (`user_id`), ADD KEY `emp_id` (`emp_id`), ADD KEY `emp_id_2` (`emp_id`);
-=======
-  ADD PRIMARY KEY (`user_id`),
-  ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `emp_id_2` (`emp_id`);
->>>>>>> master
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -951,164 +771,102 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-<<<<<<< HEAD
 MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
-=======
-  MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `base_menus`
 --
 ALTER TABLE `base_menus`
-<<<<<<< HEAD
-MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
-=======
-  MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
->>>>>>> master
+MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `bills`
 --
 ALTER TABLE `bills`
-<<<<<<< HEAD
-MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
-=======
-  MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
->>>>>>> master
+MODIFY `bill_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `company_info`
 --
 ALTER TABLE `company_info`
-<<<<<<< HEAD
 MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
-=======
-  MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-<<<<<<< HEAD
 MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
-=======
-  MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `desks`
 --
 ALTER TABLE `desks`
-<<<<<<< HEAD
 MODIFY `desk_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
-=======
-  MODIFY `desk_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-<<<<<<< HEAD
 MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
-=======
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `expences`
 --
 ALTER TABLE `expences`
-<<<<<<< HEAD
-MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
-=======
-  MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
->>>>>>> master
+MODIFY `dex_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-<<<<<<< HEAD
-MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
-=======
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
->>>>>>> master
+MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `menu_category`
 --
 ALTER TABLE `menu_category`
-<<<<<<< HEAD
 MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
-=======
-  MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-<<<<<<< HEAD
-MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
-=======
-  MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
->>>>>>> master
+MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+--
+-- AUTO_INCREMENT for table `partners`
+--
+ALTER TABLE `partners`
+MODIFY `part_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `salary`
 --
 ALTER TABLE `salary`
-<<<<<<< HEAD
-MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=23;
-=======
-  MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
->>>>>>> master
+MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `stocks`
+--
+ALTER TABLE `stocks`
+MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `stock_units`
 --
 ALTER TABLE `stock_units`
-<<<<<<< HEAD
 MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
-=======
-  MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `sub_menus`
 --
 ALTER TABLE `sub_menus`
-<<<<<<< HEAD
 MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
-=======
-  MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-<<<<<<< HEAD
-MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
-=======
-  MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
->>>>>>> master
+MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-<<<<<<< HEAD
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
-=======
-  MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
->>>>>>> master
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=98;
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
-<<<<<<< HEAD
 MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
-=======
-  MODIFY `unit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
->>>>>>> master
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-<<<<<<< HEAD
 MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
-=======
-  MODIFY `user_id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
->>>>>>> master
 --
 -- Constraints for dumped tables
 --
@@ -1117,90 +875,63 @@ MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- Constraints for table `base_menus`
 --
 ALTER TABLE `base_menus`
-<<<<<<< HEAD
 ADD CONSTRAINT `BM_FK_MC` FOREIGN KEY (`bm_cat_id`) REFERENCES `menu_category` (`mc_id`);
-=======
-  ADD CONSTRAINT `BM_FK_MC` FOREIGN KEY (`bm_cat_id`) REFERENCES `menu_category` (`mc_id`);
->>>>>>> master
 
 --
 -- Constraints for table `customers`
 --
 ALTER TABLE `customers`
-<<<<<<< HEAD
 ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`cus_acc_id`) REFERENCES `accounts` (`acc_id`);
-=======
-  ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`cus_acc_id`) REFERENCES `accounts` (`acc_id`);
->>>>>>> master
 
 --
 -- Constraints for table `expences`
 --
 ALTER TABLE `expences`
-<<<<<<< HEAD
 ADD CONSTRAINT `DEX_FK_BILL` FOREIGN KEY (`dex_bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
 ADD CONSTRAINT `DEX_FK_ST` FOREIGN KEY (`dex_st_unit`) REFERENCES `stock_units` (`st_id`),
 ADD CONSTRAINT `DEX_FK_TRANS` FOREIGN KEY (`dex_tr_id`) REFERENCES `transections` (`tr_id`) ON DELETE CASCADE,
 ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
-=======
-  ADD CONSTRAINT `DEX_FK_BILL` FOREIGN KEY (`dex_bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `DEX_FK_ST` FOREIGN KEY (`dex_st_unit`) REFERENCES `stock_units` (`st_id`),
-  ADD CONSTRAINT `DEX_FK_TRANS` FOREIGN KEY (`dex_tr_id`) REFERENCES `transections` (`tr_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `DEX_FK_UNIT` FOREIGN KEY (`dex_unit`) REFERENCES `units` (`unit_id`);
 
 --
--- Constraints for table `orders`
+-- Constraints for table `partners`
 --
-ALTER TABLE `orders`
-  ADD CONSTRAINT `ORD_FK_CUS` FOREIGN KEY (`ord_cus_id`) REFERENCES `customers` (`cus_id`),
-  ADD CONSTRAINT `ORD_FK_DESK` FOREIGN KEY (`ord_desk_id`) REFERENCES `desks` (`desk_id`);
->>>>>>> master
+ALTER TABLE `partners`
+ADD CONSTRAINT `PARTNER_FK_EMP` FOREIGN KEY (`part_emp_id`) REFERENCES `employees` (`emp_id`);
+
+--
+-- Constraints for table `stocks`
+--
+ALTER TABLE `stocks`
+ADD CONSTRAINT `STOCK_FK_ORDER` FOREIGN KEY (`stock_ord_id`) REFERENCES `orders` (`ord_id`),
+ADD CONSTRAINT `STOCK_FK_ST` FOREIGN KEY (`stock_st_id`) REFERENCES `stock_units` (`st_id`);
 
 --
 -- Constraints for table `sub_menus`
 --
 ALTER TABLE `sub_menus`
-<<<<<<< HEAD
 ADD CONSTRAINT `SM_FK_BM` FOREIGN KEY (`sm_bm_id`) REFERENCES `base_menus` (`bm_id`);
-=======
-  ADD CONSTRAINT `SM_FK_BM` FOREIGN KEY (`sm_bm_id`) REFERENCES `base_menus` (`bm_id`);
->>>>>>> master
 
 --
 -- Constraints for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-<<<<<<< HEAD
 ADD CONSTRAINT `SORD_FK_ORD` FOREIGN KEY (`sord_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE;
-=======
-  ADD CONSTRAINT `SORD_FK_ORD` FOREIGN KEY (`sord_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE;
->>>>>>> master
 
 --
 -- Constraints for table `transections`
 --
 ALTER TABLE `transections`
-<<<<<<< HEAD
 ADD CONSTRAINT `TRANS_FK_ACC` FOREIGN KEY (`tr_acc_id`) REFERENCES `accounts` (`acc_id`) ON DELETE CASCADE,
 ADD CONSTRAINT `TRANS_FK_BILL` FOREIGN KEY (`bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
-ADD CONSTRAINT `TRANS_FK_SAL` FOREIGN KEY (`tr_sal_id`) REFERENCES `salary` (`sal_id`) ON DELETE CASCADE,
-ADD CONSTRAINT `TR_FK_ORD` FOREIGN KEY (`tr_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE;
-=======
-  ADD CONSTRAINT `TRANS_FK_ACC` FOREIGN KEY (`tr_acc_id`) REFERENCES `accounts` (`acc_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `TRANS_FK_BILL` FOREIGN KEY (`bill_id`) REFERENCES `bills` (`bill_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `TRANS_FK_SAL` FOREIGN KEY (`tr_sal_id`) REFERENCES `salary` (`sal_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `TR_FK_ORD` FOREIGN KEY (`tr_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE;
->>>>>>> master
+ADD CONSTRAINT `TRANS_FK_ORD` FOREIGN KEY (`tr_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE,
+ADD CONSTRAINT `TRANS_FK_PART` FOREIGN KEY (`tr_part_id`) REFERENCES `partners` (`part_id`) ON DELETE CASCADE,
+ADD CONSTRAINT `TRANS_FK_SAL` FOREIGN KEY (`tr_sal_id`) REFERENCES `salary` (`sal_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-<<<<<<< HEAD
 ADD CONSTRAINT `USER_FK_EMP` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`);
-=======
-  ADD CONSTRAINT `USER_FK_EMP` FOREIGN KEY (`emp_id`) REFERENCES `employees` (`emp_id`);
->>>>>>> master
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

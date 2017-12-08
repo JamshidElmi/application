@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <div class="form-group">
-                                <label for="bm_price">قیمت فی خوراک</label>
+                                <label for="bm_price">قیمت فی واحد</label>
                                 <input type="number" class="form-control" id="bm_price" placeholder="اعشاری" required readonly/>
                             </div>
                         </div>
@@ -52,12 +52,13 @@
                     <div class="form-group">
                         <label for="sord_price">هزینه کلی</label>
                         <input type="number" class="form-control" name="sord_price" id="sord_price" placeholder="اعشاری" required readonly/>
+                        <div class="help-block">  (تخفیف <?=round($order->ord_discount) ?>%) </div>
                     </div>
 
 
-                    <input type="text" class="form-control" name="sord_bm_id" id="sord_bm_id" placeholder="اعشاری" required readonly/>
-                    <input type="text" class="form-control" name="sord_id" id="sord_id" placeholder="اعشاری" required readonly/>
-                    <input type="text" class="form-control" name="sord_ord_id" id="sord_ord_id" placeholder="اعشاری" required readonly/>
+                    <input type="hidden" class="form-control" name="sord_bm_id" id="sord_bm_id" placeholder="اعشاری" required readonly/>
+                    <input type="hidden" class="form-control" name="sord_id" id="sord_id" placeholder="اعشاری" required readonly/>
+                    <input type="hidden" class="form-control" name="sord_ord_id" id="sord_ord_id" placeholder="اعشاری" required readonly/>
 
 
                 </div>
@@ -115,9 +116,9 @@
             <div class="box-body">
                 <div class="msg" hidden><?= alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
-                <ul class="users-list clearfix">
+                <ul class="users-list clearfix table-responsive">
 
-                    <table class="table">
+                    <table class="table ">
                         <tbody>
                         <tr>
                             <th>#</th>
@@ -162,8 +163,7 @@
 
 <script>
     $(document).ready(function () {
-
-        $('.edit_sord_id').click(function (event) {
+        $('.edit_sord_id').click(function () {
             var sord_id = $(this).attr('id');
             var bm_name = $(this).attr('bm-name');
             var sord_count = $(this).attr('sord-count');
@@ -183,16 +183,13 @@
             $('#submit').attr('disabled', false);
             $('#menu_category').attr('disabled', false);
 
-            $('#sord_count').keyup(function (event) {
+            $('#sord_count').keyup(function () {
                 var count = $(this).val();
                 var price = $('#bm_price').val();
                 var total = count * price;
                 $('#sord_price').val(total);
             });
-
-
         });
-
 
         // delete unit restuarant
         $('.sord_id_to_delete').confirm({
@@ -226,12 +223,9 @@
             }
         });
 
-
         $('#menu_category').change(function (event) {
-            // alert($('#menu_category :selected').text());
             var mc_id = $('#menu_category :selected').val();
-            var urls = '<?php echo base_url() . 'order/jq_menu_list/' ?>' + mc_id;
-            // alert(mc_id);
+            var urls = '<?php echo base_url() . 'order/jq_menu_list/' ?>' + mc_id +'/edit';
             var loading = $(".overlay");
 
             $(document).ajaxStart(function () {
@@ -245,7 +239,6 @@
                     $("#menu_list").html(response);
                     $('.msg').attr('hidden', true);
                     $('#selection-msg').attr('hidden', true);
-
 
                     // btn add(+) is clicked
                     $('.btn_add').click(function (event) {
@@ -265,22 +258,12 @@
                         var sord_new_count = $('#sord_count').val();
                         var new_total = bm_new_price * sord_new_count;
                         $('#sord_price').val(new_total);
-
-
                     });
-
                 }
             });
-
             $(document).ajaxStop(function () {
                 loading.css('display', 'none');
             });
-
-
-        });
-
-
+        })
     }); // end document
-
-
 </script>

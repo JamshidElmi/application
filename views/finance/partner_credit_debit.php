@@ -26,6 +26,10 @@
                         <input type="text" class="form-control" value="<?=$account->acc_name; ?>"  id="acc_name" placeholder="نام صندوق" required  readonly/>
                     </div>
 
+                    <?php echo  $partner->part_persent / 100 * $account->acc_amount; ?>
+
+
+
                     <div class="form-group">
                         <label for="acc_amount">مقدار موجود</label>
                         <input type="number" class="form-control" value="<?=$account->acc_amount; ?>" id="acc_amount" placeholder="مقدار اولیه به عدد " required readonly/>
@@ -60,7 +64,7 @@
 
                     <div class="form-group">
                         <label for="acc_description">توضیحات / یادداشت</label>
-                        <textarea type="number" rows="7" class="form-control" name="tr_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                        <textarea  rows="7" class="form-control" name="tr_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
                     </div>
 
 
@@ -85,7 +89,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive ">
                 <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
                 <table class="table table-bordered table-striped">
                     <thead>
@@ -94,7 +98,7 @@
                             <th>توضیحات</th>
                             <th>مقدار برداشت/جمع</th>
                             <th>وضعیت</th>
-                            <th class="text-center">تاریخ</th>
+                            <th class="text-center text">تاریخ</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>
@@ -102,7 +106,7 @@
                         <?php $i = 1; $credit=null; $debit=null; foreach ($transections as $transection): ?>
                         <tr id="tr_<?=$transection->tr_id  ?>">
                             <td><?=$i++ ?></td>
-                            <td><span data-toggle="tooltip" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
+                            <td><span data-toggle="tooltip" title="" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
                             <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
                             <td class="text-center"><?=($transection->tr_status == 1) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
                             <td class="text-center"><?=show_date('l d/F/Y', $transection->tr_date); ?></td>

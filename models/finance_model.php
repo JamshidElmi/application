@@ -1,7 +1,9 @@
 <?php
+
 /**
-* Employee Model class
-*/
+ * Employee Model class
+ */
+
 class finance_model extends MY_Model
 {
     public $_table_name = 'accounts';
@@ -46,10 +48,19 @@ class finance_model extends MY_Model
         $query = $this->db->get();
         return $query->result();
 
+
+
+
+
+
+
     }
+
+
 
     public function stocks_join_units()
     {
+
         // $this->expences();
 
         $this->db->from('stock_units');
@@ -102,21 +113,22 @@ class finance_model extends MY_Model
         $this->_order_by = 'emp_id';
     }
 
+    public function partners()
+    {
+        $this->_table_name = 'partners';
+        $this->_primary_key = 'part_id';
+        $this->_order_by = 'part_id';
+    }
+
     public function get_trans_dexs($acc_id)
     {
         $this->db->select_sum('tr_amount');
         $this->db->from('transections');
-        $this->db->where(['tr_acc_id'=>$acc_id, 'tr_type' => 'daily_expence']);
-        $query = $this->db->get();
-        return $query->row()->tr_amount;
+        $this->db->where(['tr_acc_id' => $acc_id, 'tr_type' => 'daily_expence']);
+        $query = $this->db->get()->row()->tr_amount;
+        return $query;
     }
 
-    // public function dex_transection_delete($bill_id)
-    // {
-    //     $this->db->where(['bill_id'=> $bill_id, 'tr_type'=> 0]);
-    //     if($this->db->delete('bills'))
-    //     return true;
-    // }
 
     public function dex_join_trans($bill_id)
     {
@@ -125,8 +137,8 @@ class finance_model extends MY_Model
         // $this->db->from('expences');
         $this->db->join('units', 'units.unit_id = expences.dex_unit');
         $this->db->where('bill_id', $bill_id);
-        $query = $this->db->get();
-        return $query->result();
+        $query = $this->db->get()->result();
+        return $query;
     }
 
     public function bill_join_trans($bill_type)
@@ -136,26 +148,33 @@ class finance_model extends MY_Model
         // $this->db->from('expences');
         // $this->db->join('units', 'units.unit_id = expences.dex_unit');
         $this->db->where('bill_type', $bill_type);
-        $query = $this->db->get();
-        return $query->result();
+        $query = $this->db->get()->result();
+        return $query;
     }
 
     public function sal_join_trans_join_emp($emp_id, $year, $month)
     {
-        $next_year = $year+1;
-        $last_year = $year-1;
+        $next_year = $year + 1;
+        $last_year = $year - 1;
         $this->db->from('salary');
         $this->db->join('transections', 'transections.tr_sal_id = salary.sal_id');
-        $this->db->where('sal_emp_id' , $emp_id);
-        $this->db->where('sal_date <' , $next_year.'-0-0');
-        $this->db->where('sal_date >' , $last_year.'-0-0');
-        $this->db->where('sal_month' , $month);
-        $query = $this->db->get();
+        $this->db->where('sal_emp_id', $emp_id);
+        $this->db->where('sal_date <', $next_year . '-0-0');
+        $this->db->where('sal_date >', $last_year . '-0-0');
+        $this->db->where('sal_month', $month);
+        $query = $this->db->get()->result();
         // echo $this->db->last_query(); die();
-        return $query->result();
+        return $query;
     }
 
-
+    public function partner_join_employee($part_id)
+    {
+        $this->db->from('partners');
+        $this->db->join('employees', 'partners.part_emp_id = employees.emp_id');
+        $this->db->where('part_id', $part_id);
+        $query = $this->db->get()->row();
+        return $query;
+    }
 
 
 }

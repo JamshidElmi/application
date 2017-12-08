@@ -11,7 +11,7 @@
         <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
         <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
         <table id="example2" class="table table-bordered table-hover table-striped">
-            <thead>
+            <thead class="bg-info">
                 <tr>
                     <th>#</th>
                     <th>نام و تخلص</th>
@@ -32,16 +32,17 @@
                     <td><span  data-toggle="tooltip" title="" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('#', $order->cus_phones)) ?></span></td>
                     <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
                     <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
-                    <td><?=$order->ord_desc ?></td>
+                    <td><span data-toggle="tooltip" title="" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
                     <td>
-                        <a href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
-                        <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
-                        <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                        <a href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
+                        <a href="<?=site_url('order/stock_expences/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Stock Expences for this Order"><i class="fa fa-list fa-lg"></i></span></a>
+                        <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
+                        <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                     </td>
                 </tr>
                 <?php endforeach ?>
             </tbody>
-            <tfoot>
+            <tfoot class="bg-info">
                 <tr>
                     <th>#</th>
                     <th>نام و تخلص</th>

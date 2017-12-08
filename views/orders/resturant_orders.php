@@ -15,12 +15,13 @@
             <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
             <table id="example2" class="table table-bordered table-hover table-striped">
-                <thead>
+                <thead class="bg-info">
                     <tr>
                         <th>#</th>
                         <th>صندوق</th>
                         <th class="text-center">تاریخ سفارش</th>
                         <th class="text-center">هزینه کل</th>
+                        <th class="text-center">تخفیف</th>
                         <th>توضیحات</th>
                         <th class="text-center">عملیات</th>
                     </tr>
@@ -33,7 +34,8 @@
                          <td><?=base_account()->acc_name  ?></td>
                         <td class="text-center"><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
-                        <td><?=$order->ord_desc ?></td>
+                        <td class="text-center"><span class="badge bg-green"><?=$order->ord_discount ?> %</span></td>
+                        <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
                         <td class="text-center">
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
@@ -43,12 +45,13 @@
                     <?php endif ?>
                     <?php endforeach ?>
                 </tbody>
-                <tfoot>
+                <tfoot class="bg-info">
                     <tr>
                         <th>#</th>
                         <th>صندوق</th>
                         <th class="text-center">تاریخ سفارش</th>
                         <th class="text-center">هزینه کل</th>
+                        <th class="text-center">تخفیف</th>
                         <th>توضیحات</th>
                         <th class="text-center">عملیات</th>
                     </tr>
@@ -67,7 +70,7 @@
             <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
             <table id="example1" class="table table-bordered table-hover table-striped">
-                <thead>
+                <thead class="bg-info">
                     <tr>
                         <th>#</th>
                         <th>نام و تخلص</th>
@@ -75,6 +78,7 @@
                         <th>شماره تماس</th>
                         <th>تاریخ سفارش</th>
                         <th>هزینه کل</th>
+                        <th>تخفیف</th>
                         <th>توضیحات</th>
                         <th>عملیات</th>
                     </tr>
@@ -89,18 +93,18 @@
                         <td><span  data-toggle="tooltip" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('#',$order->cus_phones)) ?></span></td>
                         <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
-                        <td><?=$order->ord_desc ?></td>
+                        <td class="text-center"><span class="badge bg-green"><?=$order->ord_discount ?> %</span></td>
+                        <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 15); ?></span></td>
                         <td>
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
-                            <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                             <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php //echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
                     </tr>
                     <?php endif ?>
                     <?php endforeach ?>
                 </tbody>
-                <tfoot>
+                <tfoot class="bg-info">
                     <tr>
                         <th>#</th>
                         <th>نام و تخلص</th>
@@ -108,17 +112,16 @@
                         <th>شماره تماس</th>
                         <th>تاریخ سفارش</th>
                         <th>هزینه کل</th>
+                        <th>تخفیف</th>
                         <th>توضیحات</th>
                         <th>عملیات</th>
                     </tr>
                 </tfoot>
             </table>
         </div>
-
         </div>
     </div>
 </div>
-
 
 
 <script>
@@ -170,7 +173,7 @@ $(function () {
         'info'        : true,
         'autoWidth'   : true
     })
-})
+});
 
 $(function () {
     $('#example1').DataTable({
@@ -181,6 +184,6 @@ $(function () {
         'info'        : true,
         'autoWidth'   : true
     })
-})
+});
 
 </script>

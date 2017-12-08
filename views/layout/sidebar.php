@@ -125,7 +125,7 @@
                     <ul class="treeview-menu">
                         <li><a href="<?=site_url('finance/expences/1'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف برای گدام</a></li>
                         <li><a href="<?=site_url('finance/buy_stock'); ?>"><i class="fa fa-circle-o"></i> خرید برای گدام</a></li>
-
+                        <li><a href="<?=site_url('order/expence_stock'); ?>"><i class="fa fa-circle-o"></i> مصرف از گدام</a></li>
                     </ul>
                 </li>
 
@@ -138,14 +138,14 @@
 
         <li class="treeview">
             <a href="#">
-                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> <span>منوها</span>
+                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> منوها
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
             </a>
 
             <ul class="treeview-menu">
-=               <li class="treeview">
+               <li class="treeview">
                     <a href="#"><i class="fa fa-circle-o"></i> منوی آشپزخانه
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
@@ -180,13 +180,14 @@
             </a>
 
             <ul class="treeview-menu">
-=               <li class="treeview">
+               <li class="treeview">
                     <a href="#"><i class="fa fa-circle-o"></i> سفارشات آشپزخانه
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="<?=site_url('order/kitchen_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات </a></li>
                         <li><a href="<?=site_url('order/create_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
                     </ul>
                 </li>
@@ -198,6 +199,7 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
+                        <li><a href="<?=site_url('order/resturant_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات</a></li>
                         <li><a href="<?=site_url('order/create_resturant_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
                     </ul>
                 </li>
@@ -218,11 +220,13 @@
             </a>
 
             <ul class="treeview-menu">
-                <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای مقیاسی </a></li>
-                <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> ثبت وظیفه </a></li>
-                <li><a href="<?=site_url('setting/stock_units'); ?>"><i class="fa fa-circle-o "></i> ثبت واحدهای گدام </a></li>
-                <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o "></i> ثبت نوعیت منو </a></li>
+                <li><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> واحدات مقیاسی </a></li>
+                <li><a href="<?=site_url('setting/stock_units'); ?>"><i class="fa fa-circle-o "></i> واحدات گدام </a></li>
+                <li><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i>وظایف </a></li>
+                <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o "></i> نوعیت منو </a></li>
                 <li><a href="<?=site_url('setting/desks'); ?>"><i class="fa fa-circle-o "></i> ثبت میز </a></li>
+                <li><a href="<?=site_url('setting/discounts'); ?>"><i class="fa fa-circle-o "></i> تخفیفات </a></li>
+                <li><a href="<?=site_url('setting/partners'); ?>"><i class="fa fa-circle-o "></i> سهامداران </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>

@@ -147,7 +147,7 @@ class Finance extends MY_Controller {
 
     public function expences($bill_type)
     {
-        $this->template->description = 'لیست خریداری گدام و مصارف روزانه';
+        $this->template->description = ($bill_type == 0) ? ' لیست خریداری مصارف روزانه' : ' لیست خریداری مصارف گدام ';
         $this->finance_model->bills();
         // $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
         $expences = $this->finance_model->bill_join_trans($bill_type);
@@ -253,27 +253,27 @@ class Finance extends MY_Controller {
 
     public function delete_bill_expence($bill_id, $bill_total_amount ,$acc_id ,$type)
     {
-            // get current amount of account
-            $this->finance_model->accounts();
+        // get current amount of account
+        $this->finance_model->accounts();
 
-            $account = $this->finance_model->data_get($acc_id, TRUE);
+        $account = $this->finance_model->data_get($acc_id, TRUE);
 
-            $this->finance_model->bills();
-            if(!$this->finance_model->data_delete($bill_id))
-            {
-                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-                redirect('finance/expences/'.$type);
-            }
+        $this->finance_model->bills();
+        if(!$this->finance_model->data_delete($bill_id))
+        {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+            redirect('finance/expences/'.$type);
+        }
 
-            $this->finance_model->accounts();
-            $new_amount = $account->acc_amount + $bill_total_amount;
-            // Set new amount of account
-            $acc_inserted = $this->finance_model->data_save(['acc_amount'=>$new_amount],$account->acc_id);
-            if (is_int($acc_inserted))
-            {
-               $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-                redirect('finance/expences/'.$type);
-            }
+        $this->finance_model->accounts();
+        $new_amount = $account->acc_amount + $bill_total_amount;
+        // Set new amount of account
+        $acc_inserted = $this->finance_model->data_save(['acc_amount'=>$new_amount],$account->acc_id);
+        if (is_int($acc_inserted))
+        {
+           $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/expences/'.$type);
+        }
 
 
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
@@ -317,10 +317,12 @@ class Finance extends MY_Controller {
     }
 
 
-
+    /**
+     * @param $dex_id
+     * @param $bill_id
+     */
     public function update_expence($dex_id, $bill_id)
     {
-        // print_r($this->input->post());
 
         // get current expence
         $this->finance_model->expences();
@@ -384,6 +386,9 @@ class Finance extends MY_Controller {
         $this->template->publish();
     }
 
+    /**
+     * @param $bill_id
+     */
     public function bill_details($bill_id)
     {
         $this->template->description = 'لیست جزئیات فاکتور';
@@ -458,6 +463,11 @@ class Finance extends MY_Controller {
                 'dex_bill_id'       => $this->session->insert_ids['bill_id'],
                 'dex_tr_id'         => $trans_id
             );
+
+            $this->finance_model->stock_units();
+            $stock = $this->finance_model->data_get($data['st_id']);
+            $this->finance_model->data_save(['st_price' =>$data['dex_price'], 'st_count' => $stock->st_count + $data['dex_count']], $data['st_id'] );
+
             $this->finance_model->expences();
             $dex_id = $this->finance_model->data_save($data_dex);
             if (!is_int($dex_id)) {
@@ -504,6 +514,11 @@ class Finance extends MY_Controller {
                 'dex_bill_id'       => $this->session->insert_ids['bill_id'],
                 'dex_tr_id'         => $this->session->insert_ids['trans_id']
             );
+
+            $this->finance_model->stock_units();
+            $stock = $this->finance_model->data_get($data['st_id']);
+            $this->finance_model->data_save(['st_price' =>$data['dex_price'], 'st_count' => $stock->st_count + $data['dex_count']], $data['st_id'] );
+
             $this->finance_model->expences();
             $dex_id = $this->finance_model->data_save($data_dex);
             if (!is_int($dex_id)) {
@@ -515,7 +530,7 @@ class Finance extends MY_Controller {
         $this->session->set_userdata('bill_info', $data);
         $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
         redirect('finance/buy_stock');
-    }
+    } // end insert_stock_expence
 
     public function end_buy()
     {
@@ -533,7 +548,7 @@ class Finance extends MY_Controller {
         // view
         $this->template->content->view('finance/salary_payment', ['employees' => $employees]);
         $this->template->publish();
-    }
+    } // end salary_payment
 
     public function insert_salary()
     {
@@ -587,7 +602,7 @@ class Finance extends MY_Controller {
         }
         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
         redirect('finance/salary_payment/');
-    }
+    } // end insert_salary
 
 
     public function pay_salary()
@@ -610,24 +625,25 @@ class Finance extends MY_Controller {
         // view
         $this->template->content->view('finance/pay_salary', ['salaries' => $salaries, 'employee' => $employee]);
         $this->template->publish();
-    }
+    } // end pay_salary
 
+    /**
+     * @param $emp_id
+     */
     public function salary($emp_id)
     {
         $this->template->description = 'لیست پرداخت معاشات کارمندان';
 
         $this->finance_model->salary();
-        $salary = $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
+        $this->finance_model->data_get_by(['sal_emp_id' => $emp_id], TRUE);
         $employees = $this->finance_model->sal_join_trans_join_emp($emp_id);
         // view
         $this->template->content->view('finance/pay_salary', ['employees' => $employees]);
         $this->template->publish();
-    }
+    } // end salary
 
     public function insert_salary_pay()
     {
-        // print_r($this->input->post());
-        // get the posts
         $data = $this->input->post();
         $this->finance_model->salary();
         $new = current(explode('-', $this->input->post('sal_date')))+1;
@@ -639,8 +655,6 @@ class Finance extends MY_Controller {
              'sal_date >'   => $old."-0-0",
              'sal_month'    => $data['sal_month'] ], true
             );
-        // print_r($emp_sal->sal_id); die();
-            // echo $this->db->last_query();
         if ($emp_sal) {
             // echo $data['sal_remain']; die();
             $amount = $emp_sal->sal_amount + $data['sal_amount'];
@@ -691,13 +705,29 @@ class Finance extends MY_Controller {
         // delete transection row
         $this->finance_model->transections();
         $this->finance_model->data_delete($tr_id);
-
     }
 
+    /* TODO: Partners section insertion, Edition, Deletion */
 
-
-
-
+    /* TODO: must get the partner id from session */
+    /**
+     * @param $acc_id
+     * @param $part_id
+     */
+    public function partner_credit_debit($acc_id, $part_id)
+    {
+        $this->template->description = 'برداشت از حساب و جمع در حساب';
+        $account = $this->finance_model->data_get($acc_id, TRUE);
+        $this->finance_model->partners();
+        $partner = $this->finance_model->partner_join_employee($part_id);
+        $this->finance_model->transections();
+        $transections = $this->finance_model->data_get_by(['tr_acc_id'=> $acc_id, 'tr_type'=> 'credit_debit']);
+        // get daily_expences SUM
+        $daily_expences = $this->finance_model->get_trans_dexs($acc_id);
+        // view
+        $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections, 'daily_expences' => $daily_expences, 'partner' => $partner ]);
+        $this->template->publish();
+    } // end partner_credit_debit
 
 
 } // end class

@@ -63,11 +63,26 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label>قیمت مجموعی </label>
-                        <div class="input-group date">
-                            <input type="text" id="ord_price" name="ord_price" class="form-control" readonly/>
-                            <div class="input-group-addon">افغانی</div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>قیمت مجموعی </label>
+                                <div class="input-group date">
+                                    <input type="text" id="ord_price" name="ord_price" class="form-control" readonly/>
+                                    <div class="input-group-addon">افغانی</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>تخفیف </label>
+                                <select name="ord_discount" id="ord_discount" class="form-control" ord-price="">
+                                    <option value="">انتخاب تخفیف</option>
+                                    <?php foreach ($discounts as $discount) : ?>
+                                        <option value="<?=$discount->disc_persent ?>"><?=$discount->disc_name ?> (<?=round($discount->disc_persent) ?>%)</option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
@@ -137,7 +152,7 @@
                                 <a class="btn bg-green btn-xs select-menu" id="<?=$base_menu->bm_id ?>" bm-price="<?=$base_menu->bm_price ?>" ><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
                                 <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-clipboard fa-lg"></i></span></a>
                             </li>
-                            <div class="modal fade" id="modal-<?=$base_menu->bm_id ?>">
+                            <div class="modal fade modal-warning" id="modal-<?=$base_menu->bm_id ?>">
                                 <div class="modal-dialog ">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -147,9 +162,9 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <table class="table">
+                                            <table class="table table-bordered table-responsive">
                                                 <tbody>
-                                                    <tr class="bg-gray">
+                                                    <tr class="bg-primary">
                                                         <th>#</th>
                                                         <th>زیر منو </th>
                                                         <th>توضیحات</th>
@@ -212,6 +227,7 @@ $(document).ready(function() {
         var bm_price = $('#bm_price').val();
         var ord_price = parseFloat(ord_count) * parseFloat(bm_price);
         $('#ord_price').val(ord_price);
+        $('#ord_discount').attr('ord-price', ord_price);
     });
 
     $('.select-menu').click(function(event) {
@@ -226,6 +242,14 @@ $(document).ready(function() {
         var tr_amount = $(this).val();
         var remain = parseFloat(ord_price) - parseFloat(tr_amount);
         $('#remain').val(remain);
+    });
+
+    $('#ord_discount').change(function () {
+        var ord_discount = $('#ord_discount :selected').val();
+        var ord_price = $('#ord_discount').attr('ord-price');
+        var discount = ord_discount / 100 * ord_price;
+        var ord_price = ord_price - discount;
+        $('#ord_price').val(ord_price);
     });
 
 
