@@ -71,6 +71,21 @@ class setting_model extends MY_Model
         $this->_order_by = 'disc_id';
     }
 
+    public function employees()
+    {
+        $this->_table_name = 'employees';
+        $this->_primary_key = 'emp_id';
+        $this->_order_by = 'emp_id';
+    }
+
+    public function partner_join_emp()
+    {
+        $this->db->from('partners');
+        $this->db->join('employees', 'partners.part_emp_id = employees.emp_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
 
 
 }

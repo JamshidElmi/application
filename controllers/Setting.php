@@ -251,5 +251,14 @@ class Setting extends MY_Controller
         $this->setting_model->data_delete($desk_id);
     } // end  delete_desk
 
+    public function partners()
+    {
+        $this->template->description = 'ثبت نام سهامداران';
+        $this->setting_model->employees();
+        $employees = $this->setting_model->partner_join_emp();
+        // view
+        $this->template->content->view('settings/partners', ['employees' => $employees]);
+        $this->template->publish();
+    }// end partners
 
 }

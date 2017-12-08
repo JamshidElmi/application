@@ -317,10 +317,12 @@ class Finance extends MY_Controller {
     }
 
 
-
+    /**
+     * @param $dex_id
+     * @param $bill_id
+     */
     public function update_expence($dex_id, $bill_id)
     {
-        // print_r($this->input->post());
 
         // get current expence
         $this->finance_model->expences();
@@ -384,6 +386,9 @@ class Finance extends MY_Controller {
         $this->template->publish();
     }
 
+    /**
+     * @param $bill_id
+     */
     public function bill_details($bill_id)
     {
         $this->template->description = 'لیست جزئیات فاکتور';
@@ -622,6 +627,9 @@ class Finance extends MY_Controller {
         $this->template->publish();
     } // end pay_salary
 
+    /**
+     * @param $emp_id
+     */
     public function salary($emp_id)
     {
         $this->template->description = 'لیست پرداخت معاشات کارمندان';
@@ -702,7 +710,11 @@ class Finance extends MY_Controller {
     /* TODO: Partners section insertion, Edition, Deletion */
 
     /* TODO: must get the partner id from session */
-    public function partner_credit_debit($acc_id,$part_id)
+    /**
+     * @param $acc_id
+     * @param $part_id
+     */
+    public function partner_credit_debit($acc_id, $part_id)
     {
         $this->template->description = 'برداشت از حساب و جمع در حساب';
         $account = $this->finance_model->data_get($acc_id, TRUE);
@@ -716,7 +728,6 @@ class Finance extends MY_Controller {
         $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections, 'daily_expences' => $daily_expences, 'partner' => $partner ]);
         $this->template->publish();
     } // end partner_credit_debit
-    
 
 
 } // end class

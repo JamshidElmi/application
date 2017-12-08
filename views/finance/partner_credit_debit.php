@@ -28,6 +28,8 @@
 
                     <?php echo  $partner->part_persent / 100 * $account->acc_amount; ?>
 
+
+
                     <div class="form-group">
                         <label for="acc_amount">مقدار موجود</label>
                         <input type="number" class="form-control" value="<?=$account->acc_amount; ?>" id="acc_amount" placeholder="مقدار اولیه به عدد " required readonly/>
@@ -87,7 +89,7 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body table-responsive ">
                 <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
                 <table class="table table-bordered table-striped">
                     <thead>
@@ -96,7 +98,7 @@
                             <th>توضیحات</th>
                             <th>مقدار برداشت/جمع</th>
                             <th>وضعیت</th>
-                            <th class="text-center">تاریخ</th>
+                            <th class="text-center text">تاریخ</th>
                             <th>عملیات</th>
                         </tr>
                     </thead>

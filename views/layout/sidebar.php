@@ -226,6 +226,7 @@
                 <li><a href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o "></i> نوعیت منو </a></li>
                 <li><a href="<?=site_url('setting/desks'); ?>"><i class="fa fa-circle-o "></i> ثبت میز </a></li>
                 <li><a href="<?=site_url('setting/discounts'); ?>"><i class="fa fa-circle-o "></i> تخفیفات </a></li>
+                <li><a href="<?=site_url('setting/partners'); ?>"><i class="fa fa-circle-o "></i> سهامداران </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
                 <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>

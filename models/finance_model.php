@@ -3,6 +3,7 @@
 /**
  * Employee Model class
  */
+
 class finance_model extends MY_Model
 {
     public $_table_name = 'accounts';
@@ -47,10 +48,19 @@ class finance_model extends MY_Model
         $query = $this->db->get();
         return $query->result();
 
+
+
+
+
+
+
     }
+
+
 
     public function stocks_join_units()
     {
+
         // $this->expences();
 
         $this->db->from('stock_units');

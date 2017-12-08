@@ -11,7 +11,7 @@
         <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
         <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
         <table id="example2" class="table table-bordered table-hover table-striped">
-            <thead>
+            <thead class="bg-info">
                 <tr>
                     <th>#</th>
                     <th>نام و تخلص</th>
@@ -42,7 +42,7 @@
                 </tr>
                 <?php endforeach ?>
             </tbody>
-            <tfoot>
+            <tfoot class="bg-info">
                 <tr>
                     <th>#</th>
                     <th>نام و تخلص</th>

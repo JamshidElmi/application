@@ -40,7 +40,9 @@
             'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
             'persian-date'      => 'plugins/persian-datepicker/persian-date.js' ,
             'datepicker'        => 'plugins/persian-datepicker/persian-datepicker.js' ,
-         ); ?>
+            'Chart' => 'components/Chart.js/Chart.js',
+
+        ); ?>
 
         <?php echo $this->template->stylesheet->add($styles); ?>
 
@@ -112,9 +114,9 @@
                 'fastclick' => 'components/fastclick/lib/fastclick.js' ,
                 'adminlte' => 'assets/js/adminlte.min.js' ,
                 'dashboard' => 'assets/js/pages/dashboard.js' ,
-                'demo' => 'assets/js/demo.js',
                 // 'persian-date-0.1.8' => 'assets/js/persian-date.js',
                 // 'persian-date-0.1.4' => 'assets/js/persian-datepicker.js'
+                'demo' => 'assets/js/demo.js',
             );
          ?>
         <?php echo $this->template->javascript->add($script); ?>

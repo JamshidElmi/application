@@ -2,6 +2,10 @@
 /**
 * MY Base Controller Class
 */
+/**
+ * Class Cart
+ * @property MY_Controller $cart Cart module
+ */
 class MY_Controller extends CI_Controller
 {
 
@@ -22,5 +26,17 @@ class MY_Controller extends CI_Controller
 
 
     }
-}
+
+    /**
+     * Add product to cart
+     * @param int $id Product id
+     */
+    public function my_first_fun($id)
+    {
+        echo $id;
+    }
+
+
+
+} // end class
  ?>

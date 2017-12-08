@@ -15,7 +15,6 @@
 
                     <input type="hidden" name="sal_emp_id" class="form-control" value="<?=$employee->emp_id?>"  id="sal_emp_id"/>
 
-
                      <div class="form-group">
                         <label for="user_name">نام و تخلص کارمند</label>
                         <input type="text" class="form-control"  id="emp_full_name" value='<?=$employee->emp_name.' '.$employee->emp_lname ?>' placeholder="نام و تخلص"  required  disabled>

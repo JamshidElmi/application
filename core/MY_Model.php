@@ -2,6 +2,7 @@
 /**
 *  MY Base Model Class
 */
+
 class MY_Model extends CI_Model
 {
 
@@ -12,6 +13,7 @@ class MY_Model extends CI_Model
     protected $_timestamps = FALSE;
 
     // Select Single / all function
+
     public function data_get($id = NULL, $single = FALSE){
         if ($id != NULL) {
             $filter = $this->_primary_filter;
