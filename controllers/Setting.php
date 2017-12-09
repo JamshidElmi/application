@@ -266,14 +266,41 @@ class Setting extends MY_Controller
     {
         $this->setting_model->partners();
 
-        if ($this->setting_model->data_save($this->input->post()))
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('part_emp_id', 'کارمند', 'required|is_unique[partners.part_emp_id]');
+        $this->form_validation->set_message('is_unique', 'کارمند انتخاب شده شامل لیست شرکا است.');
+        if ($this->form_validation->run() == FALSE)
         {
-            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            $this->session->set_flashdata('form_errors', validation_errors() );
             redirect('setting/partners');
-        } else {
-            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-            redirect('setting/partners');
+        }
+        else
+        {
+            if (is_int($this->setting_model->data_save($this->input->post())))
+            {
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                redirect('setting/partners');
+            } else {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('setting/partners');
+            }
         }
     }
 
-}
+    public function delete_partner($part_id)
+    {
+        $this->setting_model->partners();
+        if($this->setting_model->data_delete($part_id))
+        {
+            $this->session->set_flashdata('partner_success', 'عملیات با موفقیت انجام شد.');
+            redirect('setting/partners');
+        }
+        else
+        {
+            $this->session->set_flashdata('partner_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+            redirect('setting/partners');
+        }
+
+    }
+
+} // end Class

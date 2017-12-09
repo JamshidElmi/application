@@ -11,7 +11,7 @@
     <div class="col-md-5">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">عملیات جمع و برداشت در صندوق</h3>
+                <h3 class="box-title">عملیات جمع و برداشت </h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -64,7 +64,7 @@
 
                     <div class="form-group">
                         <label for="acc_description">توضیحات / یادداشت</label>
-                        <textarea  rows="7" class="form-control" name="tr_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                        <textarea  rows="7" class="form-control" name="tr_desc" id="acc_description" placeholder="توضیحات / یادداشت" ></textarea>
                     </div>
 
 

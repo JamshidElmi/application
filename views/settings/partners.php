@@ -59,6 +59,8 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding table-responsive">
+                <?php if($this->session->partner_errors) { echo alert($this->session->partner_errors,'danger'); }  ?>
+                <?php if($this->session->partner_success) { echo alert($this->session->partner_success,'success'); }  ?>
                 <table class="table table-hover table-warning">
                     <thead>
                     <tr>
@@ -78,7 +80,7 @@
                             <td><?=$partner->emp_email?></td>
                             <td class="text-center"><span class="badge bg-green"><?=round($partner->part_persent,1)?> %</span></td>
                             <td class="text-center "><strong><?=$partner->part_amount ?></strong> افغانی </td>
-                            <td class="text-center "><a class="label bg-red part_id_to_delete" id="<?=$partner->part_id ?>" ><i class="fa ion-android-delete fa-lg"></i></a></td>
+                            <td class="text-center "><a href="<?=base_url('setting/delete_partner/'.$partner->part_id) ?>" onclick="return confirm('آیا با حذف این سهامدار موافق هستید؟')" class="label bg-red part_id_to_delete" id="<?=$partner->part_id ?>" ><i class="fa ion-android-delete fa-lg"></i></a></td>
                         </tr>
                     <?php endforeach ?>
                     </tbody>
@@ -138,14 +140,10 @@
     }
 
 
-</script>
-
-<script>
     $(function () {
-
-        //-------------
-        //- PIE CHART -
-        //-------------
+        //------------------
+        //- PARTNERS CHART -
+        //------------------
         // Get context with jQuery - using jQuery's .get() method.
         var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
         var pieChart = new Chart(pieChartCanvas);
@@ -196,7 +194,5 @@
         //Create pie or douhnut chart
         // You can switch between pie and douhnut using the method below.
         pieChart.Doughnut(PieData, pieOptions);
-
-
     });
 </script>

@@ -25,8 +25,12 @@ class Login extends CI_Controller {
         if(is_object($user))
         {
             $employee = $this->employee_model->data_get($user->emp_id, TRUE);
+            $partner = $this->user_model->emp_join_partner($user->emp_id);
             $this->session->set_userdata('user_info', $user);
             $this->session->set_userdata('emp_info', $employee);
+            $this->session->set_userdata('partner_id', $partner->part_id);
+
+
             redirect('dashboard/');
         }
         else
