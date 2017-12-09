@@ -709,25 +709,73 @@ class Finance extends MY_Controller {
 
     /* TODO: Partners section insertion, Edition, Deletion */
 
-    /* TODO: must get the partner id from session */
     /**
      * @param $acc_id
      * @param $part_id
      */
-    public function partner_credit_debit($acc_id, $part_id)
+    public function partner_credit_debit($part_id)
     {
-        $this->template->description = 'برداشت از حساب و جمع در حساب';
-        $account = $this->finance_model->data_get($acc_id, TRUE);
+        $this->template->description = '  جمع و برداشت در حساب '.$this->session->emp_info->emp_name .' '.$this->session->emp_info->emp_lname;
         $this->finance_model->partners();
+        $partners = $this->finance_model->data_get();
         $partner = $this->finance_model->partner_join_employee($part_id);
         $this->finance_model->transections();
-        $transections = $this->finance_model->data_get_by(['tr_acc_id'=> $acc_id, 'tr_type'=> 'credit_debit']);
-        // get daily_expences SUM
-        $daily_expences = $this->finance_model->get_trans_dexs($acc_id);
+        $transections = $this->finance_model->data_get_by(['tr_acc_id'=> base_account()->acc_id, 'tr_type'=> 'partner_credit_debit']);
         // view
-        $this->template->content->view('finance/credit_debit', ['account' => $account, 'transections' => $transections, 'daily_expences' => $daily_expences, 'partner' => $partner ]);
+        $this->template->content->view('finance/partner_credit_debit', ['transections' => $transections, 'partner' => $partner, 'partners' => $partners ]);
         $this->template->publish();
     } // end partner_credit_debit
 
+    public function insert_partner_credit_debit()
+    {
+//        print_r($data = $this->input->post());
+        $data = $this->input->post();
+
+        $this->finance_model->transections();
+        $tr_id = $this->finance_model->data_save([
+            'tr_desc'   => $data['tr_desc'],
+            'tr_amount' => $data['part_amount'],
+            'tr_type'   => 'partner_credit_debit',
+            'tr_date'   => $data['tr_date'],
+            'tr_status' => $data['tr_status'],
+            'tr_acc_id' => base_account()->acc_id,
+            'tr_part_id'=> $data['tr_part_id'],
+        ]);
+        if (is_int($tr_id))
+        {
+            $this->finance_model->partners();
+            $partner = $this->finance_model->data_get($data['tr_part_id']);
+            $total_amount = $this->finance_model->total_part_amount()->total_amount;
+
+            if ($data['tr_status'] == 1)
+            {
+                $part_amount = $data['part_amount'] + $partner->part_amount;
+                $part_persent = $part_amount / $total_amount *100;
+            }
+            else
+            {
+                $part_amount = $partner->part_amount - $data['part_amount'];
+                $part_persent = $part_amount / $total_amount *100;
+            }
+
+            $part_id = $this->finance_model->data_save(['part_amount' => $part_amount, 'part_persent' => $part_persent], $data['tr_part_id']);
+            if(is_int($part_id))
+            {
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                redirect('finance/partner_credit_debit/'.$data['tr_part_id']);
+            }
+            else
+            {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
+                redirect('finance/partner_credit_debit/'.$data['tr_part_id']);
+            }
+        }
+        else{
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
+            redirect('finance/partner_credit_debit/'.$data['tr_part_id']);
+        }
+
+
+    }
 
 } // end class

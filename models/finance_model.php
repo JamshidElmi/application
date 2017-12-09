@@ -170,5 +170,13 @@ class finance_model extends MY_Model
         return $query;
     }
 
+    public function total_part_amount()
+    {
+        $this->db->select('SUM(part_amount) as total_amount');
+        $this->db->from('partners');
+        $query = $this->db->get()->row();
+        return $query;
+    }
+
 
 }

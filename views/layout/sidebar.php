@@ -111,7 +111,7 @@
                     <ul class="treeview-menu">
                         <li><a href="<?=site_url('finance/accounts'); ?>"><i class="fa fa-circle-o "></i> ایجاد صندوق </a></li>
                         <li><a href="<?=site_url('finance/credit_debit'); ?>"><i class="fa fa-circle-o"></i>جمع و برداشت</a></li>
-                        <li><a href="<?=site_url('finance/partner_credit_debit/'.base_account()->acc_id.'/'.$this->session->partner_id); ?>"><i class="fa fa-circle-o"></i>سهام</a></li>
+                        <li><a href="<?=site_url('finance/partner_credit_debit/'.$this->session->partner_id); ?>"><i class="fa fa-circle-o"></i>سهام</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

@@ -27,6 +27,7 @@ class user_model extends MY_Model
     {
         $this->db->from('users');
         $this->db->join('employees', 'users.emp_id = employees.emp_id');
+        $this->db->limit(1);
         $query = $this->db->get();
         return $query->result();
     }
