@@ -1,18 +1,18 @@
-<div class="row">
+<div class="row ">
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت سهامدار</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" action="<?php echo site_url('user/insert'); ?>" method='POST' >
+            <form role="form" action="<?php echo site_url('setting/insert_partner'); ?>" method='POST' >
 
                 <div class="box-body">
                         <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
                         <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); } ?>
 
-                    <input type="hidden" name="emp_id" class="form-control"   id="emp_id" />
+                    <input type="hidden" name="part_emp_id" id="emp_id" />
 
 
                     <div class="row">
@@ -28,23 +28,14 @@
                                 <input type="text" class="form-control"  id="emp_position" placeholder="پست" disabled required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="part_persent">مقدار فیصدی</label>
-                                <input type="text" name="part_persent" class="form-control" id="part_persent" placeholder="نام کاربری" pattern="[A-Za-z]+" required>
-                                <small class="help" > برای نام کاربری از کلمات انگلیسی استفاده کنید</small>
-                            </div>
-
                         </div>
 
                         <div class="col-sm-6">
-                            <h4 class="text-center"><strong>نمودار سهامداران</strong></h4> <br>
+                            <h4 class="text-center"><strong>نمودار سهام</strong></h4> <br>
                             <canvas id="pieChart" style="height:500px"></canvas>
                         </div>
 
                     </div>
-
-
-
 
 
                 </div>
@@ -61,38 +52,77 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="box">
-            <div class="box-header">
-                <h3 class="box-title">لیست کارمندان</h3>
+
+        <div class="box box-primary">
+            <div class="box-header ">
+                <h3 class="box-title">لیست سهامداران</h3>
             </div>
             <!-- /.box-header -->
-                <div class="box-body no-padding">
-                    <table class="table table-hover table-warning">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>نام و تخلص</th>
-                                <th>ایمیل آدرس</th>
-                                <th>نوعیت حساب</th>
-                                <th>حساب کاربری</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $i = 1; foreach ($employees as $employee): ?>
-                                <tr>
-                                    <td><?=$i++ ?></td>
-                                    <td><?=$employee->emp_name. ' ' . $employee->emp_lname?></td>
-                                    <td><?=$employee->emp_email?></td>
-                                    <td class="text-center"><span class="badge bg-yellow"><?=$employee->emp_position?></span></td>
-                                    <td class="text-center"><a class="label bg-gray" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-lock fa-lg"></i></a></td>
-                                </tr>
-                            <?php endforeach ?>
-                        </tbody>
+            <div class="box-body no-padding table-responsive">
+                <table class="table table-hover table-warning">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام و تخلص</th>
+                        <th>ایمیل آدرس</th>
+                        <th>فیصدی</th>
+                        <th class="text-center">سهم</th>
+                        <th class="text-center">علمیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; foreach ($partners as $partner): ?>
+                        <tr>
+                            <td><?=$i++ ?></td>
+                            <td><?=$partner->emp_name. ' ' . $partner->emp_lname?></td>
+                            <td><?=$partner->emp_email?></td>
+                            <td class="text-center"><span class="badge bg-green"><?=round($partner->part_persent,1)?> %</span></td>
+                            <td class="text-center "><strong><?=$partner->part_amount ?></strong> افغانی </td>
+                            <td class="text-center "><a class="label bg-red part_id_to_delete" id="<?=$partner->part_id ?>" ><i class="fa ion-android-delete fa-lg"></i></a></td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
                 </table>
             </div>
 
             <!-- /.box-body -->
         </div>
+
+
+        <div class="box box-warning">
+            <div class="box-header">
+                <h3 class="box-title">لیست کارمندان</h3>
+                <span class="text-mute text-sm">انتخاب یکی از کارمندان برای شراکت</span>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding table-responsive">
+                <table class="table table-hover table-warning">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>نام و تخلص</th>
+                        <th>ایمیل آدرس</th>
+                        <th>نوعیت حساب</th>
+                        <th>حساب کاربری</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 1; foreach ($employees as $employee): ?>
+                        <tr>
+                            <td><?=$i++ ?></td>
+                            <td><?=$employee->emp_name. ' ' . $employee->emp_lname?></td>
+                            <td><?=$employee->emp_email?></td>
+                            <td class="text-center"><span class="badge bg-yellow"><?=$employee->emp_position?></span></td>
+                            <td class="text-center"><a class="label bg-gray" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-lock fa-lg"></i></a></td>
+                        </tr>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- /.box-body -->
+        </div>
+
     </div>
 
 

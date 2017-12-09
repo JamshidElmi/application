@@ -78,6 +78,13 @@ class setting_model extends MY_Model
         $this->_order_by = 'emp_id';
     }
 
+    public function partners()
+    {
+        $this->_table_name = 'partners';
+        $this->_primary_key = 'part_id';
+        $this->_order_by = 'part_id';
+    }
+
     public function partner_join_emp()
     {
         $this->db->from('partners');

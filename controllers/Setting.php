@@ -254,11 +254,26 @@ class Setting extends MY_Controller
     public function partners()
     {
         $this->template->description = 'ثبت نام سهامداران';
+        $partners = $this->setting_model->partner_join_emp();
         $this->setting_model->employees();
-        $employees = $this->setting_model->partner_join_emp();
+        $employees = $this->setting_model->data_get();
         // view
-        $this->template->content->view('settings/partners', ['employees' => $employees]);
+        $this->template->content->view('settings/partners', ['employees' => $employees, 'partners' => $partners]);
         $this->template->publish();
     }// end partners
+
+    public function insert_partner()
+    {
+        $this->setting_model->partners();
+
+        if ($this->setting_model->data_save($this->input->post()))
+        {
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('setting/partners');
+        } else {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+            redirect('setting/partners');
+        }
+    }
 
 }
