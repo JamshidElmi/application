@@ -750,12 +750,12 @@ class Finance extends MY_Controller {
             if ($data['tr_status'] == 1)
             {
                 $part_amount = $data['part_amount'] + $partner->part_amount;
-                $part_persent = $part_amount / $total_amount *100;
+                $part_persent = $part_amount / $total_amount * 100;
             }
             else
             {
                 $part_amount = $partner->part_amount - $data['part_amount'];
-                $part_persent = $part_amount / $total_amount *100;
+                $part_persent = $part_amount / $total_amount * 100;
             }
 
             $part_id = $this->finance_model->data_save(['part_amount' => $part_amount, 'part_persent' => $part_persent], $data['tr_part_id']);

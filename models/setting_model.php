@@ -89,8 +89,8 @@ class setting_model extends MY_Model
     {
         $this->db->from('partners');
         $this->db->join('employees', 'partners.part_emp_id = employees.emp_id');
-        $query = $this->db->get();
-        return $query->result();
+        $query = $this->db->get()->result();
+        return $query;
     }
 
 
