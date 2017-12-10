@@ -80,7 +80,10 @@
                             <td><?=$partner->emp_email?></td>
                             <td class="text-center"><span class="badge bg-green"><?=round($partner->part_persent,1)?> %</span></td>
                             <td class="text-center "><strong><?=$partner->part_amount ?></strong> افغانی </td>
-                            <td class="text-center "><a href="<?=base_url('setting/delete_partner/'.$partner->part_id) ?>" onclick="return confirm('آیا با حذف این سهامدار موافق هستید؟')" class="label bg-red part_id_to_delete" id="<?=$partner->part_id ?>" ><i class="fa ion-android-delete fa-lg"></i></a></td>
+                            <td class="text-center ">
+                                <a data-toggle="tooltip" data-original-title="Debit & Cridet" href="<?=base_url('finance/partner_credit_debit/'.$partner->part_id) ?>" class="label bg-orange part_id_to_delete"><i class="fa fa-pie-chart fa-lg"></i></a>
+                                <a data-toggle="tooltip" data-original-title="Remove" href="<?=base_url('setting/delete_partner/'.$partner->part_id) ?>" onclick="return confirm('آیا با حذف این سهامدار موافق هستید؟')" class="label bg-red part_id_to_delete" id="<?=$partner->part_id ?>" ><i class="fa ion-android-delete fa-lg"></i></a>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                     </tbody>
@@ -104,8 +107,8 @@
                         <th>#</th>
                         <th>نام و تخلص</th>
                         <th>ایمیل آدرس</th>
-                        <th>نوعیت حساب</th>
-                        <th>حساب کاربری</th>
+                        <th class="text-center">وظیفه</th>
+                        <th>عملیات</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -115,7 +118,7 @@
                             <td><?=$employee->emp_name. ' ' . $employee->emp_lname?></td>
                             <td><?=$employee->emp_email?></td>
                             <td class="text-center"><span class="badge bg-yellow"><?=$employee->emp_position?></span></td>
-                            <td class="text-center"><a class="label bg-gray" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-lock fa-lg"></i></a></td>
+                            <td class="text-center"><a class="label bg-gray" data-toggle="tooltip" data-original-title="Use" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-chain fa-lg"></i></a></td>
                         </tr>
                     <?php endforeach ?>
                     </tbody>
@@ -141,6 +144,8 @@
 
 
     $(function () {
+        var colors = ['#E84E5B','#F9DC5C','#3185FC','#2FEDDA','#5DAD4E','#D86C24','#4B4A59'];
+        var colors_hover = ['#E86F79','#F9E484','#64A4FC','#8DF5EA','#99D18E','#E09562','#817E99'];
         //------------------
         //- PARTNERS CHART -
         //------------------
@@ -148,24 +153,15 @@
         var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
         var pieChart = new Chart(pieChartCanvas);
         var PieData = [
-            {
-                value: 20,
-                color: '#f56954',
-                highlight: '#f56954',
-                label: 'احمد %'
-            },
-            {
-                value: 40,
-                color: '#00a65a',
-                highlight: '#00a65a',
-                label: 'محمود %'
-            },
-            {
-                value: 30,
-                color: '#f39c12',
-                highlight: '#f39c12',
-                label: 'امیر %'
-            }
+            <?php $i=0; foreach ($partners as $partner) : ?>
+                {
+                    value: <?=$partner->part_persent ?>,
+                    color: colors_hover[<?=$i ?>],
+                    highlight: colors[<?=$i ?>],
+                    label: '<?=$partner->emp_name .' '.$partner->emp_lname ?> %'
+                },
+                <?php $i++ ?>
+            <?php endforeach ?>
         ];
         var pieOptions = {
             //Boolean - Whether we should show a stroke on each segment

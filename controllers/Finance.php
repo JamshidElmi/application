@@ -707,7 +707,7 @@ class Finance extends MY_Controller {
         $this->finance_model->data_delete($tr_id);
     }
 
-    /* TODO: Partners section insertion, Edition, Deletion */
+    /* TODO: Partners section DELETE transections */
 
     /**
      * @param $acc_id
@@ -720,7 +720,7 @@ class Finance extends MY_Controller {
         $partners = $this->finance_model->data_get();
         $partner = $this->finance_model->partner_join_employee($part_id);
         $this->finance_model->transections();
-        $transections = $this->finance_model->data_get_by(['tr_acc_id'=> base_account()->acc_id, 'tr_type'=> 'partner_credit_debit']);
+        $transections = $this->finance_model->data_get_by(['tr_part_id'=> $part_id, 'tr_type'=> 'partner_credit_debit']);
         // view
         $this->template->content->view('finance/partner_credit_debit', ['transections' => $transections, 'partner' => $partner, 'partners' => $partners ]);
         $this->template->publish();
@@ -745,22 +745,28 @@ class Finance extends MY_Controller {
         {
             $this->finance_model->partners();
             $partner = $this->finance_model->data_get($data['tr_part_id']);
-            $total_amount = $this->finance_model->total_part_amount()->total_amount;
 
             if ($data['tr_status'] == 1)
             {
+                $total_amount = $this->finance_model->total_part_amount()->total_amount + $data['part_amount'];
                 $part_amount = $data['part_amount'] + $partner->part_amount;
-                $part_persent = $part_amount / $total_amount * 100;
             }
             else
             {
+                $total_amount = $this->finance_model->total_part_amount()->total_amount - $data['part_amount'];
                 $part_amount = $partner->part_amount - $data['part_amount'];
-                $part_persent = $part_amount / $total_amount * 100;
             }
 
-            $part_id = $this->finance_model->data_save(['part_amount' => $part_amount, 'part_persent' => $part_persent], $data['tr_part_id']);
+            $part_id = $this->finance_model->data_save(['part_amount' => $part_amount], $data['tr_part_id']);
             if(is_int($part_id))
             {
+                $partners = $this->finance_model->data_get();
+                foreach ($partners as $part)
+                {
+                    $new_persent = $part->part_amount / $total_amount * 100;
+                    $this->finance_model->data_save(['part_persent' => $new_persent], $part->part_id);
+                }
+
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
                 redirect('finance/partner_credit_debit/'.$data['tr_part_id']);
             }
