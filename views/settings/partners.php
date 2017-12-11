@@ -1,5 +1,21 @@
 <div class="row ">
-    <div class="col-md-6">
+
+    <div class="col-sm-4">
+        <div class="box box-info">
+            <div class="box-header text-center">
+                <h3 class="box-title text-center">نمودار سهام</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-12 text-center">
+                        <canvas id="pieChart" style="height:500px"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت سهامدار</h3>
@@ -14,44 +30,38 @@
 
                     <input type="hidden" name="part_emp_id" id="emp_id" />
 
-
                     <div class="row">
 
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <label for="user_name">نام و تخلص کارمند</label>
+                                <label for="user_name">نام و تخلص </label>
                                 <input type="text" class="form-control" id="emp_full_name" placeholder="نام و تخلص" required disabled>
                             </div>
 
                             <div class="form-group">
-                                <label for="user_name">عنوان پست کارمند</label>
+                                <label for="user_name">وظیفه</label>
                                 <input type="text" class="form-control"  id="emp_position" placeholder="پست" disabled required>
                             </div>
 
                         </div>
 
-                        <div class="col-sm-6">
-                            <h4 class="text-center"><strong>نمودار سهام</strong></h4> <br>
-                            <canvas id="pieChart" style="height:500px"></canvas>
-                        </div>
-
                     </div>
-
 
                 </div>
                 <!-- /.box-body -->
 
                 <div class="box-footer">
-                    <button type="submit" id="submit" disabled="disabled" class="btn btn-primary">ذخیره <i class="fa fa-save"></i></button>
-                    <button type="reset" class="btn btn-default">صرف نظر <i class="fa fa-refresh"></i></button>
+                    <button type="submit" id="submit" disabled="disabled" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
                     <br>
-                    <small>لطفاً قبل از فشردن دکمه ذخیره یکی از کارمندان را انتخاب کنید. </small>
+                    <br>
+                    <small>لطفاً یکی از کارمندان را انتخاب کنید. </small>
                 </div>
 
             </form>
         </div>
     </div>
-    <div class="col-md-6">
+
+    <div class="col-md-5">
 
         <div class="box box-primary">
             <div class="box-header ">
@@ -66,7 +76,6 @@
                     <tr>
                         <th>#</th>
                         <th>نام و تخلص</th>
-                        <th>ایمیل آدرس</th>
                         <th>فیصدی</th>
                         <th class="text-center">سهم</th>
                         <th class="text-center">علمیات</th>
@@ -77,7 +86,6 @@
                         <tr>
                             <td><?=$i++ ?></td>
                             <td><?=$partner->emp_name. ' ' . $partner->emp_lname?></td>
-                            <td><?=$partner->emp_email?></td>
                             <td class="text-center"><span class="badge bg-green"><?=round($partner->part_persent,1)?> %</span></td>
                             <td class="text-center "><strong><?=$partner->part_amount ?></strong> افغانی </td>
                             <td class="text-center ">
@@ -141,7 +149,6 @@
         $("#emp_position").val(position);
         $("#submit").attr('disabled', false);
     }
-
 
     $(function () {
         var colors = ['#E84E5B','#F9DC5C','#3185FC','#2FEDDA','#5DAD4E','#D86C24','#4B4A59'];

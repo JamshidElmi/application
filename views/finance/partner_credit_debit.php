@@ -12,6 +12,14 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">عملیات جمع و برداشت </h3>
+                <div id="radios" class="btn-group pull-left" data-toggle="buttons">
+                    <label class="btn btn-xs btn-warning active" id="persentage_1" data-toggle="tooltip" data-original-title="System will Set the Percentage Automatically">
+                        <input type="radio" id="persentage1" value="1" checked /> فیصدی دستی
+                    </label>
+                    <label class="btn btn-xs btn-warning " id="persentage_2" data-toggle="tooltip" data-original-title="In this Case You must be Set the Percentage by Input Field">
+                        <input type="radio" id="persentage2" value="2" />  فیصدی خودکار
+                    </label>
+                </div>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -21,20 +29,41 @@
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
 
-                    <div class="form-group">
-                        <label for="emp_name">سهامدار</label>
-                        <input type="text" class="form-control" value="<?=$partner->emp_name; ?>"  id="emp_name" placeholder="سهامدار" required  readonly/>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="emp_name">سهامدار</label>
+                                <input type="text" class="form-control" value="<?= $partner->emp_name; ?>" id="emp_name" placeholder="سهامدار" required readonly />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="old_part_amount">مقدار موجود</label>
+                                <input type="number" class="form-control" value="<?=$partner->part_amount; ?>" id="old_part_amount" placeholder=" " required readonly/>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="old_part_amount">مقدار موجود</label>
-                        <input type="number" class="form-control" value="<?=$partner->part_amount; ?>" id="old_part_amount" placeholder=" " required readonly/>
-                    </div>
 
                     <div class="form-group">
                         <label for="part_amount">مقدار جدید</label>
-                        <input type="number" class="form-control" max="" name="part_amount" id="part_amount" placeholder="مقدار پول (افغانی)  " required/>
+                        <div class="input-group">
+                            <input type="number" class="form-control" max="" name="part_amount" id="part_amount" placeholder="مقدار پول (افغانی)  " required />
+                            <div class="input-group-addon">افغانی</div>
+                        </div>
                     </div>
+
+                    <div id="persentage"> <!-- Percentage field Here-->
+                        <label for="part_persent">فیصدی</label>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="number" class="form-control" max="100" name="part_persent" id="part_persent" placeholder=" مقدار (فیصدی)  " required/>
+                                <div class="input-group-addon">%</div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <div class="form-group">
                         <label>تاریخ ثبت</label>
@@ -80,13 +109,14 @@
             <div class="box-header with-border">
                 <h3 class="box-title">لیست جمع و برداشت از حساب <?=$partner->emp_name; ?></h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('finance/accounts'); ?>" class="btn btn-box-tool bg-blue" data-toggle="tooltip" title="" data-original-title="Accounts List"><i class="ion-lock-combination fa-lg"></i></a>
+                    <a href="<?=site_url('setting/partners'); ?>" class="btn btn-box-tool bg-green" data-toggle="tooltip" data-original-title="Add Partner"><i class="fa fa-user-plus fa-lg"></i></a>
                 </div>
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive ">
-                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
+                <?php if($this->session->form_2_errors) { echo alert($this->session->form_2_errors,'danger'); }  ?>
+                <?php if($this->session->form_2_success) { echo alert($this->session->form_2_success,'success'); }  ?>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -106,7 +136,7 @@
                             <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
                             <td class="text-center"><?=($transection->tr_status == 1) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
                             <td class="text-center"><?=show_date('l d/F/Y', $transection->tr_date); ?></td>
-                            <td class="text-center"><!-- <a href="" class="edit" id="<?//=$transection->tr_id ?>"><span class="label label-default "><i class="fa fa-edit fa-lg"></i></span></a> -->  <a class="remove" href="<?=site_url('finance/delete_transection/'.$transection->tr_id.'/'.base_account()->acc_id.'/'.base_account()->acc_amount); ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
+                            <td class="text-center"><a class="remove" href-auto-persent="<?=site_url('finance/delete_partner_transection/'.$transection->tr_id.'/'.$transection->tr_amount.'/'.$transection->tr_status.'/'.$partner->part_id.'/'.$partner->part_amount.'/auto'); ?>" href="<?=site_url('finance/delete_partner_transection/'.$transection->tr_id.'/'.$transection->tr_amount.'/'.$transection->tr_status.'/'.$partner->part_id.'/'.$partner->part_amount); ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
                         </tr>
                         <?php ($transection->tr_status == 1) ? $credit += $transection->tr_amount : $debit += $transection->tr_amount; ?>
                         <?php endforeach ?>
@@ -136,7 +166,8 @@
 </div>
 
 <script>
-$(document).ready(function() {
+
+    $(document).ready(function() {
     // get transection type
     var $current_amount = $('#old_part_amount').val();
     var $radio = $('input[name=tr_status]:checked').val();
@@ -158,6 +189,16 @@ $(document).ready(function() {
         }
     });
 
+    $('#persentage_1').click(function () {
+        $('#persentage').html('<div class="form-group">\n' +
+            '                            <label for="part_persent">فیصدی</label>\n' +
+            '                            <input type="number" class="form-control" max="100" name="part_persent" id="part_persent" placeholder=" مقدار (فیصدی)  " required/>\n' +
+            '                        </div>');
+    });
+
+    $('#persentage_2').click(function () {
+        $('#persentage').html('');
+    });
 
     // Date Picker
     $('#tarikh').persianDatepicker({
@@ -183,13 +224,20 @@ $(document).ready(function() {
 
     $('a.remove').confirm({
         title: 'حذف',
-        content: 'آیا با حذف این معامله موافق هستید؟',
+        content: 'آیا با حذف این معامله فیصدی سهامداران در حالت خود باقی بماند و یا فیصدی ها بروز شوند؟',
         type: 'red',
         rtl: true,
         buttons: {
+            update: {
+                text: 'بروز شوند',
+                btnClass: 'btn-blue',
+                action: function () {
+                    location.href = this.$target.attr('href-auto-persent');
+                }
+            },
             confirm: {
-                text: 'تایید',
-                btnClass: 'btn-red',
+                text: 'خیر بروز نشوند',
+                btnClass: 'btn-orange',
                 action: function () {
                     location.href = this.$target.attr('href');
                 }
@@ -197,6 +245,7 @@ $(document).ready(function() {
             cancel: {
                 text: 'انصراف',
                 action: function () {
+
                 }
             }
         }

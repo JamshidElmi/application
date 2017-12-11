@@ -728,7 +728,7 @@ class Finance extends MY_Controller {
 
     public function insert_partner_credit_debit()
     {
-//        print_r($data = $this->input->post());
+//        print_r($data = $this->input->post()); die();
         $data = $this->input->post();
 
         $this->finance_model->transections();
@@ -757,14 +757,24 @@ class Finance extends MY_Controller {
                 $part_amount = $partner->part_amount - $data['part_amount'];
             }
 
-            $part_id = $this->finance_model->data_save(['part_amount' => $part_amount], $data['tr_part_id']);
+            if ($this->input->post('part_persent')) {
+                $part_data = array('part_amount' => $part_amount, 'part_persent' => $data['part_persent']);
+            }
+            else
+            {
+                $part_data = array('part_amount' => $part_amount);
+            }
+            $part_id = $this->finance_model->data_save($part_data, $data['tr_part_id']);
             if(is_int($part_id))
             {
-                $partners = $this->finance_model->data_get();
-                foreach ($partners as $part)
+                if (!$this->input->post('part_persent'))
                 {
-                    $new_persent = $part->part_amount / $total_amount * 100;
-                    $this->finance_model->data_save(['part_persent' => $new_persent], $part->part_id);
+                    $partners = $this->finance_model->data_get();
+                    foreach ($partners as $part)
+                    {
+                        $new_persent = $part->part_amount / $total_amount * 100;
+                        $this->finance_model->data_save(['part_persent' => $new_persent], $part->part_id);
+                    }
                 }
 
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
@@ -780,8 +790,39 @@ class Finance extends MY_Controller {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
             redirect('finance/partner_credit_debit/'.$data['tr_part_id']);
         }
+    }
 
+    public function delete_partner_transection($tr_id, $tr_amount, $tr_status, $part_id, $part_amount, $auto_persentage = null)
+    {
+        $this->finance_model->transections();
+        if ($this->finance_model->data_delete($tr_id))
+        {
+            if($tr_status == 1)
+                $new_tr_amount = $part_amount - $tr_amount;
+            else
+                $new_tr_amount = $part_amount + $tr_amount;
 
+            $this->finance_model->partners();
+            $this->finance_model->data_save(['part_amount' => $new_tr_amount], $part_id);
+
+            if($auto_persentage != null)
+            {
+                $partners = $this->finance_model->data_get();
+                foreach ($partners as $part)
+                {
+                    $total_amount = $this->finance_model->total_part_amount()->total_amount;
+                    $new_persent = $part->part_amount / $total_amount * 100;
+                    $this->finance_model->data_save(['part_persent' => $new_persent], $part->part_id);
+                }
+            }
+            $this->session->set_flashdata('form_2_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/partner_credit_debit/'.$part_id);
+        }
+    else
+        {
+            $this->session->set_flashdata('form_2_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
+            redirect('finance/partner_credit_debit/'.$part_id);
+        }
     }
 
 } // end class
