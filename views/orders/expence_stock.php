@@ -9,8 +9,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <?php $bm_id = (isset($bm->bm_id))?$bm->bm_id:'' ?>
-            <form role="form" method="POST" action="<?=site_url('order/insert_stock_expence/'); ?>">
+            <form role="form" id="myform" method="POST" action="">
 
                 <div class="box-body">
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
@@ -18,16 +17,30 @@
                     <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
 
                     <div class="row">
-                        <div class="col-xs-4">
-                            <div class="form-group">
-                                <label for="">نام مشتری</label>
-                                <input type="text" class="form-control" id="cus_name" readonly>
+                        <div id="kitchen_fields">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label for="">نام مشتری</label>
+                                    <input type="text" class="form-control" id="cus_name" readonly>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label for="">تخلص مشتری</label>
+                                    <input type="text" class="form-control" id="cus_lname" readonly>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-xs-4">
-                            <div class="form-group">
-                                <label for="">تخلص مشتری</label>
-                                <input type="text" class="form-control" id="cus_lname" readonly>
+                        <div id="resturant_fields" hidden>
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label>تاریخ</label>
+                                    <div class="input-group date">
+                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                        <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
+                                        <input type="hidden" id="dateAlt" name="stock_date" class="form-control pull-right" style="z-index: 0;" >
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-xs-4">
@@ -74,14 +87,17 @@
     <div class="col-sm-7">
         <div class="box box-info box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title"> لیست سفارش مشتریان آشپزخانه</h3>
+                <h3 class="box-title" style="font-size: 14px" id="list_title"></h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
+                    <button class="btn btn-primary btn-box-tool" id="ketchin" data-toggle="tooltip" data-original-title="Click and Select an Order from list for Kitchen">مصارف آشپزخانه</button>
+                    <button class="btn btn-primary btn-box-tool" id="resturant" data-toggle="tooltip" data-original-title="Click Select Stock's Expences for Restuaran">مصارف رستورانت</button>
+                    <button class="btn btn-primary btn-box-tool" id="fast_food" data-toggle="tooltip" data-original-title="Click Select Stock's Expences for Fast Food">مصارف فست فود</button>
                 </div>
+
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body" hidden id="box_body">
                 <div class="progress active" style="background-color: #e6e6e6;">
                     <div class="progress-bar progress-bar-primary progress-bar-striped" role="progressbar" style="width: 0%"><b></b></div>
                 </div>
@@ -159,7 +175,6 @@
                 $('#st_count_'+x).keyup(function () {
                     var st_total_price = $(this).val() * st_price;
                     $('#st_total_price_'+x).val(st_total_price);
-
                 });
 
             });
@@ -185,6 +200,47 @@
             $(this).parent('div').remove();
             x--;
         });
+    });
+
+
+    // buttons for inserting detect stock's expences
+    $('#ketchin').click(function () {
+        $('#box_body').attr('hidden', false);
+        $('#list_title').text('لطفاً مصارف گدام را برای آشپزخانه وارد نمائید');
+
+        $('#kitchen_fields').attr('hidden', false);
+        $('#resturant_fields').attr('hidden', true);
+
+        $('#add_new').attr('disabled', true);
+        $('#calcolate').attr('disabled', true);
+
+        $('#myform').attr('action', '<?= site_url('order/insert_stock_expence/'); ?>');
+    });
+
+    $('#resturant').click(function () {
+        $('#box_body').attr('hidden', true);
+        $('#list_title').text('لطفاً مصارف گدام را برای رستورانت وارد نمائید');
+
+        $('#kitchen_fields').attr('hidden', true);
+        $('#resturant_fields').attr('hidden', false);
+
+        $('#add_new').attr('disabled', false);
+        $('#calcolate').attr('disabled', false);
+
+        $('#myform').attr('action', '<?= site_url('order/insert_stock_expence_resturant/resturant'); ?>');
+    });
+
+    $('#fast_food').click(function () {
+        $('#box_body').attr('hidden', true);
+        $('#list_title').text('لطفاً مصارف گدام را برای فست فود وارد نمائید');
+
+        $('#kitchen_fields').attr('hidden', true);
+        $('#resturant_fields').attr('hidden', false);
+
+        $('#add_new').attr('disabled', false);
+        $('#calcolate').attr('disabled', false);
+
+        $('#myform').attr('action', '<?= site_url('order/insert_stock_expence_resturant/fast_food'); ?>');
     });
 
 
@@ -241,26 +297,7 @@ $(document).ready(function() {
         }
     });
 
-    // time
-    $('#time').persianDatepicker({
-        altField: '#timeAlt',
-        format: 'HH:mm',
-        observer: true,
-        altFormat: 'HH:mm',
-        position: [-67,200],
-        calendar: {
-            persian: {
-                enabled: true,
-                locale: 'en',
-                leapYearMode: "algorithmic" // "astronomical"
-            },
-            gregorian: {
-                enabled: false,
-                locale: 'en'
-            }
-        },
-        onlyTimePicker: true
-    });
+
 
 });
 

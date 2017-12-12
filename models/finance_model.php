@@ -48,12 +48,6 @@ class finance_model extends MY_Model
         $query = $this->db->get();
         return $query->result();
 
-
-
-
-
-
-
     }
 
 
@@ -172,6 +166,14 @@ class finance_model extends MY_Model
         $this->db->from('partners');
         $this->db->join('employees', 'partners.part_emp_id = employees.emp_id');
         $this->db->where('part_id', $part_id);
+        $query = $this->db->get()->row();
+        return $query;
+    }
+
+    public function total_part_amount()
+    {
+        $this->db->select('SUM(part_amount) as total_amount');
+        $this->db->from('partners');
         $query = $this->db->get()->row();
         return $query;
     }

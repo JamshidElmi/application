@@ -1,7 +1,8 @@
 <?php
+
 /**
-* User Model class
-*/
+ * User Model class
+ */
 class user_model extends MY_Model
 {
     protected $_table_name = 'users';
@@ -26,10 +27,20 @@ class user_model extends MY_Model
     {
         $this->db->from('users');
         $this->db->join('employees', 'users.emp_id = employees.emp_id');
+        $this->db->limit(1);
         $query = $this->db->get();
         return $query->result();
     }
 
+    public function emp_join_partner($emp_id)
+    {
+        $this->db->from('partners');
+        $this->db->join('employees', 'partners.part_emp_id = employees.emp_id');
+        $this->db->where('part_emp_id', $emp_id);
+        $this->db->limit(1);
+        $query = $this->db->get();
+        return $query->row();
+    }
 
 
 }

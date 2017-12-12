@@ -102,7 +102,18 @@
             </a>
 
             <ul class="treeview-menu">
-                <li><a href="<?=site_url('finance/accounts'); ?>"><i class="fa fa-circle-o "></i> ایجاد صندوق </a></li>
+                <li class="treeview">
+                    <a href="#"><i class="fa fa-circle-o"></i>صندوق
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('finance/accounts'); ?>"><i class="fa fa-circle-o "></i> ایجاد صندوق </a></li>
+                        <li><a href="<?=site_url('finance/credit_debit'); ?>"><i class="fa fa-circle-o"></i>جمع و برداشت</a></li>
+                        <li><a href="<?=site_url('finance/partner_credit_debit/'.$this->session->partner_id); ?>"><i class="fa fa-circle-o"></i>سهام</a></li>
+                    </ul>
+                </li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-circle-o"></i> مصارف
                         <span class="pull-left-container">
@@ -115,6 +126,7 @@
 
                     </ul>
                 </li>
+
 
                 <li class="treeview">
                     <a href="#"><i class="fa fa-circle-o"></i> گدام

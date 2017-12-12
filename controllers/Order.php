@@ -466,6 +466,10 @@ class Order extends MY_Controller
         redirect('order/expence_stock');
     } // end insert_stock_expence
 
+    public function insert_stock_expence_resturant($expence_type)
+    {
+        print_r($this->input->post());
+    }
 
     public function stock_expences($order_id)
     {
