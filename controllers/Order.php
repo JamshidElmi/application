@@ -453,11 +453,12 @@ class Order extends MY_Controller
             $this->order_model->stocks();
             $this->order_model->data_save([
                 'stock_ord_id'      => $data['stock_ord_id'],
+                'stock_type'       => 'kitchen',
                 'stock_st_id'       => $data['stock_st_id'][$i],
                 'stock_count'       => $data['stock_count'][$i],
                 'stock_total_price' => $data['stock_total_price'][$i]
             ]);
-            /* update stocks */
+            /* decrease stocks */
             $this->order_model->stock_units();
             $stock_unit = $this->order_model->data_get($data['stock_st_id'][$i]);
             $this->order_model->data_save(['st_count' => $stock_unit->st_count - $data['stock_count'][$i]], $data['stock_st_id'][$i]);
@@ -468,7 +469,25 @@ class Order extends MY_Controller
 
     public function insert_stock_expence_resturant($expence_type)
     {
-        print_r($this->input->post());
+        $data   = $this->input->post();
+        $count  = count($data['stock_count']);
+        /* insert all stock expences */
+        for ($i = 0; $i < $count; $i++) {
+            $this->order_model->stocks();
+            $this->order_model->data_save([
+                'stock_type'        => $expence_type,
+                'stock_st_id'       => $data['stock_st_id'][$i],
+                'stock_count'       => $data['stock_count'][$i],
+                'stock_date'        => $data['stock_date'],
+                'stock_total_price' => $data['stock_total_price'][$i]
+            ]);
+            /* Decrease stocks */
+            $this->order_model->stock_units();
+            $stock_unit = $this->order_model->data_get($data['stock_st_id'][$i]);
+            $this->order_model->data_save(['st_count' => $stock_unit->st_count - $data['stock_count'][$i]], $data['stock_st_id'][$i]);
+        }
+        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+        redirect('order/expence_stock');
     }
 
     public function stock_expences($order_id)
@@ -482,7 +501,25 @@ class Order extends MY_Controller
         // view
         $this->template->content->view('orders/stock_expences', ['order' => $order, 'stocks' => $stocks]);
         $this->template->publish();
-    } // end     public function stock_expences
+    } // end public function stock_expences
+
+    /* TODO: Working Here... */
+    public function stock_expence_resturant()
+    {
+            echo $str_date = mds_date("Y-m-d", "now",1) . '<br>';
+            $new = explode("-", $str_date);
+            $end_date = implode("-",[$new[0], $new[1]+1, $new[2]]);
+            echo  $end_date;
+//        die();
+        $this->template->description = 'لیست مصارف برای سفارشات آشپزخانه';
+        $this->order_model->stocks();
+        $stocks = $this->order_model->stock_join_stock_unit([$str_date, $end_date]);
+
+        print_r($stocks);
+//        // view
+//        $this->template->content->view('orders/stock_expences', ['stocks' => $stocks]);
+//        $this->template->publish();
+    }
 
     public function delete_expence_order()
     {

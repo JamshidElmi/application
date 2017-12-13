@@ -3,9 +3,9 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت مصارف از گدام</h3>
-                <div class="box-tools pull-right">
-                    <a href="<?=site_url('order/stock_expences'); ?>" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Stock's Expences"><i class="fa fa-list-ul fa-lg"></i></a>
-                </div>
+<!--                <div class="box-tools pull-right">-->
+<!--                    <a href="--><?//=site_url('order/stock_expences'); ?><!--" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Stock's Expences"><i class="fa fa-list-ul fa-lg"></i></a>-->
+<!--                </div>-->
             </div>
             <!-- /.box-header -->
             <!-- form start -->
@@ -166,10 +166,11 @@
             e.preventDefault();
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="row"><div class="col-sm-4">   <div class="form-group">   <label for="dex_unit">انتخاب جنس</label>   <select name="stock_st_id[]" id="st_unit_'+x+'"  class="form-control" required> <option value="">انتخاب جنس</option> <?php foreach ($stocks as $stock): ?><option st-price="<?=$stock->st_price ?>" value="<?=$stock->st_id ?>" st_price="<?=$stock->st_price ?>"><?=$stock->st_name?></option><?php endforeach ?></select>   </div>   </div>    <div class="col-sm-3">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="stock_count[]" id="st_count_'+x+'" placeholder="تعداد عدد " required/>   </div>   </div>      <div class="col-sm-3">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" name="stock_total_price[]" id="st_total_price_'+x+'" placeholder="هزینه کل " readonly />     </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" ><i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i></a></div>   </div></div>');
+                $(wrapper).append('<div class="row"><div class="col-sm-4">   <div class="form-group">   <label for="dex_unit">انتخاب جنس</label>   <select name="stock_st_id[]" id="st_unit_'+x+'"  class="form-control" required> <option value="">انتخاب جنس</option> <?php foreach ($stocks as $stock): ?><option st-price="<?=$stock->st_price ?>" value="<?=$stock->st_id ?>" st_price="<?=$stock->st_price ?>"><?=$stock->st_name?></option><?php endforeach ?></select>   </div>   </div>    <div class="col-sm-3">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="stock_count[]" disabled id="st_count_'+x+'" placeholder="تعداد عدد " required/>   </div>   </div>      <div class="col-sm-3">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" name="stock_total_price[]" id="st_total_price_'+x+'" placeholder="هزینه کل " readonly />     </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" ><i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i></a></div>   </div></div>');
             }
             $('#st_unit_'+x).change(function () {
                 // alert($('#st_unit_'+x+' :selected').attr('st-price'));
+                $('#st_count_'+x).attr('disabled', false);
                 var st_price = $('#st_unit_'+x+' :selected').attr('st-price');
 
                 $('#st_count_'+x).keyup(function () {
@@ -192,6 +193,8 @@
             $('#submit').attr('disabled', false);
             $(this).attr('disabled', true);
             $('#add_new').attr('disabled', true);
+            $('#ord_price').val(sum);
+            $('#ord_price').css('background', '#EFFFB2');
         });
 
 
@@ -204,6 +207,8 @@
 
 
     // buttons for inserting detect stock's expences
+
+    /* kitchen Expences */
     $('#ketchin').click(function () {
         $('#box_body').attr('hidden', false);
         $('#list_title').text('لطفاً مصارف گدام را برای آشپزخانه وارد نمائید');
@@ -216,34 +221,34 @@
 
         $('#myform').attr('action', '<?= site_url('order/insert_stock_expence/'); ?>');
     });
-
+    /* Resturant Expences */
     $('#resturant').click(function () {
         $('#box_body').attr('hidden', true);
         $('#list_title').text('لطفاً مصارف گدام را برای رستورانت وارد نمائید');
 
         $('#kitchen_fields').attr('hidden', true);
         $('#resturant_fields').attr('hidden', false);
+        $('#ord_price').val('');
 
         $('#add_new').attr('disabled', false);
         $('#calcolate').attr('disabled', false);
 
         $('#myform').attr('action', '<?= site_url('order/insert_stock_expence_resturant/resturant'); ?>');
     });
-
+    /* FastFood Expences */
     $('#fast_food').click(function () {
         $('#box_body').attr('hidden', true);
         $('#list_title').text('لطفاً مصارف گدام را برای فست فود وارد نمائید');
 
         $('#kitchen_fields').attr('hidden', true);
         $('#resturant_fields').attr('hidden', false);
+        $('#ord_price').val('');
 
         $('#add_new').attr('disabled', false);
         $('#calcolate').attr('disabled', false);
 
         $('#myform').attr('action', '<?= site_url('order/insert_stock_expence_resturant/fast_food'); ?>');
     });
-
-
 
 
 
@@ -297,8 +302,6 @@ $(document).ready(function() {
         }
     });
 
-
-
-});
+}); // end document
 
 </script>

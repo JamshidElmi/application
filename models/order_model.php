@@ -136,13 +136,21 @@ class order_model extends MY_Model
         $query = $this->db->get()->result();
         return $query;
     }
-
-    public function stock_join_stock_unit($order_id)
+    /* TODO: Working Here... */
+    public function stock_join_stock_unit($condateion)
     {
         $this->db->from('stocks');
         $this->db->join('stock_units', 'stocks.stock_st_id = stock_units.st_id');
         $this->db->join('units', 'units.unit_id = stock_units.st_unit');
-        $this->db->where('stock_ord_id', $order_id);
+        if (!is_array($condateion))
+        {
+            $this->db->where('stock_ord_id', $condateion);
+        }
+        else
+        {
+            $this->db->where('stock_date > ', $condateion[0]);
+            $this->db->or_where('stock_date < ', $condateion[1]);
+        }
         $query = $this->db->get()->result();
         return $query;
     }
