@@ -60,7 +60,6 @@ class Order extends MY_Controller
         if (is_int($insert_ord_id)) {
 
             // inserting every sub_orders
-
             $row = count($this->input->post('sord_sm_id'))-1;
             $this->order_model->sub_orders();
             for($i=0; $i <= $row; $i++)
@@ -379,20 +378,73 @@ class Order extends MY_Controller
     public function update_kitchen_order()
     {
         $data = $this->input->post();
-         print_r($data); die();
+//         print_r($data); die();
+        // deleting all sub menus for this order
 
-        $this->order_model->sub_orders();
-        $insert_ord_id = $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['ord_price']], $data['sord_id']);
-        if (is_int($insert_ord_id)) {
-            $this->order_model->orders();
-            $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
 
+        if($this->input->post('changed_menu'))
+        {
+            $this->order_model->sub_orders();
+            $sm = $this->order_model->data_get_by(['sord_ord_id' => $data['ord_id']]);
+            foreach($sm as $sub_menu)
+            {
+                $this->order_model->data_delete($sub_menu->sord_id);
+            }
+
+            // inserting every sub_orders
+            $row = count($this->input->post('sord_sm_id'))-1;
+            for($i=0; $i <= $row; $i++)
+            {
+                $sm_data = array(
+                    'sord_bm_id'  => $data['sord_bm_id'],
+                    'sord_sm_id'  => $data['sord_sm_id'][$i],
+                    'sord_count'  => $data['sord_count'],
+                    'sord_price'  => $data['bm_price'],
+                    'sord_ord_id' => $data['ord_id']
+                );
+                $result = $this->order_model->data_save($sm_data);
+                if(!is_int($result))
+                {
+                    $result = null;
+                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                    redirect('order/create_order');
+                }
+            } // end for
+        }
+
+        $this->order_model->orders();
+        $inserted_order_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
+
+        if(is_int($inserted_order_id))
+        {
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
             redirect('order/kitchen_orders');
-        } else {
+        }
+        else
+        {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/kitchen_orders');
         }
+
+
+
+//        $this->order_model->sub_orders();
+//        $insert_ord_id = $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['ord_price']], $data['sord_id']);
+
+
+//        if (is_int($insert_ord_id)) {
+//            $this->order_model->orders();
+//            $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
+//
+//            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+//            redirect('order/kitchen_orders');
+//        } else {
+//            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
+//            redirect('order/kitchen_orders');
+//        }
+//
+
+
     } // end update_kitchen_order
 
     public function kitchen_payment($ord_id)
