@@ -60,20 +60,18 @@ class Order extends MY_Controller
         if (is_int($insert_ord_id)) {
 
             // inserting every sub_orders
-            $row = count($this->input->post('sord_sm_id'))-1;
+            $row = count($this->input->post('sord_sm_id')) - 1;
             $this->order_model->sub_orders();
-            for($i=0; $i <= $row; $i++)
-            {
+            for ($i = 0; $i <= $row; $i++) {
                 $sm_data = array(
-                    'sord_bm_id'  => $data['sord_bm_id'],
-                    'sord_sm_id'  => $data['sord_sm_id'][$i],
-                    'sord_count'  => $data['sord_count'],
-                    'sord_price'  => $data['bm_price'],
+                    'sord_bm_id' => $data['sord_bm_id'],
+                    'sord_sm_id' => $data['sord_sm_id'][$i],
+                    'sord_count' => $data['sord_count'],
+                    'sord_price' => $data['bm_price'],
                     'sord_ord_id' => $insert_ord_id
                 );
                 $result = $this->order_model->data_save($sm_data);
-                if(!is_int($result))
-                {
+                if (!is_int($result)) {
                     $result = null;
                     $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                     redirect('order/create_order');
@@ -145,7 +143,7 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end create_resturant_order
 
-    public function jq_menu_list($mc_id,$type = 'add')
+    public function jq_menu_list($mc_id, $type = 'add')
     {
         // sleep(1);
         $this->order_model->base_menus();
@@ -155,13 +153,10 @@ class Order extends MY_Controller
             echo "<li id='bm_" . $base_menu->bm_id . "' >";
             echo '<img width="100" class="img-thumbnail" src="' . site_url('assets/img/menus/' . $base_menu->bm_picture) . '" data-toggle="tooltip" title="" data-original-title=" af">';
             echo '<a class="users-list-name" href="#"  style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="' . $base_menu->bm_desc . '">' . $base_menu->bm_name . '</a>';
-            if ($type == "add")
-            {
+            if ($type == "add") {
                 echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  ><span title="" data-original-title="Use"><i class="fa fa-plus"></i></span></a>&nbsp;';
                 echo '<a class="btn bg-red btn-xs btn_minus" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '" bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
-            }
-            else
-            {
+            } else {
                 echo '<a class="btn bg-orange btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  ><span title="" data-original-title="Use">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>&nbsp;';
             }
             echo '</li>';
@@ -216,6 +211,7 @@ class Order extends MY_Controller
         }
 
     } // end insert_resturant_order
+
     public function resturant_orders()
     {
         $this->template->description = 'لیست سفارشات رستورانت';
@@ -259,8 +255,7 @@ class Order extends MY_Controller
         $data['tr_status'] = 2;
 //         print_r($data); die();
 
-        if (isset($data['ord_price']))
-        {
+        if (isset($data['ord_price'])) {
             $this->order_model->orders();
             $this->order_model->data_save(['ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount']], $data['tr_ord_id']);
             unset($data['ord_price']);
@@ -277,19 +272,16 @@ class Order extends MY_Controller
             if (is_int($insert_trans)) {
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
                 redirect('order/resturant_payment/' . $data['tr_ord_id']);
-            }
-            else
-            {
+            } else {
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
                 redirect('order/resturant_payment/' . $data['tr_ord_id']);
             }
-        }
-        else
-        {
+        } else {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/resturant_payment/' . $data['tr_ord_id']);
         }
     } // end insert_resturant_payment
+
     /* TODO: add new item on order must be include. */
     public function sub_orders($order_id)
     {
@@ -331,7 +323,7 @@ class Order extends MY_Controller
 
     public function delete_kitchen_order()
     {
-         sleep(1);
+        sleep(1);
         $ord_id = $this->input->post('ord_id');
         $acc_id = $this->input->post('acc_id');
 
@@ -382,29 +374,25 @@ class Order extends MY_Controller
         // deleting all sub menus for this order
 
 
-        if($this->input->post('changed_menu'))
-        {
+        if ($this->input->post('changed_menu')) {
             $this->order_model->sub_orders();
             $sm = $this->order_model->data_get_by(['sord_ord_id' => $data['ord_id']]);
-            foreach($sm as $sub_menu)
-            {
+            foreach ($sm as $sub_menu) {
                 $this->order_model->data_delete($sub_menu->sord_id);
             }
 
             // inserting every sub_orders
-            $row = count($this->input->post('sord_sm_id'))-1;
-            for($i=0; $i <= $row; $i++)
-            {
+            $row = count($this->input->post('sord_sm_id')) - 1;
+            for ($i = 0; $i <= $row; $i++) {
                 $sm_data = array(
-                    'sord_bm_id'  => $data['sord_bm_id'],
-                    'sord_sm_id'  => $data['sord_sm_id'][$i],
-                    'sord_count'  => $data['sord_count'],
-                    'sord_price'  => $data['bm_price'],
+                    'sord_bm_id' => $data['sord_bm_id'],
+                    'sord_sm_id' => $data['sord_sm_id'][$i],
+                    'sord_count' => $data['sord_count'],
+                    'sord_price' => $data['bm_price'],
                     'sord_ord_id' => $data['ord_id']
                 );
                 $result = $this->order_model->data_save($sm_data);
-                if(!is_int($result))
-                {
+                if (!is_int($result)) {
                     $result = null;
                     $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                     redirect('order/create_order');
@@ -415,25 +403,20 @@ class Order extends MY_Controller
         $this->order_model->orders();
         $inserted_order_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
 
-        if(is_int($inserted_order_id))
-        {
+        if (is_int($inserted_order_id)) {
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
             redirect('order/kitchen_orders');
-        }
-        else
-        {
+        } else {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/kitchen_orders');
         }
-
 
 
 //        $this->order_model->sub_orders();
 //        $insert_ord_id = $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['ord_price']], $data['sord_id']);
 
 
-//        if (is_int($insert_ord_id)) {
-//            $this->order_model->orders();
+//        if (is_int($insert_ord_id)) {//            $this->order_model->orders();
 //            $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
 //
 //            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
@@ -523,17 +506,17 @@ class Order extends MY_Controller
 
     public function insert_stock_expence()
     {
-        $data   = $this->input->post();
+        $data = $this->input->post();
 //        print_r($data); die();
-        $count  = count($data['stock_count']);
+        $count = count($data['stock_count']);
         /* insert all stock expences */
         for ($i = 0; $i < $count; $i++) {
             $this->order_model->stocks();
             $this->order_model->data_save([
-                'stock_ord_id'      => $data['stock_ord_id'],
-                'stock_type'       => 'kitchen',
-                'stock_st_id'       => $data['stock_st_id'][$i],
-                'stock_count'       => $data['stock_count'][$i],
+                'stock_ord_id' => $data['stock_ord_id'],
+                'stock_type' => 'kitchen',
+                'stock_st_id' => $data['stock_st_id'][$i],
+                'stock_count' => $data['stock_count'][$i],
                 'stock_total_price' => $data['stock_total_price'][$i]
             ]);
             /* decrease stocks */
@@ -547,16 +530,16 @@ class Order extends MY_Controller
 
     public function insert_stock_expence_resturant($expence_type)
     {
-        $data   = $this->input->post();
-        $count  = count($data['stock_count']);
+        $data = $this->input->post();
+        $count = count($data['stock_count']);
         /* insert all stock expences */
         for ($i = 0; $i < $count; $i++) {
             $this->order_model->stocks();
             $this->order_model->data_save([
-                'stock_type'        => $expence_type,
-                'stock_st_id'       => $data['stock_st_id'][$i],
-                'stock_count'       => $data['stock_count'][$i],
-                'stock_date'        => $data['stock_date'],
+                'stock_type' => $expence_type,
+                'stock_st_id' => $data['stock_st_id'][$i],
+                'stock_count' => $data['stock_count'][$i],
+                'stock_date' => $data['stock_date'],
                 'stock_total_price' => $data['stock_total_price'][$i]
             ]);
             /* Decrease stocks */
@@ -584,11 +567,11 @@ class Order extends MY_Controller
     /* TODO: Working Here... */
     public function stock_expence_resturant($expence_type)
     {
-        $this->template->description = ($expence_type == 'resturant')?'لیست مصارف برای سفارشات رستورانت':'لیست مصارف برای سفارشات فست فود ';
+        $this->template->description = ($expence_type == 'resturant') ? 'لیست مصارف برای سفارشات رستورانت' : 'لیست مصارف برای سفارشات فست فود ';
         /* get last month */
-        $str_date = mds_date("Y-m-d", "now",1);
+        $str_date = mds_date("Y-m-d", "now", 1);
         $new = explode("-", $str_date);
-        $end_date = implode("-",[$new[0], $new[1]+1, $new[2]]);
+        $end_date = implode("-", [$new[0], $new[1] + 1, $new[2]]);
         /* get stock expences */
         $stocks = $this->order_model->stock_join_stock_unit([$str_date, $end_date, $expence_type]);
 
@@ -608,39 +591,25 @@ class Order extends MY_Controller
     public function update_stock_expence($srock_id, $ord_id)
     {
         $this->order_model->stocks();
-        if ($this->order_model->data_save($this->input->post(), $srock_id))
-        {
+        if ($this->order_model->data_save($this->input->post(), $srock_id)) {
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
             redirect('order/stock_expences/' . $ord_id);
-        }
-        else
-        {
+        } else {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/stock_expences/' . $ord_id);
         }
     }
 
-    public function update_resturant_stock_expence($srock_id,$type)
+    public function update_resturant_stock_expence($srock_id, $type)
     {
         $this->order_model->stocks();
-        if ($this->order_model->data_save($this->input->post(), $srock_id))
-        {
+        if ($this->order_model->data_save($this->input->post(), $srock_id)) {
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
             redirect('order/stock_expence_resturant/' . $type);
-        }
-        else
-        {
+        } else {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/stock_expence_resturant/' . $type);
         }
-    }
-
-    /* TODO: Print Kitchen Order Bill */
-    public function print_order_bill()
-    {
-        // view
-        $this->template->content->view('orders/print_order_bill');
-        $this->template->publish();
     }
 
     /* TODO: MAKE A PROFISSNAL CV  */
@@ -663,20 +632,32 @@ class Order extends MY_Controller
                         <th>توضیحات</th>
                     </tr>';
         $i = 1;
-        foreach ($sub_order as $so)
-        {
+        foreach ($sub_order as $so) {
             // get every sub menus
             $this->order_model->sub_menus();
             $sub_menus = $this->order_model->data_get($so->sord_sm_id, true);
             $result .= '<tr>
-                <td>'.$i++.'</td>
-                <td><strong>'.$sub_menus->sm_name.'</strong></td>
-                <td><strong>'.$sub_menus->sm_price.' </strong> افغانی </td>
-                <td>'.$sub_menus->sm_desc.'</td>
+                <td>' . $i++ . '</td>
+                <td><strong>' . $sub_menus->sm_name . '</strong></td>
+                <td><strong>' . $sub_menus->sm_price . ' </strong> افغانی </td>
+                <td>' . $sub_menus->sm_desc . '</td>
             </tr>';
         }
         $result .= '</tbody></table>';
-    echo $result;
+        echo $result;
+    }
+
+
+    /* TODO: Print Kitchen Order Bill */
+    public function print_order_bill($ord_id)
+    {
+        $this->template->description = 'فاکتور سفارش آشپزخانه';
+
+        $ord_cus = $this->order_model->order_join_customer_by_id($ord_id);
+
+        // view
+        $this->template->content->view('orders/print_order_bill', ['ord_cus' => $ord_cus]);
+        $this->template->publish();
     }
 
 
