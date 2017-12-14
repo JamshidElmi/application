@@ -100,6 +100,7 @@ class Menu extends MY_Controller {
                             $result = null;
                             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                             redirect('menu/kitchen_menus');
+
                         }
                     } // end for
                 }
@@ -145,6 +146,7 @@ class Menu extends MY_Controller {
                         $result = null;
                         $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                         redirect('menu/kitchen_menus');
+
                     }
                 } // end for
             }

@@ -174,6 +174,7 @@
                                                     <?php $i = 1; $sm_total_price =0; foreach ($base_sub_menu as $sub_menu): ?>
                                                         <?php  if ($sub_menu->sbm_bm_id == $base_menu->bm_id): ?>
                                                              <tr id="sm_<?=$sub_menu->sm_id ?>">
+
                                                                 <td><?=$i++ ?></td>
                                                                 <td><strong><?=$sub_menu->sm_name ?></strong></td>
                                                                 <td><strong><?=$sub_menu->sm_price ?> افغانی </strong></td>
