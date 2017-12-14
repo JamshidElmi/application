@@ -60,6 +60,7 @@ class Order extends MY_Controller
         if (is_int($insert_ord_id)) {
 
             // inserting every sub_orders
+
             $row = count($this->input->post('sord_sm_id'))-1;
             $this->order_model->sub_orders();
             for($i=0; $i <= $row; $i++)
@@ -81,6 +82,7 @@ class Order extends MY_Controller
             } // end for
 
             // Get customer and cost from his account amount
+
             $this->order_model->customers();
             $customer = $this->order_model->data_get($data['ord_cus_id'], true);
             $this->order_model->accounts();
@@ -127,7 +129,6 @@ class Order extends MY_Controller
 
     } // end delete_bm
 
-    /* TODO: Discount must set on resturant orders */
     public function create_resturant_order()
     {
         $this->template->description = 'ثبت سفارش برای رستورانت';
@@ -216,7 +217,6 @@ class Order extends MY_Controller
         }
 
     } // end insert_resturant_order
-    // TODO: include the discount persent to list
     public function resturant_orders()
     {
         $this->template->description = 'لیست سفارشات رستورانت';

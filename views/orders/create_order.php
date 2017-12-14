@@ -152,6 +152,7 @@
                                 <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
                                 <!-- <a class="btn bg-gray btn-xs select-menu-disabled" disabled><span  data-toggle="tooltip" title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a> -->
                                 <a class="btn bg-orange btn-xs"  data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span data-toggle="tooltip" data-original-title="Show Sub Menus" id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose">&nbsp;&nbsp;&nbsp;<i class="fa ion-clipboard fa-lg"></i>&nbsp;&nbsp;&nbsp;</span></a>
+
                             </li>
                             <div class="modal fade modal-warning" id="modal-<?=$base_menu->bm_id ?>">
                                 <div class="modal-dialog ">
@@ -199,9 +200,9 @@
 
                                         </div>
                                         <div class="modal-footer">
-
                                             <div class="col-xs-6 pull-left">مجموعه:<input type="text" id="total_<?=$base_menu->bm_id ?>" value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
                                             <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=text name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?=$base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?=$base_menu->bm_id ?>').val()); " bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
+
                                             <button type="button" class="btn btn-danger " data-dismiss="modal">بستن <i class="fa fa-close"></i> </button>
                                         </div>
                                     </div>
@@ -255,6 +256,7 @@ $(document).ready(function() {
     });
 
     $('.select-menu').click(function(event) {
+
 //       $('#ord_bm_id').val($(this).attr('id'));
 //       $('#bm_price').val($(this).attr('bm-price'));
        $('#submit').attr('disabled', false);
