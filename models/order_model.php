@@ -150,6 +150,7 @@ class order_model extends MY_Model
         {
             $this->db->where('stock_date > ', $condateion[0]);
             $this->db->or_where('stock_date < ', $condateion[1]);
+            $this->db->where('stock_type', $condateion[2]);
         }
         $query = $this->db->get()->result();
         return $query;

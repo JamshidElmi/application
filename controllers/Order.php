@@ -504,21 +504,19 @@ class Order extends MY_Controller
     } // end public function stock_expences
 
     /* TODO: Working Here... */
-    public function stock_expence_resturant()
+    public function stock_expence_resturant($expence_type)
     {
-            echo $str_date = mds_date("Y-m-d", "now",1) . '<br>';
-            $new = explode("-", $str_date);
-            $end_date = implode("-",[$new[0], $new[1]+1, $new[2]]);
-            echo  $end_date;
-//        die();
-        $this->template->description = 'لیست مصارف برای سفارشات آشپزخانه';
-        $this->order_model->stocks();
-        $stocks = $this->order_model->stock_join_stock_unit([$str_date, $end_date]);
+        $this->template->description = ($expence_type == 'resturant')?'لیست مصارف برای سفارشات رستورانت':'لیست مصارف برای سفارشات فست فود ';
+        /* get last month */
+        $str_date = mds_date("Y-m-d", "now",1);
+        $new = explode("-", $str_date);
+        $end_date = implode("-",[$new[0], $new[1]+1, $new[2]]);
+        /* get stock expences */
+        $stocks = $this->order_model->stock_join_stock_unit([$str_date, $end_date, $expence_type]);
 
-        print_r($stocks);
-//        // view
-//        $this->template->content->view('orders/stock_expences', ['stocks' => $stocks]);
-//        $this->template->publish();
+        // view
+        $this->template->content->view('orders/resturant_stock_expences', ['stocks' => $stocks]);
+        $this->template->publish();
     }
 
     public function delete_expence_order()
@@ -542,7 +540,30 @@ class Order extends MY_Controller
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/stock_expences/' . $ord_id);
         }
+    }
 
+    public function update_resturant_stock_expence($srock_id,$type)
+    {
+        $this->order_model->stocks();
+        if ($this->order_model->data_save($this->input->post(), $srock_id))
+        {
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('order/stock_expence_resturant/' . $type);
+        }
+        else
+        {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
+            redirect('order/stock_expence_resturant/' . $type);
+        }
+    }
+
+    /* TODO: Print Kitchen Order Bill */
+    public function print_order_bill()
+    {
+        
+        // view
+        $this->template->content->view('orders/print_order_bill');
+        $this->template->publish();
     }
 
     /* TODO: MAKE A PROFISSNAL CV  */

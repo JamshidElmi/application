@@ -425,12 +425,14 @@ INSERT INTO `salary` (`sal_id`, `sal_amount`, `sal_remain`, `sal_tax`, `sal_bonu
 --
 
 CREATE TABLE IF NOT EXISTS `stocks` (
-`stock_id` int(11) NOT NULL,
+  `stock_id` int(11) NOT NULL,
   `stock_count` int(11) NOT NULL,
   `stock_total_price` decimal(10,2) NOT NULL,
+  `stock_date` date DEFAULT NULL,
+  `stock_type` varchar(32) NOT NULL COMMENT 'نوعیت مصارف گدام: فست  فود/ رستوزانت/ آشپزخانه',
   `stock_st_id` int(11) NOT NULL,
   `stock_ord_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `stocks`
