@@ -300,7 +300,19 @@ class Setting extends MY_Controller
             $this->session->set_flashdata('partner_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
             redirect('setting/partners');
         }
-
     }
+
+    public function edit_info()
+    {
+        $this->template->description = 'ویرایش اطلاعات رستورانت';
+
+        $this->setting_model->company_info();
+        $info = $this->setting_model->data_get(1);
+        // view
+        $this->template->content->view('settings/company_info', ['info' => $info]);
+        $this->template->publish();
+    }
+
+
 
 } // end Class

@@ -660,11 +660,11 @@ class Order extends MY_Controller
         $this->template->publish();
     }
 
-
-    public function test()
+    public function update_info()
     {
-        echo $this->input->post('first-name');
+        
     }
+
 
 
 
