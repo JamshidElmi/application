@@ -96,8 +96,9 @@ class order_model extends MY_Model
 
     public function order_join_sub_order()
     {
-        $this->db->from('sub_menus');
-        $this->db->join('base_menus', 'base_menus.bm_id = sub_menus.sm_bm_id');
+        $this->db->from('base_menus');
+        $this->db->join('sub_base_menu', 'base_menus.bm_id = sub_base_menu.sbm_bm_id');
+        $this->db->join('sub_menus', 'sub_menus.sm_id = sub_base_menu.sbm_sm_id');
         $this->db->where(['bm_type' => 0]);
         $query = $this->db->get()->result();
         return $query;

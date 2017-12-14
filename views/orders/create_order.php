@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>قیمت فی خوراک</label>
+                                <label>قیمت فی نفر</label>
                                 <div class="input-group date">
                                     <input type="text" id="bm_price" name="bm_price" class="form-control" readonly/>
                                     <div class="input-group-addon">افغانی</div>
@@ -149,8 +149,8 @@
                                 <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
                                 <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
                                 <!-- <a class="btn bg-gray btn-xs select-menu-disabled" disabled><span  data-toggle="tooltip" title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a> -->
-                                <a class="btn bg-green btn-xs select-menu" id="<?=$base_menu->bm_id ?>" bm-price="<?=$base_menu->bm_price ?>" ><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
-                                <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-clipboard fa-lg"></i></span></a>
+                                <a class="btn bg-green btn-xs" data-toggle="tooltip" data-original-title="Use" id="<?=$base_menu->bm_id ?>" bm-price="<?=$base_menu->bm_price ?>" ><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
+                                <a class="btn bg-orange btn-xs"  data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span data-toggle="tooltip" data-original-title="Show Sub Menus" id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-clipboard fa-lg"></i></span></a>
                             </li>
                             <div class="modal fade modal-warning" id="modal-<?=$base_menu->bm_id ?>">
                                 <div class="modal-dialog ">
@@ -167,15 +167,27 @@
                                                     <tr class="bg-primary">
                                                         <th>#</th>
                                                         <th>زیر منو </th>
+                                                        <th> قیمت</th>
                                                         <th>توضیحات</th>
+                                                        <th>عملیات</th>
                                                     </tr>
-                                                    <?php $i = 1; foreach ($base_sub_menu as $sub_menu): ?>
-                                                        <?php  if ($sub_menu->sm_bm_id == $base_menu->bm_id): ?>
-                                                             <tr>
+                                                    <?php $i = 1; $sm_total_price =0; foreach ($base_sub_menu as $sub_menu): ?>
+                                                        <?php  if ($sub_menu->sbm_bm_id == $base_menu->bm_id): ?>
+                                                             <tr id="sm_<?=$sub_menu->sm_id ?>">
                                                                 <td><?=$i++ ?></td>
                                                                 <td><strong><?=$sub_menu->sm_name ?></strong></td>
+                                                                <td><strong><?=$sub_menu->sm_price ?> افغانی </strong></td>
                                                                 <td><?=$sub_menu->sm_desc ?></td>
+                                                                <td class="text-center">
+                                                                    <a href=""  data-toggle="tooltip" data-original-title="Remove" id="<?=$sub_menu->sm_id ?>" sm-price="<?=$sub_menu->sm_price ?>"><span class="ion-android-delete fa-lg text-red remove-sm"></span></a>
+                                                                </td>
                                                             </tr>
+                                                            <script>
+                                                                $('.remove-sm').click(function () {
+                                                                    var sm_price = $(this).attr('sm-price');
+                                                                });
+                                                            </script>
+                                                        <?php $sm_total_price += $sub_menu->sm_price ?>
                                                         <?php endif ?>
                                                     <?php endforeach ?>
                                                 </tbody>
@@ -184,7 +196,9 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger " data-dismiss="modal">بستن</button>
+                                            <div class="col-xs-6 pull-left">مجموعه:<input type="text"  value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
+                                            <button type="button" class="btn btn-success select-menu" id="<? ?>" bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
+                                            <button type="button" class="btn btn-danger " data-dismiss="modal">بستن <i class="fa fa-close"></i> </button>
                                         </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -234,7 +248,6 @@ $(document).ready(function() {
        $('#ord_bm_id').val($(this).attr('id'));
        $('#bm_price').val($(this).attr('bm-price'));
        $('#submit').attr('disabled', false);
-
     });
 
     $('#tr_amount').keyup(function(event) {

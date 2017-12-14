@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 08, 2017 at 07:56 PM
+-- Generation Time: Dec 16, 2017 at 06:50 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS `base_menus` (
   `bm_picture` varchar(256) DEFAULT NULL,
   `bm_type` tinyint(1) NOT NULL COMMENT 'عدد صفر برای آشپزخانه عدد یک برای رستورانت',
   `bm_cat_id` int(11) DEFAULT NULL COMMENT 'ای دی کتگوری منو'
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `base_menus`
@@ -82,7 +82,8 @@ INSERT INTO `base_menus` (`bm_id`, `bm_name`, `bm_price`, `bm_desc`, `bm_picture
 (14, 'برگر متوسط', '25.00', 'جوس', '13.jpg', 1, 4),
 (15, 'قابلی', '250.00', '', '8.jpg', 1, 3),
 (16, 'کباب گوساله', '520.00', '', '7.jpg', 1, 1),
-(17, 'برگر', '50.00', '', '10.jpg', 1, 1);
+(17, 'برگر', '50.00', '', '10.jpg', 1, 1),
+(24, 'جدید', NULL, 'جدید جدید', 'Profile-sm10.jpg', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -372,17 +373,20 @@ INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`,
 
 CREATE TABLE IF NOT EXISTS `partners` (
 `part_id` int(11) NOT NULL,
-  `part_emp_id` int(11) NOT NULL,
-  `part_persent` decimal(10,2) NOT NULL COMMENT 'درصدی سهامدار'
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `part_amount` decimal(10,2) NOT NULL COMMENT 'مقدار سهام',
+  `part_persent` decimal(10,2) NOT NULL COMMENT 'درصدی سهامدار',
+  `part_emp_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `partners`
 --
 
-INSERT INTO `partners` (`part_id`, `part_emp_id`, `part_persent`) VALUES
-(1, 3, '50.00'),
-(2, 6, '50.00');
+INSERT INTO `partners` (`part_id`, `part_amount`, `part_persent`, `part_emp_id`) VALUES
+(7, '1050.00', '31.63', 1),
+(12, '120.00', '3.61', 7),
+(13, '150.00', '4.52', 3),
+(14, '2000.00', '60.24', 6);
 
 -- --------------------------------------------------------
 
@@ -425,23 +429,35 @@ INSERT INTO `salary` (`sal_id`, `sal_amount`, `sal_remain`, `sal_tax`, `sal_bonu
 --
 
 CREATE TABLE IF NOT EXISTS `stocks` (
-  `stock_id` int(11) NOT NULL,
+`stock_id` int(11) NOT NULL,
   `stock_count` int(11) NOT NULL,
   `stock_total_price` decimal(10,2) NOT NULL,
   `stock_date` date DEFAULT NULL,
   `stock_type` varchar(32) NOT NULL COMMENT 'نوعیت مصارف گدام: فست  فود/ رستوزانت/ آشپزخانه',
   `stock_st_id` int(11) NOT NULL,
   `stock_ord_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `stocks`
 --
 
-INSERT INTO `stocks` (`stock_id`, `stock_count`, `stock_total_price`, `stock_st_id`, `stock_ord_id`) VALUES
-(4, 5, '100.00', 3, 33),
-(5, 1, '1000.00', 5, 33),
-(7, 5, '100.00', 3, 33);
+INSERT INTO `stocks` (`stock_id`, `stock_count`, `stock_total_price`, `stock_date`, `stock_type`, `stock_st_id`, `stock_ord_id`) VALUES
+(4, 5, '100.00', NULL, 'kitchen', 3, 33),
+(5, 1, '1000.00', NULL, 'kitchen', 5, 33),
+(7, 5, '100.00', NULL, 'kitchen', 3, 33),
+(9, 2, '2000.00', NULL, 'kitchen', 5, 35),
+(10, 50, '1000.00', NULL, 'kitchen', 3, 35),
+(11, 3, '750.00', NULL, 'kitchen', 7, 35),
+(12, 50, '1000.00', NULL, 'kitchen', 3, 34),
+(13, 1, '1000.00', NULL, 'kitchen', 5, 34),
+(14, 3, '750.00', NULL, 'kitchen', 7, 34),
+(15, 5, '100.00', NULL, 'resturant', 3, NULL),
+(16, 1, '1000.00', NULL, 'resturant', 5, NULL),
+(17, 3, '750.00', NULL, 'resturant', 7, NULL),
+(18, 10, '200.00', '1396-09-22', 'fast_food', 3, NULL),
+(19, 1, '1000.00', '1396-09-22', 'fast_food', 5, NULL),
+(20, 3, '750.00', '1396-09-22', 'fast_food', 7, NULL);
 
 -- --------------------------------------------------------
 
@@ -464,10 +480,41 @@ CREATE TABLE IF NOT EXISTS `stock_units` (
 --
 
 INSERT INTO `stock_units` (`st_id`, `st_name`, `st_price`, `st_unit`, `st_max_count`, `st_count`, `st_min_count`) VALUES
-(3, 'نوشابه سوپرکولا', '20.00', '12', 50, 40, 5),
-(5, 'آرد درجه یک', '1000.00', '19', 50, -5, 5),
-(6, 'آرد درجه دوم', '1100.00', '24', 85, 6, 3),
-(7, 'روغن نباتی', '250.00', '23', 5, 6, 2);
+(3, 'نوشابه سوپرکولا', '20.00', '12', 150, 85, 5),
+(5, 'آرد درجه یک', '1000.00', '19', 50, 8, 5),
+(6, 'آرد درجه دوم', '1100.00', '24', 85, 10, 3),
+(7, 'روغن نباتی', '250.00', '23', 50, 4, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sub_base_menu`
+--
+
+CREATE TABLE IF NOT EXISTS `sub_base_menu` (
+`sbm_id` int(11) NOT NULL,
+  `sbm_bm_id` int(11) NOT NULL COMMENT 'ای دی منوی اصلی',
+  `sbm_sm_id` int(11) NOT NULL COMMENT 'ای دی منوی فرعی'
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `sub_base_menu`
+--
+
+INSERT INTO `sub_base_menu` (`sbm_id`, `sbm_bm_id`, `sbm_sm_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 7),
+(4, 1, 8),
+(5, 1, 9),
+(6, 5, 1),
+(7, 5, 2),
+(10, 5, 11),
+(9, 5, 12),
+(8, 5, 13),
+(66, 24, 8),
+(64, 24, 9),
+(65, 24, 12);
 
 -- --------------------------------------------------------
 
@@ -478,22 +525,24 @@ INSERT INTO `stock_units` (`st_id`, `st_name`, `st_price`, `st_unit`, `st_max_co
 CREATE TABLE IF NOT EXISTS `sub_menus` (
 `sm_id` int(11) NOT NULL,
   `sm_name` varchar(256) NOT NULL,
-  `sm_desc` varchar(512) DEFAULT NULL,
-  `sm_bm_id` int(11) DEFAULT NULL COMMENT 'ای دی منوی اصلی'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `sm_price` decimal(10,2) DEFAULT NULL,
+  `sm_desc` varchar(512) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `sub_menus`
 --
 
-INSERT INTO `sub_menus` (`sm_id`, `sm_name`, `sm_desc`, `sm_bm_id`) VALUES
-(1, 'زیر منوی اول', 'توضیحات اول', 1),
-(2, 'زیر منوی دوم', 'توضیحات دوم', 1),
-(7, 'زیر منوی 1', 'توضیحات', 5),
-(8, 'زیر منوی 4', '', 5),
-(9, 'زیر منو برای 8', 'توضیحات 8', 8),
-(10, 'زیر منو برای 8', 'توضیحات منوی 8-2', 8),
-(11, 'زیر منو برای 8', 'توضیحات 3', 8);
+INSERT INTO `sub_menus` (`sm_id`, `sm_name`, `sm_price`, `sm_desc`) VALUES
+(1, 'زیر منوی 1', '100.00', 'توضیحات اول'),
+(2, 'زیر منوی 2', '25.00', 'توضیحات دوم'),
+(7, 'زیر منوی 3', '25.00', 'توضیحات'),
+(8, 'زیر منوی 4', '100.00', ''),
+(9, 'زیر منوی 5', '80.00', 'توضیحات 8'),
+(10, 'زیر منوی 6', '20.00', 'توضیحات منوی 8-2'),
+(11, 'زیر منوی 7', '50.00', 'توضیحات 3'),
+(12, 'زیر منوی 8', '50.00', 'توضیحات ... '),
+(13, 'زیر منوی 9', '15.00', 'یک قطی برای دو نفر');
 
 -- --------------------------------------------------------
 
@@ -542,7 +591,7 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_sal_id` int(11) DEFAULT NULL COMMENT 'ای دی معاش کارمند',
   `tr_ord_id` int(11) DEFAULT NULL COMMENT 'ای دی سفارش',
   `tr_part_id` int(11) DEFAULT NULL COMMENT 'ای دی سهامداران'
-) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
@@ -581,7 +630,16 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 (94, '1400 باقی 10000 پرداخت 22800 کلی', '10000.00', 'kitchen_order', '1396-09-15', 1, 25, NULL, NULL, 34, NULL),
 (95, '', '20000.00', 'kitchen_order', '1396-09-15', 1, 26, NULL, NULL, 35, NULL),
 (96, '150 اصلی ', '100.00', 'resturant', '1396-09-15', 1, 25, NULL, NULL, 36, NULL),
-(97, '', '0.00', 'resturant', '1396-09-17', 2, 23, NULL, NULL, 32, NULL);
+(97, '', '0.00', 'resturant', '1396-09-17', 2, 23, NULL, NULL, 32, NULL),
+(105, '', '50.00', 'partner_credit_debit', '1396-09-19', 1, 20, NULL, NULL, NULL, 7),
+(106, '', '50.00', 'partner_credit_debit', '1396-09-19', 1, 20, NULL, NULL, NULL, 7),
+(107, '', '100.00', 'partner_credit_debit', '1396-09-19', 1, 20, NULL, NULL, NULL, 7),
+(109, '', '200.00', 'partner_credit_debit', '1396-09-19', 2, 20, NULL, NULL, NULL, 7),
+(115, '', '100.00', 'partner_credit_debit', '1396-09-19', 1, 20, NULL, NULL, NULL, 12),
+(117, 'fdg', '100.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 7),
+(118, 'df', '500.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 7),
+(121, 'sdf', '20.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 12),
+(124, '', '2000.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 14);
 
 -- --------------------------------------------------------
 
@@ -736,10 +794,16 @@ ALTER TABLE `stock_units`
  ADD PRIMARY KEY (`st_id`);
 
 --
+-- Indexes for table `sub_base_menu`
+--
+ALTER TABLE `sub_base_menu`
+ ADD PRIMARY KEY (`sbm_id`), ADD KEY `sbm_bm_id` (`sbm_bm_id`,`sbm_sm_id`), ADD KEY `sbm_sm_id` (`sbm_sm_id`);
+
+--
 -- Indexes for table `sub_menus`
 --
 ALTER TABLE `sub_menus`
- ADD PRIMARY KEY (`sm_id`), ADD KEY `SM_FK_BM` (`sm_bm_id`);
+ ADD PRIMARY KEY (`sm_id`);
 
 --
 -- Indexes for table `sub_orders`
@@ -778,7 +842,7 @@ MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 -- AUTO_INCREMENT for table `base_menus`
 --
 ALTER TABLE `base_menus`
-MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=18;
+MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `bills`
 --
@@ -828,7 +892,7 @@ MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 -- AUTO_INCREMENT for table `partners`
 --
 ALTER TABLE `partners`
-MODIFY `part_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `part_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `salary`
 --
@@ -838,17 +902,22 @@ MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `stock_units`
 --
 ALTER TABLE `stock_units`
 MODIFY `st_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
+-- AUTO_INCREMENT for table `sub_base_menu`
+--
+ALTER TABLE `sub_base_menu`
+MODIFY `sbm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=67;
+--
 -- AUTO_INCREMENT for table `sub_menus`
 --
 ALTER TABLE `sub_menus`
-MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `sub_orders`
 --
@@ -858,7 +927,7 @@ MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=98;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -908,10 +977,11 @@ ADD CONSTRAINT `STOCK_FK_ORDER` FOREIGN KEY (`stock_ord_id`) REFERENCES `orders`
 ADD CONSTRAINT `STOCK_FK_ST` FOREIGN KEY (`stock_st_id`) REFERENCES `stock_units` (`st_id`);
 
 --
--- Constraints for table `sub_menus`
+-- Constraints for table `sub_base_menu`
 --
-ALTER TABLE `sub_menus`
-ADD CONSTRAINT `SM_FK_BM` FOREIGN KEY (`sm_bm_id`) REFERENCES `base_menus` (`bm_id`);
+ALTER TABLE `sub_base_menu`
+ADD CONSTRAINT `SBM_FK_BM` FOREIGN KEY (`sbm_bm_id`) REFERENCES `base_menus` (`bm_id`) ON DELETE CASCADE,
+ADD CONSTRAINT `SBM_FK_SM` FOREIGN KEY (`sbm_sm_id`) REFERENCES `sub_menus` (`sm_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `sub_orders`
