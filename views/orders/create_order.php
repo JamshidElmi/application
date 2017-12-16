@@ -170,7 +170,7 @@
                                                         <th>توضیحات</th>
                                                     </tr>
                                                     <?php $i = 1; foreach ($base_sub_menu as $sub_menu): ?>
-                                                        <?php  if ($sub_menu->sm_bm_id == $base_menu->bm_id): ?>
+                                                        <?php  if ($sub_menu->sbm_bm_id == $base_menu->bm_id): ?>
                                                              <tr>
                                                                 <td><?=$i++ ?></td>
                                                                 <td><strong><?=$sub_menu->sm_name ?></strong></td>

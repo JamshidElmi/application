@@ -234,6 +234,10 @@ if(!function_exists("sys_type"))
 
 if(!function_exists("substr_fa"))
 {
+    /*
+     * My Helper SubStr_Fa
+     * @param: $data String
+     * @param: $count CountInt */
     function substr_fa($data,$count)
     {
         $data = strip_tags($data);

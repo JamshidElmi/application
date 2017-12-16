@@ -9,7 +9,7 @@
             </div>
             <div class="pull-right info">
                 <p><?=$this->session->emp_info->emp_name ?> <?=$this->session->emp_info->emp_lname ?></p>
-                <a href="#"><i class="fa fa-circle text-success"></i> <?=$this->session->emp_info->emp_position ?></a>
+                <a href=""><i class="fa fa-circle text-success"></i> <?=$this->session->emp_info->emp_position ?></a>
             </div>
         </div>
         <!-- search form -->
@@ -32,7 +32,7 @@
         <li class="header">آمار سیستم</li>
 
         <li class="active treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa fa-dashboard"></i> <span>صفحه نخست</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
@@ -49,7 +49,7 @@
         <li class="header">مدیریت</li>
 
         <li class="treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa ion-ios-people fa-lg"></i> <span>کارمندان</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
@@ -63,7 +63,7 @@
         </li>
 
         <li class="treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa ion-person-add fa-lg"></i> <span>مشتریان</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
@@ -77,7 +77,7 @@
         </li>
 
         <li class="treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa ion-key fa-lg"></i> <span>مدیریت دسترسی</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
@@ -94,7 +94,7 @@
         <li class="header">امور مالی</li>
 
         <li class="treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa fa-money"></i> <span>مدیریت مالی</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
@@ -103,7 +103,7 @@
 
             <ul class="treeview-menu">
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i>صندوق
+                    <a href=""><i class="fa fa-circle-o"></i>صندوق
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -115,7 +115,7 @@
                     </ul>
                 </li>
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> مصارف
+                    <a href=""><i class="fa fa-circle-o"></i> مصارف
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -129,7 +129,7 @@
 
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> گدام
+                    <a href=""><i class="fa fa-circle-o"></i> گدام
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -151,7 +151,7 @@
         <li class="header">مدیریت منوها</li>
 
         <li class="treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa ion-ios-bookmarks-outline fa-lg"></i> منوها
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
@@ -160,7 +160,7 @@
 
             <ul class="treeview-menu">
                <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> منوی آشپزخانه
+                    <a href=""><i class="fa fa-circle-o"></i> منوی آشپزخانه
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -172,7 +172,7 @@
                 </li>
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> منوی رستورانت
+                    <a href=""><i class="fa fa-circle-o"></i> منوی رستورانت
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -186,7 +186,7 @@
         </li>
 
         <li class="treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa ion-ios-bell fa-lg"></i> <span>سفارشات</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
@@ -195,7 +195,7 @@
 
             <ul class="treeview-menu">
                <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> سفارشات آشپزخانه
+                    <a href=""><i class="fa fa-circle-o"></i> سفارشات آشپزخانه
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -207,7 +207,7 @@
                 </li>
 
                 <li class="treeview">
-                    <a href="#"><i class="fa fa-circle-o"></i> سفارشات رستورانت
+                    <a href=""><i class="fa fa-circle-o"></i> سفارشات رستورانت
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -226,7 +226,7 @@
         <li class="header">بخش تنظیمات</li>
 
         <li class="treeview">
-            <a href="#">
+            <a href="">
                 <i class="fa fa-gear"></i> <span>تنظیمات</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>

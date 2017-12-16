@@ -19,6 +19,7 @@
               'skins'           => 'assets/css/skins/_all-skins.min.css',
               'morris'          => 'components/morris.js/morris.css',
               'jvectormap'      => 'components/jvectormap/jquery-jvectormap.css',
+              'select2'         => 'components/select2/dist/css/select2.css',
               // 'daterangepicker' => 'components/bootstrap-daterangepicker/daterangepicker.css',
               // 'datepicker1'     => 'components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css',
               // 'timepicker'      => 'plugins/timepicker/bootstrap-timepicker.min.css',
@@ -40,7 +41,9 @@
             'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
             'persian-date'      => 'plugins/persian-datepicker/persian-date.js' ,
             'datepicker'        => 'plugins/persian-datepicker/persian-datepicker.js' ,
-            'Chart' => 'components/Chart.js/Chart.js',
+            'Chart'             => 'components/Chart.js/Chart.js',
+            'select2'           => 'components/select2/dist/js/select2.full.min.js' ,
+
 
         ); ?>
 

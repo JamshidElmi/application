@@ -19,21 +19,38 @@ class Menu extends MY_Controller {
     public function kitchen_menus($bm_id = NULL)
     {
         $bm = array();
+        $sm = array();
         $this->template->description = 'ثبت منو جدید برای آشپزخانه و لیست منو های موجود ';
         $this->menu_model->base_menus();
         $base_menus = $this->menu_model->data_get_by(['bm_type' => 0]);
         // get base menu if id came for update
         if ($bm_id != NULL) {
+            $sm = $this->menu_model->sub_base_menus($bm_id);
+
+            $this->menu_model->base_menus();
             $bm = $this->menu_model->data_get($bm_id);
         }
+
+        $this->menu_model->sub_menus();
+        $sub_menus = $this->menu_model->data_get();
+
+
         // view
-        $this->template->content->view('menus/kitchen_menus', ['base_menus' => $base_menus, 'bm' => $bm]);
+        $this->template->content->view('menus/kitchen_menus', ['base_menus' => $base_menus, 'bm' => $bm, 'sub_menus' => $sub_menus, 'sm' => $sm]);
         $this->template->publish();
     } // end kitchen_menus
 
     public function insert_kitchen_menu($bm_id = NULL)
     {
-        // print_r($_FILES['bm_picture']['name']); die();
+//        echo $row = count($this->input->post('menus'))-1; die();
+//         print_r($this->input->post()); die();
+
+//        if(isset($_FILES['bm_picture']['name']))
+//            echo "come";
+//        else
+//            echo "NOT come";
+//
+//        die();
 
         $data = $this->input->post();
         $data['bm_type']                = 0;
@@ -45,7 +62,7 @@ class Menu extends MY_Controller {
 
         $this->load->library('upload', $config);
 
-        if($_FILES['bm_picture']['name'])
+        if(isset($_FILES['bm_picture']['name']))
         {
             if ( ! $this->upload->do_upload('bm_picture'))
             {
@@ -58,7 +75,8 @@ class Menu extends MY_Controller {
                 $file = $this->upload->data();
                 $file_name = $file['file_name'];
                 $data['bm_picture'] = $file_name;
-                // print_r($data); die();
+                unset($data['menus']);
+//                 print_r($data); die();
                 // Inserting data
                 $this->menu_model->base_menus();
                 if($bm_id == NULL)
@@ -68,20 +86,37 @@ class Menu extends MY_Controller {
 
                 if(is_int($insert))
                 {
-                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
-                    redirect('menu/kitchen_menus');
+                    $row = count($this->input->post('menus'))-1;
+                    $this->menu_model->sub_base_menu();
+                    for($i=0; $i <= $row; $i++)
+                    {
+                        $data_m = array(
+                            'sbm_bm_id'   => $insert,
+                            'sbm_sm_id'   => $this->input->post('menus')[$i]
+                        );
+                        $result = $this->menu_model->data_save($data_m);
+                        if(!is_int($result))
+                        {
+                            $result = null;
+                            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                            redirect('finance/new_expence/');
+                        }
+                    } // end for
                 }
                 else
                 {
                     $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
                     redirect('menu/kitchen_menus');
                 }
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                redirect('menu/kitchen_menus');
             }
         }
         else
         {
             // Inserting data
             $this->menu_model->base_menus();
+            unset($data['menus']);
             if($bm_id == NULL)
                 $insert = $this->menu_model->data_save($data);
             else
@@ -89,14 +124,37 @@ class Menu extends MY_Controller {
 
             if(is_int($insert))
             {
-                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
-                redirect('menu/kitchen_menus');
+                $row = count($this->input->post('menus'))-1;
+                $this->menu_model->sub_base_menu();
+
+                $sbm = $this->menu_model->data_get_by(['sbm_bm_id' => $bm_id]);
+                foreach ($sbm as $sub_base_menu)
+                {
+                    $this->menu_model->data_delete($sub_base_menu->sbm_id);
+                }
+                for ($i=0; $i <= $row; $i++)
+                {
+
+                    $data_m = array(
+                        'sbm_bm_id'   => $insert,
+                        'sbm_sm_id'   => $this->input->post('menus')[$i]
+                    );
+                    $result = $this->menu_model->data_save($data_m);
+                    if(!is_int($result))
+                    {
+                        $result = null;
+                        $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                        redirect('finance/new_expence/');
+                    }
+                } // end for
             }
             else
             {
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
                 redirect('menu/kitchen_menus');
             }
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+            redirect('menu/kitchen_menus');
         }
     } // end insert_kitchen_menu
 
@@ -109,10 +167,6 @@ class Menu extends MY_Controller {
         $this->menu_model->data_delete($bm_id);
 
     } // end insert_kitchen_menu
-
-
-
-
 
     public function resturant_menus($bm_id = NULL)
     {
@@ -212,26 +266,20 @@ class Menu extends MY_Controller {
 
     } // end insert_kitchen_menu
 
-
-
-
-
-
     public function sub_menus()
     {
         $this->template->description = 'ثبت منو جدید برای آشپزخانه و لیست زیرمنو های موجود ';
         // get base menu
-        $this->menu_model->base_menus();
-        $base_menus = $this->menu_model->data_get_by(['bm_type' => 0]);
-        $sub_menus = $this->menu_model->base_join_sub_menus();
+        $this->menu_model->sub_menus();
+        $sub_menus = $this->menu_model->data_get();
         // veiw
-        $this->template->content->view('menus/kitchen_sub_menus', ['base_menus' => $base_menus, 'sub_menus' => $sub_menus]);
+        $this->template->content->view('menus/kitchen_sub_menus', ['sub_menus' => $sub_menus]);
         $this->template->publish();
     }
 
     public function insert_sub_menu()
     {
-        // print_r($this->input->post()); die();
+//         print_r($this->input->post()); die();
         $data = $this->input->post();
 
         $this->menu_model->sub_menus();
@@ -255,6 +303,17 @@ class Menu extends MY_Controller {
         $this->menu_model->sub_menus();
         $this->menu_model->data_delete($this->input->post('sm_id'));
         return ;
+    }
+
+
+    public function show_select2()
+    {
+        if ($this->input->post()) {
+            print_r($this->input->post()); die();
+        }
+        // veiw
+        $this->template->content->view('menus/select2');
+        $this->template->publish();
     }
 
 

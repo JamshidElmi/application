@@ -560,7 +560,6 @@ class Order extends MY_Controller
     /* TODO: Print Kitchen Order Bill */
     public function print_order_bill()
     {
-        
         // view
         $this->template->content->view('orders/print_order_bill');
         $this->template->publish();
