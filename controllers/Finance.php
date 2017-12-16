@@ -707,7 +707,6 @@ class Finance extends MY_Controller {
         $this->finance_model->data_delete($tr_id);
     }
 
-    /* TODO: Partners section DELETE transections */
 
     /**
      * @param $acc_id

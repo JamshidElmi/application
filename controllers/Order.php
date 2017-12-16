@@ -49,9 +49,11 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end create_order
 
+    /* TODO: wordking here... insert_kitchen_order() */
     public function insert_kitchen_order()
     {
         $data = $this->input->post();
+        print_r($data); die();
         // Inserting data
         $this->order_model->orders();
         $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);

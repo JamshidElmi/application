@@ -113,9 +113,10 @@
                         <textarea rows="5" class="form-control" name="ord_desc" id="ord_desc"  ></textarea>
                     </div>
 
-                    <div class="">
+                    <div class="" >
                         <input type="hidden" name="ord_cus_id" id="ord_cus_id">
                         <input type="hidden" name="sord_bm_id" id="ord_bm_id">
+                        <div id="sm_order"></div>
                     </div>
 
                 </div>
@@ -173,22 +174,23 @@
                                                     </tr>
                                                     <?php $i = 1; $sm_total_price =0; foreach ($base_sub_menu as $sub_menu): ?>
                                                         <?php  if ($sub_menu->sbm_bm_id == $base_menu->bm_id): ?>
-                                                             <tr id="sm_<?=$sub_menu->sm_id ?>">
+                                                             <tr class="tr_sm_id<?=$base_menu->bm_id ?>" id="sm_<?=$sub_menu->sm_id ?>" sm-id="<?=$sub_menu->sm_id ?>">
 
                                                                 <td><?=$i++ ?></td>
                                                                 <td><strong><?=$sub_menu->sm_name ?></strong></td>
                                                                 <td><strong><?=$sub_menu->sm_price ?> افغانی </strong></td>
                                                                 <td><?=$sub_menu->sm_desc ?></td>
                                                                 <td class="text-center">
-                                                                    <a href=""  data-toggle="tooltip" data-original-title="Remove" id="<?=$sub_menu->sm_id ?>" sm-price="<?=$sub_menu->sm_price ?>"><span class="ion-android-delete fa-lg text-red remove-sm"></span></a>
+                                                                    <a  data-toggle="tooltip" data-original-title="Remove" onclick="
+                                                                            $('#total_<?=$base_menu->bm_id ?>').val($('#total_<?=$base_menu->bm_id ?>').val() - $(this).attr('price-sm'));
+                                                                            $('#sm_<?=$sub_menu->sm_id ?>').remove();
+                                                                            "
+                                                                        id="sm_id_<?=$sub_menu->sm_id ?> " price-sm="<?=$sub_menu->sm_price ?>"><span class="ion-android-delete fa-lg text-red remove-sm"></span></a>
                                                                 </td>
                                                             </tr>
-                                                            <script>
-                                                                $('.remove-sm').click(function () {
-                                                                    var sm_price = $(this).attr('sm-price');
-                                                                });
-                                                            </script>
+
                                                         <?php $sm_total_price += $sub_menu->sm_price ?>
+
                                                         <?php endif ?>
                                                     <?php endforeach ?>
                                                 </tbody>
@@ -197,8 +199,9 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <div class="col-xs-6 pull-left">مجموعه:<input type="text"  value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
-                                            <button type="button" class="btn btn-success select-menu" id="<? ?>" bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
+
+                                            <div class="col-xs-6 pull-left">مجموعه:<input type="text" id="total_<?=$base_menu->bm_id ?>" value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
+                                            <button type="button" class="btn btn-success select-menu" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=text name=sm_id[] value='+id+' />'); })" bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
                                             <button type="button" class="btn btn-danger " data-dismiss="modal">بستن <i class="fa fa-close"></i> </button>
                                         </div>
                                     </div>
@@ -208,7 +211,15 @@
                             </div>
                             <!-- /.modal -->
                         <?php endforeach ?>
+                        <script>
+//                            $('.remove-sm').click(function () {
+//                                var sm_price_sm = $(this).attr('id');
+//                                alert(sm_price_sm);
+//                            });
+
+                        </script>
                     </ul>
+
 
 
                 </div>
