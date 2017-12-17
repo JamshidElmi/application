@@ -44,6 +44,13 @@ class order_model extends MY_Model
         $this->_order_by = 'bm_id';
     }
 
+    public function sub_menus()
+    {
+        $this->_table_name = 'sub_menus';
+        $this->_primary_key = 'sm_id';
+        $this->_order_by = 'sm_id';
+    }
+
     public function accounts()
     {
         $this->_table_name = 'accounts';

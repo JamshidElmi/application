@@ -56,7 +56,7 @@
                             <div class="form-group">
                                 <label>تعداد</label>
                                 <div class="input-group date">
-                                    <input type="number" name="sord_count" id="ord_count" class="form-control" readonly />
+                                    <input type="number" name="sord_count" id="ord_count" class="form-control" readonly required/>
                                     <div class="input-group-addon">سرویس</div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                             <div class="form-group">
                                 <label>مقدار پرداختی</label>
                                 <div class="input-group date">
-                                    <input type="number" id="tr_amount" name="tr_amount" class="form-control" readonly />
+                                    <input type="number" id="tr_amount" name="tr_amount" class="form-control" readonly required/>
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>
@@ -114,8 +114,9 @@
                     </div>
 
                     <div class="" >
-                        <input type="hidden" name="ord_cus_id" id="ord_cus_id">
-                        <input type="hidden" name="sord_bm_id" id="ord_bm_id">
+                        <input type="hidden" name="ord_cus_id" id="ord_cus_id" placeholder="ord_cus_id">
+                        <input type="hidden" name="sord_bm_id" id="sord_bm_id" placeholder="sord_bm_id">
+                        <input type="hidden" name="ord_created_date" id="ord_created_date" placeholder="ord_created_date">
                         <div id="sm_order"></div>
                     </div>
 
@@ -150,8 +151,7 @@
                                 <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
                                 <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
                                 <!-- <a class="btn bg-gray btn-xs select-menu-disabled" disabled><span  data-toggle="tooltip" title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a> -->
-                                <a class="btn bg-green btn-xs" data-toggle="tooltip" data-original-title="Use" id="<?=$base_menu->bm_id ?>" bm-price="<?=$base_menu->bm_price ?>" ><span title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a>
-                                <a class="btn bg-orange btn-xs"  data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span data-toggle="tooltip" data-original-title="Show Sub Menus" id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose"><i class="fa ion-clipboard fa-lg"></i></span></a>
+                                <a class="btn bg-orange btn-xs"  data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span data-toggle="tooltip" data-original-title="Show Sub Menus" id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose">&nbsp;&nbsp;&nbsp;<i class="fa ion-clipboard fa-lg"></i>&nbsp;&nbsp;&nbsp;</span></a>
                             </li>
                             <div class="modal fade modal-warning" id="modal-<?=$base_menu->bm_id ?>">
                                 <div class="modal-dialog ">
@@ -201,7 +201,7 @@
                                         <div class="modal-footer">
 
                                             <div class="col-xs-6 pull-left">مجموعه:<input type="text" id="total_<?=$base_menu->bm_id ?>" value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
-                                            <button type="button" class="btn btn-success select-menu" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=text name=sm_id[] value='+id+' />'); })" bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
+                                            <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=text name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?=$base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?=$base_menu->bm_id ?>').val()); " bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
                                             <button type="button" class="btn btn-danger " data-dismiss="modal">بستن <i class="fa fa-close"></i> </button>
                                         </div>
                                     </div>
@@ -211,13 +211,6 @@
                             </div>
                             <!-- /.modal -->
                         <?php endforeach ?>
-                        <script>
-//                            $('.remove-sm').click(function () {
-//                                var sm_price_sm = $(this).attr('id');
-//                                alert(sm_price_sm);
-//                            });
-
-                        </script>
                     </ul>
 
 
@@ -226,6 +219,11 @@
                 <!-- /.box-body -->
             <div class="overlay" id="overlay" style="display: none;">
                 <i class="fa ion-load-d fa-spin"></i>
+            </div>
+            <div class="overlay" id="overlay_alt" style="display: none;">
+                <i class="fa fa-check-square-o text-green" style="font-size: 80px;opacity: .4;"></i>
+
+
             </div>
         </div>
     </div>
@@ -257,8 +255,8 @@ $(document).ready(function() {
     });
 
     $('.select-menu').click(function(event) {
-       $('#ord_bm_id').val($(this).attr('id'));
-       $('#bm_price').val($(this).attr('bm-price'));
+//       $('#ord_bm_id').val($(this).attr('id'));
+//       $('#bm_price').val($(this).attr('bm-price'));
        $('#submit').attr('disabled', false);
     });
 
@@ -276,6 +274,7 @@ $(document).ready(function() {
         var ord_price = ord_price - discount;
         $('#ord_price').val(ord_price);
     });
+
 
 
 
@@ -298,8 +297,10 @@ $(document).ready(function() {
                 enabled: false,
                 locale: 'en'
             }
-        },
+        }
     });
+    // Genrate Created Date
+    $('#ord_created_date').val($('#dateAlt').val());
 
     // time
     $('#time').persianDatepicker({
@@ -321,7 +322,7 @@ $(document).ready(function() {
                 locale: 'en'
             }
         },
-        onlyTimePicker: true,
+        onlyTimePicker: true
     });
 
 

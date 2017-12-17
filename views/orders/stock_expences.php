@@ -11,7 +11,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">    لیست مصارف سفارش    <?=$order->cus_name.' '.$order->cus_lname ?> <span class="label label-default"><?=show_date("l j F Y", $order->ord_date); ?></span></h3>
             <div class="box-tools pull-right">
-                <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
+                <a href="<?=site_url('order/expence_stock/'.$this->uri->segment(3)).'/'.$order->cus_name.'/'.$order->cus_lname ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add Stock Expences"><i class="fa fa-plus"></i></a>
             </div>
             <!-- /.box-tools -->
         </div>

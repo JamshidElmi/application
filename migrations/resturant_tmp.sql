@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 16, 2017 at 06:50 AM
+-- Generation Time: Dec 17, 2017 at 09:00 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -43,10 +43,10 @@ INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `
 (20, ' حساب اصلی جدید', '-24475.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
 (21, 'همکار شماره یک', '-400.00', 'افتتاح حساب', '1396-08-20', 1),
 (22, 'همکار شماره دو', '50000.00', 'افتتاح حساب همکار', '1396-08-20', 1),
-(23, 'مشتری شماره یک', '-9940.00', 'افتتاح حساب', '1396-08-21', 2),
+(23, 'مشتری شماره یک', '49060.00', 'افتتاح حساب', '1396-08-21', 2),
 (24, 'همکار شماره سه', '5000.00', 'افتتاح حساب همکار 3', '1396-08-21', 1),
-(25, 'مشتری شماره دو', '-7600.00', 'افتتاح حساب مشتری 2', '1396-08-21', 2),
-(26, 'صندوق مشتری جدید', '30000.00', 'افتتاح حساب', '1396-08-23', 2);
+(25, 'مشتری شماره دو', '-7480.00', 'افتتاح حساب مشتری 2', '1396-08-21', 2),
+(26, 'صندوق مشتری جدید', '46000.00', 'افتتاح حساب', '1396-08-23', 2);
 
 -- --------------------------------------------------------
 
@@ -344,6 +344,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
 CREATE TABLE IF NOT EXISTS `orders` (
 `ord_id` int(11) NOT NULL,
   `ord_desc` varchar(512) DEFAULT NULL,
+  `ord_created_date` date NOT NULL COMMENT 'تاریخ ثبت سفارش',
   `ord_date` date NOT NULL,
   `ord_time` time NOT NULL,
   `ord_price` decimal(10,0) NOT NULL,
@@ -351,19 +352,22 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_type` varchar(16) NOT NULL COMMENT 'نوعیت سفارش آشپزخانه / رستورانت',
   `ord_desk_id` int(11) DEFAULT NULL COMMENT 'ای دی میز',
   `ord_cus_id` int(11) DEFAULT NULL COMMENT 'ای دی مشتری'
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_date`, `ord_time`, `ord_price`, `ord_discount`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
-(31, '200 رسید', '1396-09-04', '00:00:00', '1020', '30.00', 'resturant', 0, 20),
-(32, '50 pary', '1396-09-07', '20:06:00', '42', '30.00', 'resturant', 4, 5),
-(33, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '1396-09-11', '18:20:00', '22800', '0.00', 'kitchen', NULL, 5),
-(34, '1400 باقی 10000 پرداخت 22800 کلی', '1396-09-15', '13:03:00', '11400', '30.00', 'kitchen', NULL, 3),
-(35, '', '1396-09-15', '13:06:00', '15960', '30.00', 'kitchen', NULL, 1),
-(36, '150 اصلی ', '1396-09-15', '20:52:00', '105', '30.00', 'resturant', 1, 3);
+INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_created_date`, `ord_date`, `ord_time`, `ord_price`, `ord_discount`, `ord_type`, `ord_desk_id`, `ord_cus_id`) VALUES
+(31, '200 رسید', '0000-00-00', '1396-09-04', '00:00:00', '1020', '30.00', 'resturant', 0, 20),
+(32, '50 pary', '0000-00-00', '1396-09-07', '20:06:00', '42', '30.00', 'resturant', 4, 5),
+(33, 'محفل مهدی رحیمی  22800 هزینه کلی و 20000 پراخت نمود', '0000-00-00', '1396-09-11', '18:20:00', '22800', '0.00', 'kitchen', NULL, 5),
+(34, '1400 باقی 10000 پرداخت 22800 کلی', '0000-00-00', '1396-09-15', '13:03:00', '11400', '30.00', 'kitchen', NULL, 3),
+(35, '', '0000-00-00', '1396-09-15', '13:06:00', '15960', '30.00', 'kitchen', NULL, 1),
+(36, '150 اصلی ', '0000-00-00', '1396-09-15', '20:52:00', '105', '30.00', 'resturant', 1, 3),
+(46, 'j,qdlkjdf ', '1396-09-26', '1396-09-26', '22:04:00', '3300', '0.00', 'kitchen', NULL, 1),
+(50, 'sdc sd d', '1396-09-27', '1396-09-27', '00:11:00', '1610', '30.00', 'kitchen', NULL, 5),
+(51, ' scz', '1396-09-27', '1396-09-27', '00:13:00', '1260', '30.00', 'kitchen', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -436,7 +440,7 @@ CREATE TABLE IF NOT EXISTS `stocks` (
   `stock_type` varchar(32) NOT NULL COMMENT 'نوعیت مصارف گدام: فست  فود/ رستوزانت/ آشپزخانه',
   `stock_st_id` int(11) NOT NULL,
   `stock_ord_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `stocks`
@@ -480,9 +484,9 @@ CREATE TABLE IF NOT EXISTS `stock_units` (
 --
 
 INSERT INTO `stock_units` (`st_id`, `st_name`, `st_price`, `st_unit`, `st_max_count`, `st_count`, `st_min_count`) VALUES
-(3, 'نوشابه سوپرکولا', '20.00', '12', 150, 85, 5),
-(5, 'آرد درجه یک', '1000.00', '19', 50, 8, 5),
-(6, 'آرد درجه دوم', '1100.00', '24', 85, 10, 3),
+(3, 'نوشابه سوپرکولا', '20.00', '12', 150, 65, 5),
+(5, 'آرد درجه یک', '1000.00', '19', 50, 3, 5),
+(6, 'آرد درجه دوم', '1100.00', '24', 85, 8, 3),
 (7, 'روغن نباتی', '250.00', '23', 50, 4, 2);
 
 -- --------------------------------------------------------
@@ -553,25 +557,37 @@ INSERT INTO `sub_menus` (`sm_id`, `sm_name`, `sm_price`, `sm_desc`) VALUES
 CREATE TABLE IF NOT EXISTS `sub_orders` (
 `sord_id` int(11) NOT NULL,
   `sord_bm_id` int(11) NOT NULL,
-  `sord_count` int(11) NOT NULL,
-  `sord_price` int(11) NOT NULL,
+  `sord_sm_id` int(11) DEFAULT NULL COMMENT 'ای دی زیرمنو',
+  `sord_count` int(11) DEFAULT NULL,
+  `sord_price` int(11) DEFAULT NULL,
   `sord_ord_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
 
 --
 -- Dumping data for table `sub_orders`
 --
 
-INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_count`, `sord_price`, `sord_ord_id`) VALUES
-(27, 10, 5, 1000, 31),
-(28, 11, 4, 120, 31),
-(29, 12, 4, 200, 31),
-(30, 6, 3, 60, 32),
-(31, 1, 50, 22800, 33),
-(32, 1, 50, 11400, 34),
-(33, 1, 50, 15960, 35),
-(34, 6, 10, 200, 36),
-(35, 11, 3, 90, 36);
+INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_sm_id`, `sord_count`, `sord_price`, `sord_ord_id`) VALUES
+(27, 10, NULL, 5, 1000, 31),
+(28, 11, NULL, 4, 120, 31),
+(29, 12, NULL, 4, 200, 31),
+(30, 6, NULL, 3, 60, 32),
+(31, 1, NULL, 50, 22800, 33),
+(32, 1, NULL, 50, 11400, 34),
+(33, 1, NULL, 50, 15960, 35),
+(34, 6, NULL, 10, 200, 36),
+(35, 11, NULL, 3, 90, 36),
+(63, 1, 1, 200, 500, 46),
+(64, 1, 2, 200, 500, 46),
+(65, 1, 7, 200, 500, 46),
+(66, 1, 8, 200, 500, 46),
+(67, 1, 9, 200, 500, 46),
+(78, 24, 8, 10, NULL, 50),
+(79, 24, 9, 10, NULL, 50),
+(80, 24, 12, 10, NULL, 50),
+(81, 24, 8, 10, 180, 51),
+(82, 24, 9, 10, 180, 51),
+(83, 24, 12, 10, 180, 51);
 
 -- --------------------------------------------------------
 
@@ -591,7 +607,7 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_sal_id` int(11) DEFAULT NULL COMMENT 'ای دی معاش کارمند',
   `tr_ord_id` int(11) DEFAULT NULL COMMENT 'ای دی سفارش',
   `tr_part_id` int(11) DEFAULT NULL COMMENT 'ای دی سهامداران'
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
@@ -639,7 +655,10 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 (117, 'fdg', '100.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 7),
 (118, 'df', '500.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 7),
 (121, 'sdf', '20.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 12),
-(124, '', '2000.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 14);
+(124, '', '2000.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 14),
+(133, 'j,qdlkjdf ', '3000.00', 'kitchen_order', '1396-09-26', 1, 26, NULL, NULL, 46, NULL),
+(137, 'sdc sd d', '1000.00', 'kitchen_order', '1396-09-27', 1, 23, NULL, NULL, 50, NULL),
+(138, ' scz', '1000.00', 'kitchen_order', '1396-09-27', 1, 26, NULL, NULL, 51, NULL);
 
 -- --------------------------------------------------------
 
@@ -809,7 +828,7 @@ ALTER TABLE `sub_menus`
 -- Indexes for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
- ADD PRIMARY KEY (`sord_id`), ADD KEY `SORF_FK_ORD` (`sord_ord_id`), ADD KEY `sord_ord_id` (`sord_ord_id`);
+ ADD PRIMARY KEY (`sord_id`), ADD KEY `SORF_FK_ORD` (`sord_ord_id`), ADD KEY `sord_ord_id` (`sord_ord_id`), ADD KEY `sord_sm_id` (`sord_sm_id`), ADD KEY `sord_bm_id` (`sord_bm_id`);
 
 --
 -- Indexes for table `transections`
@@ -887,7 +906,7 @@ MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `partners`
 --
@@ -902,7 +921,7 @@ MODIFY `sal_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
+MODIFY `stock_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `stock_units`
 --
@@ -922,12 +941,12 @@ MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=14;
 -- AUTO_INCREMENT for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
+MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=84;
 --
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=139;
 --
 -- AUTO_INCREMENT for table `units`
 --
@@ -987,7 +1006,9 @@ ADD CONSTRAINT `SBM_FK_SM` FOREIGN KEY (`sbm_sm_id`) REFERENCES `sub_menus` (`sm
 -- Constraints for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-ADD CONSTRAINT `SORD_FK_ORD` FOREIGN KEY (`sord_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE;
+ADD CONSTRAINT `SORD_FK_BM` FOREIGN KEY (`sord_bm_id`) REFERENCES `base_menus` (`bm_id`),
+ADD CONSTRAINT `SORD_FK_ORD` FOREIGN KEY (`sord_ord_id`) REFERENCES `orders` (`ord_id`) ON DELETE CASCADE,
+ADD CONSTRAINT `SORD_FK_SM` FOREIGN KEY (`sord_sm_id`) REFERENCES `sub_menus` (`sm_id`);
 
 --
 -- Constraints for table `transections`

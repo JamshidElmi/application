@@ -53,20 +53,41 @@ class Order extends MY_Controller
     public function insert_kitchen_order()
     {
         $data = $this->input->post();
-        print_r($data); die();
+//        print_r($data); die();
         // Inserting data
         $this->order_model->orders();
-        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);
+        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_created_date' => $data['ord_created_date'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);
         if (is_int($insert_ord_id)) {
+
+            // inserting every sub_orders
+            $row = count($this->input->post('sord_sm_id'))-1;
             $this->order_model->sub_orders();
-            $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['ord_price'], 'sord_ord_id' => $insert_ord_id]);
+            for($i=0; $i <= $row; $i++)
+            {
+                $sm_data = array(
+                    'sord_bm_id'  => $data['sord_bm_id'],
+                    'sord_sm_id'  => $data['sord_sm_id'][$i],
+                    'sord_count'  => $data['sord_count'],
+                    'sord_price'  => $data['bm_price'],
+                    'sord_ord_id' => $insert_ord_id
+                );
+                $result = $this->order_model->data_save($sm_data);
+                if(!is_int($result))
+                {
+                    $result = null;
+                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                    redirect('order/create_order');
+                }
+            } // end for
+
+            // Get customer and cost from his account amount
             $this->order_model->customers();
             $customer = $this->order_model->data_get($data['ord_cus_id'], true);
             $this->order_model->accounts();
             $account = $this->order_model->data_get($customer->cus_acc_id, true);
             $acc_new_amount = $account->acc_amount - $data['tr_amount'];
             $this->order_model->data_save(['acc_amount' => $acc_new_amount], $account->acc_id);
-
+            // Save Transection
             $this->order_model->transections();
             $this->order_model->data_save([
                 'tr_desc' => $data['ord_desc'],
@@ -311,7 +332,7 @@ class Order extends MY_Controller
 
     public function delete_kitchen_order()
     {
-        // sleep(1);
+         sleep(1);
         $ord_id = $this->input->post('ord_id');
         $acc_id = $this->input->post('acc_id');
 
@@ -333,7 +354,7 @@ class Order extends MY_Controller
 
     public function edit_kitchen_order($ord_id)
     {
-        $this->template->description = 'ثبت سفارش برای رستورانت';
+        $this->template->description = 'ویرایش سفارش برای آشپزخانه';
         $this->order_model->orders();
         $order = $this->order_model->data_get($ord_id, true);
 
@@ -346,17 +367,19 @@ class Order extends MY_Controller
         $this->order_model->base_menus();
         $base_menu = $this->order_model->data_get($sub_order->sord_bm_id, true);
 
+        $base_sub_menu = $this->order_model->order_join_sub_order();
+
         $bm = $this->order_model->data_get_by(['bm_type' => 0]);
 
         // view
-        $this->template->content->view('orders/edit_kitchen_order', ['order' => $order, 'sub_order' => $sub_order, 'base_menu' => $base_menu, 'bm' => $bm, 'discounts' => $discounts]);
+        $this->template->content->view('orders/edit_kitchen_order', ['order' => $order, 'sub_order' => $sub_order, 'base_menu' => $base_menu, 'bm' => $bm, 'discounts' => $discounts, 'base_sub_menu' => $base_sub_menu]);
         $this->template->publish();
     } // end edit_kitchen_order
 
     public function update_kitchen_order()
     {
         $data = $this->input->post();
-        // print_r($data); die();
+         print_r($data); die();
 
         $this->order_model->sub_orders();
         $insert_ord_id = $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['ord_price']], $data['sord_id']);
@@ -434,7 +457,7 @@ class Order extends MY_Controller
     } // end delete_kitchen_transection
 
 
-    public function expence_stock()
+    public function expence_stock($ord_id = NULL, $cus_name = NULL, $cus_lname = NULL)
     {
         $this->template->description = 'ثبت مصارف از گدام برای سفارشات ';
         $orders = $this->order_model->order_join_customer('kitchen', 30);
@@ -449,6 +472,7 @@ class Order extends MY_Controller
     public function insert_stock_expence()
     {
         $data   = $this->input->post();
+//        print_r($data); die();
         $count  = count($data['stock_count']);
         /* insert all stock expences */
         for ($i = 0; $i < $count; $i++) {
@@ -570,4 +594,36 @@ class Order extends MY_Controller
     /* TODO: MAKE A PROFISSNAL CV  */
 
 
+    public function jq_sub_menus($ord_id)
+    {
+        sleep(1);
+        // get sub orders data
+        $this->order_model->sub_orders();
+        $sub_order = $this->order_model->data_get_by(['sord_ord_id' => $ord_id]);
+
+        $result = '';
+        $result .= '<table class="table table-bordered table-responsive">
+                <tbody>
+                    <tr class="bg-primary">
+                        <th>#</th>
+                        <th>زیر منو</th>
+                        <th> قیمت</th>
+                        <th>توضیحات</th>
+                    </tr>';
+        $i = 1;
+        foreach ($sub_order as $so)
+        {
+            // get every sub menus
+            $this->order_model->sub_menus();
+            $sub_menus = $this->order_model->data_get($so->sord_sm_id, true);
+            $result .= '<tr>
+                <td>'.$i++.'</td>
+                <td><strong>'.$sub_menus->sm_name.'</strong></td>
+                <td><strong>'.$sub_menus->sm_price.' </strong> افغانی </td>
+                <td>'.$sub_menus->sm_desc.'</td>
+            </tr>';
+        }
+        $result .= '</tbody></table>';
+    echo $result;
+    }
 } // end Class

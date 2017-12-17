@@ -3,13 +3,11 @@
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت مصارف از گدام</h3>
-<!--                <div class="box-tools pull-right">-->
-<!--                    <a href="--><?//=site_url('order/stock_expences'); ?><!--" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Stock's Expences"><i class="fa fa-list-ul fa-lg"></i></a>-->
-<!--                </div>-->
+                <?php ($this->uri->segment(3))? $this->uri->segment(3) : ''; ?>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" id="myform" method="POST" action="">
+            <form role="form" id="myform" method="POST" action="<?=site_url('order/insert_stock_expence/'); ?>">
 
                 <div class="box-body">
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
@@ -21,13 +19,13 @@
                             <div class="col-xs-4">
                                 <div class="form-group">
                                     <label for="">نام مشتری</label>
-                                    <input type="text" class="form-control" id="cus_name" readonly>
+                                    <input type="text" class="form-control" id="cus_name" value="<?=($this->uri->segment(4)) ? urldecode($this->uri->segment(4)) : '' ?>" readonly>
                                 </div>
                             </div>
                             <div class="col-xs-4">
                                 <div class="form-group">
                                     <label for="">تخلص مشتری</label>
-                                    <input type="text" class="form-control" id="cus_lname" readonly>
+                                    <input type="text" class="form-control" value="<?=($this->uri->segment(4)) ? urldecode($this->uri->segment(5)) : '' ?>" id="cus_lname" readonly>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +45,7 @@
                             <div class="form-group">
                                 <label for="">هزینه کلی</label>
                                 <input type="text" class="form-control" id="ord_price" readonly>
-                                <input type="hidden" class="form-control" name="stock_ord_id" id="ord_id" readonly>
+                                <input type="hidden" class="form-control" name="stock_ord_id" value="<?=($this->uri->segment(3)) ?$this->uri->segment(3):'' ?>" id="ord_id" readonly>
                             </div>
                         </div>
                     </div>
@@ -145,8 +143,13 @@
 
                 </div>
                 <!-- /.box-body -->
-            <div class="overlay" id="overlay" style="display: none;">
+
+
+            <div class="overlay" id="overlay" style="display: none">
                 <i class="fa ion-load-d fa-spin"></i>
+            </div>
+            <div class="overlay" id="overlay_alt" <?=($this->uri->segment(3)) ? 'style="display:block"' : 'style="display:none"'; ?>>
+                <i class="fa fa-exclamation text-gray"></i>
             </div>
         </div>
     </div>
@@ -154,7 +157,13 @@
 
 <script>
 
-    // Generate Synamic Fields
+    <?php if (($this->uri->segment(3))): ?>
+    $('#add_new').attr('disabled', false);
+    $('#calcolate').attr('disabled', false);
+    <?php endif ?>
+
+
+    // Generate Dynamic Fields
     $(document).ready(function() {
         var max_fields = 30; //maximum input boxes allowed
         var wrapper = $(".input_fields_wrap"); //Fields wrapper

@@ -35,11 +35,13 @@
                     <td><span data-toggle="tooltip" title="" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
                     <td>
                         <a href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
-                        <a href="<?=site_url('order/stock_expences/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Stock Expences for this Order"><i class="fa fa-list fa-lg"></i></span></a>
+                        <a href="<?=site_url('order/stock_expences/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Stock Expences for this Order"><i class="fa fa-shopping-cart fa-lg"></i></span></a>
                         <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
+                        <a href="#" class="sm_menu_list" data-toggle="modal" data-target="#modal-warning" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Sub Menu list"><i class="fa ion-clipboard fa-lg"></i></span></a>
                         <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                     </td>
-                </tr>
+                    </tr>
+
                 <?php endforeach ?>
             </tbody>
             <tfoot class="bg-info">
@@ -62,6 +64,32 @@
         <i class="fa ion-load-d fa-spin"></i>
     </div>
 </div>
+
+
+
+<div class="modal modal-warning fade" id="modal-warning">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">لیست زیر منوی سفارش</h4>
+            </div>
+            <div class="modal-body text-center"id="modal_here">
+                <!-- Modal Here-->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" id="close_me">بستن</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
 
 <script>
 $(document).ready(function() {
@@ -86,8 +114,8 @@ $(document).ready(function() {
                       });
                     $(document).ajaxStop(function(){
                         $(".overlay").css('display','none');
-                        $(".msg").css('display','block');
                         $("tr#ord_"+ord_id).remove();
+                        $(".msg").css('display','block');
                     });
                 }
             },
@@ -110,6 +138,40 @@ $(function () {
         'info'        : true,
         'autoWidth'   : true
     })
-})
+});
+
+
+
+
+
+// jq show dynamicly order's sub menus
+$('.sm_menu_list').click(function(event) {
+    var ord_id = $(this).attr('id');
+    var urls = '<?php echo base_url().'order/jq_sub_menus/' ?>' + ord_id;
+
+    $(document).ajaxStart(function(){
+        $("#modal_here").html('<i class="fa ion-load-d fa-spin " style="text-align: center; font-size: 40px"></i>');
+    });
+    $.ajax({
+        type: "POST",
+        url: urls,
+        dataType: "html",
+        success: function(response){
+            $("#modal_here").html(response);
+        }
+    });
+    $(document).ajaxStop(function(){
+        $(".overlay").css('display','none');
+    });
+
+});
+
+
+
+
 
 </script>
+
+
+
+
