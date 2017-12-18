@@ -678,4 +678,13 @@ class Order extends MY_Controller
         $result .= '</tbody></table>';
     echo $result;
     }
+
+
+    public function test()
+    {
+        echo $this->input->post('first-name');
+    }
+
+
+
 } // end Class

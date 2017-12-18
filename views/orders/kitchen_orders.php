@@ -36,8 +36,8 @@
                     <td>
                         <a href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                         <a href="<?=site_url('order/stock_expences/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Stock Expences for this Order"><i class="fa fa-shopping-cart fa-lg"></i></span></a>
-                        <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                         <a href="#" class="sm_menu_list" data-toggle="modal" data-target="#modal-warning" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Sub Menu list"><i class="fa ion-clipboard fa-lg"></i></span></a>
+                        <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                         <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                     </td>
                     </tr>
@@ -75,9 +75,8 @@
                     <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">لیست زیر منوی سفارش</h4>
             </div>
-            <div class="modal-body text-center"id="modal_here">
+            <div class="modal-body text-center" id="modal_here">
                 <!-- Modal Here-->
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" id="close_me">بستن</button>
@@ -109,9 +108,7 @@ $(document).ready(function() {
                     $(document).ajaxStart(function(){
                     $(".overlay").css('display','block');
                     });
-                      $.post("<?php echo site_url('order/delete_kitchen_order'); ?>",{ord_id:ord_id, acc_id:acc_id},function(response){
-
-                      });
+                      $.post("<?php echo site_url('order/delete_kitchen_order'); ?>",{ord_id:ord_id, acc_id:acc_id},function(response){});
                     $(document).ajaxStop(function(){
                         $(".overlay").css('display','none');
                         $("tr#ord_"+ord_id).remove();
@@ -126,48 +123,44 @@ $(document).ready(function() {
             }
         }
     });
-});
 
-
-$(function () {
-    $('#example2').DataTable({
-        'paging'      : true,
-        'lengthChange': true,
-        'searching'   : true,
-        'ordering'    : true,
-        'info'        : true,
-        'autoWidth'   : true
-    })
-});
-
-
-
-
-
-// jq show dynamicly order's sub menus
-$('.sm_menu_list').click(function(event) {
-    var ord_id = $(this).attr('id');
-    var urls = '<?php echo base_url().'order/jq_sub_menus/' ?>' + ord_id;
-
-    $(document).ajaxStart(function(){
-        $("#modal_here").html('<i class="fa ion-load-d fa-spin " style="text-align: center; font-size: 40px"></i>');
-    });
-    $.ajax({
-        type: "POST",
-        url: urls,
-        dataType: "html",
-        success: function(response){
-            $("#modal_here").html(response);
-        }
-    });
-    $(document).ajaxStop(function(){
-        $(".overlay").css('display','none');
+    // Ganerate Data Table
+    $(function () {
+        $('#example2').DataTable({
+            'paging'      : true,
+            'lengthChange': true,
+            'searching'   : true,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : true
+        })
     });
 
-});
 
 
+    // jq show dynamicly order's sub menus
+    $('.sm_menu_list').click(function(event) {
+        var ord_id = $(this).attr('id');
+        var urls = '<?php echo base_url().'order/jq_sub_menus/' ?>' + ord_id;
 
+        $(document).ajaxStart(function(){
+            $("#modal_here").html('<i class="fa ion-load-d fa-spin " style="text-align: center; font-size: 40px"></i>');
+        });
+        $.ajax({
+            type: "POST",
+            url: urls,
+            dataType: "html",
+            success: function(response){
+                $("#modal_here").html(response);
+            }
+        });
+        $(document).ajaxStop(function(){
+            $(".overlay").css('display','none');
+        });
+
+    });
+
+}); // end document
 
 
 </script>
