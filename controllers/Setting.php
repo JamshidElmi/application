@@ -164,8 +164,7 @@ class Setting extends MY_Controller
     public function save_discount()
     {
         $data = $this->input->post();
-        if ($this->input->post('disc_id'))
-        {
+        if ($this->input->post('disc_id')) {
             // Update disc
             $this->setting_model->discounts();
             unset($data['disc_id']);
@@ -177,9 +176,7 @@ class Setting extends MY_Controller
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                 redirect('setting/discounts');
             }
-        }
-        else
-        {
+        } else {
             // Insert disc
             $this->setting_model->discounts();
             $disc = $this->setting_model->data_save($data);
@@ -269,15 +266,11 @@ class Setting extends MY_Controller
         $this->load->library('form_validation');
         $this->form_validation->set_rules('part_emp_id', 'کارمند', 'required|is_unique[partners.part_emp_id]');
         $this->form_validation->set_message('is_unique', 'کارمند انتخاب شده شامل لیست شرکا است.');
-        if ($this->form_validation->run() == FALSE)
-        {
-            $this->session->set_flashdata('form_errors', validation_errors() );
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('form_errors', validation_errors());
             redirect('setting/partners');
-        }
-        else
-        {
-            if (is_int($this->setting_model->data_save($this->input->post())))
-            {
+        } else {
+            if (is_int($this->setting_model->data_save($this->input->post()))) {
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
                 redirect('setting/partners');
             } else {
@@ -290,13 +283,10 @@ class Setting extends MY_Controller
     public function delete_partner($part_id)
     {
         $this->setting_model->partners();
-        if($this->setting_model->data_delete($part_id))
-        {
+        if ($this->setting_model->data_delete($part_id)) {
             $this->session->set_flashdata('partner_success', 'عملیات با موفقیت انجام شد.');
             redirect('setting/partners');
-        }
-        else
-        {
+        } else {
             $this->session->set_flashdata('partner_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
             redirect('setting/partners');
         }
@@ -313,6 +303,57 @@ class Setting extends MY_Controller
         $this->template->publish();
     }
 
+    public function update_info()
+    {
+        $data = $this->input->post();
+
+        $config['upload_path'] = './assets/img/info';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = 400;
+        $config['max_width'] = 400;
+        $config['max_height'] = 400;
+
+        $this->load->library('upload', $config);
+
+        if (isset($_FILES['ci_logo']))
+        {
+            if (!$this->upload->do_upload('ci_logo')) {
+                $this->session->set_flashdata('file_errors', $this->upload->display_errors());
+                redirect('setting/edit_info');
+            }
+            else
+            {
+                // Get file name
+                $file = $this->upload->data();
+                $file_name = $file['file_name'];
+                // Set data
+                $data['ci_logo'] = $file_name;
+                // Inserting data with Logo
+                $this->setting_model->company_info();
+                $inserted_id = $this->setting_model->data_save($data, 1);
+                if (!is_int($inserted_id))
+                {
+                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                    redirect('setting/edit_info');
+                }
+            }
+        }
+        else
+        {
+            // Inserting data without Logo
+            $this->setting_model->company_info();
+            $inserted_id = $this->setting_model->data_save($data, 1);
+            if (!is_int($inserted_id))
+            {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('setting/edit_info');
+            }
+        }
+        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+        redirect('setting/edit_info');
+
+    }
 
 
 } // end Class
+

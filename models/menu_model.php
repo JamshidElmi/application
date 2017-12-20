@@ -75,5 +75,12 @@ class menu_model extends MY_Model
         return $query->result();
     }
 
+    public function sub_menu_join_unit()
+    {
+        $this->db->from('sub_menus');
+        $this->db->join('units', 'sub_menus.sm_unit_id = units.unit_id');
+        $query = $this->db->get();
+        return $query->result();
+    }
 
 }

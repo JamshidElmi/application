@@ -42,5 +42,12 @@ class user_model extends MY_Model
         return $query->row();
     }
 
+    public function company_info()
+    {
+        $this->_table_name = 'company_info';
+        $this->_primary_key = 'ci_id';
+        $this->_order_by = 'ci_id';
+    }
+
 
 }

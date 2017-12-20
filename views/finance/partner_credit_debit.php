@@ -208,7 +208,7 @@
 
         altFormat: 'YYYY-MM-DD',
         observer: true,
-        position: [-65,0],
+        position: [-67,200],
         calendar: {
             persian: {
                 enabled: true,
@@ -219,7 +219,7 @@
                 enabled: false,
                 locale: 'en'
             }
-        },
+        }
     });
 
     $('a.remove').confirm({

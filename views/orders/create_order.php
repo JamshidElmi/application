@@ -175,7 +175,7 @@
                                                     </tr>
                                                     <?php $i = 1; $sm_total_price =0; foreach ($base_sub_menu as $sub_menu): ?>
                                                         <?php  if ($sub_menu->sbm_bm_id == $base_menu->bm_id): ?>
-                                                             <tr id="sm_<?=$sub_menu->sm_id ?>_<?=$base_menu->bm_id ?>" sm-id="<?=$sub_menu->sm_id ?>">
+                                                             <tr class="tr_sm_id<?=$base_menu->bm_id ?>" id="sm_<?=$sub_menu->sbm_id ?>" sm-id="<?=$sub_menu->sm_id ?>">
 
                                                                 <td><?=$i++ ?></td>
                                                                 <td><strong><?=$sub_menu->sm_name ?></strong></td>
@@ -184,7 +184,7 @@
                                                                 <td class="text-center">
                                                                     <a href="#" data-toggle="tooltip" data-original-title="Remove" onclick="
                                                                             $('#total_<?=$base_menu->bm_id ?>').val($('#total_<?=$base_menu->bm_id ?>').val() - $(this).attr('price-sm'));
-                                                                            $('#sm_<?=$sub_menu->sm_id ?>_<?=$base_menu->bm_id ?>').remove();
+                                                                            $('#sm_<?=$sub_menu->sbm_id ?>').remove();
                                                                             "
                                                                         id="sm_id_<?=$sub_menu->sm_id ?> " price-sm="<?=$sub_menu->sm_price ?>"><span class="ion-android-delete fa-lg text-red remove-sm"></span></a>
                                                                 </td>
@@ -201,7 +201,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <div class="col-xs-6 pull-left">مجموعه:<input type="text" id="total_<?=$base_menu->bm_id ?>" value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
-                                            <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('#sm_<?=$sub_menu->sm_id ?>_<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=hidden name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?=$base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?=$base_menu->bm_id ?>').val()); " bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
+                                            <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=text name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?=$base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?=$base_menu->bm_id ?>').val()); " bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
                                             <button type="button" class="btn btn-danger " data-dismiss="modal">بستن <i class="fa fa-close"></i> </button>
                                         </div>
                                     </div>

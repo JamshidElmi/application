@@ -268,12 +268,14 @@ class Menu extends MY_Controller {
 
     } // end insert_kitchen_menu
 
+    /* TODO: Make Edit info for Sub Menus */
     public function sub_menus()
     {
-        $this->template->description = 'ثبت منو جدید برای آشپزخانه و لیست زیرمنو های موجود ';
-        // get base menu
+        $this->template->description = 'ثبت زیر منوی جدید برای آشپزخانه و لیست زیرمنو های موجود ';
+        // get sub menus
         $this->menu_model->sub_menus();
-        $sub_menus = $this->menu_model->data_get();
+        $sub_menus = $this->menu_model->sub_menu_join_unit();
+
         // veiw
         $this->template->content->view('menus/kitchen_sub_menus', ['sub_menus' => $sub_menus]);
         $this->template->publish();
@@ -298,6 +300,27 @@ class Menu extends MY_Controller {
         }
 
     } // end insert_sub_menu
+
+    public function update_sub_menu()
+    {
+//         print_r($this->input->post()); die();
+        $data = $this->input->post();
+        unset($data['sm_id']);
+
+        $this->menu_model->sub_menus();
+        $insert = $this->menu_model->data_save($data, $this->input->post('sm_id'));
+        if(is_int($insert))
+        {
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+            redirect('menu/sub_menus');
+        }
+        else
+        {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.' );
+            redirect('menu/sub_menus');
+        }
+
+    } // end update_sub_menu
 
     public function delete_sm()
     {

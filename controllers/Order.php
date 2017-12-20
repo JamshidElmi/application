@@ -32,7 +32,6 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end kitchen_menus
 
-
     public function create_order()
     {
         $this->template->description = 'ثبت سفارش جدید برای آشپزخانه';
@@ -410,24 +409,6 @@ class Order extends MY_Controller
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/kitchen_orders');
         }
-
-
-//        $this->order_model->sub_orders();
-//        $insert_ord_id = $this->order_model->data_save(['sord_bm_id' => $data['sord_bm_id'], 'sord_count' => $data['sord_count'], 'sord_price' => $data['ord_price']], $data['sord_id']);
-
-
-//        if (is_int($insert_ord_id)) {//            $this->order_model->orders();
-//            $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
-//
-//            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-//            redirect('order/kitchen_orders');
-//        } else {
-//            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
-//            redirect('order/kitchen_orders');
-//        }
-//
-
-
     } // end update_kitchen_order
 
     public function kitchen_payment($ord_id)
@@ -653,17 +634,16 @@ class Order extends MY_Controller
     {
         $this->template->description = 'فاکتور سفارش آشپزخانه';
 
+        $sub_menus = $this->order_model->ord_join_sub_ord_join_unit($ord_id);
         $ord_cus = $this->order_model->order_join_customer_by_id($ord_id);
 
         // view
-        $this->template->content->view('orders/print_order_bill', ['ord_cus' => $ord_cus]);
+        $this->template->content->view('orders/print_order_bill', ['ord_cus' => $ord_cus, 'sub_menus' => $sub_menus]);
         $this->template->publish();
-    }
+    } // end print_order_bill
 
-    public function update_info()
-    {
-        
-    }
+
+
 
 
 

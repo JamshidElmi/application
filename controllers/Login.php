@@ -26,11 +26,13 @@ class Login extends CI_Controller {
         {
             $employee = $this->employee_model->data_get($user->emp_id, TRUE);
             $partner = $this->user_model->emp_join_partner($user->emp_id);
+            $this->user_model->company_info();
+            $general_info = $this->user_model->data_get(1, TRUE);
+
             $this->session->set_userdata('user_info', $user);
             $this->session->set_userdata('emp_info', $employee);
             $this->session->set_userdata('partner_id', $partner->part_id);
-
-
+            $this->session->set_userdata('general_info', $general_info);
             redirect('dashboard/');
         }
         else
@@ -39,4 +41,4 @@ class Login extends CI_Controller {
         }
     }
 
-}
+} // end class

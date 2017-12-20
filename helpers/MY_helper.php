@@ -39,7 +39,7 @@ if ( ! function_exists('show_date'))
         $year = $val[0];
         $day = $val[1];
         $month = $val[2];
-        $show = mds_date($format,make_time('0','0','0',$day,$month,$year),0);
+        $show = mds_date($format,make_time('0','0','0', $day, $month, $year),0);
         return $show;
     }
 
@@ -75,7 +75,7 @@ if(!function_exists("units"))
     /**
      * Select Province
      *
-     * @param   string  setting name
+     * @param   string  Unit type
      * @return  mixed   Array of valus on fixed column of row
      */
     function units($type = null)
