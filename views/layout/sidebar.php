@@ -152,7 +152,7 @@
 
         <li class="treeview">
             <a href="">
-                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> منوها
+                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> <span>منوها</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>

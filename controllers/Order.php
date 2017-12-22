@@ -633,16 +633,36 @@ class Order extends MY_Controller
     public function print_order_bill($ord_id)
     {
         $this->template->description = 'فاکتور سفارش آشپزخانه';
+        $this->load->helper('number_2_letter');
 
         $sub_menus = $this->order_model->ord_join_sub_ord_join_unit($ord_id);
         $ord_cus = $this->order_model->order_join_customer_by_id($ord_id);
+        $this->order_model->transections();
+        $ord_transections = $this->order_model->data_get_by(['tr_type' => 'kitchen_order', 'tr_ord_id' => $ord_id]);
 
         // view
-        $this->template->content->view('orders/print_order_bill', ['ord_cus' => $ord_cus, 'sub_menus' => $sub_menus]);
+        $this->template->content->view('orders/print_order_bill', ['ord_cus' => $ord_cus, 'sub_menus' => $sub_menus, 'ord_transections' => $ord_transections]);
         $this->template->publish();
     } // end print_order_bill
 
+    public function print_kitchen_order($ord_id)
+    {
+        $this->template->set_template('print_template');
+        $this->print_order_bill($ord_id);
+    }
 
+    public function print_resturant_bill($ord_id)
+    {
+        $this->template->description = 'فاکتور سفارش رستورانت';
+        $sub_menus = $this->order_model->ord_join_sub_ord_join_unit_res($ord_id);
+        $ord_cus = $this->order_model->order_join_customer_by_id($ord_id);
+        $this->order_model->transections();
+        $ord_transections = $this->order_model->data_get_by(['tr_type' => 'resturant', 'tr_ord_id' => $ord_id]);
+
+        // view
+        $this->template->content->view('orders/print_resturant_bill', ['ord_cus' => $ord_cus, 'sub_menus' => $sub_menus, 'ord_transections' => $ord_transections]);
+        $this->template->publish();
+    } // end print_resturant_bill
 
 
 

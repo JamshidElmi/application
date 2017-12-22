@@ -34,12 +34,13 @@
                          <td><?=base_account()->acc_name  ?></td>
                         <td class="text-center"><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
-                        <td class="text-center"><span class="badge bg-green"><?=$order->ord_discount ?> %</span></td>
+                        <td class="text-center"><span class="badge bg-green"><?=round($order->ord_discount,1) ?> %</span></td>
                         <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
                         <td class="text-center">
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
-                            <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php //echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                            <a href="<?=site_url('order/print_resturant_bill/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Print Bill"><i class="fa fa-print fa-lg"></i></span></a>
+                            <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" ><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
                     </tr>
                     <?php endif ?>
@@ -90,15 +91,16 @@
                         <td><?=$i++;  ?></td>
                         <td><?=$order->cus_name ?> <?=$order->cus_lname ?></td>
                         <td><?=$order->cus_unique_id ?></td>
-                        <td><span  data-toggle="tooltip" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('#',$order->cus_phones)) ?></span></td>
+                        <td><span  data-toggle="tooltip" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('-',$order->cus_phones)) ?></span></td>
                         <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
                         <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
-                        <td class="text-center"><span class="badge bg-green"><?=$order->ord_discount ?> %</span></td>
+                        <td class="text-center"><span class="badge bg-green"><?=round($order->ord_discount,1) ?> %</span></td>
                         <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 15); ?></span></td>
                         <td>
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
-                            <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php //echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                            <a href="<?=site_url('order/print_resturant_bill/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Print Bill"><i class="fa fa-print fa-lg"></i></span></a>
+                            <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" ><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
                     </tr>
                     <?php endif ?>

@@ -185,4 +185,16 @@ class order_model extends MY_Model
         return $query;
     }
 
+    public function ord_join_sub_ord_join_unit_res($order_id)
+    {
+        $this->db->from('orders');
+        $this->db->join('sub_orders', 'sub_orders.sord_ord_id = orders.ord_id');
+        $this->db->join('sub_menus', 'sub_orders.sord_sm_id = sub_menus.sm_id');
+        $this->db->join('units', 'units.unit_id = sub_menus.sm_unit_id');
+        $this->db->where(['orders.ord_id' => $order_id]);
+        $query = $this->db->get()->result();
+//        echo $this->db->last_query();
+        return $query;
+    }
+
 }

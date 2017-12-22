@@ -25,10 +25,6 @@
     <div class="box-body">
         <?php $this->load->view('layout/bill_header'); ?>
 
-        <div class="well well-sm text-center" style="margin-bottom: 5px; padding:4px">آشپزخانه و رستورانت ممتاز هرات افتخار دارد تا غذای
-                محافل و مجالس شما را الی 3000
-                نفر در اسرع وقت به قیمت کاملا مناسب تهیه الی درب منزل شما طور رایگان ارسال نماید. ( سفارش پرسونل جهت
-                پذیرایی مهمانان پذیرفته میشود).</div>
         <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
             <div class="row">
                 <div class="col-xs-5"><b>نام مشتری: </b> <?= $ord_cus->cus_name . ' ' . $ord_cus->cus_lname ?></div>
@@ -88,18 +84,18 @@
                     <td>&nbsp;</td>
                 </tr>
             <?php endfor; ?>
-            <?php $total_unpayed = $sm->ord_price - $total_payed ?>
+            <?php $total_unpayed = $ord_cus->ord_price - $total_payed ?>
             <tr>
                 <td colspan="2" rowspan="2"><b>قیمت مجموع به حروف</b></td>
-                <td colspan="2" rowspan="2"><strong><?= number2letters($sm->ord_price); ?>  </strong> افغانی</td>
+                <td colspan="2" rowspan="2"><strong> </strong> افغانی</td>
                 <td><b>قیمت مجموعی</b></td>
-                <td><b><?= round($sm->ord_price,1) ?></b> افغانی</td>
+                <td><b><?= round($ord_cus->ord_price,1) ?></b> افغانی</td>
             </tr>
             <tr>
                 <td><b>تخفیف</b></td>
                 <td>
-                    <b><?php $ord_discount = 100 - $sm->ord_discount; ?> <?= round($sm->ord_price * 100 / $ord_discount) - $sm->ord_price; ?></b>
-                    افغانی (<?= round($sm->ord_discount) ?>%)
+                    <b><?php $ord_discount = 100 - $ord_cus->ord_discount; ?> <?= round($ord_cus->ord_price * 100 / $ord_discount) - $ord_cus->ord_price; ?></b>
+                    افغانی (<?= round($ord_cus->ord_discount) ?>%)
                 </td>
             </tr>
             <tr>

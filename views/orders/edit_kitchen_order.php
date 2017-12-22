@@ -56,7 +56,7 @@
                                 <label>تعداد</label>
                                 <div class="input-group date">
                                     <input type="number" name="sord_count" value="<?= $sub_order->sord_count ?>" id="ord_count" class="form-control" />
-                                    <div class="input-group-addon">سرویس</div>
+                                    <div class="input-group-addon">نفر </div>
                                 </div>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
 
                     <div class="">
                         <input type="hidden" value="<?= $sub_order->sord_bm_id ?>" name="sord_bm_id" id="sord_bm_id">
-                        <input type="text" value="<?= $order->ord_id ?>" name="ord_id" id="ord_id">
+                        <input type="hidden" value="<?= $order->ord_id ?>" name="ord_id" id="ord_id">
                         <input type="hidden" value="<?= $sub_order->sord_id ?>" name="sord_id" id="sord_id">
                         <div id="sm_order"></div>
                     </div>
@@ -184,7 +184,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <div class="col-xs-6 pull-left">مجموعه:<input type="text" id="total_<?=$base_menu->bm_id ?>" value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
-                                        <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=text name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?=$base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?=$base_menu->bm_id ?>').val()); $('#sm_order').append('<input type=text name=changed_menu value=changed_menu />'); " bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
+                                        <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=hidden name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?=$base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?=$base_menu->bm_id ?>').val()); $('#sm_order').append('<input type=hidden name=changed_menu value=changed_menu />'); " bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
                                         <button type="button" class="btn btn-danger " data-dismiss="modal">بستن <i class="fa fa-close"></i> </button>
                                     </div>
                                 </div>

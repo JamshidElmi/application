@@ -11,7 +11,6 @@
             <!-- form start -->
             <?php $bm_id = (isset($bm->bm_name)) ? $bm->bm_id : '' ?>
             <form role="form" method="POST" action="<?= site_url('menu/insert_kitchen_menu/' . $bm_id); ?>" enctype="multipart/form-data">
-
                 <div class="box-body">
                     <?php if ($this->session->form_errors) {
                         echo alert($this->session->form_errors, 'danger');
@@ -23,12 +22,10 @@
                         echo alert($this->session->file_errors, 'warning');
                     } ?>
 
-
                     <div class="form-group">
                         <label for="bm_name">نام منوی اصلی</label>
                         <input type="text" class="form-control" value="<?= (isset($bm->bm_name)) ? $bm->bm_name : '' ?>" name="bm_name" id="bm_name" placeholder="کباب، قابلی، نوشیدنی" required />
                     </div>
-
 
                     <?php if (isset($bm->bm_name)): ?>
                         <a href="#" id="choose_file" style="float: left" data-toggle="tooltip" title="" data-original-title="Click For Change Image"><img width="100" class="img-thumbnail" src="<?= site_url('assets/img/menus/' . $bm->bm_picture) ?>" alt=""></a>
@@ -43,7 +40,6 @@
                         </div>
                     <?php endif ?>
 
-
                     <div class="form-group">
                         <label for="bm_desc">توضیحات</label>
                         <textarea rows="5" class="form-control" name="bm_desc" id="bm_desc"><?= ((isset($bm->bm_name))) ? $bm->bm_desc : '' ?></textarea>
@@ -51,11 +47,7 @@
 
                     <div class="form-group">
                         <label>انتخاب زیر منو</label>
-                        <select class="form-control select2" name="menus[]" multiple="multiple" data-placeholder="انتخاب کنید">
-<!--                            --><?php //foreach ($sub_menus as $sub_menu) : ?>
-<!--                                <option value="--><?//= $sub_menu->sm_id ?><!--">--><?//= $sub_menu->sm_name ?><!--</option>-->
-<!--                            --><?php //endforeach ?>
-                        </select>
+                        <select class="form-control select2" name="menus[]" multiple="multiple" data-placeholder="   انتخاب کنید"></select>
                     </div>
 
                 </div>
@@ -67,11 +59,10 @@
         </div>
     </div>
 
-
     <div class="col-sm-8">
         <div class="box box-warning box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">لیست منو های اصلی </h3>
+                <h3 class="box-title">لیست منو های آشپزخانه </h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                     </button>
@@ -81,20 +72,17 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="msg" hidden><?= alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
-
-
                 <ul class="users-list clearfix">
 
                     <?php foreach ($base_menus as $base_menu): ?>
                         <li id="bm_<?= $base_menu->bm_id ?>">
                             <img width="100" class="img-thumbnail" src="<?= site_url('assets/img/menus/' . $base_menu->bm_picture); ?>">
                             <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?= $base_menu->bm_desc ?> "><?= $base_menu->bm_name ?></a>
-                            <span class="base_manu_delete" id="<?= $base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
                             <a class="btn btn-default btn-xs" href="<?= site_url('menu/kitchen_menus/' . $base_menu->bm_id); ?>"><span id="<?= $base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>
+                            <span class="base_manu_delete" id="<?= $base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
                         </li>
                     <?php endforeach ?>
                 </ul>
-
             </div>
             <!-- /.box-body -->
             <div class="overlay" id="overlay" style="display: none;">
@@ -131,8 +119,7 @@
         ];
 
         /* Show Select2 */
-        $('.select2').select2({data: data});
-
+        $('.select2').select2({data: data, closeOnSelect: false,placeholder: "Select a state"});
 
         // delete unit restuarant
         $('.base_manu_delete').confirm({
