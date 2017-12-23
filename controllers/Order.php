@@ -153,10 +153,10 @@ class Order extends MY_Controller
             echo '<img width="100" class="img-thumbnail" src="' . site_url('assets/img/menus/' . $base_menu->bm_picture) . '" data-toggle="tooltip" title="" data-original-title=" af">';
             echo '<a class="users-list-name" href="#"  style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="' . $base_menu->bm_desc . '">' . $base_menu->bm_name . '</a>';
             if ($type == "add") {
-                echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  ><span title="" data-original-title="Use"><i class="fa fa-plus"></i></span></a>&nbsp;';
-                echo '<a class="btn bg-red btn-xs btn_minus" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '" bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"    ><span title="" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
+                echo '<a class="btn bg-green btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '" bm-unit-id="' . $base_menu->bm_unit_id . '" ><span data-toggle="tooltip" data-original-title="Use"><i class="fa fa-plus"></i></span></a>&nbsp;';
+                echo '<a class="btn bg-red btn-xs btn_minus" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '" bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  bm-unit-id="' . $base_menu->bm_unit_id . '"  ><span data-toggle="tooltip" data-original-title="Use"><i class="fa fa-minus "></i></span></a>';
             } else {
-                echo '<a class="btn bg-orange btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '"  ><span title="" data-original-title="Use">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>&nbsp;';
+                echo '<a class="btn bg-orange btn-xs btn_add" id="btn_add" bm-id="' . $base_menu->bm_id . '" menu-pic="' . $base_menu->bm_picture . '"  bm-price="' . $base_menu->bm_price . '" bm-name="' . $base_menu->bm_name . '" bm-unit-id="' . $base_menu->bm_unit_id . '"  ><span data-toggle="tooltip" data-original-title="Use">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-edit"></i>&nbsp;&nbsp;&nbsp;&nbsp;</span></a>&nbsp;';
             }
             echo '</li>';
         }
@@ -664,6 +664,11 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end print_resturant_bill
 
+    public function print_resturant_order($ord_id)
+    {
+        $this->template->set_template('print_template');
+        $this->print_resturant_bill($ord_id);
+    }
 
 
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2017 at 06:47 PM
+-- Generation Time: Dec 23, 2017 at 06:39 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -61,29 +61,31 @@ CREATE TABLE IF NOT EXISTS `base_menus` (
   `bm_desc` varchar(512) DEFAULT NULL,
   `bm_picture` varchar(256) DEFAULT NULL,
   `bm_type` tinyint(1) NOT NULL COMMENT 'عدد صفر برای آشپزخانه عدد یک برای رستورانت',
+  `bm_unit_id` int(11) DEFAULT NULL COMMENT 'ای دی واحدات',
   `bm_cat_id` int(11) DEFAULT NULL COMMENT 'ای دی کتگوری منو'
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `base_menus`
 --
 
-INSERT INTO `base_menus` (`bm_id`, `bm_name`, `bm_price`, `bm_desc`, `bm_picture`, `bm_type`, `bm_cat_id`) VALUES
-(1, 'منوی درجه اول', '456.00', '', '11111.jpg', 0, NULL),
-(5, 'منوی درجه دوم', '560.00', 'توضیحات', '22222.jpg', 0, NULL),
-(6, 'کوکاکولا', '20.00', 'توضیحات لازم و ضروری', '3.jpg', 1, 4),
-(7, 'منوی درجه سوم', '560.00', '', '3333.jpg', 0, NULL),
-(8, 'منوی درجه چهارم', '456.00', '', '5555.jpg', 0, NULL),
-(9, 'چلو کباب ایرانی', '120.00', 'چلو کباب اصل ایرانی', '9.jpg', 1, 3),
-(10, 'جوجه کباب', '200.00', 'اختصاصی', '15.jpg', 1, 1),
-(11, 'کوکاکولا متوسط', '30.00', 'کافی ', '4.jpg', 1, 4),
-(12, 'اسپرایت', '50.00', 'کافی', '2.jpg', 1, 4),
-(13, 'زرشک پلو', '20.00', 'نوشابه', '16.jpg', 1, 4),
-(14, 'برگر متوسط', '25.00', 'جوس', '13.jpg', 1, 4),
-(15, 'قابلی', '250.00', '', '8.jpg', 1, 3),
-(16, 'کباب گوساله', '520.00', '', '7.jpg', 1, 1),
-(17, 'برگر', '50.00', '', '10.jpg', 1, 1),
-(24, 'جدید', NULL, 'جدید جدید', 'Profile-sm10.jpg', 0, NULL);
+INSERT INTO `base_menus` (`bm_id`, `bm_name`, `bm_price`, `bm_desc`, `bm_picture`, `bm_type`, `bm_unit_id`, `bm_cat_id`) VALUES
+(1, 'منوی درجه اول', '456.00', '', '11111.jpg', 0, 20, NULL),
+(5, 'منوی درجه دوم', '560.00', 'توضیحات', '22222.jpg', 0, 19, NULL),
+(6, 'کوکاکولا', '20.00', 'توضیحات لازم و ضروری', '3.jpg', 1, 12, 4),
+(7, 'منوی درجه سوم', '560.00', '', '3333.jpg', 0, 20, NULL),
+(8, 'منوی درجه چهارم', '456.00', '', '5555.jpg', 0, 18, NULL),
+(9, 'چلو کباب ایرانی', '120.00', 'چلو کباب اصل ایرانی', '9.jpg', 1, 19, 3),
+(10, 'جوجه کباب', '200.00', 'اختصاصی', '15.jpg', 1, 18, 1),
+(11, 'کوکاکولا متوسط', '30.00', 'کافی ', '4.jpg', 1, 16, 4),
+(12, 'اسپرایت', '50.00', 'کافی', '2.jpg', 1, 12, 4),
+(13, 'زرشک پلو', '20.00', 'نوشابه', '16.jpg', 1, 4, 4),
+(14, 'برگر متوسط', '25.00', 'جوس', '13.jpg', 1, 15, 4),
+(15, 'قابلی', '250.00', '', '8.jpg', 1, 20, 3),
+(16, 'کباب گوساله', '520.00', '', '7.jpg', 1, 22, 1),
+(17, 'برگر', '50.00', '', '10.jpg', 1, 23, 1),
+(24, 'جدید', NULL, 'جدید جدید', 'Profile-sm10.jpg', 0, 24, NULL),
+(25, 'کباب شامی', '220.00', 'یک خوراک با دو عدد لیمو رایگان', 'avatar042.png', 1, 13, 1);
 
 -- --------------------------------------------------------
 
@@ -373,7 +375,7 @@ INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_created_date`, `ord_date`, `ord
 (39, 'توضیحات...', '1396-09-29', '1396-09-29', '21:21:00', '2300', '30.00', 'kitchen', NULL, 1),
 (40, '800 قیمت اصلی 30% تخفیف 440 افغانی 500 رسید 60 افغانی باقی یک قلم زیرمنو', '1396-09-30', '1396-09-30', '18:15:00', '560', '30.00', 'kitchen', NULL, 5),
 (41, 'توضیحات خاص', '1396-09-30', '1396-09-30', '23:49:00', '22841', '30.00', 'kitchen', NULL, 3),
-(42, 'توضیحات آخر', '0000-00-00', '1396-09-30', '23:58:00', '733', '30.00', 'resturant', 4, 1);
+(42, 'توضیحات آخر', '0000-00-00', '1396-09-30', '23:58:00', '1104', '30.00', 'resturant', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -578,7 +580,7 @@ INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_sm_id`, `sord_count`, `
 (54, 24, 9, 10, 80, 40),
 (55, 24, 9, 251, 130, 41),
 (56, 24, 12, 251, 130, 41),
-(57, 9, NULL, 3, 360, 42),
+(57, 15, NULL, 5, 1250, 42),
 (58, 15, NULL, 3, 750, 42),
 (59, 6, NULL, 2, 40, 42),
 (60, 11, NULL, 1, 30, 42);
@@ -719,7 +721,7 @@ ALTER TABLE `accounts`
 -- Indexes for table `base_menus`
 --
 ALTER TABLE `base_menus`
- ADD PRIMARY KEY (`bm_id`), ADD KEY `SB_FK_SM` (`bm_cat_id`), ADD KEY `bm_cat_id` (`bm_cat_id`);
+ ADD PRIMARY KEY (`bm_id`), ADD KEY `SB_FK_SM` (`bm_cat_id`), ADD KEY `bm_cat_id` (`bm_cat_id`), ADD KEY `bm_unit_id` (`bm_unit_id`);
 
 --
 -- Indexes for table `bills`
@@ -854,7 +856,7 @@ MODIFY `acc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=27;
 -- AUTO_INCREMENT for table `base_menus`
 --
 ALTER TABLE `base_menus`
-MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `bm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `bills`
 --
@@ -958,7 +960,8 @@ MODIFY `user_id` int(5) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- Constraints for table `base_menus`
 --
 ALTER TABLE `base_menus`
-ADD CONSTRAINT `BM_FK_MC` FOREIGN KEY (`bm_cat_id`) REFERENCES `menu_category` (`mc_id`);
+ADD CONSTRAINT `BM_FK_MC` FOREIGN KEY (`bm_cat_id`) REFERENCES `menu_category` (`mc_id`),
+ADD CONSTRAINT `BM_FK_UNITS` FOREIGN KEY (`bm_unit_id`) REFERENCES `units` (`unit_id`);
 
 --
 -- Constraints for table `customers`

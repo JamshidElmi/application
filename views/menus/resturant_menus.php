@@ -43,9 +43,22 @@
                         <input type="text" class="form-control" value="<?=(isset($bm->bm_name))?$bm->bm_name:''?>" name="bm_name" id="bm_name" placeholder="کباب، قابلی، نوشیدنی" required/>
                     </div>
 
-                    <div class="form-group">
-                        <label for="bm_price">قیمت فی واحد</label>
-                        <input type="number" class="form-control" value="<?=(isset($bm->bm_price))?$bm->bm_price:''?>" name="bm_price" id="bm_price" placeholder="اعشاری" required/>
+                    <div class="row">
+                        <div class="col-xs-7">
+                            <div class="form-group">
+                                <label for="bm_price">قیمت فی واحد</label>
+                                <input type="number" class="form-control" value="<?= (isset($bm->bm_price)) ? $bm->bm_price : '' ?>" name="bm_price" id="bm_price" placeholder="اعشاری" required />
+                            </div>
+                        </div>
+                        <div class="col-xs-5">
+                            <div class="form-group">
+                                <label for="bm_unit_id">انتخاب واحد</label>
+                                <select class="form-control" name="bm_unit_id" id="bm_unit_id" required>
+                                    <option value="">انتخاب کنید</option>
+                                    <?php units(); ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <?php if (isset($bm->bm_picture)): ?>

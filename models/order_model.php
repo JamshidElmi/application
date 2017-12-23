@@ -140,6 +140,7 @@ class order_model extends MY_Model
         $this->db->from('sub_orders');
         $this->db->join('base_menus', 'sub_orders.sord_bm_id = base_menus.bm_id');
         $this->db->join('menu_category', 'menu_category.mc_id = base_menus.bm_cat_id');
+        $this->db->join('units', 'base_menus.bm_unit_id = units.unit_id');
         $this->db->where('sord_ord_id', $order_id);
         $query = $this->db->get()->result();
         return $query;
@@ -189,12 +190,19 @@ class order_model extends MY_Model
     {
         $this->db->from('orders');
         $this->db->join('sub_orders', 'sub_orders.sord_ord_id = orders.ord_id');
-        $this->db->join('sub_menus', 'sub_orders.sord_sm_id = sub_menus.sm_id');
-        $this->db->join('units', 'units.unit_id = sub_menus.sm_unit_id');
+        $this->db->join('base_menus', 'base_menus.bm_id = sub_orders.sord_bm_id');
+        $this->db->join('units', 'units.unit_id = base_menus.bm_unit_id');
         $this->db->where(['orders.ord_id' => $order_id]);
         $query = $this->db->get()->result();
 //        echo $this->db->last_query();
         return $query;
     }
 
-}
+    /*public function jq_get_bm_join_unit($mc_id)
+    {
+        $this->db->from('base_menus');
+        $this->db->join('units', 'base_menus.bm_unit_id = units.unit_id');
+        $this->db->where(['bm_type' => 1, 'bm_cat_id' => $mc_id]);
+    } // end jq_get_bm_join_unit*/
+
+} // end class

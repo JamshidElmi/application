@@ -59,6 +59,7 @@
                     <input type="hidden" class="form-control" name="sord_bm_id" id="sord_bm_id" placeholder="اعشاری" required readonly/>
                     <input type="hidden" class="form-control" name="sord_id" id="sord_id" placeholder="اعشاری" required readonly/>
                     <input type="hidden" class="form-control" name="sord_ord_id" id="sord_ord_id" placeholder="اعشاری" required readonly/>
+                    <input type="hidden" class="form-control" name="bm_unit_id" id="bm_unit_id" placeholder="bm_unit_id" required readonly/>
 
 
                 </div>
@@ -136,7 +137,7 @@
                                 <td><b><?= $sub_order->bm_name ?></b></td>
                                 <td><?= $sub_order->mc_name ?> </td>
                                 <td><b><?= round($sub_order->bm_price) ?></b> افغانی</td>
-                                <td><span class="badge bg-info"><?= $sub_order->sord_count ?> </span></td>
+                                <td><span class="badge bg-info"><?= $sub_order->sord_count ?> <?= $sub_order->unit_name ?> </span></td>
                                 <td><b><?= $sub_order->sord_price ?></b> افغانی</td>
                                 <td>
                                     <a href="#" class="edit_sord_id" id="<?= $sub_order->sord_id ?>" bm-name="<?= $sub_order->bm_name ?>" sord-count="<?= $sub_order->sord_count ?>" sord-price="<?= $sub_order->sord_price ?>" sord-bm-id="<?= $sub_order->sord_bm_id ?>" bm-price="<?= $sub_order->bm_price ?>" bm-picture="<?= $sub_order->bm_picture ?>" sord-ord-id="<?= $sub_order->sord_ord_id ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
@@ -179,6 +180,7 @@
             $('#sord_bm_id').val(sord_bm_id);
             $('#sord_id').val(sord_id);
             $('#sord_ord_id').val(sord_ord_id);
+
             $('#img').attr('src', '<?=site_url('assets/img/menus/') ?>' + bm_picture);
             $('#submit').attr('disabled', false);
             $('#menu_category').attr('disabled', false);
@@ -246,6 +248,7 @@
                         var price = $(this).attr('bm-price');
                         var pic = $(this).attr('menu-pic');
                         var name = $(this).attr('bm-name');
+                        var bm_unit_id = $(this).attr('bm-unit-id');
                         // alert(price);
                         $("#img").attr('src', '<?=site_url('assets/img/menus/') ?>' + pic);
                         $('#bm_name').val(name);
@@ -253,6 +256,7 @@
                         $('#sord_bm_id').val(id);
                         $('#sord_price').val(0);
                         $('#sord_count').val(0);
+                        $('#bm_unit_id').val(bm_unit_id);
 
                         var bm_new_price = $('#bm_price').val();
                         var sord_new_count = $('#sord_count').val();

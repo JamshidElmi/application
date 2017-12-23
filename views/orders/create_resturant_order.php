@@ -181,6 +181,7 @@ $(document).ready(function() {
                     var id = $(this).attr('bm-id');
                     var price = $(this).attr('bm-price');
                     var pic = $(this).attr('menu-pic');
+                    var bm_unit_id = $(this).attr('bm-unit-id');
 
                     // create input or sum input value
                     if ($("#order_"+id).length) {
@@ -209,7 +210,8 @@ $(document).ready(function() {
                         $('#order_inputs').append('<input type="hidden" name="sord_count[]" id="order_'+id+'" value="1"/>');
                         $('#order_inputs').append('<input type="hidden" name="sord_bm_id[]" value="'+id+'" id="id_'+id+'" />');
                         $('#order_inputs').append('<input type="hidden" name="sord_price[]" value="0" id="sord_price_'+id+'" />');
-                        $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="'+price+'" id="price_'+id+'" /><div class="clear-fix">');
+                        $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="'+price+'" id="price_'+id+'" />');
+                        $('#order_inputs').append('<input type="hidden" name="bm_unit_id[]" value="'+bm_unit_id+'" id="bm_unit_id_'+id+'" /><div class="clear-fix">');
                         $('#order_list').append('<a href="" class="btn-app" style="border: 0; background: none;"><span class="badge bg-green" id="count_'+id+'">1</span><img width="40" id="pic_'+id+'" class="img-thumbnail" src="<?php echo site_url().'assets/img/menus/' ?>'+pic+' " alt=""></a>');
                         $('#order_list>b').remove();
 
@@ -263,6 +265,7 @@ $(document).ready(function() {
                             $('#id_'+id).remove();
                             $('#pic_'+id).remove();
                             $('#sord_price_'+id).remove();
+                            $('#bm_unit_id_'+id).remove();
                         }
                     }
                 });
