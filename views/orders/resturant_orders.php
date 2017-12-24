@@ -39,24 +39,13 @@
                         <td class="text-center">
                             <a href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
-                            <a href="<?=site_url('order/print_resturant_bill/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Print Bill"><i class="fa fa-print fa-lg"></i></span></a>
+                            <a href="<?=site_url('order/print_resturant_bill/'.$order->ord_id.'/no_customer'); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Print Bill"><i class="fa fa-print fa-lg"></i></span></a>
                             <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" ><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
                     </tr>
                     <?php endif ?>
                     <?php endforeach ?>
                 </tbody>
-                <tfoot class="bg-info">
-                    <tr>
-                        <th>#</th>
-                        <th>صندوق</th>
-                        <th class="text-center">تاریخ سفارش</th>
-                        <th class="text-center">هزینه کل</th>
-                        <th class="text-center">تخفیف</th>
-                        <th>توضیحات</th>
-                        <th class="text-center">عملیات</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
         <div class="overlay" id="overlay" style="display: none;">
@@ -106,19 +95,6 @@
                     <?php endif ?>
                     <?php endforeach ?>
                 </tbody>
-                <tfoot class="bg-info">
-                    <tr>
-                        <th>#</th>
-                        <th>نام و تخلص</th>
-                        <th>کد مشتری</th>
-                        <th>شماره تماس</th>
-                        <th>تاریخ سفارش</th>
-                        <th>هزینه کل</th>
-                        <th>تخفیف</th>
-                        <th>توضیحات</th>
-                        <th>عملیات</th>
-                    </tr>
-                </tfoot>
             </table>
         </div>
         </div>

@@ -242,7 +242,7 @@
                 <li><a href="<?=site_url('setting/discounts'); ?>"><i class="fa fa-circle-o "></i> تخفیفات </a></li>
                 <li><a href="<?=site_url('setting/partners'); ?>"><i class="fa fa-circle-o "></i> سهامداران </a></li>
                 <li><a href="<?=site_url('setting/edit_info'); ?>"><i class="fa fa-circle-o "></i> ویرایش معلومات سیستم </a></li>
-                <li><a href="<?=site_url(''); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
+                <li><a href="<?=site_url('setting/backup'); ?>"><i class="fa fa-circle-o "></i> پشتیبان گیری</a></li>
             </ul>
         </li>
 

@@ -1,4 +1,4 @@
-<div class="box">
+<div class="box ">
     <div class="box-header">
         <h3 class="box-title">لیست سفارشات </h3>
         <div class="pull-left box-tools">
@@ -7,7 +7,7 @@
         </div>
     </div>
     <!-- /.box-header -->
-    <div class="box-body table-responsive">
+    <div class="box-body table-responsive no-padding">
         <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
         <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
         <table id="example2" class="table table-bordered table-hover table-striped">
@@ -31,7 +31,7 @@
                     <td><?=$order->cus_name ?> <?=$order->cus_lname ?></td>
                     <td><?=$order->cus_unique_id ?></td>
                     <td><span  data-toggle="tooltip" title="" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('-', $order->cus_phones)) ?></span></td>
-                    <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
+                    <td><?=show_date("j F Y", $order->ord_date); ?> </td>
                     <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
                     <td class="text-center"><span class="badge bg-green"><?=round($order->ord_discount,1) ?> %</span></td>
                     <td><span data-toggle="tooltip" title="" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
@@ -47,19 +47,7 @@
 
                 <?php endforeach ?>
             </tbody>
-            <tfoot class="bg-info">
-                <tr>
-                    <th>#</th>
-                    <th>نام و تخلص</th>
-                    <th>کد اشتراک</th>
-                    <th>شماره تماس</th>
-                    <th>تاریخ سفارش</th>
-                    <th>هزینه کل</th>
-                    <th>تخفیف</th>
-                    <th>توضیحات</th>
-                    <th>عملیات</th>
-                </tr>
-            </tfoot>
+
         </table>
 
     </div>
@@ -70,7 +58,7 @@
 </div>
 
 
-
+<!-- Dynamic Modal for order Items -->
 <div class="modal modal-warning fade" id="modal-warning">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -80,17 +68,15 @@
                 <h4 class="modal-title">لیست زیر منوی سفارش</h4>
             </div>
             <div class="modal-body text-center" id="modal_here">
-                <!-- Modal Here-->
+                <!-- :::List Here:::-->
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal" id="close_me">بستن</button>
             </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+        </div> <!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 
 
 

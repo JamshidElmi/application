@@ -651,11 +651,19 @@ class Order extends MY_Controller
         $this->print_order_bill($ord_id);
     }
 
-    public function print_resturant_bill($ord_id)
+    public function print_resturant_bill($ord_id, $customer = NULL)
     {
         $this->template->description = 'فاکتور سفارش رستورانت';
         $sub_menus = $this->order_model->ord_join_sub_ord_join_unit_res($ord_id);
-        $ord_cus = $this->order_model->order_join_customer_by_id($ord_id);
+        if ($customer === NULL)
+        {
+            $ord_cus = $this->order_model->order_join_customer_by_id($ord_id);
+        }
+        else
+        {
+            $this->order_model->orders();
+            $ord_cus = $this->order_model->data_get($ord_id);
+        }
         $this->order_model->transections();
         $ord_transections = $this->order_model->data_get_by(['tr_type' => 'resturant', 'tr_ord_id' => $ord_id]);
 

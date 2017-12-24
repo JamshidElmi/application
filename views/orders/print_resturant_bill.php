@@ -15,7 +15,7 @@
     <div class="col-xs-4">
         <div class="box box-warning " style="width: 400px">
             <div class="box-header with-border no-print">
-                <h3 class="box-title"> فاکتور آشپزخانه</h3>
+                <h3 class="box-title"> فاکتور رستورانت</h3>
                 <div class="box-tools pull-right no-print">
                     <a href="<?= site_url('order/print_resturant_order/' . $ord_cus->ord_id) ?>" target="_blank" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Print">
                         <i class="fa fa-print fa-lg"></i>
@@ -42,22 +42,24 @@
 
                 <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
                     <div class="row">
-                        <div class="col-xs-6"><b>تاریخ:</b> <?= show_date("j F Y", $ord_cus->ord_date) ?>
-                        </div>
-                        <div class="col-xs-6"><b>ساعت:</b> <?= $ord_cus->ord_time ?></div>
+                        <div class="col-xs-7"><b>تاریخ:</b> <?= show_date("j F Y", $ord_cus->ord_date) ?> </div>
+                        <div class="col-xs-5"><b>ساعت:</b> <?= $ord_cus->ord_time ?></div>
                     </div>
                 </div>
                 <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
                     <div class="row">
-                        <div class="col-xs-6"><b>نام مشتری: </b> <?= $ord_cus->cus_name . ' ' . $ord_cus->cus_lname ?>
+                        <div class="col-xs-7"><b>نام
+                                مشتری: </b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_name . ' ' . $ord_cus->cus_lname : ''; ?>
                         </div>
 
-                        <div class="col-xs-6"><b>کد اشتراک:</b> <?= $ord_cus->cus_unique_id ?></div>
+                        <div class="col-xs-5"><b>کد
+                                اشتراک:</b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_unique_id : '' ?></div>
                     </div>
                 </div>
                 <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
                     <div class="row">
-                        <div class="col-xs-12"><b>آدرس: </b> <?= $ord_cus->cus_address ?></div>
+                        <div class="col-xs-12">
+                            <b>آدرس: </b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_address : '' ?></div>
                     </div>
                 </div>
 
@@ -95,7 +97,10 @@
                     </tr>
                     <tr>
                         <th colspan="3">تخفیف</th>
-                        <td colspan="2"><b><?php $ord_discount = 100 - $ord_cus->ord_discount; ?> <?= round($ord_cus->ord_price * 100 / $ord_discount) - $ord_cus->ord_price; ?></b> افغانی (<?= round($ord_cus->ord_discount) ?>%)</td>
+                        <td colspan="2">
+                            <b><?php $ord_discount = 100 - $ord_cus->ord_discount; ?> <?= round($ord_cus->ord_price * 100 / $ord_discount) - $ord_cus->ord_price; ?></b>
+                            افغانی (<?= round($ord_cus->ord_discount) ?>%)
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="3" class="bg-success text-success"><b>رسیده</b></td>
@@ -109,7 +114,8 @@
                         <td colspan="5"><b>آدرس:</b> <?= $this->session->general_info->ci_address ?></td>
                     </tr>
                     <tr>
-                        <td colspan="5" class="text-center">  <?= $this->session->general_info->ci_phones ?> <i class="fa fa-phone-square fa-lg"></i> </td>
+                        <td colspan="5" class="text-center">  <?= $this->session->general_info->ci_phones ?>
+                            <i class="fa fa-phone-square fa-lg"></i></td>
                     </tr>
                     <tr>
                         <td colspan="5" class="text-center">
