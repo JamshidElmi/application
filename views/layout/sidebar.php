@@ -40,8 +40,8 @@
             </a>
 
             <ul class="treeview-menu">
-                <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> رستورانت</a></li>
-                <li><a href="index2.html"><i class="fa fa-circle-o "></i> آشپزخانه</a></li>
+                <li class="active"><a href="<?=site_url('dashboard/') ?>"><i class="fa fa-circle-o"></i> رستورانت</a></li>
+                <li><a href="<?=site_url('dashboard/') ?>"><i class="fa fa-circle-o "></i> آشپزخانه</a></li>
             </ul>
         </li>
 
@@ -135,11 +135,21 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="<?=site_url('finance/expences/1'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف برای گدام</a></li>
-                        <li><a href="<?=site_url('finance/buy_stock'); ?>"><i class="fa fa-circle-o"></i> خرید برای گدام</a></li>
-                        <li><a href="<?=site_url('order/expence_stock'); ?>"><i class="fa fa-circle-o"></i> مصرف از گدام</a></li>
-                        <li><a href="<?=site_url('order/stock_expence_resturant/resturant'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف گدام رستورانت</a></li>
-                        <li><a href="<?=site_url('order/stock_expence_resturant/fast_food'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف گدام فست فود</a></li>
+                        <li><a href="<?=site_url('finance/buy_stock'); ?>"><i class="fa fa-circle-o"></i> خریداری برای گدام</a></li>
+                        <li><a href="<?=site_url('finance/expences/1'); ?>"><i class="fa fa-circle-o"></i> لیست خریداری گدام</a></li>
+                        <li class="treeview">
+                            <a href=""><i class="fa fa-circle-o"></i> مصارف از گدام
+                                <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="<?=site_url('order/expence_stock'); ?>"><i class="fa fa-circle-o"></i>ثبت مصارف از گدام</a></li>
+                                <li><a href="<?=site_url('order/stock_expence_resturant/resturant'); ?>"><i class="fa fa-circle-o"></i>  مصارف رستورانت</a></li>
+                                <li><a href="<?=site_url('order/stock_expence_resturant/fast_food'); ?>"><i class="fa fa-circle-o"></i>  مصارف فست فود</a></li>
+                            </ul>
+                        </li>
+
                     </ul>
                 </li>
 

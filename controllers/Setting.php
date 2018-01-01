@@ -356,6 +356,14 @@ class Setting extends MY_Controller
 
     public function backup()
     {
+        $this->template->description = 'پشتیبان گیری از اطلاعات موجود در پایگاه اطلاعاتی سیستم';
+        // view
+        $this->template->content->view('settings/maintenance');
+        $this->template->publish();
+    }
+
+    public function create_backup()
+    {
         // Load the DB utility class
         $this->load->dbutil();
 
@@ -373,4 +381,3 @@ class Setting extends MY_Controller
 
 
 } // end Class
-

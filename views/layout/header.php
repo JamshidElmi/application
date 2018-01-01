@@ -227,7 +227,7 @@
 
 
 <!-- ============================================================================================================ -->
-<!-- ======================================= USER ACCOUNT =========================================== -->
+<!-- ============================================= USER ACCOUNT ================================================= -->
 <!-- ============================================================================================================ -->
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
@@ -245,31 +245,19 @@
                   <small>مدیریت آشپزخانه</small>
                 </p>
               </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-6 text-center">
-                    <a href="#">عواید</a>
-                  </div>
-                  <div class="col-xs-6 text-center">
-                    <a href="#">مصارف</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">پروفایل</a>
+                  <a href="<?=site_url('employee/view/'.$this->session->emp_info->emp_id) ?>" class="btn btn-default btn-flat">پروفایل</a>
                 </div>
                 <div class="pull-left">
-                  <a href="#" class="btn btn-danger btn-flat">خروج</a>
+                  <a href="<?=site_url('login/logout') ?>" class="btn btn-danger btn-flat">خروج</a>
                 </div>
               </li>
             </ul>
           </li>
 <!-- ============================================================================================================ -->
-<!-- ======================================= END USER ACCOUNT =========================================== -->
+<!-- =========================================== END USER ACCOUNT =============================================== -->
 <!-- ============================================================================================================ -->
 
           <!-- Control Sidebar Toggle Button -->

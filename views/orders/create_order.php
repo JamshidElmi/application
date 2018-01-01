@@ -100,6 +100,15 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>مصارف متفرقه </label>
+                        <div class="input-group date">
+                            <input type="number" id="total_ext_charges" class="form-control" readonly required value="0" />
+                            <input type="number" step="0.1" id="ord_ext_charges" name="ord_ext_charges" class="form-control" value="0" />
+                            <div class="input-group-addon">افغانی</div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -264,12 +273,22 @@
             $('#ord_discount').attr('ord-price', ord_price);
         });
 
+        $('#ord_ext_charges').keyup(function (event) {
+            var ord_ext_charges = $(this).val();
+            var ord_price = parseFloat($('#ord_price').val()) + parseFloat(ord_ext_charges);
+            $('#total_ext_charges').val(ord_price);
+            if(ord_ext_charges == 0 || ord_ext_charges == '')
+            {
+                $('#total_ext_charges').val($('#ord_price').val());
+            }
+        });
+
         $('.select-menu').click(function (event) {
             $('#submit').attr('disabled', false);
         });
 
         $('#tr_amount').keyup(function (event) {
-            var ord_price = $('#ord_price').val();
+            var ord_price = $('#total_ext_charges').val();
             var tr_amount = $(this).val();
             var remain = parseFloat(ord_price) - parseFloat(tr_amount);
             $('#remain').val(remain);

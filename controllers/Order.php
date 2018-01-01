@@ -55,7 +55,7 @@ class Order extends MY_Controller
 //        print_r($data); die();
         // Inserting data
         $this->order_model->orders();
-        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_created_date' => $data['ord_created_date'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);
+        $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_created_date' => $data['ord_created_date'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_ext_charges' => $data['ord_ext_charges'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);
         if (is_int($insert_ord_id)) {
 
             // inserting every sub_orders
@@ -370,9 +370,8 @@ class Order extends MY_Controller
     {
         $data = $this->input->post();
 //         print_r($data); die();
+
         // deleting all sub menus for this order
-
-
         if ($this->input->post('changed_menu')) {
             $this->order_model->sub_orders();
             $sm = $this->order_model->data_get_by(['sord_ord_id' => $data['ord_id']]);
@@ -400,7 +399,7 @@ class Order extends MY_Controller
         }
 
         $this->order_model->orders();
-        $inserted_order_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price']], $data['ord_id']);
+        $inserted_order_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_ext_charges' => $data['ord_ext_charges'], 'ord_discount' => $data['ord_discount']], $data['ord_id']);
 
         if (is_int($inserted_order_id)) {
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
@@ -629,8 +628,7 @@ class Order extends MY_Controller
     }
 
 
-    /* TODO: Print Kitchen Order Bill */
-    public function print_order_bill($ord_id)
+    public function print_order_bill($ord_id, $total_show = 1)
     {
         $this->template->description = 'فاکتور سفارش آشپزخانه';
         $this->load->helper('number_2_letter');
@@ -641,14 +639,14 @@ class Order extends MY_Controller
         $ord_transections = $this->order_model->data_get_by(['tr_type' => 'kitchen_order', 'tr_ord_id' => $ord_id]);
 
         // view
-        $this->template->content->view('orders/print_order_bill', ['ord_cus' => $ord_cus, 'sub_menus' => $sub_menus, 'ord_transections' => $ord_transections]);
+        $this->template->content->view('orders/print_order_bill', ['ord_cus' => $ord_cus, 'sub_menus' => $sub_menus, 'ord_transections' => $ord_transections, 'total_show' => $total_show]);
         $this->template->publish();
     } // end print_order_bill
 
-    public function print_kitchen_order($ord_id)
+    public function print_kitchen_order($ord_id, $total_show)
     {
         $this->template->set_template('print_template');
-        $this->print_order_bill($ord_id);
+        $this->print_order_bill($ord_id, $total_show);
     }
 
     public function print_resturant_bill($ord_id, $customer = NULL)

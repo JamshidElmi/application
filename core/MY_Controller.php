@@ -19,11 +19,8 @@ class MY_Controller extends CI_Controller
         /*load language file*/
         // $this->lang->load('dari_lang', 'dari');
 
-
-
-
-
-
+        // Check User Is LogIn
+        $this->check_session();
 
     }
 
@@ -31,9 +28,12 @@ class MY_Controller extends CI_Controller
      * Add product to cart
      * @param int $id Product id
      */
-    public function my_first_fun($id)
+    public function check_session()
     {
-        echo $id;
+        if(!isset($this->session->emp_info))
+        {
+            redirect('login/');
+        }
     }
 
 

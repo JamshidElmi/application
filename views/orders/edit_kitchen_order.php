@@ -56,7 +56,7 @@
                                 <label>تعداد</label>
                                 <div class="input-group date">
                                     <input type="number" name="sord_count" value="<?= $sub_order->sord_count ?>" id="ord_count" class="form-control" />
-                                    <div class="input-group-addon">نفر </div>
+                                    <div class="input-group-addon">نفر</div>
                                 </div>
                             </div>
                         </div>
@@ -75,13 +75,8 @@
                             <div class="form-group">
                                 <label>تخفیف </label>
                                 <select name="ord_discount" id="ord_discount" class="form-control" ord-price="<?= $order->ord_price ?>">
+                                    <option value="0">انتخاب کنید</option>
                                     <?php foreach ($discounts as $discount) : ?>
-                                        <?php if ($order->ord_discount == $discount->disc_persent) : ?>
-                                            <option value="<?= $discount->disc_persent ?>"><?= $discount->disc_name ?>
-                                                (<?= round($discount->disc_persent) ?>%)
-                                            </option>
-                                            <option value="">انتخاب تخفیف</option>
-                                        <?php endif ?>
                                         <option value="<?= $discount->disc_persent ?>"><?= $discount->disc_name ?>
                                             (<?= round($discount->disc_persent) ?>%)
                                         </option>
@@ -91,6 +86,14 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>مصارف متفرقه </label>
+                        <div class="input-group date">
+                            <input type="number" id="total_ext_charges" class="form-control" value="<?= $order->ord_ext_charges + $order->ord_price ?>" readonly required value="0" />
+                            <input type="number" step="0.1" id="ord_ext_charges" value="<?= $order->ord_ext_charges ?>" name="ord_ext_charges" class="form-control" value="0" />
+                            <div class="input-group-addon">افغانی</div>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="ord_desc">توضیحات</label>
@@ -119,31 +122,31 @@
             <div class="box-header with-border">
                 <h3 class="box-title">لیست منو های آشپزخانه </h3>
                 <div class="box-tools pull-right">
-                    <a href="<?=site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool"  data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
+                    <a href="<?= site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
                 </div>
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
+                <div class="msg" hidden><?= alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
 
 
                 <ul class="users-list clearfix">
 
                     <?php foreach ($bm as $base_menu): ?>
-                        <li id="bm_<?=$base_menu->bm_id ?>" >
-                            <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
-                            <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
+                        <li id="bm_<?= $base_menu->bm_id ?>">
+                            <img width="100" class="img-thumbnail" src="<?= site_url('assets/img/menus/' . $base_menu->bm_picture); ?>">
+                            <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?= $base_menu->bm_desc ?>"><?= $base_menu->bm_name ?></a>
                             <!-- <a class="btn bg-gray btn-xs select-menu-disabled" disabled><span  data-toggle="tooltip" title="" data-original-title="Use"><i class="fa ion-ios-redo fa-lg fa-lg"></i></span></a> -->
-                            <a class="btn bg-orange btn-xs"  data-toggle="modal" data-target="#modal-<?=$base_menu->bm_id ?>" ><span data-toggle="tooltip" data-original-title="Show Sub Menus" id="<?=$base_menu->bm_id ?>"  title="" data-original-title="choose">&nbsp;&nbsp;&nbsp;<i class="fa ion-clipboard fa-lg"></i>&nbsp;&nbsp;&nbsp;</span></a>
+                            <a class="btn bg-orange btn-xs" data-toggle="modal" data-target="#modal-<?= $base_menu->bm_id ?>"><span data-toggle="tooltip" data-original-title="Show Sub Menus" id="<?= $base_menu->bm_id ?>" title="" data-original-title="choose">&nbsp;&nbsp;&nbsp;<i class="fa ion-clipboard fa-lg"></i>&nbsp;&nbsp;&nbsp;</span></a>
                         </li>
-                        <div class="modal fade modal-warning" id="modal-<?=$base_menu->bm_id ?>">
+                        <div class="modal fade modal-warning" id="modal-<?= $base_menu->bm_id ?>">
                             <div class="modal-dialog ">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title"><?=$base_menu->bm_name ?></h4>
+                                        <h4 class="modal-title"><?= $base_menu->bm_name ?></h4>
                                     </div>
                                     <div class="modal-body">
 
@@ -151,25 +154,27 @@
                                             <tbody>
                                             <tr class="bg-primary">
                                                 <th>#</th>
-                                                <th>زیر منو </th>
+                                                <th>زیر منو</th>
                                                 <th> قیمت</th>
                                                 <th>توضیحات</th>
                                                 <th>عملیات</th>
                                             </tr>
-                                            <?php $i = 1; $sm_total_price =0; foreach ($base_sub_menu as $sub_menu): ?>
-                                                <?php  if ($sub_menu->sbm_bm_id == $base_menu->bm_id): ?>
-                                                    <tr class="tr_sm_id<?=$base_menu->bm_id ?>" id="sm_<?=$sub_menu->sbm_id ?>_<?=$base_menu->bm_id ?>" sm-id="<?=$sub_menu->sm_id ?>">
+                                            <?php $i = 1;
+                                            $sm_total_price = 0;
+                                            foreach ($base_sub_menu as $sub_menu): ?>
+                                                <?php if ($sub_menu->sbm_bm_id == $base_menu->bm_id): ?>
+                                                    <tr class="tr_sm_id<?= $base_menu->bm_id ?>" id="sm_<?= $sub_menu->sbm_id ?>_<?= $base_menu->bm_id ?>" sm-id="<?= $sub_menu->sm_id ?>">
 
-                                                        <td><?=$i++ ?></td>
-                                                        <td><strong><?=$sub_menu->sm_name ?></strong></td>
-                                                        <td><strong><?=$sub_menu->sm_price ?> افغانی </strong></td>
-                                                        <td><?=$sub_menu->sm_desc ?></td>
+                                                        <td><?= $i++ ?></td>
+                                                        <td><strong><?= $sub_menu->sm_name ?></strong></td>
+                                                        <td><strong><?= $sub_menu->sm_price ?> افغانی </strong></td>
+                                                        <td><?= $sub_menu->sm_desc ?></td>
                                                         <td class="text-center">
                                                             <a href="#" data-toggle="tooltip" data-original-title="Remove" onclick="
-                                                                    $('#total_<?=$base_menu->bm_id ?>').val($('#total_<?=$base_menu->bm_id ?>').val() - $(this).attr('price-sm'));
-                                                                    $('#sm_<?=$sub_menu->sbm_id ?>_<?=$base_menu->bm_id ?>').remove();
+                                                                    $('#total_<?= $base_menu->bm_id ?>').val($('#total_<?= $base_menu->bm_id ?>').val() - $(this).attr('price-sm'));
+                                                                    $('#sm_<?= $sub_menu->sbm_id ?>_<?= $base_menu->bm_id ?>').remove();
                                                                     "
-                                                                id="sm_id_<?=$sub_menu->sm_id ?> " price-sm="<?=$sub_menu->sm_price ?>"><span class="ion-android-delete fa-lg text-red remove-sm"></span></a>
+                                                               id="sm_id_<?= $sub_menu->sm_id ?> " price-sm="<?= $sub_menu->sm_price ?>"><span class="ion-android-delete fa-lg text-red remove-sm"></span></a>
                                                         </td>
                                                     </tr>
 
@@ -183,9 +188,13 @@
 
                                     </div>
                                     <div class="modal-footer">
-                                        <div class="col-xs-6 pull-left">مجموعه:<input type="text" id="total_<?=$base_menu->bm_id ?>" value="<?=$sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly></div>
-                                        <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?=$base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=hidden name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?=$base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?=$base_menu->bm_id ?>').val()); $('#sm_order').append('<input type=hidden name=changed_menu value=changed_menu />'); " bm-price="<?=$sm_total_price ?>">  انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i> </button>
-                                        <button type="button" class="btn btn-danger " data-dismiss="modal">بستن <i class="fa fa-close"></i> </button>
+                                        <div class="col-xs-6 pull-left">
+                                            مجموعه:<input type="text" id="total_<?= $base_menu->bm_id ?>" value="<?= $sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly>
+                                        </div>
+                                        <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?= $base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=hidden name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?= $base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?= $base_menu->bm_id ?>').val()); $('#sm_order').append('<input type=hidden name=changed_menu value=changed_menu />'); " bm-price="<?= $sm_total_price ?>">
+                                            انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i></button>
+                                        <button type="button" class="btn btn-danger " data-dismiss="modal">بستن
+                                            <i class="fa fa-close"></i></button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
@@ -197,13 +206,12 @@
                 </ul>
 
 
-
             </div>
             <!-- /.box-body -->
             <div class="overlay" id="overlay" style="display: none;">
                 <i class="fa ion-load-d fa-spin"></i>
             </div>
-            <div class="overlay" id="overlay_alt" style="display: none;" >
+            <div class="overlay" id="overlay_alt" style="display: none;">
                 <i class="fa fa-check-square-o text-green" style="font-size: 80px;opacity: .4;"></i>
 
 
@@ -240,6 +248,19 @@
             var ord_price = parseFloat(ord_count) * parseFloat(bm_price);
             $('#ord_price').val(ord_price);
             $('#ord_discount').attr('ord-price', ord_price);
+
+            var ord_ext_charges = $('#ord_ext_charges').val();
+            var ord_price = parseFloat($('#ord_price').val()) + parseFloat(ord_ext_charges);
+            $('#total_ext_charges').val(ord_price);
+        });
+
+        $('#ord_ext_charges').keyup(function (event) {
+            var ord_ext_charges = $(this).val();
+            var ord_price = parseFloat($('#ord_price').val()) + parseFloat(ord_ext_charges);
+            $('#total_ext_charges').val(ord_price);
+            if (ord_ext_charges == 0 || ord_ext_charges == '') {
+                $('#total_ext_charges').val($('#ord_price').val());
+            }
         });
 
         $('.select-menu').click(function (event) {

@@ -107,11 +107,11 @@ class User extends MY_Controller {
                     redirect('user/');
                 }
             }
-
-
         }
-    }
+    } // end edit
+    
+    
 
 
 
-}
+} // end class

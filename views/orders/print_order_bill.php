@@ -8,14 +8,17 @@
 ?>
 <style>
     .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-        padding: 4px;
+        padding: 3px;
     }
 </style>
 <div class="box box-warning ">
     <div class="box-header with-border no-print">
         <h3 class="box-title"> فاکتور آشپزخانه</h3>
         <div class="box-tools pull-right no-print">
-            <a href="<?=site_url('order/print_kitchen_order/'.$ord_cus->ord_id) ?>" target="_blank" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Print">
+            <a href="<?=site_url('order/print_kitchen_order/'.$ord_cus->ord_id.'/0') ?>" target="_blank" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Print Customer">
+                <i class="fa fa-print fa-lg"></i>
+            </a>
+            <a href="<?=site_url('order/print_kitchen_order/'.$ord_cus->ord_id.'/1') ?>" target="_blank" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Print">
                 <i class="fa fa-print fa-lg"></i>
             </a>
         </div>
@@ -66,7 +69,7 @@
                 <th>مجموع</th>
             </tr>
             <?php $i = 1;
-            $rows = 15;
+            $rows = 20;
             foreach ($sub_menus as $sm) : ?>
                 <tr>
                     <td class="bg-gray text-center"><strong><?= $i++;
@@ -74,8 +77,8 @@
                     <td><?= $sm->sm_name ?></td>
                     <td><?= ($sm->sm_count * $sm->sord_count) ?></td>
                     <td><?= $sm->unit_name ?></td>
-                    <td><?= round($sm->sm_price,1) ?> افغانی</td>
-                    <td><?= $sm->sm_price * $sm->sord_count ?> افغانی</td>
+                    <td><?=($total_show == 1) ? round($sm->sm_price,1). ' افغانی ' : '' ?> </td>
+                    <td><?=($total_show == 1) ? $sm->sm_price * $sm->sord_count. ' افغانی ' : '' ?> </td>
                 </tr>
             <?php endforeach ?>
             <?php for ($l = 0; $l < $rows; $l++): ?>
@@ -88,12 +91,13 @@
                     <td>&nbsp;</td>
                 </tr>
             <?php endfor; ?>
-            <?php $total_unpayed = $sm->ord_price - $total_payed ?>
+            <?php $total_amount = $sm->ord_price + $sm->ord_ext_charges ?>
+            <?php $total_unpayed = $total_amount - $total_payed ?>
             <tr>
                 <td colspan="2" rowspan="2"><b>قیمت مجموع به حروف</b></td>
                 <td colspan="2" rowspan="2"><strong><?= number2letters($sm->ord_price); ?>  </strong> افغانی</td>
                 <td><b>قیمت مجموعی</b></td>
-                <td><b><?= round($sm->ord_price,1) ?></b> افغانی</td>
+                <td><b><?= round($total_amount,1) ?></b> افغانی</td>
             </tr>
             <tr>
                 <td><b>تخفیف</b></td>
