@@ -1,7 +1,13 @@
 <?php
 /**
-* MY Base Controller Class
+ * MY Base Controller Class
+ * The base Controller for all controllers
+ * Created by PhpStorm.
+ * User: Jamshid Elmi
+ * Date: 1/21/2017
+ * Time: 8:11 PM
 */
+
 /**
  * Class Cart
  * @property MY_Controller $cart Cart module

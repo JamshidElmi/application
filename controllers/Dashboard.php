@@ -20,4 +20,4 @@ class Dashboard extends MY_Controller {
     }
 
 
-}
+} // end class
