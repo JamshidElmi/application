@@ -102,22 +102,16 @@
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
-
-
-                    <ul class="users-list clearfix">
-
-                        <?php foreach ($base_menus as $base_menu): ?>
-                            <li id="bm_<?=$base_menu->bm_id ?>" >
-                                <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
-                                <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
-                                <a class="btn btn-default btn-xs" href="<?=site_url('menu/resturant_menus/'.$base_menu->bm_id); ?>"><span id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>
-                                <span class="base_manu_delete" id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
-                            </li>
-                        <?php endforeach ?>
-                    </ul>
-
-
-
+                <ul class="users-list clearfix">
+                    <?php foreach ($base_menus as $base_menu): ?>
+                        <li id="bm_<?=$base_menu->bm_id ?>" >
+                            <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
+                            <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
+                            <a class="btn btn-default btn-xs" href="<?=site_url('menu/resturant_menus/'.$base_menu->bm_id); ?>"><span id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>
+                            <span class="base_manu_delete read-only" id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
             </div>
             <!-- /.box-body -->
             <div class="overlay" id="overlay" style="display: none;">

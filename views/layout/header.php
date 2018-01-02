@@ -1,3 +1,29 @@
+<style>
+    .read-only{
+    <?php
+        if ($this->session->user_info->user_type == 2 || $this->session->user_info->user_type == 3)
+        {
+            echo 'pointer-events: none;cursor: not-allowed;opacity: 0.6;';
+        }
+     ?>
+    }
+    .only-admin{
+    <?php
+        if ($this->session->user_info->user_type != 1 )
+        {
+            echo 'display: none !important';
+        }
+     ?>
+    }
+    .no-garson{
+    <?php
+        if ($this->session->user_info->user_type == 3 )
+        {
+            echo 'display: none !important';
+        }
+     ?>
+    }
+</style>
 <header class="main-header">
     <!-- Logo -->
     <a href="index2.html" class="logo">

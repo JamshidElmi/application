@@ -8,7 +8,7 @@
 }
 </style>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">ایجاد صندوق جدید</h3>
@@ -27,21 +27,25 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="acc_amount">مقدار اولیه</label>
-                        <input type="number" class="form-control" name="acc_amount" id="acc_amount" placeholder="مقدار اولیه به عدد " required/>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="emp_phone">نوعیت حساب</label> &nbsp;&nbsp;&nbsp;
+                        <label for="emp_phone">نوعیت عملیات</label> &nbsp;&nbsp;&nbsp;
                         <div id="radios" class="btn-group" data-toggle="buttons">
-                            <label class="btn btn-warning active">
-                                <input type="radio" name="acc_type" id="acc_type1" value="1" checked /> همکار
+                            <label class="btn btn-warning btn-sm read-only">
+                                <input type="radio" name="acc_type" id="acc_type1" value="1"  /> همکار
                             </label>
-                            <label class="btn btn-warning ">
-                                <input type="radio" name="acc_type" id="acc_type2" value="2" /> مشتری
+                            <label class="btn btn-warning btn-sm active">
+                                <input type="radio" name="acc_type" id="acc_type2" value="2" checked /> مشتری
                             </label>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="acc_amount">مقدار اولیه</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="acc_amount" id="acc_amount" placeholder="مقدار اولیه به عدد " required />
+                            <div class="input-group-addon">افغانی</div>
+                        </div>
+                    </div>
+
 
                     <div class="form-group">
                         <label>تاریخ ایجاد</label>
@@ -69,7 +73,7 @@
         </div>
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="box  box-primary box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست صندوق های موجود در سیستم</h3>
@@ -87,19 +91,19 @@
                     <div class="col-sm-6" id="acc_<?=$account->acc_id ?>">
                         <div class="small-box <?php if($account->acc_type == 0) echo 'bg-orange'; else if($account->acc_type == 1) echo 'bg-green'; else echo 'bg-blue'; ?>">
                             <div class="icon">
-                                <i class="ion ion-lock-combination"></i>
+                                <i class="ion ion-lock-combination "></i>
                             </div>
                             <div class="inner">
-                                <h3><?=$account->acc_amount ?><sup style="font-size: 20px;opacity: 0.5" >AF</sup></h3>
+                                <h3><?=round($account->acc_amount) ?><sup style="font-size: 20px;opacity: 0.5;direction: rtl; text-align: right" > افغانی </sup></h3>
 
                                 <p><?=$account->acc_name ?></p>
                             </div>
                             <a href="<?=site_url('finance/credit_debit/'.$account->acc_id); ?>" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List">
-                                لیست جمع و برداشت <i class="fa fa-line-chart fa-lg" ></i>
+                لیست جمع و برداشت <i class="fa fa-line-chart fa-lg" ></i>
                             </a>
                             <?php if ($account->acc_type != 0): ?>
-                                <a href="#" class="small-box-footer acc_id_to_delete" id="<?php echo $account->acc_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove Account">
-                                    حذف حساب <i class="ion ion-trash-b fa-lg" ></i>
+                                <a href="#" class="small-box-footer acc_id_to_delete only-admin" id="<?php echo $account->acc_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove Account">
+                            حذف حساب <i class="ion ion-trash-b fa-lg" ></i>
                                 </a>
                             <?php endif ?>
 

@@ -50,8 +50,8 @@
             <div class="box-body">
                 <div class="msg_coo" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($discounts as $discount): ?>
-                <a class="btn btn-app" id="disc_<?=$discount->disc_id ?>"  data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Persentage: %<?=$discount->disc_persent; ?>">
-                    <span class="badge bg-gray ">  <i class="fa fa-edit fa-lg text-black disc_edit" id="<?=$discount->disc_id ?>" disc-name="<?=$discount->disc_name ?>"  disc-persent="<?=$discount->disc_persent ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red disc_delete" id="<?=$discount->disc_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
+                <a class="btn btn-app" id="disc_<?=$discount->disc_id ?>"  data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Persentage: %<?=round($discount->disc_persent,1); ?>">
+                    <span class="badge bg-gray ">  <i class="fa fa-edit fa-lg text-black disc_edit" id="<?=$discount->disc_id ?>" disc-name="<?=$discount->disc_name ?>"  disc-persent="<?=$discount->disc_persent ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red disc_delete read-only"  id="<?=$discount->disc_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
                     <i class="fa fa-gift"></i><?php echo $discount->disc_name ?>
                 </a>
             <?php endforeach ?>

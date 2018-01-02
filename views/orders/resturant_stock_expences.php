@@ -41,7 +41,7 @@
                         <td class="text-center"><b><?=$stock->stock_total_price ?></b> افغانی </td>
                         <td class="text-center">
                             <a href="#"><span class="label label-default select_order" data-toggle="modal" data-target="#modal-<?=$stock->stock_id ?>" ><span id="<?=$stock->stock_id ?>"  data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
-                            <a href="#"><span class="label label-danger stock_id_to_delete" id="<?=$stock->stock_id ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                            <a href="#"><span class="label label-danger stock_id_to_delete only-admin" id="<?=$stock->stock_id ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
                     </tr>
                 <?php $sum_total += $stock->stock_total_price;  ?>

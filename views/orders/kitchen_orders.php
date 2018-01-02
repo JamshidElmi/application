@@ -38,13 +38,12 @@
                     <td>
                         <a href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                         <a href="<?=site_url('order/stock_expences/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Stock Expences for this Order"><i class="fa fa-shopping-cart fa-lg"></i></span></a>
-                        <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
                         <a href="<?=site_url('order/print_order_bill/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Print Bill"><i class="fa fa-print fa-lg"></i></span></a>
                         <a href="#" class="sm_menu_list" data-toggle="modal" data-target="#modal-warning" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Sub Menu list"><i class="fa ion-clipboard fa-lg"></i></span></a>
-                        <a href="#" class="ord_id_to_delete" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                        <a href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
+                        <a href="#" class="ord_id_to_delete only-admin" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                     </td>
                     </tr>
-
                 <?php endforeach ?>
             </tbody>
 

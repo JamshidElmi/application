@@ -116,7 +116,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
+                    <button type="submit" class="btn btn-success  read-only">ذخیره <i class="fa fa-save"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>

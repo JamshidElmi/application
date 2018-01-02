@@ -2,7 +2,7 @@
             <div class="box-header">
                 <h3 class="box-title">لیست کارمندان </h3>
                 <div class="pull-left box-tools">
-                    <a href="<?=site_url('employee/create'); ?>" class="btn btn-info btn-sm"  data-toggle="tooltip" title="" data-original-title="New Employee">
+                    <a href="<?=site_url('employee/create'); ?>" class="btn btn-info btn-sm"  data-toggle="tooltip"  data-original-title="New Employee">
                     <i class="fa fa-plus"></i></a>
                 </div>
             </div>
@@ -40,9 +40,9 @@
                             <td><?=$employee->emp_phone ?></td>
                             <td><?php echo ($employee->emp_type == 0) ? '<span class="label label-warning">آشپزخانه</span>' : '<span class="label label-info">رستورات</span>' ?></td>
                             <td>
-                                <a href="<?=site_url('employee/view/'.$employee->emp_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="View Profile"><i class="fa fa-folder-open"></i></span></a>
-                                <a href="<?=site_url('employee/edit/'.$employee->emp_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit"></i></span></a>
-                                <a href="#" class="emp_id_to_delete" id="<?php echo $employee->emp_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa fa-trash"></i></span></a>
+                                <a href="<?=site_url('employee/view/'.$employee->emp_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="View Profile"><i class="fa fa-folder-open"></i></span></a>
+                                <a href="<?=site_url('employee/edit/'.$employee->emp_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit"></i></span></a>
+                                <a href="#" class="emp_id_to_delete only-admin" id="<?php echo $employee->emp_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa fa-trash"></i></span></a>
                             </td>
                         </tr>
                     <?php endforeach ?>

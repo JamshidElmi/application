@@ -138,11 +138,11 @@ $final_total = $order->ord_price - $total;
                             <td>
                                 <span data-toggle="tooltip" data-original-title="<?= $transection->tr_desc ?>"><?= substr_fa($transection->tr_desc, 20) ?></span>
                             </td>
-                            <td><?= $transection->tr_amount ?> افغانی</td>
-                            <td><?= show_date("l j F Y", $transection->tr_date); ?></td>
+                            <td><strong><?= $transection->tr_amount ?></strong>  افغانی</td>
+                            <td class="text-center"><?= show_date("j F Y", $transection->tr_date); ?></td>
                             <td class="text-center"><span class="badge bg-gray"> سفارش</span></td>
                             <td class="text-center">
-                                <a href="#" class="trans_id_to_delete" id="<?php echo $transection->tr_id; ?>" cus-id="<?php echo $transection->tr_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                                <a href="#" class="trans_id_to_delete read-only" id="<?php echo $transection->tr_id; ?>" cus-id="<?php echo $transection->tr_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                             </td>
                         </tr>
                     <?php endforeach ?>

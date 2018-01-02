@@ -38,7 +38,7 @@
                     <td>
                         <a href="<?=site_url('customer/view/'.$customer->cus_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="View Profile"><i class="fa fa-folder-open fa-lg"></i></span></a>
                         <a href="<?=site_url('customer/edit/'.$customer->cus_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
-                        <a href="#" class="cus_id_to_delete" id="<?php echo $customer->cus_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                        <a href="#" class="cus_id_to_delete only-admin" id="<?php echo $customer->cus_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                     </td>
                 </tr>
                 <?php endforeach ?>

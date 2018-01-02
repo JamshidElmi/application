@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 01, 2018 at 07:54 PM
+-- Generation Time: Jan 02, 2018 at 08:10 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `accounts` (
 --
 
 INSERT INTO `accounts` (`acc_id`, `acc_name`, `acc_amount`, `acc_description`, `acc_date`, `acc_type`) VALUES
-(20, 'حساب رستورانت', '-24575.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
+(20, 'حساب رستورانت', '10100.00', 'حساب اصلی شرکت \r\n', '1396-11-22', 0),
 (21, 'همکار شماره یک', '-400.00', 'افتتاح حساب', '1396-08-20', 1),
 (22, 'همکار شماره دو', '50000.00', 'افتتاح حساب همکار', '1396-08-20', 1),
 (23, 'مشتری شماره یک', '249560.00', 'افتتاح حساب', '1396-08-21', 2),
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `customers` (
   `cus_ref_address` text,
   `cus_type` tinyint(1) NOT NULL COMMENT 'عدد صفر آشپزخانه عدد یک رستورانت ',
   `cus_acc_id` int(11) NOT NULL COMMENT 'ای دی صندوق مشتری'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customers`
@@ -285,13 +285,13 @@ CREATE TABLE IF NOT EXISTS `expences` (
 INSERT INTO `expences` (`dex_id`, `dex_name`, `dex_st_unit`, `dex_price`, `dex_count`, `dex_unit`, `dex_total_amount`, `dex_bill_id`, `dex_tr_id`) VALUES
 (37, 'پیاز 1', NULL, '120.00', 5, 16, '600.00', 16, 49),
 (38, 'کچالو', NULL, '350.00', 2, 19, '700.00', 16, 49),
-(39, 'گوشت سینه مرغ', NULL, '125.00', 5, 15, '625.00', 16, 49),
+(39, 'گوشت سینه مرغ', NULL, '125.00', 5, 13, '625.00', 16, 49),
 (42, 'آرد درجه دوم', 6, '80.00', 5, 24, '400.00', 17, 50),
 (43, 'آرد درجه یک', 5, '1200.00', 3, 19, '3600.00', 17, 50),
 (44, 'روغن نباتی', 7, '800.00', 4, 23, '3200.00', 17, 50),
 (45, 'آرد درجه یک', 5, '1500.00', 5, 19, '7500.00', 18, 86),
 (46, 'آرد درجه یک', 5, '1300.00', 2, 19, '2600.00', 18, 86),
-(47, 'آرد درجه یک', 5, '900.00', 1, 19, '900.00', 18, 86);
+(47, 'نوشابه سوپرکولا', 3, '900.00', 1, 12, '900.00', 18, 86);
 
 -- --------------------------------------------------------
 
@@ -315,8 +315,6 @@ INSERT INTO `jobs` (`job_id`, `job_name`) VALUES
 (5, 'سر آشپز'),
 (6, 'صفاکار'),
 (7, 'درایور'),
-(8, 'اجیر'),
-(10, 'سرباز'),
 (11, 'گارسون');
 
 -- --------------------------------------------------------
@@ -328,7 +326,7 @@ INSERT INTO `jobs` (`job_id`, `job_name`) VALUES
 CREATE TABLE IF NOT EXISTS `menu_category` (
 `mc_id` int(11) NOT NULL,
   `mc_name` varchar(256) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='نوع منو یا اسم نوعیت منو که زیر شاخه این جدول لیست منو میباش';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='نوع منو یا اسم نوعیت منو که زیر شاخه این جدول لیست منو میباش';
 
 --
 -- Dumping data for table `menu_category`
@@ -337,7 +335,8 @@ CREATE TABLE IF NOT EXISTS `menu_category` (
 INSERT INTO `menu_category` (`mc_id`, `mc_name`) VALUES
 (1, 'کباب'),
 (3, 'کباب با برنج '),
-(4, 'نوشیدنی ها');
+(4, 'نوشیدنی ها'),
+(5, 'سالاد');
 
 -- --------------------------------------------------------
 
@@ -367,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `ord_type` varchar(16) NOT NULL COMMENT 'نوعیت سفارش آشپزخانه / رستورانت',
   `ord_desk_id` int(11) DEFAULT NULL COMMENT 'ای دی میز',
   `ord_cus_id` int(11) DEFAULT NULL COMMENT 'ای دی مشتری'
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 COMMENT='جدول سفارشات';
 
 --
 -- Dumping data for table `orders`
@@ -379,7 +378,8 @@ INSERT INTO `orders` (`ord_id`, `ord_desc`, `ord_created_date`, `ord_date`, `ord
 (41, 'توضیحات خاص', '1396-09-30', '1396-09-30', '23:49:00', '22841', '0.00', '30.00', 'kitchen', NULL, 3),
 (42, 'توضیحات آخر', '0000-00-00', '1396-09-30', '23:58:00', '858', '0.00', '30.00', 'resturant', 4, 1),
 (43, 'در اسرع وقت رسیدگی شود سپاس', '1396-10-03', '1396-10-03', '19:01:00', '2505', '250.00', '0.00', 'kitchen', NULL, 6),
-(44, '250 قیمت هر نفر 350.70000000005 قیمت مجموعی با 30% تخفیف 200 مصارف متفرقه 500 رسید 50.700000000005 باقیمانده ', '1396-10-08', '1396-10-08', '14:22:00', '251', '300.00', '50.00', 'kitchen', NULL, 3);
+(44, '250 قیمت هر نفر 350.70000000005 قیمت مجموعی با 30% تخفیف 200 مصارف متفرقه 500 رسید 50.700000000005 باقیمانده ', '1396-10-08', '1396-10-08', '14:22:00', '251', '300.00', '50.00', 'kitchen', NULL, 3),
+(45, 'پرداخت اولیه ', '0000-00-00', '1396-10-12', '23:14:00', '410', '0.00', '50.00', 'resturant', 4, 20);
 
 -- --------------------------------------------------------
 
@@ -399,10 +399,9 @@ CREATE TABLE IF NOT EXISTS `partners` (
 --
 
 INSERT INTO `partners` (`part_id`, `part_amount`, `part_persent`, `part_emp_id`) VALUES
-(7, '1050.00', '31.63', 1),
-(12, '120.00', '3.61', 7),
-(13, '150.00', '4.52', 3),
-(14, '2000.00', '60.24', 6);
+(7, '1050.00', '12.80', 1),
+(13, '5150.00', '62.80', 3),
+(14, '2000.00', '24.39', 6);
 
 -- --------------------------------------------------------
 
@@ -579,7 +578,7 @@ CREATE TABLE IF NOT EXISTS `sub_orders` (
   `sord_count` int(11) DEFAULT NULL,
   `sord_price` int(11) DEFAULT NULL,
   `sord_ord_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 COMMENT='جدول ایتم های انتخابی از منو برای جدول سفارشات';
 
 --
 -- Dumping data for table `sub_orders`
@@ -604,7 +603,10 @@ INSERT INTO `sub_orders` (`sord_id`, `sord_bm_id`, `sord_sm_id`, `sord_count`, `
 (76, 1, 1, 2, 251, 44),
 (77, 1, 2, 2, 251, 44),
 (78, 1, 7, 2, 251, 44),
-(79, 1, 9, 2, 251, 44);
+(79, 1, 9, 2, 251, 44),
+(80, 15, NULL, 2, 500, 45),
+(81, 15, NULL, 2, 500, 45),
+(82, 12, NULL, 2, 100, 45);
 
 -- --------------------------------------------------------
 
@@ -624,7 +626,7 @@ CREATE TABLE IF NOT EXISTS `transections` (
   `tr_sal_id` int(11) DEFAULT NULL COMMENT 'ای دی معاش کارمند',
   `tr_ord_id` int(11) DEFAULT NULL COMMENT 'ای دی سفارش',
   `tr_part_id` int(11) DEFAULT NULL COMMENT 'ای دی سهامداران'
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `transections`
@@ -661,10 +663,8 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 (106, '', '50.00', 'partner_credit_debit', '1396-09-19', 1, 20, NULL, NULL, NULL, 7),
 (107, '', '100.00', 'partner_credit_debit', '1396-09-19', 1, 20, NULL, NULL, NULL, 7),
 (109, '', '200.00', 'partner_credit_debit', '1396-09-19', 2, 20, NULL, NULL, NULL, 7),
-(115, '', '100.00', 'partner_credit_debit', '1396-09-19', 1, 20, NULL, NULL, NULL, 12),
 (117, 'fdg', '100.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 7),
 (118, 'df', '500.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 7),
-(121, 'sdf', '20.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 12),
 (124, '', '2000.00', 'partner_credit_debit', '1396-09-20', 1, 20, NULL, NULL, NULL, 14),
 (127, 'توضیحات...', '1000.00', 'kitchen_order', '1396-09-29', 1, 26, NULL, NULL, 39, NULL),
 (128, '800 قیمت اصلی 30% تخفیف 440 افغانی 500 رسید 60 افغانی باقی یک قلم زیرمنو', '500.00', 'kitchen_order', '1396-09-30', 1, 23, NULL, NULL, 40, NULL),
@@ -674,7 +674,11 @@ INSERT INTO `transections` (`tr_id`, `tr_desc`, `tr_amount`, `tr_type`, `tr_date
 (132, 'افتتاح حساب', '30000.00', 'credit_debit', '1396-10-03', 1, 30, NULL, NULL, NULL, NULL),
 (133, 'در اسرع وقت رسیدگی شود سپاس', '0.00', 'kitchen_order', '1396-10-03', 1, 30, NULL, NULL, 43, NULL),
 (134, '250 قیمت هر نفر 350.70000000005 قیمت مجموعی با 30% تخفیف 200 مصارف متفرقه 500 رسید 50.700000000005 باقیمانده ', '500.00', 'kitchen_order', '1396-10-08', 1, 25, NULL, NULL, 44, NULL),
-(135, '26 رسید برای دوم', '26.00', 'kitchen_order', '1396-10-08', 2, 25, NULL, NULL, 44, NULL);
+(135, '26 رسید برای دوم', '26.00', 'kitchen_order', '1396-10-08', 2, 25, NULL, NULL, 44, NULL),
+(136, 'صفر ساختن صندوق', '24575.00', 'credit_debit', '1396-10-12', 1, 20, NULL, NULL, NULL, NULL),
+(137, 'جمع شد', '10000.00', 'credit_debit', '1396-10-12', 1, 20, NULL, NULL, NULL, NULL),
+(138, 'پرداخت اولیه ', '100.00', 'resturant', '1396-10-12', 2, 20, NULL, NULL, 45, NULL),
+(139, '', '5000.00', 'partner_credit_debit', '1396-10-12', 1, 20, NULL, NULL, NULL, 13);
 
 -- --------------------------------------------------------
 
@@ -893,7 +897,7 @@ MODIFY `ci_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `cus_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `desks`
 --
@@ -918,12 +922,12 @@ MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 -- AUTO_INCREMENT for table `menu_category`
 --
 ALTER TABLE `menu_category`
-MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `mc_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=45;
+MODIFY `ord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT for table `partners`
 --
@@ -958,12 +962,12 @@ MODIFY `sm_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
 -- AUTO_INCREMENT for table `sub_orders`
 --
 ALTER TABLE `sub_orders`
-MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=80;
+MODIFY `sord_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=83;
 --
 -- AUTO_INCREMENT for table `transections`
 --
 ALTER TABLE `transections`
-MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=136;
+MODIFY `tr_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=140;
 --
 -- AUTO_INCREMENT for table `units`
 --

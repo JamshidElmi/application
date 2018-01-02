@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-6">
-        <div class="box box-primary">
+        <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">ایجاد کاربر جدید</h3>
             </div>
@@ -78,7 +78,7 @@
                 <div class="box-body no-padding">
                     <table class="table table-hover table-warning">
                         <thead>
-                            <tr>
+                            <tr class="bg-primary">
                                 <th>#</th>
                                 <th>نام و تخلص</th>
                                 <th>ایمیل آدرس</th>
@@ -90,10 +90,10 @@
                             <?php $i = 1; foreach ($employees as $employee): ?>
                                 <tr>
                                     <td><?=$i++ ?></td>
-                                    <td><?=$employee->emp_name. ' ' . $employee->emp_lname?></td>
+                                    <td><strong><?=$employee->emp_name. ' ' . $employee->emp_lname?></strong></td>
                                     <td><?=$employee->emp_email?></td>
-                                    <td><span class="badge bg-red"><?=$employee->emp_position?></span></td>
-                                    <td class="text-center"><a class="label bg-gray" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-lock fa-lg"></i></a></td>
+                                    <td class="text-center"><span class="badge bg-gray"><?=$employee->emp_position?></span></td>
+                                    <td class="text-center"><a class="label bg-gray read-only" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-lock fa-lg"></i></a></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>

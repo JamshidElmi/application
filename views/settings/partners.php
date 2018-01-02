@@ -90,7 +90,7 @@
                             <td class="text-center "><strong><?=$partner->part_amount ?></strong> افغانی </td>
                             <td class="text-center ">
                                 <a data-toggle="tooltip" data-original-title="Debit & Cridet" href="<?=base_url('finance/partner_credit_debit/'.$partner->part_id) ?>" class="label bg-orange part_id_to_delete"><i class="fa fa-pie-chart fa-lg"></i></a>
-                                <a data-toggle="tooltip" data-original-title="Remove" href="<?=base_url('setting/delete_partner/'.$partner->part_id) ?>" onclick="return confirm('آیا با حذف این سهامدار موافق هستید؟')" class="label bg-red part_id_to_delete" id="<?=$partner->part_id ?>" ><i class="fa ion-android-delete fa-lg"></i></a>
+                                <a data-toggle="tooltip" data-original-title="Remove" href="<?=base_url('setting/delete_partner/'.$partner->part_id) ?>" onclick="return confirm('آیا با حذف این سهامدار موافق هستید؟')" class="label bg-red part_id_to_delete  only-admin" id="<?=$partner->part_id ?>" ><i class="fa ion-android-delete fa-lg"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -126,7 +126,7 @@
                             <td><?=$employee->emp_name. ' ' . $employee->emp_lname?></td>
                             <td><?=$employee->emp_email?></td>
                             <td class="text-center"><span class="badge bg-yellow"><?=$employee->emp_position?></span></td>
-                            <td class="text-center"><a class="label bg-gray" data-toggle="tooltip" data-original-title="Use" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-chain fa-lg"></i></a></td>
+                            <td class="text-center"><a class="label bg-gray read-only" data-toggle="tooltip" data-original-title="Use" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>');"><i class="fa fa-chain fa-lg"></i></a></td>
                         </tr>
                     <?php endforeach ?>
                     </tbody>

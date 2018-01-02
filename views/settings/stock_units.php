@@ -66,7 +66,7 @@
                 <div class="msg_coo" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($units as $unit): ?>
                 <a style="height: 80px;" class="btn btn-app" id="<?=$unit->st_id ?>"  data-toggle="tooltip" title="" data-placement="bottom" data-original-title="Max: <?=$unit->st_max_count; ?>   &ensp;&ensp;    Min: <?=$unit->st_min_count; ?>">
-                    <span class="badge bg-gray ">  <i class="fa fa-edit fa-lg text-black st_edit" id="<?=$unit->st_id ?>" st-name="<?=$unit->st_name ?>" st-price="<?=$unit->st_price ?>" st-max="<?=$unit->st_max_count ?>" st-min="<?=$unit->st_min_count ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red st_delete" id="<?=$unit->st_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
+                    <span class="badge bg-gray">  <i class="fa fa-edit fa-lg text-black st_edit" id="<?=$unit->st_id ?>" st-name="<?=$unit->st_name ?>" st-price="<?=$unit->st_price ?>" st-max="<?=$unit->st_max_count ?>" st-min="<?=$unit->st_min_count ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red st_delete read-only" id="<?=$unit->st_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
                     <i class="fa " >  <?=$unit->st_count ?> </i><b><?=$unit->st_name ?></b> <p> <?=$unit->st_price ?> افغانی</p>
                 </a>
             <?php endforeach ?>

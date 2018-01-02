@@ -9,8 +9,8 @@
 </style>
 
 <div class="row">
-    <div class="col-md-8">
-        <div class="box box-success">
+    <div class="col-md-10">
+        <div class="box box-warning">
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ویرایش مصارف </h3>
             </div>
@@ -46,6 +46,7 @@
                                 <label for="dex_unit">واحد</label>
                                 <?php if ($expence->dex_st_unit == null): ?>
                                     <select name="dex_unit" id="dex_unit" class="form-control" required>
+                                        <option selected value="<?=$expence->dex_unit ?>">واحد فعلی</option>
                                         <?php units(0, $expence->dex_unit); ?>
                                         <?php //units(0); ?>
                                     </select>
@@ -121,7 +122,7 @@ var max     = $("#dex_st_unit option:selected").attr('st-max-count');
 // alert(unit);
 $('#dex_unit_name').val(unit_name); //
 $('#dex_st_name').val(dex_st_name); //
-$('#dex_unit').val(unit); //
+//$('#dex_unit').val(unit); //
 $('#dex_count').attr('max', max); //
 $('#dex_unit_id').val(id); //
 

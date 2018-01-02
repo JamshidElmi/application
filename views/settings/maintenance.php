@@ -19,7 +19,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body text-center">
-                <a href="<?=base_url('setting/create_backup') ?>">
+                <a class="read-only" href="<?=base_url('setting/create_backup') ?>">
                     <i class="fa fa-upload" style="font-size: 200px"></i>
                 </a>
             </div>

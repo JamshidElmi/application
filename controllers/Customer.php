@@ -25,8 +25,9 @@ class Customer extends MY_Controller {
         $this->template->description = 'ثبت مشتری جدید در سیستم';
         $this->customer_model->accounts();
         $accounts = $this->customer_model->data_get_by(['acc_type' => 2]);
+        $uniqee_id = $this->customer_model->uniquee_id();
         // view
-        $this->template->content->view('customers/create', ['accounts' => $accounts]);
+        $this->template->content->view('customers/create', ['accounts' => $accounts, 'uniqee_id' => $uniqee_id]);
         $this->template->publish();
     }
 

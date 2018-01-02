@@ -47,7 +47,7 @@
                 <div class="msg_coo" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($jobs as $job): ?>
                 <a class="btn btn-app" id="coo_<?=$job->job_id ?>">
-                    <span class="badge bg-red job_delete" id="<?=$job->job_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
+                    <span class="badge bg-red job_delete read-only" id="<?=$job->job_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
                     <i class="fa fa-user-secret"></i><?php echo $job->job_name ?>
                 </a>
             <?php endforeach ?>

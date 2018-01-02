@@ -8,15 +8,15 @@
 }
 </style>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">عملیات جمع و برداشت </h3>
+                <h3 class="box-title"> جمع و برداشت </h3>
                 <div id="radios" class="btn-group pull-left" data-toggle="buttons">
-                    <label class="btn btn-xs btn-warning active" id="persentage_1" data-toggle="tooltip" data-original-title="System will Set the Percentage Automatically">
+                    <label class="btn btn-xs btn-warning active" id="persentage_1" data-toggle="tooltip" data-original-title="Set the Percentage by Input Field">
                         <input type="radio" id="persentage1" value="1" checked /> فیصدی دستی
                     </label>
-                    <label class="btn btn-xs btn-warning " id="persentage_2" data-toggle="tooltip" data-original-title="In this Case You must be Set the Percentage by Input Field">
+                    <label class="btn btn-xs btn-warning " id="persentage_2" data-toggle="tooltip" data-original-title="System will Set the Percentage Automatically" >
                         <input type="radio" id="persentage2" value="2" />  فیصدی خودکار
                     </label>
                 </div>
@@ -44,6 +44,15 @@
                         </div>
                     </div>
 
+                    <label for="emp_phone">نوعیت عملیات</label> &nbsp;&nbsp;&nbsp;
+                    <div id="radios" class="btn-group" data-toggle="buttons">
+                        <label class="btn btn-primary btn-sm active">
+                            <input type="radio" name="tr_status" id="tr_status1" value="1" checked /> جمع
+                        </label>
+                        <label class="btn btn-primary btn-sm">
+                            <input type="radio" name="tr_status" id="tr_status2" value="2" /> برداشت
+                        </label>
+                    </div>
 
                     <div class="form-group">
                         <label for="part_amount">مقدار جدید</label>
@@ -63,8 +72,6 @@
                         </div>
                     </div>
 
-
-
                     <div class="form-group">
                         <label>تاریخ ثبت</label>
                         <div class="input-group date">
@@ -75,16 +82,6 @@
                             <input type="hidden" id="tarikhAlt" name="tr_date" class="form-control pull-right" style="z-index: 0;" >
                         </div>
                         <!-- /.input group -->
-                    </div>
-
-                    <label for="emp_phone">نوعیت عملیات</label> &nbsp;&nbsp;&nbsp;
-                    <div id="radios" class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-primary active">
-                            <input type="radio" name="tr_status" id="tr_status1" value="1" checked /> جمع
-                        </label>
-                        <label class="btn btn-primary ">
-                            <input type="radio" name="tr_status" id="tr_status2" value="2" /> برداشت
-                        </label>
                     </div>
 
                     <div class="form-group">
@@ -104,7 +101,7 @@
         </div>
     </div>
 
-    <div class="col-md-7">
+    <div class="col-md-8">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست جمع و برداشت از حساب <?=$partner->emp_name; ?></h3>
@@ -135,8 +132,8 @@
                             <td><span data-toggle="tooltip" title="" data-original-title="<?=$transection->tr_desc; ?>"><?=substr_fa($transection->tr_desc, 20); ?></span></td>
                             <td class="text-center"><?=$transection->tr_amount ?> افغانی</td>
                             <td class="text-center"><?=($transection->tr_status == 1) ? '<i data-toggle="tooltip" title="" data-original-title="Debit" class="ion ion-android-add-circle fa-lg text-success"></i>' : '<i data-toggle="tooltip" title="" data-original-title="Credit" class="ion ion-android-remove-circle fa-lg text-danger"></i>' ; ?></td>
-                            <td class="text-center"><?=show_date('l d/F/Y', $transection->tr_date); ?></td>
-                            <td class="text-center"><a class="remove" href-auto-persent="<?=site_url('finance/delete_partner_transection/'.$transection->tr_id.'/'.$transection->tr_amount.'/'.$transection->tr_status.'/'.$partner->part_id.'/'.$partner->part_amount.'/auto'); ?>" href="<?=site_url('finance/delete_partner_transection/'.$transection->tr_id.'/'.$transection->tr_amount.'/'.$transection->tr_status.'/'.$partner->part_id.'/'.$partner->part_amount); ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
+                            <td class="text-center"><?=show_date('d/F/Y', $transection->tr_date); ?></td>
+                            <td class="text-center"><a class="remove read-only" href-auto-persent="<?=site_url('finance/delete_partner_transection/'.$transection->tr_id.'/'.$transection->tr_amount.'/'.$transection->tr_status.'/'.$partner->part_id.'/'.$partner->part_amount.'/auto'); ?>" href="<?=site_url('finance/delete_partner_transection/'.$transection->tr_id.'/'.$transection->tr_amount.'/'.$transection->tr_status.'/'.$partner->part_id.'/'.$partner->part_amount); ?>"  data-toggle="tooltip" title="" data-original-title="Remove"><span class="label label-danger "><i class="ion ion-trash-b fa-lg"></i></span></a></td>
                         </tr>
                         <?php ($transection->tr_status == 1) ? $credit += $transection->tr_amount : $debit += $transection->tr_amount; ?>
                         <?php endforeach ?>

@@ -147,16 +147,16 @@
                             <?php $i = 1; foreach ($salaries as $salary): ?>
                                 <tr id="sal_<?php echo $salary->tr_id; ?>">
                                     <td><?=$i++ ?></td>
-                                    <td><?=$salary->tr_amount; ?> افغانی</td>
+                                    <td><strong><?=$salary->tr_amount; ?>  </strong> افغانی </td>
                                     <td><?=$salary->tr_desc; ?> </td>
                                     <td><?=show_date('d/F/Y', $salary->tr_date); ?></td>
                                     <td class="text-center">
-                                        <a class="sal_id_to_delete" href="#" id="<?php echo $salary->tr_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove" ><i class="fa ion-android-delete fa-lg text-danger"></i></a>
+                                        <a class="sal_id_to_delete read-only" href="#" id="<?php echo $salary->tr_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove" ><i class="fa ion-android-delete fa-lg text-danger"></i></a>
                                     </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
-                </table>
+                    </table>
             </div>
             <!-- /.box-body -->
             <div class="overlay" id="overlay" hidden>

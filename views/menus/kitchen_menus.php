@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-5">
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت منو برای آشپزخانه</h3>
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div class="col-sm-8">
+    <div class="col-sm-7">
         <div class="box box-warning box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست منو های آشپزخانه </h3>
@@ -77,9 +77,9 @@
                     <?php foreach ($base_menus as $base_menu): ?>
                         <li id="bm_<?= $base_menu->bm_id ?>">
                             <img width="100" class="img-thumbnail" src="<?= site_url('assets/img/menus/' . $base_menu->bm_picture); ?>">
-                            <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?= $base_menu->bm_desc ?> "><?= $base_menu->bm_name ?></a>
+                            <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" data-original-title="<?= $base_menu->bm_desc ?> "><?= $base_menu->bm_name ?></a>
                             <a class="btn btn-default btn-xs" href="<?= site_url('menu/kitchen_menus/' . $base_menu->bm_id); ?>"><span id="<?= $base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>
-                            <span class="base_manu_delete" id="<?= $base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
+                            <span class="base_manu_delete read-only" id="<?= $base_menu->bm_id ?>" data-toggle="tooltip"  data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
                         </li>
                     <?php endforeach ?>
                 </ul>

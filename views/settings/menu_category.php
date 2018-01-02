@@ -49,7 +49,7 @@
                 <div class="msg_res" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($menu_categories as $menu_cat): ?>
                 <a class="btn btn-app" id="res_<?=$menu_cat->mc_id ?>">
-                    <span class="badge bg-red mc_res_delete" id="<?=$menu_cat->mc_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
+                    <span class="badge bg-red mc_res_delete read-only" id="<?=$menu_cat->mc_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg"></i></span>
                     <i class="fa ion-ios-filing-outline"></i><?=$menu_cat->mc_name ?>
                 </a>
             <?php endforeach ?>

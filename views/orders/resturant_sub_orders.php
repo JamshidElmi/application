@@ -141,7 +141,7 @@
                                 <td><b><?= $sub_order->sord_price ?></b> افغانی</td>
                                 <td>
                                     <a href="#" class="edit_sord_id" id="<?= $sub_order->sord_id ?>" bm-name="<?= $sub_order->bm_name ?>" sord-count="<?= $sub_order->sord_count ?>" sord-price="<?= $sub_order->sord_price ?>" sord-bm-id="<?= $sub_order->sord_bm_id ?>" bm-price="<?= $sub_order->bm_price ?>" bm-picture="<?= $sub_order->bm_picture ?>" sord-ord-id="<?= $sub_order->sord_ord_id ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
-                                    <a href="#" class="sord_id_to_delete"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                                    <a href="#" class="sord_id_to_delete only-admin"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                                 </td>
                             </tr>
                         <?php endforeach ?>

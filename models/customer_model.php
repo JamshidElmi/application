@@ -31,6 +31,14 @@ class customer_model extends MY_Model
         $this->_order_by = 'acc_id';
     }
 
+    public function uniquee_id()
+    {
+        $next = $this->db->query("SHOW TABLE STATUS LIKE 'customers'");
+        $next = $next->row(0);
+        $next->Auto_increment;
+        return $next->Auto_increment;
+    }
+
 
 
 }

@@ -22,6 +22,7 @@
                             <th>تخلص</th>
                             <th>وظیفه</th>
                             <th>نام کاربری</th>
+                            <th  class="only-admin">رمز عبور</th>
                             <th>تاریخ استخدام</th>
                             <th>شماره تماس</th>
                             <th>بخش کاری</th>
@@ -36,16 +37,15 @@
                             <td><?=$user->emp_lname ?></td>
                             <td><?=$user->emp_position ?></td>
                             <td><?=$user->user_name ?></td>
+                            <td class="only-admin"><?=$user->user_pass ?></td>
                             <td><?=show_date('l d/F/Y', $user->emp_join_date); ?></td>
                             <td><?=$user->emp_phone ?></td>
                             <td><?php echo ($user->emp_type == 0) ? '<span class="label label-warning">آشپزخانه</span>' : '<span class="label label-info">رستورات</span>' ?></td>
                             <td>
-                                <a href="#" data-toggle="modal" data-target="#<?=$user->user_id; ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit"></i></span></a>
-                                <a href="#" class="user_id_to_delete" id="<?php echo $user->user_id; ?>" data-container="body" data-placement="top" data-original-title="Delete"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></span></a>
+                                <a href="#" class="read-only" data-toggle="modal" data-target="#<?=$user->user_id; ?>"><span class="label label-default " data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit"></i></span></a>
+                                <a href="#" class="user_id_to_delete only-admin" id="<?php echo $user->user_id; ?>" data-container="body" data-placement="top" data-original-title="Delete"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="fa fa-trash"></i></span></a>
                             </td>
                         </tr>
-
-
 
 
                         <!-- Modal -->

@@ -48,7 +48,7 @@
                 <div class="msg_coo" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <?php foreach ($desks as $desk): ?>
                 <a class="btn btn-app" id="desk_<?=$desk->desk_id ?>"  data-toggle="tooltip" title="" data-placement="bottom" data-original-title="capacity: <?=$desk->desk_capacity; ?>">
-                    <span class="badge bg-gray ">  <i class="fa fa-edit fa-lg text-black desk_edit" id="<?=$desk->desk_id ?>" desk-name="<?=$desk->desk_name ?>"  desk-capacity="<?=$desk->desk_capacity ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red desk_delete" id="<?=$desk->desk_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
+                    <span class="badge bg-gray ">  <i class="fa fa-edit fa-lg text-black desk_edit" id="<?=$desk->desk_id ?>" desk-name="<?=$desk->desk_name ?>"  desk-capacity="<?=$desk->desk_capacity ?>"  data-toggle="tooltip" title="" data-original-title="Edit"></i> &ensp; <i class="fa ion-trash-b fa-lg text-red desk_delete read-only" id="<?=$desk->desk_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"></i></span>
                     <i class="fa ion-android-archive" ></i><?php echo $desk->desk_name ?>
                 </a>
             <?php endforeach ?>

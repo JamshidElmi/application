@@ -101,7 +101,7 @@
                             </td>
                             <td>
                                 <a href="#modal-id" class="sm_id_to_edit" sm-id="<?php echo $sub_menu->sm_id; ?>" sm-name="<?php echo $sub_menu->sm_name; ?>" sm-count="<?php echo $sub_menu->sm_count; ?>" sm-price="<?php echo $sub_menu->sm_price; ?>" sm-desc="<?php echo $sub_menu->sm_desc; ?>" data-toggle="modal"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
-                                <a href="#" class="cus_id_to_delete" id="<?php echo $sub_menu->sm_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+                                <a href="#" class="cus_id_to_delete only-admin" id="<?php echo $sub_menu->sm_id; ?>"><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                             </td>
                         </tr>
                     <?php endforeach ?>

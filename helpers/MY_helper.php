@@ -257,6 +257,11 @@ if(!function_exists("substr_fa"))
     }
 }
 
+if(!function_exists("substr_fa"))
+{
+    # code...
+}
+
 
 
 
