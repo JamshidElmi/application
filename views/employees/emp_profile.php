@@ -31,7 +31,6 @@
             </div>
         </div>
         <br>
-
         <div class="box box-default box-solid">
             <div class="box-header with-border">
                 <h5 class="box-title">اطلاعات شخصی کارمند</h5>
@@ -101,7 +100,7 @@
                                 <h5 class="text-center">حساب کاربری</h5>
                             </div>
                             <div class="box-body box-profile">
-                            <img src="<?=base_url('assets/img/profiles/'.$employee->emp_picture); ?>" class="profile-user-img img-responsive img-circle" alt="">
+                                <img src="<?=base_url('assets/img/profiles/'.$employee->emp_picture); ?>" class="profile-user-img img-responsive img-circle" alt="">
                                 <h3 class="profile-username text-center"><?=$employee->emp_name ." ". $employee->emp_lname ?></h3>
                                 <p class="text-muted text-center"><?=$employee->emp_position ?> | بخش <?=sys_type($employee->emp_type) ?></p>
                                 <ul class="list-group list-group-unbordered">
@@ -115,23 +114,55 @@
                                         <b>سطح دسترسی</b> <a class="pull-left"><?=permission($user->user_type); ?></a>
                                     </li>
                                 </ul>
-                                <a class="btn btn-primary btn-block"><b></b></a>
+                                <?php if($this->session->user_info->user_id === $user->user_id): ?>
+                                    <a href="#" data-toggle="modal" data-target="#<?=$this->session->user_info->user_id ?>" class="btn btn-warning btn-block">تغییر رمز عبور<b></b></a>
+                                <?php endif ?>
                             </div>
                                 <!-- /.box-body -->
                         </div>
                     <?php endforeach ?>
                     <?php endif ?>
-
-
-
                 </div>
             </div>
         </div>
-
-
-
-
-
     </div>
     <!-- /.box-body -->
+</div>
+
+<!-- Modal -->
+<div id="<?=$this->session->user_info->user_id ?>" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm modal-warning">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">ویرایش حساب کاربری</h4>
+            </div>
+            <form action="<?=base_url('user/edit/'.$this->session->user_info->user_id); ?>" method="POST">
+                <div class="modal-body">
+
+                     <div class="form-group">
+                        <label for="user_name">نام کاربری</label>
+                        <input type="text" name="user_name" value="<?=$user->user_name ?>" class="form-control" id="user_name" placeholder="نام کاربری" pattern="[A-Za-z]+" required readonly>
+                        <small class="help" > برای نام کاربری از کلمات انگلیسی استفاده کنید</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="old_pass">رمز عبور قبلی</label>
+                        <input type="password" name="old_pass" class="form-control" id="old_pass" placeholder="رمز عبور قبلی کاربر مذکور" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="user_pass">رمز عبور جدید</label>
+                        <input type="password" name="user_pass" class="form-control" id="user_pass" placeholder="رمز عبور جدید" required>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">بستن <i class="fa fa-close"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

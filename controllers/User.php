@@ -72,27 +72,44 @@ class User extends MY_Controller {
         $current_pass = $user->user_pass;
 
         // Check Validation
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('user_name', 'نام کاربری', 'required|is_unique[users.user_name]');
+        //$this->load->library('form_validation');
+        // $this->form_validation->set_rules('user_name', 'نام کاربری', 'required|is_unique[users.user_name]');
 
-        if ($this->form_validation->run() == FALSE)
-        {
-            $this->session->set_flashdata('form_errors', validation_errors() );
-            redirect('user/');
-        }
-        else
-        {
+        // if ($this->form_validation->run() == FALSE)
+        // {
+        //     if($user_id == $this->session->user_info->user_id)
+        //     {
+        //         $this->session->set_flashdata('form_errors', validation_errors() );
+        //         redirect('employee/view/'.$this->session->emp_info->emp_id);
+        //     }
+        //     else
+        //     {
+        //         $this->session->set_flashdata('form_errors', validation_errors() );
+        //         redirect('user/');
+        //     }
+        // }
+        // else
+        // {
             $old_pass = $this->input->post('old_pass');
 
             if($current_pass != $old_pass)
             {
-                $this->session->set_flashdata('form_errors', 'رمز عبور قبلی را درست وارد نکردید، لطفاً دقت نمائید.');
-                redirect('user/');
+                if($user_id == $this->session->user_info->user_id)
+                {
+                    $this->session->set_flashdata('form_errors', 'رمز عبور قبلی را درست وارد نکردید، لطفاً دقت نمائید.');
+                    redirect('employee/view/'.$this->session->emp_info->emp_id);
+                }
+                else
+                {
+                    $this->session->set_flashdata('form_errors', 'رمز عبور قبلی را درست وارد نکردید، لطفاً دقت نمائید.');
+                    redirect('user/');
+                }
             }
             else
             {
                 $data = $this->input->post();
                 unset($data['old_pass']);
+                unset($data['user_name']);
                 $user_new_id = $this->user_model->data_save($data, $user_id);
                 if(is_int($user_new_id))
                 {
@@ -102,15 +119,22 @@ class User extends MY_Controller {
                 }
                 else
                 {
-                    // Updating Failed
-                    $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، لطفاً دوباره سیع نمائید.');
-                    redirect('user/');
+                    if($user_id == $this->session->user_info->user_id)
+                    {
+                        $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، لطفاً دوباره سیع نمائید.');
+                        redirect('employee/view/'.$this->session->emp_info->emp_id);
+                    }
+                    else
+                    {
+                        // Updating Failed
+                        $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، لطفاً دوباره سیع نمائید.');
+                        redirect('user/');
+                    }
                 }
             }
-        }
+        // }
     } // end edit
-    
-    
+
 
 
 

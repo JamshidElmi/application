@@ -50,7 +50,7 @@
 
                         <!-- Modal -->
                         <div id="<?=$user->user_id; ?>" class="modal fade" role="dialog">
-                            <div class="modal-dialog modal-sm ">
+                            <div class="modal-dialog modal-sm modal-warning">
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -62,7 +62,7 @@
 
                                              <div class="form-group">
                                                 <label for="user_name">نام کاربری</label>
-                                                <input type="text" name="user_name" value="<?=$user->user_name ?>" class="form-control" id="user_name" placeholder="نام کاربری" pattern="[A-Za-z]+" required>
+                                                <input type="text" name="user_name" value="<?=$user->user_name ?>" class="form-control" id="user_name" placeholder="نام کاربری" pattern="[A-Za-z]+" required readonly>
                                                 <small class="help" > برای نام کاربری از کلمات انگلیسی استفاده کنید</small>
                                             </div>
 
