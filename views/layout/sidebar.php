@@ -78,7 +78,7 @@
 
         <li class="treeview">
             <a href="">
-                <i class="fa ion-key fa-lg"></i> <span>مدیریت دسترسی</span>
+                <i class="fa ion-android-unlock fa-lg"></i> <span>مدیریت دسترسی</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
@@ -95,7 +95,7 @@
 
         <li class="treeview">
             <a href="">
-                <i class="fa fa-money"></i> <span>مدیریت مالی</span>
+                <i class="fa  fa-dollar fa-lg"></i> <span>مدیریت مالی</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
@@ -157,6 +157,34 @@
             </ul>
         </li>
 
+         <!-- menu header -->
+        <li class="header">گزارشات سیستم</li>
+
+        <li class="treeview">
+            <a href="">
+                <i class="fa ion-pie-graph fa-lg"> </i> <span>گزارشات</span>
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+
+            <ul class="treeview-menu">
+               <li class="treeview">
+                    <a href=""><i class="fa fa-circle-o"></i> گزارش معاشات
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="<?=site_url('reports/salaries/salary_monthly'); ?>"><i class="fa fa-circle-o"></i>کارمندان رستورانت</a></li>
+                        <li><a href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i> کارمندان آشپزخانه</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </li>
+
+
         <!-- menu header -->
         <li class="header">مدیریت منوها</li>
 
@@ -197,7 +225,7 @@
 
         <li class="treeview">
             <a href="">
-                <i class="fa ion-ios-bell fa-lg"></i> <span>سفارشات</span>
+                <i class="fa fa-shopping-basket"></i> <span>سفارشات</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
@@ -237,7 +265,7 @@
 
         <li class="treeview">
             <a href="">
-                <i class="fa fa-gear"></i> <span>تنظیمات</span>
+                <i class="fa fa-gear fa-lg"></i> <span>تنظیمات</span>
                 <span class="pull-left-container">
                     <i class="fa fa-angle-right pull-left"></i>
                 </span>
