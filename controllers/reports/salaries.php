@@ -15,9 +15,27 @@ class salaries extends MY_Controller
     public function salary_monthly()
     {
         $this->template->description = 'لیست معاشات پرداخت شده';
-        $employees = $this->employee_model->data_get();
+        if (!$this->input->post('tarikh1'))
+        {
+            $now = mds_date("Y-m-d", "now");
+            $next = explode('-',$now );
+            if ($next[1] > 3 )
+                $next[1] = $next[1] - 3 ;
+            else
+                $next[1] = 0;
 
-        $this->template->content->view('employees/all_employees', ['employees' => $employees]);
+            $last = $next[0].'-'.$next[1].'-'.$next[2];
+        }
+        else
+        {
+            $last = $this->input->post('tarikh1');
+             $now = $this->input->post('tarikh2');
+        }
+        $salaries = $this->report_model->sal_join_trans_join_emp($now,$last);
+        //echo $this->db->last_query();
+
+
+        $this->template->content->view('reports/salaries', ['salaries' => $salaries]);
         $this->template->publish();
     }
 

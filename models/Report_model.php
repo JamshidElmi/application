@@ -15,16 +15,21 @@ class report_model extends MY_Model
         parent::__construct();
     }
 
-    public function accounts()
+    public function salaries()
     {
         $this->_table_name = 'salaries';
         $this->_primary_key = 'sal_id';
         $this->_order_by = 'sal_id';
     }
 
-    public function uniquee_id()
+    public function sal_join_trans_join_emp($firstYear,$lastYear)
     {
-
+        $this->db->from('employees');
+        $this->db->join('salary', 'employees.emp_id = salary.sal_emp_id');
+        $this->db->where('sal_date <=', $firstYear);
+        $this->db->where('sal_date >=', $lastYear);
+        $query = $this->db->get()->result();
+        return $query;
     }
 
 

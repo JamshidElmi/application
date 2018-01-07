@@ -228,7 +228,7 @@ $(document).ready(function() {
                     enabled: false,
                     locale: 'fa'
                 }
-            },
+            }
     });
 
     // Month Picker
@@ -305,7 +305,7 @@ $(document).ready(function() {
                     locale: 'fa'
                 }
             },
-        position: [-65,0]
+        position: [-67, 200]
     });
 
 
