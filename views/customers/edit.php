@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-xs-3">
                         <div class="form-group">
-                            <label for="cus_unique_id">کد مشترک</label>
+                            <label for="cus_unique_id">کد اشتراک</label>
                             <input type="text" class="form-control text-center" style="font-family: Segoe; " value="<?=$customer->cus_unique_id ?>" id="cus_unique_id" placeholder="کد منحصر به فرد برای مشتری" required readonly />
                         </div>
                     </div>

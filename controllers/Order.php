@@ -10,6 +10,7 @@ class Order extends MY_Controller
         parent::__construct();
         $this->template->title = 'سفارشات';
         $this->load->model('order_model');
+        $this->template->menu = 'menu_orders';
     }
 
     public function index()
@@ -34,6 +35,8 @@ class Order extends MY_Controller
 
     public function create_order()
     {
+        $this->template->menu1 = 'menu1_kitchen_orders';
+        $this->template->menu2 = 'menu2_create_kitchen_order';
         $this->template->description = 'ثبت سفارش جدید برای آشپزخانه';
         $this->order_model->customers();
         $customers = $this->order_model->data_get();
@@ -107,7 +110,10 @@ class Order extends MY_Controller
 
     public function kitchen_orders()
     {
+        $this->template->menu1 = 'menu1_kitchen_orders';
+        $this->template->menu2 = 'menu2_kitchen_order_list';
         $this->template->description = 'لیست سفارشات آشپزخانه';
+
         $orders = $this->order_model->order_join_customer('kitchen');
 
         // view
@@ -127,7 +133,10 @@ class Order extends MY_Controller
 
     public function create_resturant_order()
     {
+        $this->template->menu1 = 'menu1_resturant_orders';
+        $this->template->menu2 = 'menu2_create_resturant_order';
         $this->template->description = 'ثبت سفارش برای رستورانت';
+
         $this->order_model->menu_category();
         $menu_categories = $this->order_model->data_get();
         $this->order_model->customers();
@@ -166,6 +175,7 @@ class Order extends MY_Controller
     {
         $data = $this->input->post();
         // print_r($data);
+        // die();
 
         // Inserting data
         $this->order_model->orders();
@@ -213,7 +223,10 @@ class Order extends MY_Controller
 
     public function resturant_orders()
     {
+        $this->template->menu1 = 'menu1_resturant_orders';
+        $this->template->menu2 = 'menu2_resturant_order_list';
         $this->template->description = 'لیست سفارشات رستورانت';
+
         $orders = $this->order_model->order_join_customer('resturant');
         $this->order_model->orders();
         $orders_base_acc = $this->order_model->data_get_by(['ord_type' => 'resturant']);
@@ -474,6 +487,11 @@ class Order extends MY_Controller
 
     public function expence_stock($ord_id = NULL, $cus_name = NULL, $cus_lname = NULL)
     {
+        $this->template->menu = 'menu_finance';
+        $this->template->menu1 = 'menu1_stock';
+        $this->template->menu2 = 'menu2_expence_from_stock';
+        $this->template->menu3 = 'menu3_create_expence_from_stock';
+
         $this->template->description = 'ثبت مصارف از گدام برای سفارشات ';
         $orders = $this->order_model->order_join_customer('kitchen', 30);
         $this->order_model->stock_units();
@@ -510,6 +528,7 @@ class Order extends MY_Controller
 
     public function insert_stock_expence_resturant($expence_type)
     {
+
         $data = $this->input->post();
         $count = count($data['stock_count']);
         /* insert all stock expences */
@@ -547,6 +566,11 @@ class Order extends MY_Controller
     /* TODO: Working Here... */
     public function stock_expence_resturant($expence_type)
     {
+        $this->template->menu  = 'menu_finance';
+        $this->template->menu1 = 'menu1_stock';
+        $this->template->menu2 = 'menu2_expence_from_stock';
+        $this->template->menu3 = ($expence_type == 'resturant') ? 'menu3_restirant_stock_expences' : 'menu3_fastfood_stock_expences';
+
         $this->template->description = ($expence_type == 'resturant') ? 'لیست مصارف برای سفارشات رستورانت' : 'لیست مصارف برای سفارشات فست فود ';
         /* get last month */
         $str_date = mds_date("Y-m-d", "now", 1);

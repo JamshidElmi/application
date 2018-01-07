@@ -8,6 +8,7 @@ class Finance extends MY_Controller {
 		parent::__construct();
 		$this->template->title = 'مدیریت مالی';
 		$this->load->model('finance_model');
+        $this->template->menu = 'menu_finance';
 	}
 
 	public function index()
@@ -18,6 +19,9 @@ class Finance extends MY_Controller {
     public function accounts()
     {
         $this->template->description = 'لیست صندوق ها و ایجاد صندوق جدید';
+        $this->template->menu1 = 'menu1_accounts';
+        $this->template->menu2 = 'menu2_create_account';
+
         $accounts = $this->finance_model->data_get();
         // view
         $this->template->content->view('finance/accounts', ['accounts' => $accounts]);
@@ -61,6 +65,9 @@ class Finance extends MY_Controller {
     public function credit_debit($acc_id)
     {
         $this->template->description = 'برداشت از حساب و جمع در حساب';
+        $this->template->menu1 = 'menu1_accounts';
+        $this->template->menu2 = 'menu2_debit_credit';
+
         $account = $this->finance_model->data_get($acc_id, TRUE);
         $this->finance_model->transections();
         $transections = $this->finance_model->data_get_by(['tr_acc_id'=> $acc_id, 'tr_type'=> 'credit_debit']);
@@ -147,6 +154,9 @@ class Finance extends MY_Controller {
     public function expences($bill_type)
     {
         $this->template->description = ($bill_type == 0) ? ' لیست خریداری مصارف روزانه' : ' لیست خریداری مصارف گدام ';
+        $this->template->menu1 = ($bill_type == 0) ? 'menu1_expences' : 'menu1_stock';
+        $this->template->menu2 = ($bill_type == 0) ? 'menu2_daily_expences' : 'menu2_buy_for_stock_list';
+
         $this->finance_model->bills();
         // $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
         $expences = $this->finance_model->bill_join_trans($bill_type);
@@ -158,6 +168,9 @@ class Finance extends MY_Controller {
     public function new_expence()
     {
         $this->template->description = 'ثبت خریداری و مصارف روزانه';
+        $this->template->menu1 = 'menu1_expences';
+        $this->template->menu2 = 'menu2_create_daily_expence';
+
         // get current amount of main account
         $this->finance_model->accounts();
         $account = $this->finance_model->data_get_by(['acc_type' => 0] , TRUE);
@@ -373,6 +386,8 @@ class Finance extends MY_Controller {
     public function buy_stock()
     {
         $this->template->description = 'خریداری اجناس برای گدام';
+        $this->template->menu1 = 'menu1_stock';
+        $this->template->menu2 = 'menu2_buy_for_stock';
         $this->finance_model->accounts();
         $accounts = $this->finance_model->data_get_by(['acc_type' => 1]);
         // $this->finance_model->stock_units();
@@ -541,6 +556,9 @@ class Finance extends MY_Controller {
     public function salary_payment()
     {
         $this->template->description = 'پرداخت معاش کارمندان';
+//        $this->template->menu1 = 'menu1_expences';
+        $this->template->menu1 = 'menu1_salary_payment';
+
         $this->finance_model->employees();
         $employees = $this->finance_model->data_get();
 
@@ -714,6 +732,9 @@ class Finance extends MY_Controller {
     public function partner_credit_debit($part_id)
     {
         $this->template->description = '  جمع و برداشت در حساب '.$this->session->emp_info->emp_name .' '.$this->session->emp_info->emp_lname;
+        $this->template->menu1 = 'menu1_accounts';
+        $this->template->menu2 = 'menu2_partner_debit_credit';
+
         $this->finance_model->partners();
         $partners = $this->finance_model->data_get();
         $partner = $this->finance_model->partner_join_employee($part_id);

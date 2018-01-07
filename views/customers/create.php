@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-xs-3">
                         <div class="form-group">
-                            <label for="cus_unique_id">کد مشترک</label>
+                            <label for="cus_unique_id">کد اشتراک</label>
                             <?php $this->load->helper('string');?>
                             <input type="text" class="form-control text-center" style="font-family: Segoe; background-color: #FFF9A8;" name="cus_unique_id" value="<?=$uniqee_id ?>" id="cus_unique_id" placeholder="کد منحصر به فرد برای مشتری" required readonly />
                         </div>

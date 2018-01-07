@@ -1,27 +1,19 @@
 <style>
+    /* permission access controlls */
     .read-only{
-    <?php
-        if ($this->session->user_info->user_type == 2 || $this->session->user_info->user_type == 3)
-        {
-            echo 'pointer-events: none;cursor: not-allowed;opacity: 0.6;';
-        }
-     ?>
+    <?php echo ($this->session->user_info->user_type == 2 || $this->session->user_info->user_type == 3) ? 'pointer-events: none;cursor: not-allowed;opacity: 0.6;' : ''; ?>
     }
     .only-admin{
-    <?php
-        if ($this->session->user_info->user_type != 1 )
-        {
-            echo 'display: none !important';
-        }
-     ?>
+      <?php echo ($this->session->user_info->user_type != 1 ) ? 'display: none !important' : ''; ?>
     }
     .no-garson{
-    <?php
-        if ($this->session->user_info->user_type == 3 )
-        {
-            echo 'display: none !important';
-        }
-     ?>
+    <?php echo ($this->session->user_info->user_type == 3 ) ?'display: none !important' : ''; ?>
+    }
+     .read-only-garson{
+    <?php echo ($this->session->user_info->user_type == 3 ) ? 'pointer-events: none;cursor:not-allowed;opacity: 0.6;' : ''; ?>
+    }
+    .lock{
+      pointer-events: none;cursor:not-allowed;opacity: 0.6;
     }
 </style>
 <header class="main-header">
@@ -47,7 +39,7 @@
 <!-- ======================================= NOTIFICATIONS =========================================== -->
 <!-- ============================================================================================================ -->
 
-          <li class="dropdown messages-menu">
+          <li class="dropdown messages-menu hidden">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
@@ -124,7 +116,7 @@
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
+          <li class="dropdown notifications-menu hidden">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">۱۰</span>
@@ -165,7 +157,7 @@
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
+          <li class="dropdown tasks-menu hidden">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
               <span class="label label-danger">۹</span>

@@ -8,6 +8,8 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
     <link rel="stylesheet" href="<?=base_url('assets/css/bootstrap-theme.css'); ?>">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="<?php echo site_url('assets/img/favicon.png') ?>">
     <!-- Bootstrap rtl -->
     <link rel="stylesheet" href="<?=base_url('assets/css/rtl.css'); ?>">
     <!-- Font Awesome -->

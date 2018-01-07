@@ -9,12 +9,14 @@ class User extends MY_Controller {
 		parent::__construct();
 		$this->template->title = 'حساب کاربری';
 		$this->load->model('user_model');
+        $this->template->menu = 'menu_permissions';
 
 	}
 
     public function index()
     {
         $this->template->description = 'لسیت حساب های کاربری ';
+        $this->template->menu1 = 'menu1_user_list';
         $users = $this->user_model->join_user_emp();
 
         $this->template->content->view('users/users',array('users' => $users));
@@ -24,6 +26,7 @@ class User extends MY_Controller {
 	public function create()
 	{
         $this->template->description = 'ایجاد حساب کاربری جدید';
+        $this->template->menu1 = 'menu1_create_user';
         $employees = $this->user_model->get_employees();
 
 		$this->template->content->view('users/new_user_form',array('employees' => $employees));

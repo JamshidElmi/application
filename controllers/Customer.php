@@ -1,5 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Customer extends MY_Controller {
 
@@ -9,13 +8,16 @@ class Customer extends MY_Controller {
 		parent::__construct();
 		$this->template->title = 'مشتریان';
 		$this->load->model('customer_model');
+		$this->template->menu = 'menu_customers';
 	}
 
 	public function index()
 	{
         $this->template->description = 'لیست تمام مشتریان رستورانت و آشپزخانه';
+        $this->template->menu1 = 'menu1_create_cusomer_list';
         $customers = $this->customer_model->data_get();
 
+        // view
 		$this->template->content->view('customers/customers', ['customers' => $customers]);
         $this->template->publish();
 	}
@@ -23,6 +25,7 @@ class Customer extends MY_Controller {
     public function create()
     {
         $this->template->description = 'ثبت مشتری جدید در سیستم';
+        $this->template->menu1 = 'menu1_create_cusomer';
         $this->customer_model->accounts();
         $accounts = $this->customer_model->data_get_by(['acc_type' => 2]);
         $uniqee_id = $this->customer_model->uniquee_id();
@@ -43,7 +46,7 @@ class Customer extends MY_Controller {
         $this->form_validation->set_rules('cus_cur_place', 'سکونت فعلی', 'required');
         $this->form_validation->set_rules('cus_address', 'آدرس کامل مشتری', 'required');
         $this->form_validation->set_rules('cus_phones', 'شماره های تماس', 'required');
-        $this->form_validation->set_rules('cus_unique_id', 'کد مشترک', 'is_unique[customers.cus_unique_id]');
+        $this->form_validation->set_rules('cus_unique_id', 'کد اشتراک', 'is_unique[customers.cus_unique_id]');
         // $this->form_validation->set_rules('cus_picture', 'عکس', 'required');
         $this->form_validation->set_rules('cus_email', 'ایمیل آدرس', 'valid_email');
         $this->form_validation->set_rules('cus_biography_no', 'شماره تذکره', 'numeric');

@@ -10,6 +10,8 @@ class Setting extends MY_Controller
         parent::__construct();
         $this->template->title = 'تنظیمات';
         $this->load->model('setting_model');
+        $this->template->menu = 'menu_settings';
+
     }
 
     public function index()
@@ -20,6 +22,7 @@ class Setting extends MY_Controller
 
     public function units()
     {
+        $this->template->menu1 = 'menu1_units';
         $this->template->description = 'لیست واحدات مقیاسی';
         $units_resturant = $this->setting_model->data_get_by(['unit_type' => 1]);
         $units_coock = $this->setting_model->data_get_by(['unit_type' => 0]);
@@ -30,6 +33,7 @@ class Setting extends MY_Controller
 
     public function jobs()
     {
+        $this->template->menu1 = 'menu1_jobs';
         $this->template->description = 'لیست وظایف ثبت شده در سیستم و ایجاد وظیفه جدید';
         $this->setting_model->jobs();
 
@@ -81,6 +85,7 @@ class Setting extends MY_Controller
 
     public function stock_units()
     {
+        $this->template->menu1 = 'menu1_stock_units';
         $this->template->description = 'لیست واحد اجناس گدام';
         $this->setting_model->stock_units();
         $units = $this->setting_model->data_get();
@@ -121,6 +126,9 @@ class Setting extends MY_Controller
 
     public function menu_category()
     {
+        $this->template->menu  = 'menu_menus';
+        $this->template->menu1 = 'menu1_resturant_menus';
+        $this->template->menu2 = 'menu2_create_menu_category';
         $this->template->description = 'لیست نوعیت منو برای رستورانت';
         $this->setting_model->menu_category();
         $menu_categories = $this->setting_model->data_get();
@@ -153,6 +161,7 @@ class Setting extends MY_Controller
 
     public function discounts()
     {
+        $this->template->menu1 = 'menu1_discounts';
         $this->template->description = 'ثبت تخفیف جدید و لیست تخفیفات ثبت شده در سیستم';
         $this->setting_model->discounts();
         $discounts = $this->setting_model->data_get();
@@ -202,6 +211,7 @@ class Setting extends MY_Controller
 
     public function desks()
     {
+        $this->template->menu1 = 'menu1_desks';
         $this->template->description = 'ایجاد میز جدید و لیست میز های موجود در رستورانت';
         $this->setting_model->desks();
         $desks = $this->setting_model->data_get();
@@ -250,6 +260,7 @@ class Setting extends MY_Controller
 
     public function partners()
     {
+        $this->template->menu1 = 'menu1_partners';
         $this->template->description = 'ثبت نام سهامداران';
         $partners = $this->setting_model->partner_join_emp();
         $this->setting_model->employees();
@@ -294,6 +305,7 @@ class Setting extends MY_Controller
 
     public function edit_info()
     {
+        $this->template->menu1 = 'menu1_edit_info';
         $this->template->description = 'ویرایش اطلاعات رستورانت';
 
         $this->setting_model->company_info();
@@ -356,6 +368,7 @@ class Setting extends MY_Controller
 
     public function backup()
     {
+        $this->template->menu1 = 'menu1_backup';
         $this->template->description = 'پشتیبان گیری از اطلاعات موجود در پایگاه اطلاعاتی سیستم';
         // view
         $this->template->content->view('settings/maintenance');

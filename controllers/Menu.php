@@ -9,6 +9,7 @@ class Menu extends MY_Controller {
 		parent::__construct();
 		$this->template->title = 'منو ها';
 		$this->load->model('menu_model');
+		$this->template->menu = 'menu_menus';
 	}
 
 	public function index()
@@ -18,9 +19,12 @@ class Menu extends MY_Controller {
 
     public function kitchen_menus($bm_id = NULL)
     {
+        $this->template->menu1  = 'menu1_kitchen_menus';
+        $this->template->menu2 = 'menu2_create_base_menu';
+        $this->template->description = 'ثبت منو جدید برای آشپزخانه و لیست منو های موجود ';
+
         $bm = array();
         $sm = array();
-        $this->template->description = 'ثبت منو جدید برای آشپزخانه و لیست منو های موجود ';
         $this->menu_model->base_menus();
         $base_menus = $this->menu_model->data_get_by(['bm_type' => 0]);
         // get base menu if id came for update
@@ -172,6 +176,8 @@ class Menu extends MY_Controller {
 
     public function resturant_menus($bm_id = NULL)
     {
+        $this->template->menu1 = 'menu1_resturant_menus';
+        $this->template->menu2 = 'menu2_create_menu';
         $bm = array();
         $this->template->description = 'ثبت منو جدید برای رستورانت و لیست منو های موجود ';
         // get base menus
@@ -268,9 +274,10 @@ class Menu extends MY_Controller {
 
     } // end insert_kitchen_menu
 
-    /* TODO: Make Edit info for Sub Menus */
     public function sub_menus()
     {
+        $this->template->menu1 = 'menu1_kitchen_menus';
+        $this->template->menu2 = 'menu2_create_sub_menu';
         $this->template->description = 'ثبت زیر منوی جدید برای آشپزخانه و لیست زیرمنو های موجود ';
         // get sub menus
         $this->menu_model->sub_menus();

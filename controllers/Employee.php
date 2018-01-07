@@ -9,13 +9,15 @@ class Employee extends MY_Controller {
 		parent::__construct();
 		$this->template->title = 'کارمندان';
 		$this->load->model('employee_model');
+		$this->template->menu = 'menu_employees';
 	}
 
 	public function index()
 	{
         $this->template->description = 'لیست تمام کارمندان رستورانت و آشپزخانه';
+        $this->template->menu1 = 'menu1_create_empployee_list';
         $employees = $this->employee_model->data_get();
-
+        // view
 		$this->template->content->view('employees/all_employees', ['employees' => $employees]);
         $this->template->publish();
 	}
@@ -23,6 +25,8 @@ class Employee extends MY_Controller {
     public function create()
     {
         $this->template->description = 'استخدام کارمند جدید در سیستم';
+        $this->template->menu1 = 'menu1_create_empployee';
+        // view
         $this->template->content->view('employees/create');
         $this->template->publish();
     }
@@ -86,7 +90,7 @@ class Employee extends MY_Controller {
 
         $employee = $this->employee_model->data_get($emp_id);
         $users = $this->user_model->data_get_by(['emp_id'=>$emp_id]);
-
+        // view
         $this->template->content->view('employees/emp_profile', ['employee' => $employee, 'users' => $users]);
         $this->template->publish();
     } // end view
@@ -101,7 +105,7 @@ class Employee extends MY_Controller {
     {
         $employee = $this->employee_model->data_get($emp_id, TRUE);
         $this->template->description = 'ویرایش اطلاعات '. $employee->emp_name ." ". $employee->emp_lname;
-
+        // view
         $this->template->content->view('employees/edit', ['employee' => $employee]);
         $this->template->publish();
     }

@@ -8,12 +8,15 @@
 ?>
 <style>
     .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-        padding: 4px;
+        padding: 2px;
+    }
+    .table-border th, .table-border td, .table-border {
+        border: 1px solid #b1b1b1;
     }
 </style>
 <div class="row">
     <div class="col-xs-4">
-        <div class="box box-warning " style="width: 400px">
+        <div class="box box-dafualt  " style="width: 300px; font-size: 10px !important;">
             <div class="box-header with-border no-print">
                 <h3 class="box-title"> فاکتور رستورانت</h3>
                 <div class="box-tools pull-right no-print">
@@ -24,44 +27,48 @@
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="box-body no-padding">
                 <div class="col-xs-12 well well-sm no-shadow text-center" style="margin-bottom: 5px;">
                     <div class="row">
 
-                        <div class="col-xs-8">
+                        <div class="col-xs-9">
                             <p style="margin-bottom: 4px"><b><?= $this->session->general_info->ci_full_name ?></b></p>
                             <p style="margin: 4px"><b><?= $this->session->general_info->ci_full_name_en ?></b></p>
-                            <p class="text-sm" style="margin: 0">نمبر بل: <?= $ord_cus->ord_id ?></p>
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-xs-3">
                             <img src="<?= base_url('assets/img/info/' . $this->session->general_info->ci_logo) ?>" class="img-responsive" alt="LOGO">
                         </div>
                     </div>
                 </div>
                 <?php //$this->load->view('layout/bill_header'); ?>
 
-                <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
+                <div class="well well-sm" style="margin-bottom: 5px; padding:4px;font-size: 9px;">
                     <div class="row">
-                        <div class="col-xs-7"><b>تاریخ:</b> <?= show_date("j F Y", $ord_cus->ord_date) ?> </div>
-                        <div class="col-xs-5"><b>ساعت:</b> <?= $ord_cus->ord_time ?></div>
+                        <div class="col-xs-3"><b> نمبر بل :<?= $ord_cus->ord_id ?></b></div>
+                        <div class="col-xs-5"><b>تاریخ: <?= show_date("Y/m/j", $ord_cus->ord_date) ?> </b></div>
+                        <div class="col-xs-4"><b>ساعت: <?= $ord_cus->ord_time ?></b></div>
                     </div>
                 </div>
-                <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
-                    <div class="row">
-                        <div class="col-xs-7"><b>نام
-                                مشتری: </b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_name . ' ' . $ord_cus->cus_lname : ''; ?>
-                        </div>
+                    <?php if (isset($ord_cus->cus_name)): ?>
+                    <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
+                        <div class="row">
+                            <div class="col-xs-7"><b>نام
+                                    مشتری: </b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_name . ' ' . $ord_cus->cus_lname : ''; ?>
+                            </div>
 
-                        <div class="col-xs-5"><b>کد
-                                اشتراک:</b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_unique_id : '' ?></div>
+                            <div class="col-xs-5"><b>کد
+                                    اشتراک:</b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_unique_id : '' ?></div>
+                        </div>
                     </div>
-                </div>
+
+
                 <div class="well well-sm" style="margin-bottom: 5px; padding:4px">
                     <div class="row">
                         <div class="col-xs-12">
                             <b>آدرس: </b> <?= (isset($ord_cus->cus_name)) ? $ord_cus->cus_address : '' ?></div>
                     </div>
                 </div>
+                    <?php endif ?>
 
                 <?php $total_payed = 0;
                 foreach ($ord_transections as $transection) : ?>
@@ -110,7 +117,7 @@
                         <td colspan="3" class="bg-danger text-danger"><b>الباقی</b></td>
                         <td colspan="2"><b><?= $total_unpayed ?></b> افغانی</td>
                     </tr>
-                    <tr style="font-size: 13px">
+                    <tr>
                         <td colspan="5"><b>آدرس:</b> <?= $this->session->general_info->ci_address ?></td>
                     </tr>
                     <tr>
@@ -124,8 +131,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5"><p class="text-sm">مشتری گرامی افتخار ما رضایت شماست. رضایت شما اعتبار
-                                ماست.</p></td>
+                        <td colspan="5">مشتری گرامی افتخار ما رضایت شماست. رضایت شما اعتبار
+                                ماست.</td>
                     </tr>
                     </tbody>
                 </table>

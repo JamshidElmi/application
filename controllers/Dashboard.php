@@ -8,12 +8,14 @@ class Dashboard extends MY_Controller {
 	{
 		parent::__construct();
 		$this->template->title = 'داشبورد';
+        $this->template->menu = 'menu_dashboard';
 
-	}
+    }
 
     public function index()
     {
         $this->template->description = 'گزارش از وضعیت فعلی سیستم';
+        $this->template->menu1 = 'menu1_resturant';
 
         $this->template->content->view('dashboard/restaurant');
         $this->template->publish();

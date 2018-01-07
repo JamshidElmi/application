@@ -1,7 +1,6 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 /*
- *create by: Eng-elmi
+ * create by: Eng-elmi
  *
 */
 class salaries extends MY_Controller
@@ -10,12 +9,16 @@ class salaries extends MY_Controller
     {
         parent::__construct();
         $this->template->title = 'گزارشات';
-        $this->load->model('customer_model');
+        $this->load->model('report_model');
     }
 
     public function salary_monthly()
     {
-        echo 'گزارش معاشات';
+        $this->template->description = 'لیست معاشات پرداخت شده';
+        $employees = $this->employee_model->data_get();
+
+        $this->template->content->view('employees/all_employees', ['employees' => $employees]);
+        $this->template->publish();
     }
 
 } // end class
