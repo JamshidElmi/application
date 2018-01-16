@@ -169,16 +169,18 @@
                 </span>
             </a>
 
-            <ul class="treeview-menu" id="menu1_report_salary">
-               <li class="treeview">
-                    <a href=""><i class="fa fa-circle-o"></i> گزارش معاشات
+            <ul class="treeview-menu" >
+                <li id="menu1_resturant_report_salary"><a href="<?=site_url('reports/salaries/salary_monthly'); ?>"><i class="fa fa-circle-o"></i>معاشات کارمندان</a></li>
+                <li id="menu1_employee_report_list"><a href="<?=site_url('employee/'); ?>"><i class="fa fa-circle-o"></i>لیست کارمندان</a></li>
+                <li class="treeview" id="menu1_kitchen_menus_report_list">
+                    <a href=""><i class="fa fa-circle-o"></i>گزارش سفارشات
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li id="menu2_resturant_salary"><a href="<?=site_url('reports/salaries/salary_monthly'); ?>"><i class="fa fa-circle-o"></i>کارمندان رستورانت</a></li>
-                        <li id="menu2_kitchen_salary"><a href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i> کارمندان آشپزخانه</a></li>
+                        <li id="menu2_create_base_menu"><a class="read-only-garson" href="<?=site_url('reports/reports/resturant_order_report_list'); ?>"><i class="fa fa-circle-o"></i>سفارشات رستورانت</a></li>
+                        <li id="menu2_create_sub_menu"><a class="read-only-garson" href="<?=site_url('order/kitchen_order_report_list'); ?>"><i class="fa fa-circle-o"></i>سفارشات آشپزخانه</a></li>
                     </ul>
                 </li>
 

@@ -12,10 +12,15 @@ class salaries extends MY_Controller
         $this->load->model('report_model');
     }
 
-    public function salary_monthly()
+    public function salary_monthly($fisrtdate = NULL, $lastdate = NULL)
     {
         $this->template->description = 'لیست معاشات پرداخت شده';
-        if (!$this->input->post('tarikh1'))
+        if ($fisrtdate != NULL)
+        {
+            $now = $lastdate;
+            $last = $fisrtdate;
+        }
+        elseif (!$this->input->post('tarikh1'))
         {
             $now = mds_date("Y-m-d", "now");
             $next = explode('-',$now );
@@ -29,14 +34,20 @@ class salaries extends MY_Controller
         else
         {
             $last = $this->input->post('tarikh1');
-             $now = $this->input->post('tarikh2');
+            $now = $this->input->post('tarikh2');
         }
         $salaries = $this->report_model->sal_join_trans_join_emp($now,$last);
-        //echo $this->db->last_query();
+//        echo $this->db->last_query();
 
 
         $this->template->content->view('reports/salaries', ['salaries' => $salaries]);
         $this->template->publish();
+    }
+
+    public function print_salaries($now = NULL, $last = NULL)
+    {
+        $this->template->set_template('print_template');
+        $this->salary_monthly($now,$last);
     }
 
 } // end class

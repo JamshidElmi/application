@@ -22,6 +22,12 @@ class Employee extends MY_Controller {
         $this->template->publish();
 	}
 
+    public function print_employees()
+    {
+        $this->template->set_template('print_template');
+        $this->index();
+    }
+
     public function create()
     {
         $this->template->description = 'استخدام کارمند جدید در سیستم';

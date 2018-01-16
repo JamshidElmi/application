@@ -32,6 +32,17 @@ class report_model extends MY_Model
         return $query;
     }
 
+    public function order_join_customer_by_date($ord_type, $fisrtDate = NULL, $lastDate = NULL)
+    {
+        $this->db->from('orders');
+        $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
+        $this->db->join('desks', 'desks.desk_id = orders.ord_desk_id');
+        $this->db->where(['ord_type' => $ord_type]);
+        $this->db->where(['ord_date >=' => $fisrtDate]);
+        $this->db->where(['ord_date <=' => $lastDate]);
+        $this->db->order_by('ord_date DESC');
+        $query = $this->db->get()->result();
+        return $query;
+    }
 
-
-}
+} // end class

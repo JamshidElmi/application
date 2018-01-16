@@ -4,6 +4,7 @@
         <title><?php echo $this->template->title->default("سیستم مدیریت رستورانت"); ?></title>
         <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <link rel="icon" type="image/png" href="<?php echo site_url('assets/img/favicon.png') ?>">
         <meta name="description" content="<?php echo $this->template->description; ?>">
         <meta name="author" content="Jamshid Elmi">
         <?php echo $this->template->meta; ?>

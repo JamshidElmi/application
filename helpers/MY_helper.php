@@ -27,7 +27,7 @@ if ( ! function_exists('option'))
 if ( ! function_exists('show_date'))
 {
     /**
-     * Select Province
+     * change date
      *
      * @param   array   array of goten data from database
      * @return  mixed   just options of a select input control
@@ -257,9 +257,16 @@ if(!function_exists("substr_fa"))
     }
 }
 
-if(!function_exists("substr_fa"))
+if(!function_exists("str_month"))
 {
-    # code...
+    /*
+     * My Helper str_month
+     * @param: $monthNum Month Number */
+    function str_month($monthNum)
+    {
+        $months = array('حمل','ثور','جوزا','سرطان','اسد','سنبله','میزان','عقرب','قوس','جدی','دلو','حوت');
+        return $months[$monthNum-1];
+    }
 }
 
 

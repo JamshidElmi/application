@@ -4,8 +4,8 @@ if ( ! function_exists('mds_date'))
 {
     /**
      *
-     * @Created by:     Jamshid Elmi
-     * @modified by:    Mohammad Dayyan
+     * @Created by:     Mohammad Dayyan
+     * @modified by:    Jamshid Elmi
      * @date:           1387/5/15
      * @param:          string
      * @return:         mixed depends on what the array contains
@@ -199,7 +199,7 @@ if ( ! function_exists('make_time'))
     {
         if(!$hour && !$minute && !$second && !$Dmonth && !$Dmonth && !$Dday && !$Dyear)
             return mktime();
-        if ($Dmonth > 11) die("Incorrect month number");
+        if ($Dmonth > 12) die("Incorrect month number");
         list( $year, $month, $day ) = mds_to_gregorian($Dyear, $Dmonth, $Dday);
         $i=mktime($hour,$minute,$second,$month,$day,$year);
         return $i;

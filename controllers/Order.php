@@ -700,6 +700,27 @@ class Order extends MY_Controller
         $this->print_resturant_bill($ord_id);
     }
 
+    public function garson_ordering()
+    {
+        $this->template->menu1 = 'menu1_resturant_orders';
+        $this->template->menu2 = 'menu2_create_resturant_order';
+        $this->template->description = 'ثبت سفارش برای رستورانت';
+
+        $this->order_model->menu_category();
+        $menu_categories = $this->order_model->data_get();
+        $this->order_model->customers();
+        $customers = $this->order_model->data_get();
+        $this->order_model->desks();
+        $desks = $this->order_model->data_get();
+        $this->order_model->discounts();
+        $discounts = $this->order_model->data_get();
+
+        // view
+        $this->template->set_template('ordering_template');
+        $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts]);
+        $this->template->publish();
+    }
+
 
 
 
