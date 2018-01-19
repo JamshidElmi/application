@@ -47,6 +47,79 @@
         </li>
 
         <!-- menu header -->
+        <li class="header">مدیریت منوها</li>
+
+        <li class="treeview" id="menu_menus">
+            <a href="">
+                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> <span>منوها</span>
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+
+            <ul class="treeview-menu" >
+               <li class="treeview" id="menu1_kitchen_menus">
+                    <a href=""><i class="fa fa-circle-o"></i> منوی آشپزخانه
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="menu2_create_base_menu"><a class="read-only-garson" href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو اصلی</a></li>
+                        <li id="menu2_create_sub_menu"><a class="read-only-garson" href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i> ثبت زیر منو</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview" id="menu1_resturant_menus">
+                    <a href=""><i class="fa fa-circle-o"></i> منوی رستورانت
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="menu2_create_menu"><a class="read-only-garson" href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو</a></li>
+                        <li id="menu2_create_menu_category"><a class="read-only-garson" href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o"></i> ثبت نوع منو</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li class="treeview" id="menu_orders">
+            <a href="">
+                <i class="fa fa-shopping-basket"></i> <span>سفارشات</span>
+                <span class="pull-left-container">
+                    <i class="fa fa-angle-right pull-left"></i>
+                </span>
+            </a>
+
+            <ul class="treeview-menu">
+               <li class="treeview" id="menu1_kitchen_orders">
+                    <a href=""><i class="fa fa-circle-o"></i> سفارشات آشپزخانه
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="menu2_create_kitchen_order"><a href="<?=site_url('order/create_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
+                        <li id="menu2_kitchen_order_list"><a href="<?=site_url('order/kitchen_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات </a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview" id="menu1_resturant_orders">
+                    <a href=""><i class="fa fa-circle-o"></i> سفارشات رستورانت
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="menu2_create_resturant_order"><a href="<?=site_url('order/create_resturant_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
+                        <li id="menu2_resturant_order_list"><a href="<?=site_url('order/resturant_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <!-- menu header -->
         <li class="header no-garson">مدیریت</li>
 
         <li class="treeview no-garson" id="menu_employees">
@@ -188,78 +261,9 @@
         </li>
 
 
-        <!-- menu header -->
-        <li class="header">مدیریت منوها</li>
 
-        <li class="treeview" id="menu_menus">
-            <a href="">
-                <i class="fa ion-ios-bookmarks-outline fa-lg"></i> <span>منوها</span>
-                <span class="pull-left-container">
-                    <i class="fa fa-angle-right pull-left"></i>
-                </span>
-            </a>
 
-            <ul class="treeview-menu" >
-               <li class="treeview" id="menu1_kitchen_menus">
-                    <a href=""><i class="fa fa-circle-o"></i> منوی آشپزخانه
-                        <span class="pull-left-container">
-                            <i class="fa fa-angle-right pull-left"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li id="menu2_create_base_menu"><a class="read-only-garson" href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو اصلی</a></li>
-                        <li id="menu2_create_sub_menu"><a class="read-only-garson" href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i> ثبت زیر منو</a></li>
-                    </ul>
-                </li>
 
-                <li class="treeview" id="menu1_resturant_menus">
-                    <a href=""><i class="fa fa-circle-o"></i> منوی رستورانت
-                        <span class="pull-left-container">
-                            <i class="fa fa-angle-right pull-left"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li id="menu2_create_menu"><a class="read-only-garson" href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو</a></li>
-                        <li id="menu2_create_menu_category"><a class="read-only-garson" href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o"></i> ثبت نوع منو</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-
-        <li class="treeview" id="menu_orders">
-            <a href="">
-                <i class="fa fa-shopping-basket"></i> <span>سفارشات</span>
-                <span class="pull-left-container">
-                    <i class="fa fa-angle-right pull-left"></i>
-                </span>
-            </a>
-
-            <ul class="treeview-menu">
-               <li class="treeview" id="menu1_kitchen_orders">
-                    <a href=""><i class="fa fa-circle-o"></i> سفارشات آشپزخانه
-                        <span class="pull-left-container">
-                            <i class="fa fa-angle-right pull-left"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li id="menu2_create_kitchen_order"><a href="<?=site_url('order/create_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
-                        <li id="menu2_kitchen_order_list"><a href="<?=site_url('order/kitchen_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات </a></li>
-                    </ul>
-                </li>
-
-                <li class="treeview" id="menu1_resturant_orders">
-                    <a href=""><i class="fa fa-circle-o"></i> سفارشات رستورانت
-                        <span class="pull-left-container">
-                            <i class="fa fa-angle-right pull-left"></i>
-                        </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li id="menu2_create_resturant_order"><a href="<?=site_url('order/create_resturant_order'); ?>"><i class="fa fa-circle-o"></i>ثبت سفارش</a></li>
-                        <li id="menu2_resturant_order_list"><a href="<?=site_url('order/resturant_orders'); ?>"><i class="fa fa-circle-o"></i>لیست سفارشات</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
 
 
 

@@ -14,7 +14,10 @@
  */
 class MY_Controller extends CI_Controller
 {
-
+    public $order_count = 0;
+    public $order_list  = '';
+    public $all_orders  = '';
+    public $all_order_count  = 0;
     /**
      * MY_Controller constructor.
      */
@@ -27,6 +30,32 @@ class MY_Controller extends CI_Controller
 
         // Check User Is LogIn
         $this->check_session();
+        // check the order notificatuions
+        $this->load->model('order_model');
+        $date = mds_date("Y-m-d", "now", 1);
+        $time = (new \DateTime())->format('H:i:00');
+        $notifications = $this->order_model->count_order_notifications($date, $time);
+        //$this->order_count = count($notifications);
+        $this->order_list = $notifications;
+
+        foreach($this->order_list as $orders)
+        {
+            if ($orders->ord_time >= $time)
+            {
+                $this->order_count++;
+            }
+        }
+
+        $all_notifications = $this->order_model->all_order_notifications($date, $time);
+        $this->all_orders = $all_notifications;
+
+        foreach($this->all_orders as $orders)
+        {
+            if ($orders->ord_time >= $time)
+            {
+                $this->all_order_count++;
+            }
+        }
 
     }
 
@@ -41,6 +70,11 @@ class MY_Controller extends CI_Controller
             redirect('login/');
         }
     }
+
+    // public function count_order_notifications()
+    // {
+
+    // }
 
 
 

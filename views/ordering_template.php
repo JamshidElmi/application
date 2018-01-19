@@ -50,39 +50,134 @@
 
           <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <style>
+            /* permission access controlls */
+            .read-only{
+            <?php echo ($this->session->user_info->user_type == 2 || $this->session->user_info->user_type == 3) ? 'pointer-events: none;cursor: not-allowed;opacity: 0.6;' : ''; ?>
+            }
+            .only-admin{
+              <?php echo ($this->session->user_info->user_type != 1 ) ? 'display: none !important' : ''; ?>
+            }
+            .no-garson{
+            <?php echo ($this->session->user_info->user_type == 3 ) ?'display: none !important' : ''; ?>
+            }
+             .read-only-garson{
+            <?php echo ($this->session->user_info->user_type == 3 ) ? 'pointer-events: none;cursor:not-allowed;opacity: 0.6;' : ''; ?>
+            }
+            .lock{
+              pointer-events: none;cursor:not-allowed;opacity: 0.6;
+            }
+        </style>
     </head>
-    <body class="hold-transition skin-blue sidebar-mini">
-        <div class="wrapper">
-            <?php
-            // This is an example to show that you can load stuff from inside the template file
-            /* Header Layout */
-//            echo $this->template->widget("header");
-            /* Right Sidebar Layout */
-//            echo $this->template->widget("sidebar");
-            ?>
-            <!-- Content Wrapper. Contains page content -->
-            <div class="content-wrapper">
+
+
+
+
+    <body class="hold-transition skin-blue layout-top-nav">
+    <div class="wrapper">
+
+        <header class="main-header">
+            <nav class="navbar navbar-static-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="<?=base_url('dashboard')?>" class="navbar-brand"><b><?=$this->session->general_info->ci_full_name ?></b></a>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="<?=site_url('order/garson_ordering')?>">سفارش رستورانت<span class="sr-only">(current)</span></a></li>
+                            <li><a href="#">سفارش آشپزخانه</a></li>
+                            <li class="dropdown hidden">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">منوی آبشاری <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">سطح ۱</a></li>
+                                    <li><a href="#">سطح ۱</a></li>
+                                    <li><a href="#">سطح ۱</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">بخش ۲</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">بخش ۳</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="navbar-form navbar-left hidden" role="search">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="navbar-search-input" placeholder="جستجو">
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+
+                            <li class="dropdown user user-menu">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <img src="<?=base_url('assets/img/profiles/'.$this->session->emp_info->emp_picture); ?>" class="user-image" alt="User Image">
+                                    <span class="hidden-xs"><?=$this->session->emp_info->emp_name ?> <?=$this->session->emp_info->emp_lname ?></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- User image -->
+                                    <li class="user-header">
+                                        <img src="<?=base_url('assets/img/profiles/'.$this->session->emp_info->emp_picture); ?>" class="img-circle" alt="User Image">
+
+                                        <p>
+                                            <?=$this->session->emp_info->emp_name ?> <?=$this->session->emp_info->emp_lname ?> | <?=$this->session->emp_info->emp_position ?>
+                                            <small>مدیریت آشپزخانه</small>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Body -->
+                                    <li class="user-footer">
+                                    <?php if ($this->session->user_info->user_type != 3): ?>
+                                        <div class="pull-right">
+                                            <a href="<?=site_url('dashboard') ?>" class="btn btn-default btn-flat"> <i class="fa  fa-dashboard"></i> مدیریت </a>
+                                        </div>
+                                    <?php endif ?>
+
+                                        <div class="pull-left">
+                                            <a href="<?=site_url('login/logout') ?>" class="btn btn-danger btn-flat"> <i class="fa  fa-power-off"></i> خروج </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Control Sidebar Toggle Button -->
+                        </ul>
+                    </div>
+                    <!-- /.navbar-custom-menu -->
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+        </header>
+        <!-- Full Width Column -->
+        <div class="content-wrapper">
+            <div class="container">
                 <section class="content-header">
                     <h1>
                         <?= $this->template->title; ?>
                         <small><?= $this->template->description; ?></small>
                     </h1>
                 </section>
+
+                <!-- Main content -->
                 <section class="content">
                     <!-- This is the main content partial -->
                     <?php echo $this->template->content; ?>
                 </section>
                 <!-- /.content -->
             </div>
-            <?php
-            /* Footer Layout */
-            echo $this->template->widget("footer");
-            /* Left Control Panel Layout */
-            echo $this->template->widget("controlsidebar");
-            ?>
+            <!-- /.container -->
+        </div>
+        <!-- /.content-wrapper -->
+        <?= $this->template->widget("footer"); ?>
+    </div>
+    <!-- ./wrapper -->
 
-            <div class="control-sidebar-bg"></div>
-        </div> <!-- wrapper -->
+
+
 
         <!-- Exretnal Scripts -->
         <?php
@@ -107,11 +202,6 @@
          ?>
         <?php echo $this->template->javascript->add($script); ?>
         <!-- Public Custom Scripts -->
-        <script>
-            $('#<?php echo $this->template->menu;  ?>').addClass('active');
-            $('#<?php echo $this->template->menu1; ?>').addClass('active');
-            $('#<?php echo $this->template->menu2; ?>').addClass('active');
-            $('#<?php echo $this->template->menu3; ?>').addClass('active');
-        </script>
     </body>
+
 </html>

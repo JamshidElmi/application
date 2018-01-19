@@ -196,4 +196,36 @@ class order_model extends MY_Model
         return $query;
     }
 
+    public function count_order_notifications($date,$time)
+    {
+        $this->db->from('orders');
+        $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id', 'left outer');
+        $this->db->join('desks', 'desks.desk_id = orders.ord_desk_id', 'left outer');
+        $this->db->where('ord_date >=' , $date);
+        // $this->db->where('ord_time >=' , $time);
+        $query = $this->db->get()->result();
+        echo $this->db->last_query();
+        return $query;
+        // echo count($query);
+
+         // die();
+
+    }
+
+     public function all_order_notifications($date,$time)
+    {
+        $bid =  base_account()->acc_id;
+        $this->db->from('orders');
+        // $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
+        $this->db->where('ord_date >=' , $date);
+        $this->db->where('ord_cus_id', $bid);
+        $query = $this->db->get()->result();
+        // echo $this->db->last_query();
+        return $query;
+        // echo count($query);
+
+         // die();
+
+    }
+
 } // end class

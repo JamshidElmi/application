@@ -174,6 +174,17 @@ class Order extends MY_Controller
     public function insert_resturant_order()
     {
         $data = $this->input->post();
+        if($this->input->post('pay_type'))
+        {
+            if($this->input->post('pay_type') == 1)
+            {
+                $data['tr_amount'] = $data['ord_price'];
+            }
+            else
+            {
+                $data['tr_amount'] = 0;
+            }
+        }
         // print_r($data);
         // die();
 
@@ -694,6 +705,28 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end print_resturant_bill
 
+    public function print_garson_resturant_bill($ord_id, $customer = NULL)
+    {
+        $this->template->description = 'فاکتور سفارش رستورانت';
+        $sub_menus = $this->order_model->ord_join_sub_ord_join_unit_res($ord_id);
+        if ($customer === NULL)
+        {
+            $ord_cus = $this->order_model->order_join_customer_by_id($ord_id);
+        }
+        else
+        {
+            $this->order_model->orders();
+            $ord_cus = $this->order_model->data_get($ord_id);
+        }
+        $this->order_model->transections();
+        $ord_transections = $this->order_model->data_get_by(['tr_type' => 'resturant', 'tr_ord_id' => $ord_id]);
+
+        // view
+        $this->template->set_template('ordering_template');
+        $this->template->content->view('orders/print_resturant_bill', ['ord_cus' => $ord_cus, 'sub_menus' => $sub_menus, 'ord_transections' => $ord_transections]);
+        $this->template->publish();
+    } // end print_resturant_bill
+
     public function print_resturant_order($ord_id)
     {
         $this->template->set_template('print_template');
@@ -702,8 +735,7 @@ class Order extends MY_Controller
 
     public function garson_ordering()
     {
-        $this->template->menu1 = 'menu1_resturant_orders';
-        $this->template->menu2 = 'menu2_create_resturant_order';
+        $this->template->menu  = 'menu_garson_resturant_ordering';
         $this->template->description = 'ثبت سفارش برای رستورانت';
 
         $this->order_model->menu_category();
@@ -717,9 +749,23 @@ class Order extends MY_Controller
 
         // view
         $this->template->set_template('ordering_template');
-        $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts]);
+        $this->template->content->view('orders/create_garson_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts]);
         $this->template->publish();
     }
+
+    public function garson_resturant_orders()
+    {
+        $this->template->description = 'لیست سفارشات رستورانت';
+
+        $orders = $this->order_model->order_join_customer('resturant');
+        $this->order_model->orders();
+        $orders_base_acc = $this->order_model->data_get_by(['ord_type' => 'resturant']);
+
+        // view
+         $this->template->set_template('ordering_template');
+        $this->template->content->view('orders/garson_resturant_orders', ['orders' => $orders, 'orders_base_acc' => $orders_base_acc]);
+        $this->template->publish();
+    } // end resturant_orders
 
 
 
