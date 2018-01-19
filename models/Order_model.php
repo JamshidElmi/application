@@ -202,9 +202,10 @@ class order_model extends MY_Model
         $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id', 'left outer');
         $this->db->join('desks', 'desks.desk_id = orders.ord_desk_id', 'left outer');
         $this->db->where('ord_date >=' , $date);
+        $this->db->order_by('ord_date',0);
         // $this->db->where('ord_time >=' , $time);
         $query = $this->db->get()->result();
-        echo $this->db->last_query();
+//        echo $this->db->last_query();
         return $query;
         // echo count($query);
 
@@ -212,20 +213,20 @@ class order_model extends MY_Model
 
     }
 
-     public function all_order_notifications($date,$time)
+    public function count_stock_notifications()
     {
-        $bid =  base_account()->acc_id;
-        $this->db->from('orders');
-        // $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
-        $this->db->where('ord_date >=' , $date);
-        $this->db->where('ord_cus_id', $bid);
+        $this->db->from('stock_units');
+        $this->db->join('units', 'stock_units.st_unit = units.unit_id');
+        $this->db->where('st_count <= st_min_count');
         $query = $this->db->get()->result();
-        // echo $this->db->last_query();
+//        echo $this->db->last_query();
         return $query;
         // echo count($query);
 
-         // die();
+        // die();
 
     }
+
+
 
 } // end class

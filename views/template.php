@@ -48,6 +48,7 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+
           <!-- Google Font -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
     </head>
@@ -62,12 +63,32 @@
             ?>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
-                <section class="content-header">
-                    <h1>
-                        <?= $this->template->title; ?>
-                        <small><?= $this->template->description; ?></small>
-                    </h1>
-                </section>
+
+                    <div class="row" style="margin: 0;padding: 0;">
+                        <div class="col-sm-9" style="margin: 0;padding: 0;">
+                            <section class="content-header" style="margin: 5px 10px 0 10px;padding: 5px 10px 0 10px;">
+                            <h1>
+                                <?= $this->template->title; ?>
+                                <small><?= $this->template->description; ?></small>
+                            </h1>
+                            </section>
+                        </div>
+                        <div class="col-sm-3 text-center" style="margin: 0;padding: 0;">
+                            <section class="content-header" style="margin: 5px 10px 0 10px;padding: 5px 10px 0 10px;">
+                                <div class="clock" style="border: 1px dashed #cacaca; border-radius: 5px; background: #e1e1e1">
+                                    <ul>
+                                        <li id="sec"> </li>
+                                        <li id="point">:</li>
+                                        <li id="min"> </li>
+                                        <li id="point">:</li>
+                                        <li id="hours"> </li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+
                 <section class="content">
                     <!-- This is the main content partial -->
                     <?php echo $this->template->content; ?>
@@ -112,6 +133,49 @@
             $('#<?php echo $this->template->menu1; ?>').addClass('active');
             $('#<?php echo $this->template->menu2; ?>').addClass('active');
             $('#<?php echo $this->template->menu3; ?>').addClass('active');
+
+
+
+
+
+
+
+        </script>
+        <script>
+            $(document).ready(function() {
+                // Create two variable with the names of the months and days in an array
+                var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+                var dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+                // Create a newDate() object
+                var newDate = new Date();
+                // Extract the current date from Date object
+                newDate.setDate(newDate.getDate());
+                // Output the day, date, month and year
+                $('#Date').html(dayNames[newDate.getDay()] + " " + newDate.getDate() + ' ' + monthNames[newDate.getMonth()] + ' ' + newDate.getFullYear());
+
+                setInterval( function() {
+                    // Create a newDate() object and extract the seconds of the current time on the visitor's
+                    var seconds = new Date().getSeconds();
+                    // Add a leading zero to seconds value
+                    $("#sec").html(( seconds < 10 ? "0" : "" ) + seconds);
+                },1000);
+
+                setInterval( function() {
+                    // Create a newDate() object and extract the minutes of the current time on the visitor's
+                    var minutes = new Date().getMinutes();
+                    // Add a leading zero to the minutes value
+                    $("#min").html(( minutes < 10 ? "0" : "" ) + minutes);
+                },1000);
+
+                setInterval( function() {
+                    // Create a newDate() object and extract the hours of the current time on the visitor's
+                    var hours = new Date().getHours();
+                    // Add a leading zero to the hours value
+                    $("#hours").html(( hours < 10 ? "0" : "" ) + hours);
+                }, 1000);
+
+            });
         </script>
     </body>
 </html>
