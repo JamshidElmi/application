@@ -361,7 +361,7 @@ class Setting extends MY_Controller
                 redirect('setting/edit_info');
             }
         }
-        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+        $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد. لطفاً برای اعمال تغییرات یکبار از حساب کاربری خود خارج شوید و دوباره وارد شوید.');
         redirect('setting/edit_info');
 
     }

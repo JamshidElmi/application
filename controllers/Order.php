@@ -1,5 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Order extends MY_Controller
 {
@@ -51,11 +50,11 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end create_order
 
-    /* TODO: wordking here... insert_kitchen_order() */
     public function insert_kitchen_order()
     {
         $data = $this->input->post();
-//        print_r($data); die();
+//        var_dump($data); die();
+
         // Inserting data
         $this->order_model->orders();
         $insert_ord_id = $this->order_model->data_save(['ord_desc' => $data['ord_desc'], 'ord_created_date' => $data['ord_created_date'], 'ord_date' => $data['ord_date'], 'ord_time' => $data['ord_time'], 'ord_price' => $data['ord_price'], 'ord_ext_charges' => $data['ord_ext_charges'], 'ord_discount' => $data['ord_discount'], 'ord_type' => 'kitchen', 'ord_cus_id' => $data['ord_cus_id']]);
@@ -70,7 +69,7 @@ class Order extends MY_Controller
                     'sord_sm_id' => $data['sord_sm_id'][$i],
                     'sord_count' => $data['sord_count'],
                     'sord_price' => $data['bm_price'],
-                    'sord_ord_id' => $insert_ord_id
+                    'sord_ord_id'=> $insert_ord_id
                 );
                 $result = $this->order_model->data_save($sm_data);
                 if (!is_int($result)) {
@@ -91,19 +90,26 @@ class Order extends MY_Controller
             // Save Transection
             $this->order_model->transections();
             $this->order_model->data_save([
-                'tr_desc' => $data['ord_desc'],
+                'tr_desc'   => $data['ord_desc'],
                 'tr_amount' => $data['tr_amount'],
-                'tr_type' => 'kitchen_order',
-                'tr_date' => $data['ord_date'],
+                'tr_type'   => 'kitchen_order',
+                'tr_date'   => $data['ord_date'],
                 'tr_status' => 1,
                 'tr_acc_id' => $account->acc_id,
                 'tr_ord_id' => $insert_ord_id,
             ]);
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-            redirect('order/create_order');
+            if (isset($data['submit_print'])) {
+                redirect('order/print_order_bill/'.$insert_ord_id);
+            }
+            else
+            {
+                redirect('order/create_order');
+            }
         } else {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
-            redirect('order/create_order');
+                redirect('order/create_order');
+
         }
 
     } // end insert_kitchen_order
@@ -174,6 +180,7 @@ class Order extends MY_Controller
     public function insert_resturant_order()
     {
         $data = $this->input->post();
+
         if($this->input->post('pay_type'))
         {
             if($this->input->post('pay_type') == 1)
@@ -206,11 +213,13 @@ class Order extends MY_Controller
                 $acc_new_amount = $account->acc_amount - $data['tr_amount'];
                 $this->order_model->data_save(['acc_amount' => $acc_new_amount], $account->acc_id);
                 $account_id = $account->acc_id;
+                $cus_type = '';
             } else {
                 $this->order_model->accounts();
                 $acc_new_amount = base_account()->acc_amount + $data['tr_amount'];
                 $this->order_model->data_save(['acc_amount' => $acc_new_amount], base_account()->acc_id);
                 $account_id = base_account()->acc_id;
+                $cus_type = 'no_customer';
             }
 
             $this->order_model->transections();
@@ -224,7 +233,13 @@ class Order extends MY_Controller
                 'tr_ord_id' => $insert_ord_id,
             ]);
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-            redirect('order/create_resturant_order');
+            if (isset($data['submit_print'])) {
+                redirect('order/print_resturant_bill/'.$insert_ord_id.'/'.$cus_type);
+            }
+            else
+            {
+                redirect('order/create_resturant_order');
+            }
         } else {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
             redirect('order/create_resturant_order');
@@ -498,7 +513,7 @@ class Order extends MY_Controller
 
     public function expence_stock($ord_id = NULL, $cus_name = NULL, $cus_lname = NULL)
     {
-        $this->template->menu = 'menu_finance';
+        $this->template->menu  = 'menu_finance';
         $this->template->menu1 = 'menu1_stock';
         $this->template->menu2 = 'menu2_expence_from_stock';
         $this->template->menu3 = 'menu3_create_expence_from_stock';
@@ -727,10 +742,10 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end print_resturant_bill
 
-    public function print_resturant_order($ord_id)
+    public function print_resturant_order($ord_id, $customer)
     {
         $this->template->set_template('print_template');
-        $this->print_resturant_bill($ord_id);
+        $this->print_resturant_bill($ord_id, $customer);
     }
 
     public function garson_ordering()

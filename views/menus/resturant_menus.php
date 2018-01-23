@@ -68,7 +68,7 @@
                     <?php else: ?>
                         <div class="form-group">
                             <label for="bm_picture">عکس</label>
-                            <input type="file" name="bm_picture" id="bm_picture" required />
+                            <input type="file" name="bm_picture" id="bm_picture"  />
                             <p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
                         </div>
                     <?php endif ?>

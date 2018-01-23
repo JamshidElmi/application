@@ -20,7 +20,13 @@
             <div class="box-header with-border no-print">
                 <h3 class="box-title"> فاکتور رستورانت</h3>
                 <div class="box-tools pull-right no-print">
-                    <a href="<?= site_url('order/print_resturant_order/' . $ord_cus->ord_id) ?>" target="_blank" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Print">
+                    <a href="<?= site_url('order/resturant_payment/' . $ord_cus->ord_id) ?>" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Payment">
+                        <i class="fa fa-money fa-lg"></i>
+                    </a>
+                    <a href="<?= site_url('order/sub_orders/' . $ord_cus->ord_id) ?>" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Order's List">
+                        <i class="fa fa-list fa-lg"></i>
+                    </a>
+                    <a href="<?= site_url('order/print_resturant_order/' . $ord_cus->ord_id.'/'.$this->uri->segment(4)) ?>" target="_blank" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Print">
                         <i class="fa fa-print fa-lg"></i>
                     </a>
                 </div>
@@ -78,18 +84,18 @@
 
                 <table class="table table-border table-striped">
                     <tbody>
-                    <tr class="bg-gray">
-                        <th style="width: 8px">#</th>
-                        <th>نوع غــذا</th>
-                        <th>تعداد</th>
-                        <th>فیات</th>
-                        <th>مجموع</th>
+                    <tr class="">
+                        <th style="width: 8px;border-top: 1px solid #b1b1b1;">#</th>
+                        <th style="border-top: 1px solid #b1b1b1;">نوع غــذا</th>
+                        <th style="border-top: 1px solid #b1b1b1;">تعداد</th>
+                        <th style="border-top: 1px solid #b1b1b1;">فیات</th>
+                        <th style="border-top: 1px solid #b1b1b1;">مجموع</th>
                     </tr>
                     <?php $i = 1;
 
                     foreach ($sub_menus as $sm) : ?>
                         <tr>
-                            <td class="bg-gray text-center"><strong><?= $i++; ?></strong></td>
+                            <td class=" text-center"><strong><?= $i++; ?></strong></td>
                             <td><?= $sm->bm_name ?></td>
                             <td><?= ($sm->sord_count) ?> <?= $sm->unit_name ?></td>
                             <td><?= round($sm->bm_price, 1) ?> افغانی</td>
@@ -110,11 +116,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="bg-success text-success"><b>رسیده</b></td>
+                        <td colspan="3" class=" text-success"><b>رسیده</b></td>
                         <td colspan="2"><b><?= $total_payed ?></b> افغانی</td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="bg-danger text-danger"><b>الباقی</b></td>
+                        <td colspan="3" class=" text-danger"><b>الباقی</b></td>
                         <td colspan="2"><b><?= $total_unpayed ?></b> افغانی</td>
                     </tr>
                     <tr>
@@ -125,9 +131,9 @@
                             <i class="fa fa-phone-square fa-lg"></i></td>
                     </tr>
                     <tr>
-                        <td colspan="5" class="text-center">
-                            <b><span><?= $this->session->general_info->ci_emails ?></span></b>
-                            <b><span><?= $this->session->general_info->ci_website ?></span></b>
+                        <td colspan="5" class="text-center" style="font-size: 8px">
+                            <b><span><?= $this->session->general_info->ci_emails ?></span> <i class="ion-android-globe fa-lg"></i></b>
+                            <b><span><?= $this->session->general_info->ci_website ?></span> <i class="fa fa-facebook-square fa-lg"></i></b>
                         </td>
                     </tr>
                     <tr>

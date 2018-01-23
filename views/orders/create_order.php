@@ -22,13 +22,17 @@
                     <?php if ($this->session->file_errors) {
                         echo alert($this->session->file_errors, 'warning');
                     } ?>
-
-                    <div class="form-group"><label for="bm_cat_id">انتخاب مشتری</label>
-                        <select name="bm_cat_id" id="bm_cat_id" class="form-control select2" style="width: 100%;border-radius: 0px" required>
-                            <option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?>
-                                <option cus-acc-id="<?= $customer->cus_acc_id ?>" value="<?= $customer->cus_id ?>"><?= $customer->cus_name . ' ' . $customer->cus_lname ?>
-                                <span>(<?= $customer->cus_unique_id ?>)</span></option><?php endforeach ?>
-                        </select>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label>انتخاب مشتری</label>
+                            <div class="form-group">
+                                <select name="bm_cat_id" id="bm_cat_id" class="form-control select2" style="width: 100%;border-radius: 0" required>
+                                    <option value="">انتخاب کنید</option><?php foreach ($customers as $customer): ?>
+                                        <option cus-acc-id="<?= $customer->cus_acc_id ?>" value="<?= $customer->cus_id ?>"><?= $customer->cus_name . ' ' . $customer->cus_lname ?>
+                                        <span>(<?= $customer->cus_unique_id ?>)</span></option><?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -37,7 +41,7 @@
                                 <label>تاریخ</label>
                                 <div class="input-group date">
                                     <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                    <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;" readonly>
+                                    <input type="text" id="tarikh" class="form-control pull-right" style="z-index: 0;width: 100%" readonly>
                                     <input type="hidden" id="dateAlt" name="ord_date" class="form-control pull-right" style="z-index: 0;">
                                 </div>
                             </div>
@@ -145,8 +149,8 @@
 
                 </div>
                 <div class="box-footer">
-                    <button type="submit" id="submit" class="btn btn-success" disabled>ذخیره <i class="fa fa-save"></i>
-                    </button>
+                    <button type="submit" id="submit" class="btn btn-success" disabled>ذخیره <i class="fa fa-save"></i></button>
+                    <button type="submit" name="submit_print" id="submit_print" class="btn btn-info" disabled><i class="fa fa-save"></i> ذخیره و چاپ <i class="fa fa-print"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>
@@ -285,6 +289,7 @@
 
         $('.select-menu').click(function (event) {
             $('#submit').attr('disabled', false);
+            $('#submit_print').attr('disabled', false);
         });
 
         $('#tr_amount').keyup(function (event) {

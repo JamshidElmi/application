@@ -68,8 +68,8 @@
 
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label for="ci_emails">آدرس ایمیل </label>
-                                <input type="email" value="<?=$info->ci_emails ?>" class="form-control text-left" name="ci_emails" id="ci_emails" placeholder="ایمیل آدرس: email@domain.com" required/>
+                                <label for="ci_emails">آدرس ایمیل یا فیسبوک</label>
+                                <input type="text" value="<?=$info->ci_emails ?>" class="form-control text-left" name="ci_emails" id="ci_emails" placeholder="ایمیل آدرس: email@domain.com" required/>
                             </div>
                         </div>
                     </div>

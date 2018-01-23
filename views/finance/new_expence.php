@@ -73,15 +73,33 @@
                                 <a class="btn btn-primary col-xs-12 add_field_button" id="add_new" data-toggle="tooltip" title="" data-original-title="Add New"><i class="ion-android-add-circle fa-lg"></i></a>
                             </div>
                             <div class="col-xs-2">
-                                <button  type=button class="btn btn-warning col-xs-12" id="calcolate"  data-toggle="tooltip" title="" data-original-title="Sum Total"><i class="ion-calculator fa-lg"></i></button>
+                                <button  type=button class="btn btn-info col-xs-12" id="calcolate"  data-toggle="tooltip" title="" data-original-title="Sum Total"><i class="ion-calculator fa-lg"></i></button>
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="acc_description">توضیحات / یادداشت</label>
-                        <textarea rows="7" class="form-control" name="bill_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="form-group">
+                                <label for="acc_description">توضیحات / یادداشت</label>
+                                <textarea rows="7" class="form-control" name="bill_desc" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                            </div>
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="dex_type">مصرف برای</label>
+                            <div class="form-group">
+                                <div id="radios" class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-warning btn-sm read-only">
+                                        <input type="radio" name="bill_dex_type" id="dex_type1" value="1"  /> رستورانت
+                                    </label>
+                                    <label class="btn btn-warning btn-sm active">
+                                        <input type="radio" name="bill_dex_type" id="dex_type2" value="0" checked /> آشپزخانه
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
 
 
                 </div>

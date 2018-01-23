@@ -46,16 +46,6 @@ class Menu extends MY_Controller {
 
     public function insert_kitchen_menu($bm_id = NULL)
     {
-//        echo $row = count($this->input->post('menus'))-1; die();
-//         print_r($this->input->post()); die();
-
-//        if(isset($_FILES['bm_picture']['name']))
-//            echo "come";
-//        else
-//            echo "NOT come";
-//
-//        die();
-
         $data = $this->input->post();
         $data['bm_type']                = 0;
         $config['upload_path']          = './assets/img/menus';
@@ -66,7 +56,7 @@ class Menu extends MY_Controller {
 
         $this->load->library('upload', $config);
 
-        if(isset($_FILES['bm_picture']['name']))
+        if($_FILES['bm_picture']['name'] || $_FILES['bm_picture']['name'] != "")
         {
             if ( ! $this->upload->do_upload('bm_picture'))
             {
@@ -119,6 +109,8 @@ class Menu extends MY_Controller {
         }
         else
         {
+            // Set default image
+            $data['bm_picture'] = 'menu-default.png';
             // Inserting data
             $this->menu_model->base_menus();
             unset($data['menus']);
@@ -197,7 +189,7 @@ class Menu extends MY_Controller {
 
     public function insert_resturant_menu($bm_id = NULL)
     {
-        // print_r($_FILES['bm_picture']['name']); die();
+//         var_dump($_FILES['bm_picture']['name']); die();
 
         $data = $this->input->post();
         $data['bm_type']                = 1;
@@ -209,7 +201,7 @@ class Menu extends MY_Controller {
 
         $this->load->library('upload', $config);
 
-        if($_FILES['bm_picture']['name'])
+        if($_FILES['bm_picture']['name'] || $_FILES['bm_picture']['name'] != "")
         {
             if ( ! $this->upload->do_upload('bm_picture'))
             {
@@ -244,6 +236,8 @@ class Menu extends MY_Controller {
         }
         else
         {
+            // Set default image
+            $data['bm_picture'] = 'menu-default.png';
             // Inserting data
             $this->menu_model->base_menus();
             if($bm_id == NULL)

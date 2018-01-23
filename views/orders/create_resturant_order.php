@@ -14,17 +14,17 @@
             <form role="form" method="POST" action="<?=site_url('order/insert_resturant_order/'); ?>">
 
                 <div class="box-body">
-                    <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
+                    <?php if($this->session->form_errors)  { echo alert($this->session->form_errors,'danger'); }  ?>
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
-                    <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
+                    <?php if($this->session->file_errors)  { echo alert($this->session->file_errors,'warning'); }  ?>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group"><label for="ord_cus_id">انتخاب مشتری</label><select name="ord_cus_id" id="ord_cus_id" class="form-control select2"><option value="<?=base_account()->acc_id ?>_">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?> <span>(<?=$customer->cus_unique_id ?>)</span></option><?php endforeach ?></select></div>
+                            <div class="form-group"><label for="ord_cus_id">انتخاب مشتری</label><select name="ord_cus_id" id="ord_cus_id" class="form-control select2" style="width: 100%;border-radius: 0"><option value="<?=base_account()->acc_id ?>_">انتخاب کنید</option><?php foreach ($customers as $customer): ?><option cus-acc-id="<?=$customer->cus_acc_id ?>" value="<?=$customer->cus_id ?>"><?=$customer->cus_name .' '.$customer->cus_lname ?> <span>(<?=$customer->cus_unique_id ?>)</span></option><?php endforeach ?></select></div>
                         </div>
                         <div class="col-sm-6">
+                            <label for="bm_cat_id">انتخاب میز</label>
                             <div class="form-group">
-                                <label for="bm_cat_id">انتخاب میز</label>
-                                <select name="ord_desk_id" id="ord_desk_id" class="form-control">
+                                <select name="ord_desk_id" id="ord_desk_id" class="form-control" style="width: 100%;border-radius: 0">
                                     <option>انتخاب کنید</option>
                                     <?php foreach ($desks as $desk): ?>
                                         <option value="<?=$desk->desk_id ?>"><?=$desk->desk_name .' ('.$desk->desk_capacity.')' ?></option>
@@ -112,6 +112,7 @@
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
+                    <button type="submit" name="submit_print" id="submit_print" class="btn btn-info"><i class="fa fa-save"></i> ذخیره و چاپ <i class="fa fa-print"></i></button>
                     <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
                 </div>
             </form>

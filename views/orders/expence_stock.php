@@ -1,3 +1,4 @@
+<?php //echo $this->uri->segment(5); die(); ?>
 <div class="row">
     <div class="col-sm-5">
         <div class="box box-success">

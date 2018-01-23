@@ -153,7 +153,7 @@ class Finance extends MY_Controller {
 
     public function expences($bill_type)
     {
-        $this->template->description = ($bill_type == 0) ? ' لیست خریداری مصارف روزانه' : ' لیست خریداری مصارف گدام ';
+        $this->template->description = ($bill_type == 0) ? ' لیست مصارف روزانه' : ' لیست خریداری مصارف گدام ';
         $this->template->menu1 = ($bill_type == 0) ? 'menu1_expences' : 'menu1_stock';
         $this->template->menu2 = ($bill_type == 0) ? 'menu2_daily_expences' : 'menu2_buy_for_stock_list';
 
@@ -161,7 +161,7 @@ class Finance extends MY_Controller {
         // $expences = $this->finance_model->data_get_by(['bill_type'=>$bill_type]);
         $expences = $this->finance_model->bill_join_trans($bill_type);
         // view
-        $this->template->content->view('finance/expences', ['expences' => $expences, 'expences' => $expences]);
+        $this->template->content->view('Finance/expences', ['expences' => $expences]);
         $this->template->publish();
     } // end expences
 
@@ -200,6 +200,7 @@ class Finance extends MY_Controller {
                 'bill_date'         => $this->input->post('bill_date'),
                 'bill_desc'         => $this->input->post('bill_desc'),
                 'bill_total_amount' => $this->input->post('bill_sum'),
+                'bill_dex_type'     => $this->input->post('bill_dex_type'),
                 'bill_type'         => 0
                 );
             $this->finance_model->bills();

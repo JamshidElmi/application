@@ -8,7 +8,7 @@
 }
 </style>
 <div class="row">
-<?php $segment =  $this->uri->segment(3); ?>
+<?php  $segment =  $this->uri->segment(3); ?>
 
     <div class="col-md-12">
         <div class="box box-primary box-solid">
@@ -44,7 +44,7 @@
                             <td ><?=$expence->bill_shop ?></td>
                             <td class="text-center"><?=$expence->bill_no ?></td>
                             <td class="text-center"><?=$expence->bill_total_amount ?> افغانی</td>   <span class="bg-purple"></span>
-                            <td class="text-center"><?=($expence->bill_type == 0) ? '<span class="label bg-orange">مصارف روزانه</span>' : '<span class="label bg-purple">خریداری برای گدام</span>' ?></td>
+                            <td class="text-center"><?=($expence->bill_type == 0) ? ($expence->bill_dex_type == 0) ? '<span class="label bg-orange">مصارف آشپزخانه</span>' : '<span class="label bg-blue">مصارف رستورانت</span>' : '<span class="label bg-purple">خریداری برای گدام</span>' ?></td>
                             <td ><span data-toggle="tooltip" data-original-title="<?=$expence->bill_desc; ?>"><?=substr_fa($expence->bill_desc, 20); ?></span></td>
                             <td class="text-center"><?=show_date('l d/F/Y', $expence->bill_date); ?></td>
                             <td class="text-center">

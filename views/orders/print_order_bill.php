@@ -21,6 +21,15 @@
             <a href="<?=site_url('order/print_kitchen_order/'.$ord_cus->ord_id.'/1') ?>" target="_blank" type="button" class="btn btn-box-tool" data-toggle="tooltip" data-original-title="Print">
                 <i class="fa fa-print fa-lg"></i>
             </a>
+            <a href="<?=site_url('order/kitchen_payment/'.$ord_cus->ord_id) ?>" type="button" class="btn btn-box-tool read-only-garson" data-toggle="tooltip" data-original-title="Payment">
+                <i class="fa fa-money fa-lg"></i>
+            </a>
+            <a href="<?=site_url('order/stock_expences/'.$ord_cus->ord_id) ?>" type="button" class="btn btn-box-tool no-garson" data-toggle="tooltip" data-original-title="Stock Expences for this Order">
+                <i class="fa fa-shopping-cart fa-lg"></i>
+            </a>
+            <a href="<?=site_url('order/stock_expences/'.$ord_cus->ord_id) ?>" type="button" class='btn btn-box-tool <?php echo ($now >= show_date("Y/m/d", $order->ord_date) AND $this->session->user_info->user_type != 1) ? "lock" : "" ?>' data-toggle="tooltip" data-original-title="Edit">
+                <i class="fa fa-edit fa-lg"></i>
+            </a>
         </div>
         <!-- /.box-tools -->
     </div>
@@ -60,19 +69,19 @@
 
         <table class="table table-border table-striped">
             <tbody>
-            <tr class="bg-gray">
-                <th style="width: 8px">شماره</th>
-                <th>نوع غــذا</th>
-                <th>تعداد</th>
-                <th>واحد</th>
-                <th>فیات</th>
-                <th>مجموع</th>
+            <tr class="">
+                <th style="width: 8px; border-top: 1px solid #b1b1b1;">شماره</th>
+                <th style="border-top: 1px solid #b1b1b1;">نوع غــذا</th>
+                <th style="border-top: 1px solid #b1b1b1;">تعداد</th>
+                <th style="border-top: 1px solid #b1b1b1;">واحد</th>
+                <th style="border-top: 1px solid #b1b1b1;">فیات</th>
+                <th style="border-top: 1px solid #b1b1b1;">مجموع</th>
             </tr>
             <?php $i = 1;
             $rows = 20;
             foreach ($sub_menus as $sm) : ?>
                 <tr>
-                    <td class="bg-gray text-center"><strong><?= $i++;
+                    <td class=" text-center"><strong><?= $i++;
                         $rows--; ?></strong></td>
                     <td><?= $sm->sm_name ?></td>
                     <td><?= ($sm->sm_count * $sm->sord_count) ?></td>
@@ -83,7 +92,7 @@
             <?php endforeach ?>
             <?php for ($l = 0; $l < $rows; $l++): ?>
                 <tr>
-                    <td class="bg-gray text-center"><strong><?= $i++; ?></strong></td>
+                    <td class="text-center"><strong><?= $i++; ?></strong></td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -109,20 +118,20 @@
             <tr>
                 <td colspan="2"><strong>امضاء فروشنده:</strong></td>
                 <td colspan="2"><strong>امضاء مشتری:</strong></td>
-                <td class="bg-success text-success"><b>رسیده</b></td>
+                <td class=" text-success"><b>رسیده</b></td>
                 <td><b><?= $total_payed ?></b> افغانی</td>
             </tr>
             <tr>
                 <td colspan="2"><b>شماره های تماس</b></td>
                 <td colspan="2" class="text-center"><?= $this->session->general_info->ci_phones ?></td>
-                <td class="bg-danger text-danger"><b>الباقی</b></td>
+                <td class=" text-danger"><b>الباقی</b></td>
                 <td><b><?= $total_unpayed ?></b> افغانی</td>
             </tr>
             <tr style="font-size: 13px">
                 <td colspan="3"><b>آدرس:</b> <?= $this->session->general_info->ci_address ?></td>
                 <td colspan="3" class="text-center">
-                    <b><span><?= $this->session->general_info->ci_emails ?></span> <i class="ion-ios-email fa-lg"></i></b>
-                    <b><span><?= $this->session->general_info->ci_website ?></span> <i class="ion-android-globe fa-lg"></i></b>
+                    <b><span><?= $this->session->general_info->ci_emails ?></span> <i class="ion-android-globe fa-lg"></i></b>
+                    <b><span><?= $this->session->general_info->ci_website ?></span> <i class="fa fa-facebook-square fa-lg"></i></b>
                 </td>
             </tr>
             </tbody>

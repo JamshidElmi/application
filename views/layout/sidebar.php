@@ -24,11 +24,14 @@
         </form>
         <!-- /.search form -->
 
+
         <!-- ========================= STR Menu ========================= -->
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
 
+        <li class="header" style="color: darkgray;">امروز: <?= mds_date("l d / M / Y", "now", 1); ?></li>
+            <br/>
         <!-- menu header -->
         <li class="header">آمار سیستم</li>
 
@@ -65,8 +68,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li id="menu2_create_base_menu"><a class="read-only-garson" href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو اصلی</a></li>
-                        <li id="menu2_create_sub_menu"><a class="read-only-garson" href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i> ثبت زیر منو</a></li>
+                        <li id="menu2_create_base_menu"><a class="read-only-garson" href="<?=site_url('menu/kitchen_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو</a></li>
+                        <li id="menu2_create_sub_menu"><a class="read-only-garson" href="<?=site_url('menu/sub_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت زیر منو</a></li>
                     </ul>
                 </li>
 
@@ -77,8 +80,8 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li id="menu2_create_menu"><a class="read-only-garson" href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت منو</a></li>
-                        <li id="menu2_create_menu_category"><a class="read-only-garson" href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o"></i> ثبت نوع منو</a></li>
+                        <li id="menu2_create_menu_category"><a class="read-only-garson" href="<?=site_url('setting/menu_category'); ?>"><i class="fa fa-circle-o"></i>ثبت منو</a></li>
+                        <li id="menu2_create_menu"><a class="read-only-garson" href="<?=site_url('menu/resturant_menus'); ?>"><i class="fa fa-circle-o"></i>ثبت زیر منو</a></li>
                     </ul>
                 </li>
             </ul>
