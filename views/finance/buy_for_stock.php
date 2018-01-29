@@ -4,6 +4,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت خریداری برای گدام</h3>
                 <div class="box-tools pull-right">
+                    <a href="#" data-toggle="modal" data-target="#create_account" class="btn btn-box-tool bg-green" data-toggle="tooltip" title="" data-original-title="Create Partner"><i class="ion ion-lock-combination fa-lg"></i></a>
                     <a href="<?=site_url('finance/expences/1'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Expences List"><i class="ion-android-list fa-lg"></i></a>
                 </div>
             </div>
@@ -181,6 +182,90 @@
 
 </div>
 
+
+
+
+
+
+
+
+
+
+<!-- Modal -->
+<div id="create_account" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title no-margin">ایجاد حساب جدید</h4>
+            </div>
+            <form role="form" method="POST" action="<?=site_url('finance/insert_account/buy_stock'); ?>" >
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="acc_name">نام صندوق</label>
+                        <input type="text" class="form-control" name="acc_name" id="acc_name" placeholder="نام صندوق" required/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emp_phone">نوعیت حساب</label> &nbsp;&nbsp;&nbsp;
+                        <div id="radios" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-warning btn-sm read-only active">
+                                <input type="radio" name="acc_type" id="acc_type1" value="1" checked /> همکار
+                            </label>
+                            <label class="btn btn-warning btn-sm ">
+                                <input type="radio" name="acc_type" id="acc_type2" value="2"  /> مشتری
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="acc_amount">مقدار اولیه</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="acc_amount" value="0" id="acc_amount" placeholder="مقدار اولیه به عدد " required />
+                            <div class="input-group-addon">افغانی</div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>تاریخ ایجاد</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" id="tarikh_acc" class="form-control pull-right" style="z-index: 0;" readonly>
+                            <input type="hidden" id="tarikh_accAlt" name="acc_date" class="form-control pull-right" style="z-index: 0;" >
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="acc_description">توضیحات / یادداشت</label>
+                        <textarea type="number" rows="7" class="form-control" name="acc_description" id="acc_description" placeholder="توضیحات / یادداشت" /></textarea>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">بستن <i class="fa fa-close"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 <script>
 // Date Picker
 $(document).ready(function() {
@@ -188,10 +273,8 @@ $(document).ready(function() {
         altField: '#tarikhAlt',
         format: 'D/MMMM/YYYY',
         observer: true,
-
         altFormat: 'YYYY-MM-DD',
-        observer: true,
-        position: [-65,0],
+        position: [-65,200],
         calendar: {
             persian: {
                 enabled: true,
@@ -202,7 +285,27 @@ $(document).ready(function() {
                 enabled: false,
                 locale: 'en'
             }
-        },
+        }
+    });
+
+    // account date
+    $('#tarikh_acc').persianDatepicker({
+        altField: '#tarikh_accAlt',
+        format: 'D/MMMM/YYYY',
+        observer: true,
+        altFormat: 'YYYY-MM-DD',
+        position: [-65,200],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
+        }
     });
 
 

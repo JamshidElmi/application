@@ -28,7 +28,7 @@ class Finance extends MY_Controller {
         $this->template->publish();
     } // end accounts
 
-    public function insert_account()
+    public function insert_account($redirect = 'accounts')
     {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('acc_name', 'نام صندوق', 'required|trim');
@@ -51,12 +51,13 @@ class Finance extends MY_Controller {
                 $this->finance_model->data_save(['tr_amount'=> $tr_amount,'tr_status' =>1,'tr_desc' => 'افتتاح حساب', 'tr_acc_id'=>$account, 'tr_date'=>$tr_date, 'tr_type' => 'credit_debit'], $acc_id);
 
                 $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
-                redirect('finance/accounts');
+                redirect('finance/'.$redirect);
+
             }
             else
             {
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
-                redirect('finance/accounts');
+                redirect('finance/'.$redirect);
             }
         }
     } // insert_account
@@ -86,7 +87,7 @@ class Finance extends MY_Controller {
         $this->form_validation->set_rules('tr_status', 'نوعیت عملیات', 'required|in_list[1,2]');
         if ($this->form_validation->run() == FALSE)
         {
-            $this->session->set_flashdata('form_errors', validation_errors() );
+            $this->session->set_flashdata('form_errors', validation_errors());
             redirect('finance/credit_debit/'.$acc_id);
         }
         else

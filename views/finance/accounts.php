@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label for="acc_amount">مقدار اولیه</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" name="acc_amount" id="acc_amount" placeholder="مقدار اولیه به عدد " required />
+                            <input type="number" class="form-control" name="acc_amount" value="0" id="acc_amount" placeholder="مقدار اولیه به عدد " required />
                             <div class="input-group-addon">افغانی</div>
                         </div>
                     </div>
@@ -130,10 +130,8 @@ $(document).ready(function() {
         altField: '#tarikhAlt',
         format: 'D/MMMM/YYYY',
         observer: true,
-
         altFormat: 'YYYY-MM-DD',
-        observer: true,
-        position: [-65,0],
+        position: [-65,200],
         calendar: {
             persian: {
                 enabled: true,
@@ -144,7 +142,7 @@ $(document).ready(function() {
                 enabled: false,
                 locale: 'en'
             }
-        },
+        }
     });
 });
 

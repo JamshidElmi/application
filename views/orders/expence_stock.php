@@ -70,9 +70,6 @@
                     </div>
 
 
-
-
-
                 </div>
                 <div class="box-footer">
                     <button type="submit" id="submit" class="btn btn-success" disabled>ذخیره <i class="fa fa-save"></i></button>
@@ -91,6 +88,7 @@
                     <button class="btn btn-primary btn-box-tool" id="ketchin" data-toggle="tooltip" data-original-title="Click and Select an Order from list for Kitchen">مصارف آشپزخانه</button>
                     <button class="btn btn-primary btn-box-tool" id="resturant" data-toggle="tooltip" data-original-title="Click Select Stock's Expences for Restuaran">مصارف رستورانت</button>
                     <button class="btn btn-primary btn-box-tool" id="fast_food" data-toggle="tooltip" data-original-title="Click Select Stock's Expences for Fast Food">مصارف فست فود</button>
+                    <button class="btn btn-primary btn-box-tool" id="juice" data-toggle="tooltip" data-original-title="Click Select Stock's Expences for Juice">مصارف آب میوه</button>
                 </div>
 
                 <!-- /.box-tools -->
@@ -258,6 +256,20 @@
         $('#calcolate').attr('disabled', false);
 
         $('#myform').attr('action', '<?= site_url('order/insert_stock_expence_resturant/fast_food'); ?>');
+    });
+
+    $('#juice').click(function () {
+        $('#box_body').attr('hidden', true);
+        $('#list_title').text('لطفاً مصارف گدام را برای آب میوه وارد نمائید');
+
+        $('#kitchen_fields').attr('hidden', true);
+        $('#resturant_fields').attr('hidden', false);
+        $('#ord_price').val('');
+
+        $('#add_new').attr('disabled', false);
+        $('#calcolate').attr('disabled', false);
+
+        $('#myform').attr('action', '<?= site_url('order/insert_stock_expence_resturant/juice'); ?>');
     });
 
 
