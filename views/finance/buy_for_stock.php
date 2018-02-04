@@ -142,7 +142,7 @@
 
                     <div class="form-group">
                         <label for="dex_desc">توضیحات / یادداشت</label>
-                        <textarea type="number" rows="7" class="form-control" name="dex_desc" id="dex_desc" placeholder="توضیحات / یادداشت" /></textarea>
+                        <textarea rows="7" class="form-control" name="dex_desc" id="dex_desc" placeholder="توضیحات / یادداشت" ></textarea>
                     </div>
 
 
@@ -155,8 +155,9 @@
                     <?php else: ?>
                     <button type="submit" id="submit" name="first" disabled class="btn btn-success">ذخیره و ادامه <i class="fa fa-save"></i></button>
                     <?php endif ?>
-                    <a href="<?=site_url('finance/end_buy'); ?>" class="btn btn-danger">ختم خرید <i class="fa ion-ios-cart fa-lg"></i></a>
-                    <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
+<!--                    <a href="--><?//=site_url('finance/end_buy'); ?><!--" class="btn btn-danger">ختم خرید <i class="fa ion-ios-cart fa-lg"></i></a>-->
+                    <a href="#" data-toggle="modal" data-target="#pay_amount" id="get_pay_amount" class="btn btn-danger">ختم خرید و پرداخت <i class="fa ion-ios-cart fa-lg"></i></a>
+<!--                    <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>-->
                 </div>
             </form>
         </div>
@@ -182,6 +183,61 @@
 
 </div>
 
+
+
+
+
+
+
+<!-- Payment Modal -->
+<div id="pay_amount" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header bg-gray">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title no-margin">پرداخت هزینه </h4>
+            </div>
+            <form role="form" method="POST" action="<?=site_url('finance/insert_stock_pay_transection'); ?>" >
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="tr_amount">مبلغ قابل پرداخت</label>
+                        <div class="input-group">
+                            <input type="number" value="0" step="0.1" id="tr_amount" name="tr_amount" class="form-control" />
+                            <div class="input-group-addon">افغانی</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>تاریخ پرداخت</label>
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" id="tarikh_pay" class="form-control pull-right" style="z-index: 0;" readonly />
+                            <input type="hidden" id="tarikh_payAlt" name="tr_date" class="form-control pull-right" style="z-index: 0;" >
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dex_desc">توضیحات / یادداشت</label>
+                        <textarea rows="7" class="form-control" name="tr_desc" id="dex_desc" placeholder="توضیحات / یادداشت" ></textarea>
+                    </div>
+                    <input type="hidden" name="tr_acc_id" value="<?=$this->session->insert_ids['acc_id'] ?>">
+                    <input type="hidden" name="bill_id" value="<?=$this->session->insert_ids['bill_id'] ?>">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success " <?=($this->session->insert_ids) ? '' : 'disabled'  ?>>پرداخت <i class="fa fa-save"></i></button>
+                    <a href="<?=site_url('finance/end_buy') ?>" class="btn btn-danger">بستن <i class="fa fa-close"></i></a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
 
 
 
@@ -307,6 +363,31 @@ $(document).ready(function() {
             }
         }
     });
+
+    // pay date
+    $('#tarikh_pay').persianDatepicker({
+        altField: '#tarikh_payAlt',
+        format: 'D/MMMM/YYYY',
+        observer: true,
+        altFormat: 'YYYY-MM-DD',
+        position: [-65,200],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
+        }
+    });
+
+
+$('#get_pay_amount').click(function () {
+    //
+});
 
 
 

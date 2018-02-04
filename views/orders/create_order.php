@@ -84,7 +84,8 @@
                             <div class="form-group">
                                 <label>قیمت مجموعی </label>
                                 <div class="input-group date">
-                                    <input type="text" id="ord_price" name="ord_price" class="form-control" readonly />
+                                    <input type="text" id="ord_price" name="ord_price" class="form-control" style="display: none" readonly  />
+                                    <input type="number" id="total_ext_charges" class="form-control" readonly required value="0" />
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>
@@ -107,7 +108,7 @@
                     <div class="form-group">
                         <label>مصارف متفرقه </label>
                         <div class="input-group date">
-                            <input type="number" id="total_ext_charges" class="form-control" readonly required value="0" />
+
                             <input type="number" step="0.1" id="ord_ext_charges" name="ord_ext_charges" class="form-control" value="0" />
                             <div class="input-group-addon">افغانی</div>
                         </div>
@@ -274,6 +275,7 @@
             var bm_price = $('#bm_price').val();
             var ord_price = parseFloat(ord_count) * parseFloat(bm_price);
             $('#ord_price').val(ord_price);
+            $('#total_ext_charges').val(ord_price);
             $('#ord_discount').attr('ord-price', ord_price);
         });
 
@@ -305,6 +307,9 @@
             var discount = ord_discount / 100 * ord_price;
             var ord_price = ord_price - discount;
             $('#ord_price').val(ord_price);
+            $('#total_ext_charges').val(ord_price);
+            $('#ord_count').attr('disabled', true);
+
         });
 
         // date

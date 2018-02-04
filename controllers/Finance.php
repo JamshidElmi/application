@@ -438,6 +438,7 @@ class Finance extends MY_Controller {
             $this->finance_model->bills();
             $bill_id = $this->finance_model->data_save($data_bill);
             if (!is_int($bill_id)) {
+                $insert_ids['bill_id'] = $bill_id;
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                 redirect('finance/buy_stock/');
             }
@@ -500,6 +501,7 @@ class Finance extends MY_Controller {
             $bill_total_amount = $transection->bill_total_amount + $data['dex_total_amount'];
             $bill_id = $this->finance_model->data_save(['bill_total_amount' => $bill_total_amount], $this->session->insert_ids['bill_id']);
             if (!is_int($bill_id)) {
+
                 $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
                 redirect('finance/buy_stock/');
             }
@@ -547,6 +549,32 @@ class Finance extends MY_Controller {
         $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
         redirect('finance/buy_stock');
     } // end insert_stock_expence
+
+    public function insert_stock_pay_transection()
+    {
+        $data = $this->input->post();
+        print_r($data);
+
+        $data['tr_type'] = 'buy_stock';
+        $data['tr_status'] = 1;
+
+        $this->finance_model->transections();
+        $tr_id = $this->finance_model->data_save($data);
+
+        if (is_int($tr_id)) {
+            $this->finance_model->accounts();
+            $account = $this->finance_model->data_get($data['tr_acc_id'], true);
+
+            $new_amount = $account->acc_amount + $data['tr_amount'];
+            $this->finance_model->data_save(['acc_amount' => $new_amount], $data['tr_acc_id']);
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            $this->end_buy();
+        } else {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+            redirect('finance/buy_stock/');
+        }
+
+    }
 
     public function end_buy()
     {

@@ -122,7 +122,8 @@
                 <div class="row">
                     <div class="col-xs-7">
                         <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
-                        <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>
+                        <button type="submit" name="submit_print" id="submit_print" class="btn btn-info"><i class="fa fa-save"></i> ذخیره و چاپ <i class="fa fa-print"></i></button>
+<!--                        <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>-->
                     </div>
                     <div class="col-xs-5">
                         <div class="form-group">

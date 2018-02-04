@@ -742,7 +742,7 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end print_resturant_bill
 
-    public function print_resturant_order($ord_id, $customer)
+    public function print_resturant_order($ord_id, $customer = NULL)
     {
         $this->template->set_template('print_template');
         $this->print_resturant_bill($ord_id, $customer);
