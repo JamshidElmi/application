@@ -88,7 +88,7 @@
             <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
             <div class="row">
                 <?php foreach ($accounts as $account): ?>
-                    <div class="col-sm-6" id="acc_<?=$account->acc_id ?>">
+                    <div class="col-sm-4" id="acc_<?=$account->acc_id ?>">
                         <div class="small-box <?php if($account->acc_type == 0) echo 'bg-orange'; else if($account->acc_type == 1) echo 'bg-green'; else echo 'bg-blue'; ?>">
                             <div class="icon">
                                 <i class="ion ion-lock-combination "></i>
@@ -102,9 +102,7 @@
                 لیست جمع و برداشت <i class="fa fa-line-chart fa-lg" ></i>
                             </a>
                             <?php if ($account->acc_type != 0): ?>
-                                <a href="#" class="small-box-footer acc_id_to_delete only-admin" id="<?php echo $account->acc_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove Account">
-                            حذف حساب <i class="ion ion-trash-b fa-lg" ></i>
-                                </a>
+                                <a href="#" class="small-box-footer acc_id_to_delete only-admin" id="<?php echo $account->acc_id; ?>" data-toggle="tooltip" title="" data-original-title="Remove Account"><i class="ion ion-trash-b fa-lg" ></i></a>
                             <?php endif ?>
 
                         </div>
@@ -112,6 +110,13 @@
                 <?php endforeach ?>
                 </div>
 
+            </div>
+            <div class="box-footer">
+                <span><i class="fa fa-circle text-orange"></i>   صندوق اصلی رستورانت </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span><i class="fa fa-circle text-blue"></i>  حسابات مشتریان </span>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span><i class="fa fa-circle text-green"></i> حسابات همکاران </span>
             </div>
             <!-- /.box-body -->
             <div class="overlay" id="overlay" hidden >

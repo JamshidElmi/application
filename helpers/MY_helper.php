@@ -236,25 +236,40 @@ if(!function_exists("substr_fa"))
     /*
      * My Helper SubStr_Fa
      * @param: $data String
-     * @param: $count CountInt */
+     * @param: $count CountInt
+     * */
     function substr_fa($data,$count)
     {
-        $data = strip_tags($data);
-        if(strlen($data) > $count)
-        {
-            return substr($data, 0, ($spos = strpos($data, ' ', $lcount = count($data) > $count ? $lcount : $count)) ? $spos : $lcount )."...";
-        }
-        elseif(strlen($data) > ($count/2))
-        {
-            $count = $count/2;
-            return substr($data, 0, ($spos = strpos($data, ' ', $lcount = count($data) > $count ? $lcount : $count)) ? $spos : $lcount )."...";
-        }
-        else
-        {
-            return $data."...";
-        }
+        $data = mb_substr($data, 0, $count, "utf-8");
+        return $data."...";
+
     }
 }
+
+//if(!function_exists("substr_fa"))
+//{
+//    /*
+//     * My Helper SubStr_Fa
+//     * @param: $data String
+//     * @param: $count CountInt */
+//    function substr_fa($data,$count)
+//    {
+//        $data = strip_tags($data);
+//        if(strlen($data) > $count)
+//        {
+//            return substr($data, 0, ($spos = strpos($data, ' ', $lcount = count($data) > $count ? $lcount : $count)) ? $spos : $lcount )."...";
+//        }
+//        elseif(strlen($data) > ($count/2))
+//        {
+//            $count = $count/2;
+//            return substr($data, 0, ($spos = strpos($data, ' ', $lcount = count($data) > $count ? $lcount : $count)) ? $spos : $lcount )."...";
+//        }
+//        else
+//        {
+//            return $data."...";
+//        }
+//    }
+//}
 
 if(!function_exists("str_month"))
 {

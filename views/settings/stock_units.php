@@ -17,9 +17,9 @@
                         <input type="text" class="form-control" name="st_name" id="st_name" placeholder="نام جنس: برنج، آدر، روغن، نوشابه" required/>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <label for="st_max_count">قیمت فی واحد</label>
-                        <input type="number" class="form-control" name="st_price" id="st_price" placeholder="قیمت فی واحد" required/>
+                        <input type="number" class="form-control" name="st_price" id="st_price" value="0" placeholder="قیمت فی واحد" required/>
                     </div>
 
                     <div class="form-group">

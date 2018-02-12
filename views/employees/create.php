@@ -55,7 +55,7 @@
 
                 <div class="form-group">
                     <label for="emp_picture">عکس</label>
-                    <input type="file" name="emp_picture" id="emp_picture" required />
+                    <input type="file" name="emp_picture" id="emp_picture"  />
                     <p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
                 </div>
 
@@ -142,7 +142,7 @@ $(document).ready(function () {
 
         altFormat: 'YYYY-MM-DD',
         observer: true,
-        position: [-65,0],
+        position: [-65,200],
         calendar: {
             persian: {
                 enabled: true,

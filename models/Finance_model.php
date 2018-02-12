@@ -142,6 +142,7 @@ class finance_model extends MY_Model
         // $this->db->from('expences');
         // $this->db->join('units', 'units.unit_id = expences.dex_unit');
         $this->db->where('bill_type', $bill_type);
+        $this->db->order_by('tr_id DESC');
         $query = $this->db->get()->result();
         return $query;
     }

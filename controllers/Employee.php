@@ -61,32 +61,46 @@ class Employee extends MY_Controller {
 
         $this->load->library('upload', $config);
 
-        if ($this->form_validation->run() == FALSE)
+        $data = $this->input->post();
+        if ($_FILES['emp_picture']['name'] != "")
         {
-            $this->session->set_flashdata('form_errors', validation_errors() );
-            redirect('employee/create');
-        }
-        else
-        {
-            if ( ! $this->upload->do_upload('emp_picture'))
+            if ($this->form_validation->run() == FALSE)
             {
-                $this->session->set_flashdata('file_errors', $this->upload->display_errors());
+                $this->session->set_flashdata('form_errors', validation_errors() );
                 redirect('employee/create');
             }
             else
             {
-                // Get file name
-                $file = $this->upload->data();
-                $file_name = $file['file_name'];
-                // Set data
-                $data = $this->input->post();
-                $data['emp_picture'] = $file_name;
-                // Inserting data
-                $this->employee_model->data_save($data);
-                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
-                redirect('employee/');
+                if ( ! $this->upload->do_upload('emp_picture'))
+                {
+                    $this->session->set_flashdata('file_errors', $this->upload->display_errors());
+                    redirect('employee/create');
+                }
+                else
+                {
+                    // Get file name
+                    $file = $this->upload->data();
+                    $file_name = $file['file_name'];
+                    // Set data
+                    $data['emp_picture'] = $file_name;
+                    // Inserting data
+                    $this->employee_model->data_save($data);
+                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                    redirect('employee/');
+                }
             }
         }
+        else
+        {
+            $data['emp_picture'] = "defualt.jpg";
+            // Inserting data
+            $this->employee_model->data_save($data);
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+            redirect('employee/');
+        }
+        die();
+
+
     } // end insert
 
     public function view($emp_id)

@@ -40,7 +40,7 @@ function __autoload($classname)
 | a PHP script and you can easily do that on your own.
 |
 */
- $config['base_url'] = 'http://app.momtaz.com/';
+ $config['base_url'] = 'http://app.momtaz.dj/';
 //$config['base_url'] = 'http://localhost:85/mis_resturant/resturant/';
 
 /*

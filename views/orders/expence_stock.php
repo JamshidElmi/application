@@ -1,6 +1,6 @@
 <?php //echo $this->uri->segment(5); die(); ?>
 <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-6">
         <div class="box box-success">
             <div class="box-header with-border">
                 <h3 class="box-title">فرم ثبت مصارف از گدام</h3>
@@ -80,7 +80,7 @@
     </div>
 
 
-    <div class="col-sm-7">
+    <div class="col-sm-6">
         <div class="box box-info box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title" style="font-size: 14px" id="list_title"></h3>
@@ -174,12 +174,14 @@
             e.preventDefault();
             if (x < max_fields) { //max input box allowed
                 x++; //text box increment
-                $(wrapper).append('<div class="row"><div class="col-sm-4">   <div class="form-group">   <label for="dex_unit">انتخاب جنس</label>   <select name="stock_st_id[]" id="st_unit_'+x+'"  class="form-control" required> <option value="">انتخاب جنس</option> <?php foreach ($stocks as $stock): ?><option st-price="<?=$stock->st_price ?>" value="<?=$stock->st_id ?>" st_price="<?=$stock->st_price ?>"><?=$stock->st_name?></option><?php endforeach ?></select>   </div>   </div>    <div class="col-sm-3">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="stock_count[]" disabled id="st_count_'+x+'" placeholder="تعداد عدد " required/>   </div>   </div>      <div class="col-sm-3">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" name="stock_total_price[]" id="st_total_price_'+x+'" placeholder="هزینه کل " readonly />     </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" ><i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i></a></div>   </div></div>');
+                $(wrapper).append('<div class="row"><div class="col-sm-4">   <div class="form-group">   <label for="dex_unit">انتخاب جنس</label>   <select name="stock_st_id[]" id="st_unit_'+x+'"  class="form-control" required> <option value="">انتخاب جنس</option> <?php foreach ($stocks as $stock): ?><option unit-name="<?=$stock->unit_name ?>" st-price="<?=$stock->st_price ?>" value="<?=$stock->st_id ?>" st_price="<?=$stock->st_price ?>"><?=$stock->st_name?></option><?php endforeach ?></select>   </div>   </div>    <div class="col-sm-2">   <div class="form-group">   <label for="dex_count">تعداد</label>   <input type="number" class="form-control" name="stock_count[]" disabled id="st_count_'+x+'" placeholder="تعداد عدد " required/>   </div>   </div>      <div class="col-sm-2">   <div class="form-group">   <label for="dex_count">واحد</label>   <input type="text" class="form-control"  disabled id="unit_name_'+x+'" placeholder="واجد " required/>   </div>   </div>     <div class="col-sm-3">   <div class="form-group">   <label for="dex_total_amount">هزینه کل</label>   <input type="number" class="form-control" name="stock_total_price[]" id="st_total_price_'+x+'" placeholder="هزینه کل " readonly />     </div>   </div>   <a href="#" style="padding-top:30px;" class="remove_field col-xs-1" ><i class="ion ion-trash-b text-red fa-lg" data-toggle="tooltip" title="" data-original-title="Remove"></i></a></div>   </div></div>');
             }
             $('#st_unit_'+x).change(function () {
-                // alert($('#st_unit_'+x+' :selected').attr('st-price'));
+                // alert($('#st_unit_'+x+' :selected').attr('unit-name'));
                 $('#st_count_'+x).attr('disabled', false);
                 var st_price = $('#st_unit_'+x+' :selected').attr('st-price');
+
+                $('#unit_name_'+x).val($('#st_unit_'+x+' :selected').attr('unit-name'));
 
                 $('#st_count_'+x).keyup(function () {
                     var st_total_price = $(this).val() * st_price;

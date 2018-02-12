@@ -197,10 +197,87 @@ class Customer extends MY_Controller {
 
     public function delete()
     {
-        sleep(1);
         $cus_id = $this->input->post('cus_id');
+        $customer = $this->customer_model->data_get($cus_id);
         $this->customer_model->data_delete($cus_id);
+        $this->customer_model->accounts();
+        $this->customer_model->data_delete($customer->cus_acc_id);
     }
+
+    public function ordering_insert($redirect = NULL)
+    {
+        $data = $this->input->post();
+        print_r($data);
+
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('cus_name', 'نام مشتری', 'required|trim');
+        $this->form_validation->set_rules('cus_lname', 'تخلص مشتری', 'required|trim');
+        $this->form_validation->set_rules('cus_join_date', 'تاریخ ثبت', 'required');
+        $this->form_validation->set_rules('cus_address', 'آدرس کامل مشتری', 'required');
+        $this->form_validation->set_rules('cus_phones', 'شماره های تماس', 'required');
+        $this->form_validation->set_rules('cus_unique_id', 'کد اشتراک', 'is_unique[customers.cus_unique_id]');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            $this->session->set_flashdata('form_errors', validation_errors() );
+            redirect('order/'.$redirect);
+        }
+        else
+        {
+            // Set Account data
+            $acc_data = array(
+                'acc_description' => 'افتتاح حساب در زمان گرفتن سفارش',
+                'acc_amount' => 0,
+                'acc_type' => 2,
+                'acc_name' => $data['cus_name'] . ' ' . $data['cus_lname'],
+                'acc_date' => $data['cus_join_date'],
+            );
+            // Insert Account
+            $this->customer_model->accounts();
+            $acc_id = $this->customer_model->data_save($acc_data);
+
+
+            // Set Customer data
+            $data['cus_acc_id'] = $acc_id;
+            $this->customer_model->customers();
+            // TODO: picture uploaded but not show on biography
+            if( $_FILES['cus_picture']['name'] )
+            {
+                $config['upload_path']          = './assets/img/customers';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 250;
+                $config['max_width']            = 400;
+                $config['max_height']           = 400;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('cus_picture'))
+                {
+                    $this->session->set_flashdata('file_errors', $this->upload->display_errors());
+                    redirect('order/'.$redirect);
+                }
+                else
+                {
+                    // Get file name
+                    $file = $this->upload->data();
+                    $file_name = $file['file_name'];
+                    $data['cus_picture'] = $file_name;
+                    // Inserting data
+                    $this->customer_model->data_save($data);
+                    $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                    redirect('order/'.$redirect);
+                }
+            }
+            else
+            {
+                // Inserting data
+                $this->customer_model->data_save($data);
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.' );
+                redirect('order/'.$redirect);
+            }
+
+        } // validation else
+    } // end insert
 
 
 

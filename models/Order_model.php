@@ -131,6 +131,7 @@ class order_model extends MY_Model
         $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
         $this->db->where('ord_cus_id', base_account()->acc_id);
         // $this->db->where(['ord_type' => $ord_type]);
+        $this->db->order_by('ord_id DESC');
         $query = $this->db->get()->result();
         return $query;
     }
@@ -221,10 +222,14 @@ class order_model extends MY_Model
         $query = $this->db->get()->result();
 //        echo $this->db->last_query();
         return $query;
-        // echo count($query);
+    }
 
-        // die();
-
+    public function get_stocks_units()
+    {
+        $this->db->from('stock_units');
+        $this->db->join('units', 'stock_units.st_unit = units.unit_id');
+        $query = $this->db->get()->result();
+        return $query;
     }
 
 

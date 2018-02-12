@@ -224,7 +224,7 @@
                                 <li id="menu3_create_expence_from_stock"><a href="<?=site_url('order/expence_stock'); ?>"><i class="fa fa-circle-o"></i>ثبت مصارف از گدام</a></li>
                                 <li id="menu3_restirant_stock_expences"><a href="<?=site_url('order/stock_expence_resturant/resturant'); ?>"><i class="fa fa-circle-o"></i>  مصارف رستورانت</a></li>
                                 <li id="menu3_fastfood_stock_expences"><a href="<?=site_url('order/stock_expence_resturant/fast_food'); ?>"><i class="fa fa-circle-o"></i>  مصارف فست فود</a></li>
-                                <li id="menu3_fastfood_stock_expences"><a href="<?=site_url('order/stock_expence_resturant/juice'); ?>"><i class="fa fa-circle-o"></i>  مصارف آب میوه</a></li>
+                                <li id="menu3_juice_stock_expences"><a href="<?=site_url('order/stock_expence_resturant/juice'); ?>"><i class="fa fa-circle-o"></i>  مصارف آب میوه</a></li>
                             </ul>
                         </li>
 

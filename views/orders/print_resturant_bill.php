@@ -9,14 +9,15 @@
 <style>
     .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
         padding: 2px;
+        border-color: #000;
     }
     .table-border th, .table-border td, .table-border {
-        border: 1px solid #b1b1b1;
+        border: 1px solid #000;
     }
 </style>
 <div class="row">
     <div class="col-xs-4">
-        <div class="box box-dafualt  " style="width: 300px; font-size: 10px !important;">
+        <div class="box box-dafualt  " style="width: 300px; font-size: 10px !important; border:2px solid black">
             <div class="box-header with-border no-print">
                 <h3 class="box-title"> فاکتور رستورانت</h3>
                 <div class="box-tools pull-right no-print">
@@ -38,11 +39,11 @@
                     <div class="row">
 
                         <div class="col-xs-9">
-                            <p style="margin-bottom: 4px"><b><?= $this->session->general_info->ci_full_name ?></b></p>
+                            <p style="margin-bottom: 4px; font-family:BTitrBold,'BTitrBold', 'Vazir', 'Helvetica Neue', Helvetica, Arial, sans-serif;"><b><?= $this->session->general_info->ci_full_name ?></b></p>
                             <p style="margin: 4px"><b><?= $this->session->general_info->ci_full_name_en ?></b></p>
                         </div>
                         <div class="col-xs-3">
-                            <img src="<?= base_url('assets/img/info/' . $this->session->general_info->ci_logo) ?>" class="img-responsive" alt="LOGO">
+                            <img style="margin:-5px 0 -10px 0" src="<?= base_url('assets/img/info/' . $this->session->general_info->ci_logo) ?>" class="img-responsive" alt="LOGO">
                         </div>
                     </div>
                 </div>
@@ -85,14 +86,13 @@
                 <table class="table table-border table-striped">
                     <tbody>
                     <tr class="">
-                        <th style="width: 8px;border-top: 1px solid #b1b1b1;">#</th>
-                        <th style="border-top: 1px solid #b1b1b1;">نوع غــذا</th>
-                        <th style="border-top: 1px solid #b1b1b1;">تعداد</th>
-                        <th style="border-top: 1px solid #b1b1b1;">فیات</th>
-                        <th style="border-top: 1px solid #b1b1b1;">مجموع</th>
+                        <th style="width: 8px;border-top: 1px solid #000;">#</th>
+                        <th style="border-top: 1px solid #000;">نوع غــذا</th>
+                        <th style="border-top: 1px solid #000;">تعداد</th>
+                        <th style="border-top: 1px solid #000;">فیات</th>
+                        <th style="border-top: 1px solid #000;">مجموع</th>
                     </tr>
                     <?php $i = 1;
-
                     foreach ($sub_menus as $sm) : ?>
                         <tr>
                             <td class=" text-center"><strong><?= $i++; ?></strong></td>
@@ -104,14 +104,16 @@
                     <?php endforeach ?>
 
                     <?php $total_unpayed = $ord_cus->ord_price - $total_payed ?>
+                    <?php $ord_discount = 100 - $ord_cus->ord_discount; ?>
+                    <?php $discount_price = round($ord_cus->ord_price * 100 / $ord_discount) - $ord_cus->ord_price; ?>
                     <tr>
                         <th colspan="3">قیمت مجموعی</th>
-                        <td colspan="2"><b><?= round($ord_cus->ord_price, 1) ?></b> افغانی</td>
+                        <td colspan="2"><b><?= round($ord_cus->ord_price + $discount_price, 1) ?></b> افغانی</td>
                     </tr>
                     <tr>
                         <th colspan="3">تخفیف</th>
                         <td colspan="2">
-                            <b><?php $ord_discount = 100 - $ord_cus->ord_discount; ?> <?= round($ord_cus->ord_price * 100 / $ord_discount) - $ord_cus->ord_price; ?></b>
+                            <b> <?= $discount_price ?></b>
                             افغانی (<?= round($ord_cus->ord_discount) ?>%)
                         </td>
                     </tr>
@@ -137,7 +139,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="5">مشتری گرامی افتخار ما رضایت شماست. رضایت شما اعتبار
+                        <td colspan="5" style="">مشتری گرامی افتخار ما رضایت شماست. رضایت شما اعتبار
                                 ماست.</td>
                     </tr>
                     </tbody>

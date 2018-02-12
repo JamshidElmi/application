@@ -9,9 +9,10 @@
 <style>
     .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
         padding: 3px;
+        border-color: #000;
     }
 </style>
-<div class="box box-warning ">
+<div class="box box-warning " style=" border:2px solid black">
     <div class="box-header with-border no-print">
         <h3 class="box-title"> فاکتور آشپزخانه</h3>
         <div class="box-tools pull-right no-print">
@@ -34,10 +35,10 @@
         <!-- /.box-tools -->
     </div>
     <!-- /.box-header -->
-    <div class="box-body">
+    <div class="box-body no-padding" >
         <?php $this->load->view('layout/bill_header'); ?>
 
-        <div class="well well-sm text-center" style="margin-bottom: 5px; padding:4px">آشپزخانه و رستورانت ممتاز هرات افتخار دارد تا غذای
+        <div class="well well-sm text-center" style="margin-bottom: 5px; padding:4px;font-family:BNazanin,'BNazanin', 'Vazir', 'Helvetica Neue', Helvetica, Arial, sans-serif;">آشپزخانه و رستورانت ممتاز هرات افتخار دارد تا غذای
                 محافل و مجالس شما را الی 3000
                 نفر در اسرع وقت به قیمت کاملا مناسب تهیه الی درب منزل شما طور رایگان ارسال نماید. ( سفارش پرسونل جهت
                 پذیرایی مهمانان پذیرفته میشود).</div>
@@ -70,12 +71,12 @@
         <table class="table table-border table-striped">
             <tbody>
             <tr class="">
-                <th style="width: 8px; border-top: 1px solid #b1b1b1;">شماره</th>
-                <th style="border-top: 1px solid #b1b1b1;">نوع غــذا</th>
-                <th style="border-top: 1px solid #b1b1b1;">تعداد</th>
-                <th style="border-top: 1px solid #b1b1b1;">واحد</th>
-                <th style="border-top: 1px solid #b1b1b1;">فیات</th>
-                <th style="border-top: 1px solid #b1b1b1;">مجموع</th>
+                <th style="width: 8px; border-top: 1px solid #000;">شماره</th>
+                <th style="border-top: 1px solid #000;">نوع غــذا</th>
+                <th style="border-top: 1px solid #000;">تعداد</th>
+                <th style="border-top: 1px solid #000;">واحد</th>
+                <th style="border-top: 1px solid #000;">فیات</th>
+                <th style="border-top: 1px solid #000;">مجموع</th>
             </tr>
             <?php $i = 1;
             $rows = 20;
@@ -102,16 +103,18 @@
             <?php endfor; ?>
             <?php $total_amount = $sm->ord_price + $sm->ord_ext_charges ?>
             <?php $total_unpayed = $total_amount - $total_payed ?>
+            <?php $ord_discount = 100 - $sm->ord_discount; ?>
+            <?php $discount_price = round($sm->ord_price * 100 / $ord_discount) - $sm->ord_price; ?>
             <tr>
                 <td colspan="2" rowspan="2"><b>قیمت مجموع به حروف</b></td>
                 <td colspan="2" rowspan="2"><strong><?= number2letters($sm->ord_price); ?>  </strong> افغانی</td>
                 <td><b>قیمت مجموعی</b></td>
-                <td><b><?= round($total_amount,1) ?></b> افغانی</td>
+                <td><b><?= round($total_amount + $discount_price,1) ?></b> افغانی</td>
             </tr>
             <tr>
                 <td><b>تخفیف</b></td>
                 <td>
-                    <b><?php $ord_discount = 100 - $sm->ord_discount; ?> <?= round($sm->ord_price * 100 / $ord_discount) - $sm->ord_price; ?></b>
+                    <b> <?= $discount_price ?> </b>
                     افغانی (<?= round($sm->ord_discount) ?>%)
                 </td>
             </tr>

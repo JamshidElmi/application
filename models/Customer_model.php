@@ -31,6 +31,13 @@ class customer_model extends MY_Model
         $this->_order_by = 'acc_id';
     }
 
+    public function customers()
+    {
+        $this->_table_name = 'customers';
+        $this->_primary_key = 'cus_id';
+        $this->_order_by = 'cus_id';
+    }
+
     public function uniquee_id()
     {
         $next = $this->db->query("SHOW TABLE STATUS LIKE 'customers'");

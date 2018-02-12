@@ -113,8 +113,8 @@
                     <tr>
                         <td class="text-center"><?=$employee->emp_name.' '.$employee->emp_lname ?></td>
                         <td class="text-center"><?=show_date('F', '1396-'.$salaries[0]->sal_month.'-01')?></td>
-                        <td class="text-center"><?=$employee->emp_salary?> افغانی</td>
-                        <td class="text-center"><b><?=$salaries[0]->sal_payable?></b> افغانی</td>
+                        <td class="text-center"><?=number_format($employee->emp_salary) ?> افغانی</td>
+                        <td class="text-center"><b><?=number_format($salaries[0]->sal_payable)?></b> افغانی</td>
                     </tr>
 
                     <tr>
@@ -127,7 +127,7 @@
                         <td class="text-center bg-danger"><?=$salaries[0]->sal_tax?> افغانی</td>
                         <td class="text-center bg-danger"><?=$salaries[0]->sal_fine?> افغانی</td>
                         <td class="text-center bg-success"><?=$salaries[0]->sal_bonus?> افغانی</td>
-                        <td class="text-center bg-danger text-danger"><b><?=$salaries[0]->sal_remain?></b> افغانی</td>
+                        <td class="text-center bg-danger text-danger"><b><?=number_format($salaries[0]->sal_remain) ?></b> افغانی</td>
                     </tr>
                 </table>
                 <br>
@@ -147,7 +147,7 @@
                             <?php $i = 1; foreach ($salaries as $salary): ?>
                                 <tr id="sal_<?php echo $salary->tr_id; ?>">
                                     <td><?=$i++ ?></td>
-                                    <td><strong><?=$salary->tr_amount; ?>  </strong> افغانی </td>
+                                    <td><strong><?=number_format($salary->tr_amount); ?>  </strong> افغانی </td>
                                     <td><?=$salary->tr_desc; ?> </td>
                                     <td><?=show_date('d/F/Y', $salary->tr_date); ?></td>
                                     <td class="text-center">
@@ -216,7 +216,7 @@ $(document).ready(function() {
         altFormat: 'YYYY-MM-DD',
         format: 'D/MMMM/YYYY',
         observer: true,
-        position: [-65,0],
+        position: [-65,200],
         calendar: {
                 persian: {
                     enabled: true,

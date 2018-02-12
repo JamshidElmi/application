@@ -37,6 +37,9 @@ class Order extends MY_Controller
         $this->template->menu1 = 'menu1_kitchen_orders';
         $this->template->menu2 = 'menu2_create_kitchen_order';
         $this->template->description = 'ثبت سفارش جدید برای آشپزخانه';
+
+        $this->load->model('customer_model');
+        $uniqee_id = $this->customer_model->uniquee_id();
         $this->order_model->customers();
         $customers = $this->order_model->data_get();
         $this->order_model->base_menus();
@@ -46,14 +49,14 @@ class Order extends MY_Controller
         $base_sub_menu = $this->order_model->order_join_sub_order();
 
         // view
-        $this->template->content->view('orders/create_order', ['customers' => $customers, 'bm' => $bm, 'base_sub_menu' => $base_sub_menu, 'discounts' => $discounts]);
+        $this->template->content->view('orders/create_order', ['customers' => $customers, 'bm' => $bm, 'base_sub_menu' => $base_sub_menu, 'discounts' => $discounts, 'uniqee_id' => $uniqee_id]);
         $this->template->publish();
     } // end create_order
 
     public function insert_kitchen_order()
     {
         $data = $this->input->post();
-//        var_dump($data); die();
+        var_dump($data); die();
 
         // Inserting data
         $this->order_model->orders();
@@ -143,6 +146,8 @@ class Order extends MY_Controller
         $this->template->menu2 = 'menu2_create_resturant_order';
         $this->template->description = 'ثبت سفارش برای رستورانت';
 
+        $this->load->model('customer_model');
+        $uniqee_id = $this->customer_model->uniquee_id();
         $this->order_model->menu_category();
         $menu_categories = $this->order_model->data_get();
         $this->order_model->customers();
@@ -153,7 +158,7 @@ class Order extends MY_Controller
         $discounts = $this->order_model->data_get();
 
         // view
-        $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts]);
+        $this->template->content->view('orders/create_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts, 'uniqee_id' => $uniqee_id]);
         $this->template->publish();
     } // end create_resturant_order
 
@@ -224,10 +229,10 @@ class Order extends MY_Controller
 
             $this->order_model->transections();
             $this->order_model->data_save([
-                'tr_desc' => $data['ord_desc'],
+                'tr_desc'   => $data['ord_desc'],
                 'tr_amount' => $data['tr_amount'],
-                'tr_type' => 'resturant',
-                'tr_date' => $data['ord_date'],
+                'tr_type'   => 'resturant',
+                'tr_date'   => $data['ord_date'],
                 'tr_status' => ($account_id == base_account()->acc_id) ? 2 : 1,
                 'tr_acc_id' => $account_id,
                 'tr_ord_id' => $insert_ord_id,
@@ -256,6 +261,7 @@ class Order extends MY_Controller
         $orders = $this->order_model->order_join_customer('resturant');
         $this->order_model->orders();
         $orders_base_acc = $this->order_model->data_get_by(['ord_type' => 'resturant']);
+        // echo $this->db->last_query();
 
         // view
         $this->template->content->view('orders/resturant_orders', ['orders' => $orders, 'orders_base_acc' => $orders_base_acc]);
@@ -521,7 +527,7 @@ class Order extends MY_Controller
         $this->template->description = 'ثبت مصارف از گدام برای سفارشات ';
         $orders = $this->order_model->order_join_customer('kitchen', 30);
         $this->order_model->stock_units();
-        $stocks = $this->order_model->data_get();
+        $stocks = $this->order_model->get_stocks_units();
 
         // view
         $this->template->content->view('orders/expence_stock', ['orders' => $orders, 'stocks' => $stocks]);
@@ -595,9 +601,23 @@ class Order extends MY_Controller
         $this->template->menu  = 'menu_finance';
         $this->template->menu1 = 'menu1_stock';
         $this->template->menu2 = 'menu2_expence_from_stock';
-        $this->template->menu3 = ($expence_type == 'resturant') ? 'menu3_restirant_stock_expences' : 'menu3_fastfood_stock_expences';
+//        $this->template->menu3 = ($expence_type == 'resturant') ? 'menu3_restirant_stock_expences' : 'menu3_fastfood_stock_expences';
 
-        $this->template->description = ($expence_type == 'resturant') ? 'لیست مصارف برای سفارشات رستورانت' : 'لیست مصارف برای سفارشات فست فود ';
+        if ($expence_type == 'resturant') {
+            $this->template->menu3 = 'menu3_restirant_stock_expences';
+            $this->template->description = 'لیست مصارف برای سفارشات رستورانت';
+        }
+        elseif ($expence_type == 'fast_food') {
+            $this->template->menu3 = 'menu3_fastfood_stock_expences';
+            $this->template->description = 'لیست مصارف برای سفارشات فست فود ';
+        }
+        else {
+            $this->template->menu3 = 'menu3_juice_stock_expences';
+            $this->template->description = 'لیست مصارف برای سفارشات آب میوه ';
+        }
+
+
+//        $this->template->description = ($expence_type == 'resturant') ? 'لیست مصارف برای سفارشات رستورانت' : 'لیست مصارف برای سفارشات فست فود ';
         /* get last month */
         $str_date = mds_date("Y-m-d", "now", 1);
         $new = explode("-", $str_date);
@@ -753,6 +773,8 @@ class Order extends MY_Controller
         $this->template->menu  = 'menu_garson_resturant_ordering';
         $this->template->description = 'ثبت سفارش برای رستورانت';
 
+        $this->load->model('customer_model');
+        $uniqee_id = $this->customer_model->uniquee_id();
         $this->order_model->menu_category();
         $menu_categories = $this->order_model->data_get();
         $this->order_model->customers();
@@ -764,7 +786,7 @@ class Order extends MY_Controller
 
         // view
         $this->template->set_template('ordering_template');
-        $this->template->content->view('orders/create_garson_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts]);
+        $this->template->content->view('orders/create_garson_resturant_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts, 'uniqee_id' => $uniqee_id]);
         $this->template->publish();
     }
 

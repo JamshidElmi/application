@@ -37,7 +37,7 @@ $final_total = $order->ord_price-$total;
                             <div class="form-group">
                                 <label>پرداخت شده</label>
                                 <div class="input-group date">
-                                    <input type="number" value="<?=$total ?>" id="payed" class="form-control" readonly />
+                                    <input type="number" value="<?=$total ?>" id="payed" class="form-control input-success" readonly />
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@ $final_total = $order->ord_price-$total;
                             <div class="form-group">
                                 <label>مجموع باقیمانده</label>
                                 <div class="input-group date">
-                                    <input type="text" id="unpayed" value="<?=$final_total+$order->ord_ext_charges ?>" class="form-control" readonly/>
+                                    <input type="text" id="unpayed" value="<?=$final_total+$order->ord_ext_charges ?>" class="form-control input-danger" readonly/>
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@ $final_total = $order->ord_price-$total;
                     <div class="form-group">
                         <label>مقدار پرداختی</label>
                         <div class="input-group date">
-                            <input type="text" id="tr_amount" name="tr_amount" class="form-control" />
+                            <input type="number" id="tr_amount" name="tr_amount" class="form-control" />
                             <div class="input-group-addon">افغانی</div>
                         </div>
                     </div>
@@ -201,10 +201,16 @@ $(document).ready(function() {
                 enabled: false,
                 locale: 'en'
             }
-        },
+        }
     });
 
 
+    if($('#unpayed').val() == 0){
+        $('#tr_amount').attr('disabled', true);
+        $('#submit').attr('disabled', true);
+    }
+
+    $('#tr_amount').attr('max', $('#unpayed').val());
 });
 
 </script>

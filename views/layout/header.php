@@ -95,7 +95,7 @@
                                                 <a href="<?= ($order->ord_type == 'resturant') ? ($order->cus_name) ? site_url('order/print_resturant_bill/' . $order->ord_id) : site_url('order/print_resturant_bill/' . $order->ord_id . '/no_customer') : site_url('order/print_order_bill/' . $order->ord_id) ?>">
                                                     <div class="pull-right">
                                                         <?php if ($order->cus_picture): ?>
-                                                            <img src="<?= base_url('assets/img/profiles/' . $order->cus_picture); ?>" class="img-circle" alt="IMG">
+                                                            <img src="<?= base_url('assets/img/customers/' . $order->cus_picture); ?>" class="img-circle" alt="IMG">
                                                         <?php else: ?>
                                                             <img src="<?= base_url('assets/img/info/' . $this->session->general_info->ci_logo); ?>" class="img-circle" alt="IMG">
                                                         <?php endif; ?>

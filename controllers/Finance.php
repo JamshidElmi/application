@@ -18,7 +18,7 @@ class Finance extends MY_Controller {
 
     public function accounts()
     {
-        $this->template->description = 'لیست صندوق ها و ایجاد صندوق جدید';
+        $this->template->description = ' ایجاد صندوق جدید و لیست صندوق ها';
         $this->template->menu1 = 'menu1_accounts';
         $this->template->menu2 = 'menu2_create_account';
 

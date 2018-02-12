@@ -157,7 +157,7 @@ $(document).ready(function () {
 
         altFormat: 'YYYY-MM-DD',
         observer: true,
-        position: [-65,0],
+        position: [-65,200],
         calendar: {
             persian: {
                 enabled: true,

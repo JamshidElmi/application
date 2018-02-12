@@ -24,8 +24,8 @@
                         <div class="progress-bar" style="width: 50%"></div>
                     </div>
                     <span class="progress-description">
-                                ۵۰ درصد افزایش در ۳۰ روز گذشته
-                              </span>
+                                    ۵۰ درصد افزایش در ۳۰ روز گذشته
+                    </span>
                 </div>
                 <!-- /.info-box-content -->
             </div>

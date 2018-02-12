@@ -8,7 +8,7 @@
         </div>
     </div>
     <!-- /.box-header -->
-    <div class="box-body table-responsive no-padding">
+    <div class="box-body table-responsive">
         <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
         <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
         <table id="example2" class="table table-bordered table-hover table-striped">

@@ -48,7 +48,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
-                                    <input type="text" id="tarikh_month" class="form-control pull-right" style="z-index: 0;" readonly>
+                                    <input type="text" id="tarikh_month" class="form-control pull-right" style="z-index: 0;" readonly />
                                     <input type="hidden" id="tarikhAlt_month" name="sal_month" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
                                 </div>
                                 <!-- /.input group -->
@@ -104,7 +104,7 @@
 
                     <div class="form-group">
                         <label for="sal_desc">توضیحات / یادداشت</label>
-                        <textarea rows="5" class="form-control" name="sal_desc" id="sal_desc" placeholder="توضیحات / یادداشت" /></textarea>
+                        <textarea rows="5" class="form-control" name="sal_desc" id="sal_desc" placeholder="توضیحات / یادداشت" ></textarea>
                     </div>
 
                 <input type="hidden" name="sal_payable" id="sal_payable" >
@@ -146,11 +146,11 @@
                                     <td><?=$employee->emp_name. ' ' . $employee->emp_lname; ?></td>
                                     <td><?=$employee->emp_position; ?></td>
                                     <td><?=($employee->emp_type == 0) ? '<span class="badge bg-orange">آشپزخانه</span>' : '<span class="badge bg-green">رستورانت</span>' ; ?></td>
-                                    <td><?=$employee->emp_salary; ?> افغانی</td>
+                                    <td><?= number_format($employee->emp_salary); ?> افغانی</td>
                                     <!-- <td><?php // echo show_date('d/F/Y', '1395-10-5'); ?></td> -->
                                     <td class="text-center">
                                         <a class="label bg-green" onclick="select_emp(<?=$employee->emp_id?>,'<?=$employee->emp_name?>','<?=$employee->emp_lname?>','<?=$employee->emp_position?>','<?=$employee->emp_salary?>');"  data-toggle="tooltip" title="" data-original-title="Pay Salary"><i class="fa fa-money fa-lg"></i></a>
-                                        <a class="label bg-gray" class="pay_salary" onclick="$('#emp_id').val(<?=$employee->emp_id; ?>);" id="<?=$employee->emp_id; ?>" data-toggle="modal" data-target="#myModal" ><i class="fa fa-list fa-lg" data-toggle="tooltip" title="" data-original-title="Pay Remian Salary / Payment List"></i></a>
+                                        <a class="label bg-gray pay_salary" onclick="$('#emp_id').val(<?=$employee->emp_id; ?>);" id="<?=$employee->emp_id; ?>" data-toggle="modal" data-target="#myModal" ><i class="fa fa-list fa-lg" data-toggle="tooltip" title="" data-original-title="Pay Remian Salary / Payment List"></i></a>
                                     </td>
 
                                 </tr>
@@ -166,37 +166,37 @@
 </div>
 
 
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-sm" role="document">
-    <form action="<?=site_url('finance/pay_salary');?>" method="POST">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">پرداخت باقیمانده معاش</h4>
-          </div>
-          <div class="modal-body">
-                <div class="form-group">
+    <div class="modal-dialog modal-sm" role="document">
+        <form action="<?= site_url('finance/pay_salary'); ?>" method="POST">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">پرداخت باقیمانده معاش</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
                         <label for="tarikh">سال و ماه</label>
                         <div class="input-group date">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input type="text" id="tarikh_year_month" class="form-control pull-right" style="z-index: 0;" readonly>
-                            <input type="hidden" id="tarikhAlt_year_month" name="date" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;" >
+                            <input type="text" id="tarikh_year_month" class="form-control pull-right" style="z-index: 0;" readonly />
+                            <input type="hidden" id="tarikhAlt_year_month" name="date" value="8" class="form-control pull-right" style="  font-style: Arial !important;  z-index: 0;">
                         </div>
                         <!-- /.input group -->
-                        <input type="hidden" id="emp_id" name="emp_id"/>
+                        <input type="hidden" id="emp_id" name="emp_id" />
+                    </div>
                 </div>
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">پرداخت معاش</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">صرف نظر</button>
-          </div>
-        </div>
-    </form>
-  </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">پرداخت معاش</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">صرف نظر</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 
@@ -216,7 +216,7 @@ $(document).ready(function() {
         altFormat: 'YYYY/M/D',
         format: 'D/MMMM/YYYY',
         observer: true,
-        position: [-65,0],
+        position: [-65,200],
         calendar: {
                 persian: {
                     enabled: true,
@@ -237,13 +237,13 @@ $(document).ready(function() {
         persianDigit: false,
         autoClose: true,
         yearPicker:{
-            enabled: false,
+            enabled: false
         },
         monthPicker:{
-            enabled: true,
+            enabled: true
         },
         dayPicker:{
-            enabled: false,
+            enabled: false
         },
         format: "MMMM",
         toolbox: {
@@ -267,7 +267,7 @@ $(document).ready(function() {
                     locale: 'fa'
                 }
             },
-        position: [-65,0]
+        position: [-65,200]
     });
 
     // function alt_font(){
@@ -283,13 +283,13 @@ $(document).ready(function() {
         persianDigit: false,
         autoClose: true,
         yearPicker:{
-            enabled: true,
+            enabled: true
         },
         monthPicker:{
-            enabled: true,
+            enabled: true
         },
         dayPicker:{
-            enabled: false,
+            enabled: false
         },
         format: "YYYY/MMMM",
         altFormat: "YYYY-M",

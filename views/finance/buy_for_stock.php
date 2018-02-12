@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <label for="dex_unit">واحد</label>
+                                    <label for="dex_unit">نوع جنس</label>
                                     <input name="dex_unit" id="dex_unit"  class="form-control" required readonly />
                                     <input type="hidden" name="dex_unit_id" id="dex_unit_id"  class="form-control" required readonly />
                                     <input type="hidden" name="st_unit_name" id="st_unit_name"  class="form-control" required readonly />
@@ -156,7 +156,7 @@
                     <button type="submit" id="submit" name="first" disabled class="btn btn-success">ذخیره و ادامه <i class="fa fa-save"></i></button>
                     <?php endif ?>
 <!--                    <a href="--><?//=site_url('finance/end_buy'); ?><!--" class="btn btn-danger">ختم خرید <i class="fa ion-ios-cart fa-lg"></i></a>-->
-                    <a href="#" data-toggle="modal" data-target="#pay_amount" id="get_pay_amount" class="btn btn-danger">ختم خرید و پرداخت <i class="fa ion-ios-cart fa-lg"></i></a>
+                    <a href="#" data-toggle="modal" data-target="#pay_amount" id="get_pay_amount" class="btn btn-warning">ختم خرید و پرداخت <i class="fa ion-ios-cart fa-lg"></i></a>
 <!--                    <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>-->
                 </div>
             </form>
@@ -231,7 +231,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-success " <?=($this->session->insert_ids) ? '' : 'disabled'  ?>>پرداخت <i class="fa fa-save"></i></button>
-                    <a href="<?=site_url('finance/end_buy') ?>" class="btn btn-danger">بستن <i class="fa fa-close"></i></a>
+                    <a href="<?=site_url('finance/end_buy') ?>" class="btn btn-danger">ختم خرید <i class="fa fa-close"></i></a>
                 </div>
             </form>
 

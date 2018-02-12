@@ -5,6 +5,7 @@
                 <h3 class="box-title">ثبت سفارش برای آشپزخانه</h3>
                 <div class="box-tools pull-right">
                     <a href="<?= site_url('order/kitchen_orders'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
+                    <a href="" data-toggle="modal" data-target="#create_account" class="btn btn-box-tool bg-green" data-toggle="tooltip" title="" data-original-title="Create Customer"><i class="fa ion-person-add fa-lg"></i></a>
                 </div>
             </div>
             <!-- /.box-header -->
@@ -159,6 +160,173 @@
     </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <div id="create_account" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title no-margin">ثبت مشتری جدید</h4>
+                </div>
+                <form role="form" method="POST" action="<?=site_url('customer/ordering_insert/create_order'); ?>" enctype="multipart/form-data" >
+                    <div class="modal-body">
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+
+                            <div class="row">
+                                <div class="col-xs-7">
+                                    <div class="form-group">
+                                        <label for="cus_name">نام مشتری</label>
+                                        <input type="text" class="form-control" name="cus_name" id="cus_name" placeholder="نام" required/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-5">
+                                    <div class="form-group">
+                                        <label for="cus_unique_id">کد اشتراک</label>
+                                        <input type="text" class="form-control text-center" style="font-family: Segoe; background-color: #FFF9A8;" name="cus_unique_id" value="<?=$uniqee_id ?>" id="cus_unique_id" placeholder="کد منحصر به فرد برای مشتری" required readonly />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cus_lname">تخلص مشتری</label>
+                                <input type="text" class="form-control" name="cus_lname" id="cus_lname" placeholder="تخلص" required/>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="cus_phones">شماره تماس</label>
+                                <input type="text" class="form-control" name="cus_phones" id="cus_phones" placeholder="شماره تماس: 0777181828#0785555555" required/>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="cus_picture">عکس</label>
+                                <input type="file" name="cus_picture" id="cus_picture"  />
+                                <p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>تاریخ ثبت</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" id="tarikh_acc" class="form-control pull-right" style="z-index: 0;" readonly>
+                                    <input type="hidden" id="tarikh_accAlt" name="cus_join_date" class="form-control pull-right" style="z-index: 0;" >
+                                </div>
+                                <!-- /.input group -->
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="cus_address">آدرس کامل مشتری</label>
+                                        <textarea class="form-control" rows="5" name="cus_address" id="cus_address" placeholder="آدرس دقیق و کامل مشتری: ولایت - ولسوالی - ناحیه - منطقه - سرک - کوچه" required/></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label for="cus_phone">جنسیت: </label> &nbsp;
+                                    <div id="radios" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-primary active">
+                                            <input type="radio" name="cus_gendar" id="cus_gendar1" value="1" checked /> ذکور
+                                        </label>
+                                        <label class="btn btn-primary ">
+                                            <input type="radio" name="cus_gendar" id="cus_gendar2" value="0" /> اناث
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 text-right">
+                                    <label for="cus_phone">مشتری برای: </label> &nbsp;
+                                    <div id="radios" class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-warning active">
+                                            <input type="radio" name="cus_type" id="cus_type1" value="0" checked /> آشپزخانه
+                                        </label>
+                                        <label class="btn btn-warning ">
+                                            <input type="radio" name="cus_type" id="cus_type2" value="1" /> رستورانت
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        </div> <!--div.col-6-->
+
+                    </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">بستن <i class="fa fa-close"></i></button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="col-sm-7">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
@@ -308,7 +476,7 @@
             var ord_price = ord_price - discount;
             $('#ord_price').val(ord_price);
             $('#total_ext_charges').val(ord_price);
-            $('#ord_count').attr('disabled', true);
+            $('#ord_count').attr('readonly', true);
 
         });
 
@@ -354,6 +522,26 @@
             },
             onlyTimePicker: true
         });
+    });
+
+    // account date
+    $('#tarikh_acc').persianDatepicker({
+        altField: '#tarikh_accAlt',
+        format: 'D/MMMM/YYYY',
+        observer: true,
+        altFormat: 'YYYY-MM-DD',
+        position: [-65,200],
+        calendar: {
+            persian: {
+                enabled: true,
+                locale: 'en',
+                leapYearMode: "algorithmic" // "astronomical"
+            },
+            gregorian: {
+                enabled: false,
+                locale: 'en'
+            }
+        }
     });
 
     $('.select2').select2();

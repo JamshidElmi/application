@@ -14,7 +14,8 @@ class MY_Model extends CI_Model
 
     // Select Single / all function
 
-    public function data_get($id = NULL, $single = FALSE){
+    public function data_get($id = NULL, $single = FALSE, $order = TRUE)
+    {
         if ($id != NULL) {
             $filter = $this->_primary_filter;
             $id = $filter($id);
@@ -28,20 +29,22 @@ class MY_Model extends CI_Model
             $method = 'result';
         }
 
-        if (!count($this->_order_by)) {
-            $this->db->order_by($this->_order_by);
+        if ($order == TRUE) {
+            $this->db->order_by($this->_order_by.' DESC');
         }
         return $this->db->get($this->_table_name)->$method();
     }
 
     // Select function by Condations
-    public function data_get_by($where, $single = FALSE){
+    public function data_get_by($where, $single = FALSE)
+    {
         $this->db->where($where);
         return $this->data_get(null, $single);
     }
 
     // Save function (insert | Update) method
-    public function data_save($data, $id = NULL){
+    public function data_save($data, $id = NULL)
+    {
         //Set timestamp
         if ($this->_timestamps == TRUE) {
             $now = date();
@@ -67,7 +70,8 @@ class MY_Model extends CI_Model
     }
 
     // Delete function by ID
-    public function data_delete($id){
+    public function data_delete($id)
+    {
         $filter = $this->_primary_filter;
         $id = $filter($id);
         if (!$id) {
@@ -78,5 +82,5 @@ class MY_Model extends CI_Model
         return $this->db->delete($this->_table_name);
     }
 
-}
+} // end class
  ?>
