@@ -4,15 +4,15 @@
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت سفارش برای رستورانت</h3>
                 <div class="box-tools pull-right">
-                    <a href="<?= site_url('order/garson_resturant_orders'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" title="" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
-                    <a href="" data-toggle="modal" data-target="#create_account" class="btn btn-box-tool bg-green" data-toggle="tooltip" title="" data-original-title="Create Customer"><i class="fa ion-person-add fa-lg"></i></a>
+                    <a href="" data-toggle="modal" data-target="#orderModal" class="btn btn-box-tool bg-orange" title="Order Summary"><i class="fa ion-eye fa-lg"></i></a>
+                    <a href="<?= site_url('order/garson_resturant_orders'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
+                    <a href="" data-toggle="modal" data-target="#create_account" class="btn btn-box-tool bg-green" title="Create Customer"><i class="fa ion-person-add fa-lg"></i></a>
                 </div>
-
             </div>
             <!-- /.box-header -->
             <!-- form start -->
             <?php $bm_id = (isset($bm->bm_id)) ? $bm->bm_id : '' ?>
-            <form role="form" method="POST" action="<?= site_url('order/insert_resturant_order/'); ?>">
+            <form role="form" method="POST" action="<?= site_url('order/insert_resturant_order/garson_ordering'); ?>">
 
                 <div class="box-body">
                     <?php if ($this->session->form_errors) {
@@ -46,7 +46,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     <div class="row">
                         <div class="col-md-6">
@@ -128,11 +127,27 @@
                         </div>
                     </div>
 
-
                     <div id="order_list" class="text-muted text-center well well-sm"><b>از لیست منو انتخاب نمائید.</b>
                     </div>
-                    <div id="order_inputs"></div>
-
+                    <div class="modal fade" id="orderModal">
+                        <div class="modal-dialog modal-sm modal-warning" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title">لیست جزئیات سفارش</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div id="order_inputs"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-footer">
                     <div class="row">
@@ -145,23 +160,21 @@
                         <div class="col-xs-5">
                             <div class="form-group">
                                 <div id="radios" class="btn-group" data-toggle="buttons">
-                                    <label class="btn btn-primary btn-xs read-only">
-                                        <input type="radio" name="pay_type" id="pay1" value="1" /> نقد
-                                    </label>
                                     <label class="btn btn-primary btn-xs active">
-                                        <input type="radio" name="pay_type" id="pay2" value="2" checked /> قرض
+                                        <input type="radio" name="pay_type" id="pay1" value="1" checked /> نقد
+                                    </label>
+                                    <label class="btn btn-primary btn-xs ">
+                                        <input type="radio" name="pay_type" id="pay2" value="2"  /> قرض
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
                 </div>
             </form>
         </div>
     </div>
-
 
     <!-- Modal -->
     <div id="create_account" class="modal fade" role="dialog">
@@ -172,9 +185,8 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title no-margin">ثبت مشتری جدید</h4>
                 </div>
-                <form role="form" method="POST" action="<?= site_url('customer/ordering_insert/garson_ordering'); ?>" enctype="multipart/form-data">
+                <form role="form" method="POST" action="<?= site_url('customer/ordering_insert'); ?>" enctype="multipart/form-data">
                     <div class="modal-body">
-
 
                         <div class="row">
                             <div class="col-md-6">
@@ -199,12 +211,10 @@
                                     <input type="text" class="form-control" name="cus_lname" id="cus_lname" placeholder="تخلص" required />
                                 </div>
 
-
                                 <div class="form-group">
                                     <label for="cus_phones">شماره تماس</label>
                                     <input type="text" class="form-control" name="cus_phones" id="cus_phones" placeholder="شماره تماس: 0777181828#0785555555" required />
                                 </div>
-
 
                                 <div class="form-group">
                                     <label for="cus_picture">عکس</label>
@@ -212,7 +222,6 @@
                                     <p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر
                                         باشد.</p>
                                 </div>
-
                             </div>
 
                             <div class="col-md-6">
@@ -230,7 +239,6 @@
 
                                 </div>
 
-
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
@@ -239,7 +247,6 @@
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="form-group">
                                     <div class="row">
@@ -276,11 +283,8 @@
                                     </div>
                                 </div>
 
-
                             </div> <!--div.col-6-->
-
                         </div>
-
 
                     </div>
                     <div class="modal-footer">
@@ -337,7 +341,6 @@
             $('#remain').val(remain);
         });
 
-
         $('#menu_category').change(function (event) {
             // alert($('#menu_category :selected').text());
             var mc_id = $('#menu_category :selected').val();
@@ -354,13 +357,13 @@
                     $("#menu_list").html(response);
                     $('.msg').attr('hidden', true);
 
-
                     // btn add(+) is clicked
                     $('.btn_add').click(function (event) {
                         var id = $(this).attr('bm-id');
                         var price = $(this).attr('bm-price');
                         var pic = $(this).attr('menu-pic');
                         var bm_unit_id = $(this).attr('bm-unit-id');
+                        var bm_name = $(this).attr('bm-name');
 
                         // create input or sum input value
                         if ($("#order_" + id).length) {
@@ -373,7 +376,6 @@
                             var v_count = $('#order_' + id).val();
                             var v_price = $('#price_' + id).val();
 
-
                             var sord_total = v_count * v_price;
                             var total = 1 * v_price;
                             var curr_total = $('#total_amount').val();
@@ -383,14 +385,15 @@
                             $('#sord_price_' + id).val(sord_total);
                             $('#total_amount').val(total);
                             $('#ord_discount').attr('ord-price', total); //
-
                         }
-                        else {
-                            $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_' + id + '" value="1"/>');
-                            $('#order_inputs').append('<input type="text" name="sord_bm_id[]" value="' + id + '" id="id_' + id + '" />');
-                            $('#order_inputs').append('<input type="text" name="sord_price[]" value="0" id="sord_price_' + id + '" />');
-                            $('#order_inputs').append('<input type="text" name="bm_price[]" value="' + price + '" id="price_' + id + '" />');
-                            $('#order_inputs').append('<input type="text" name="bm_unit_id[]" value="' + bm_unit_id + '" id="bm_unit_id_' + id + '" /><div class="clear-fix">');
+                        else 
+                        {
+                            $('#order_inputs').append('<input type="text" name="bm_name[]" value="' + bm_name + '" id="bm_name_' + id + '" class="form-control col-xs-8" /><div class="clear-fix">');
+                            $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_' + id + '" value="1" class="form-control col-xs-4"/>');
+                            $('#order_inputs').append('<input type="hidden" name="sord_bm_id[]" value="' + id + '" id="id_' + id + '" />');
+                            $('#order_inputs').append('<input type="hidden" name="sord_price[]" value="0" id="sord_price_' + id + '" />');
+                            $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="' + price + '" id="price_' + id + '" />');
+                            $('#order_inputs').append('<input type="hidden" name="bm_unit_id[]" value="' + bm_unit_id + '" id="bm_unit_id_' + id + '" />');
                             $('#order_list').append('<a href="" class="btn-app" style="border: 0; background: none;"><span class="badge bg-green" id="count_' + id + '">1</span><img width="40" id="pic_' + id + '" class="img-thumbnail" src="<?php echo site_url() . 'assets/img/menus/' ?>' + pic + ' " alt=""></a>');
                             $('#order_list>b').remove();
 
@@ -406,7 +409,6 @@
                             $('#total_amount').val(total);
                         }
 
-
                     });
 
                     // btn minus(-) is clicked
@@ -415,14 +417,12 @@
                         var price = $(this).attr('bm-price');
                         var pic = $(this).attr('menu-pic');
 
-
                         if ($("#order_" + id).length) {
                             // alert('order_'+id);
                             var value = $("#order_" + id).val();
                             var new_val = parseInt(value) - 1;
                             $("#order_" + id).val(new_val);
                             $('#count_' + id).html(new_val);
-
 
                             var v_count = $('#order_' + id).val();
                             var v_price = $('#price_' + id).val();
@@ -465,22 +465,17 @@
             var ord_discount = $('#ord_discount :selected').val();
             var ord_price = $('#ord_discount').attr('ord-price');
             var discount = ord_discount / 100 * ord_price;
-            var ord_price = ord_price - discount;
+            ord_price = ord_price - discount;
             $('#total_amount').val(ord_price);
             $('#menu_list').html('');
             $('#selection-msg').attr('hidden', false);
             $('#menu_category').attr('disabled', true);
-
-
         });
-
 
         // date
         $('#tarikh').persianDatepicker({
             altField: '#dateAlt',
             format: 'D MMMM YYYY',
-            observer: true,
-
             altFormat: 'YYYY-MM-DD',
             observer: true,
             position: [-67, 200],
@@ -501,8 +496,6 @@
         $('#time').persianDatepicker({
             altField: '#timeAlt',
             format: 'HH:mm',
-            observer: true,
-
             altFormat: 'HH:mm',
             observer: true,
             position: [-67, 200],
@@ -539,7 +532,6 @@
                 }
             }
         });
-
     });
 
 </script>

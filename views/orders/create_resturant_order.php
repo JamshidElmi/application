@@ -4,8 +4,9 @@
             <div class="box-header with-border">
                 <h3 class="box-title">ثبت سفارش برای رستورانت</h3>
                 <div class="box-tools pull-right">
+                    <a href="" data-toggle="modal" data-target="#orderModal" class="btn btn-box-tool bg-orange" title="Order Summary"><i class="fa ion-eye fa-lg"></i></a>
                     <a href="<?=site_url('order/resturant_orders'); ?>" class="btn btn-box-tool bg-gray"  data-toggle="tooltip" title="" data-original-title="Order List"><i class="fa fa-list-ul fa-lg"></i></a>
-                    <a href="" data-toggle="modal" data-target="#create_account" class="btn btn-box-tool bg-green" data-toggle="tooltip" title="" data-original-title="Create Customer"><i class="fa ion-person-add fa-lg"></i></a>
+                    <a href="" data-toggle="modal" data-target="#create_account" class="btn btn-box-tool bg-green" title="Create Customer"><i class="fa ion-person-add fa-lg"></i></a>
                 </div>
 
             </div>
@@ -109,7 +110,25 @@
                     </div>
 
                     <div id="order_list" class="text-muted text-center well well-sm"><b>از لیست منو انتخاب نمائید.</b></div>
-                    <div id="order_inputs"></div>
+                    <div class="modal fade" id="orderModal">
+                        <div class="modal-dialog modal-sm modal-warning" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h5 class="modal-title">لیست جزئیات سفارش</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div id="order_inputs"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">بستن</button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="box-footer">
                     <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
@@ -320,6 +339,7 @@ $(document).ready(function() {
                     var price = $(this).attr('bm-price');
                     var pic = $(this).attr('menu-pic');
                     var bm_unit_id = $(this).attr('bm-unit-id');
+                    var bm_name = $(this).attr('bm-name');
 
                     // create input or sum input value
                     if ($("#order_"+id).length) {
@@ -332,7 +352,6 @@ $(document).ready(function() {
                         var v_count = $('#order_'+id).val();
                         var v_price = $('#price_'+id).val();
 
-
                         var sord_total = v_count * v_price ;
                         var total = 1 * v_price ;
                         var curr_total = $('#total_amount').val();
@@ -342,10 +361,10 @@ $(document).ready(function() {
                         $('#sord_price_'+id).val(sord_total);
                         $('#total_amount').val(total);
                         $('#ord_discount').attr('ord-price',total); //
-
                     }
                     else{
-                        $('#order_inputs').append('<input type="hidden" name="sord_count[]" id="order_'+id+'" value="1"/>');
+                        $('#order_inputs').append('<input type="text" name="bm_name[]" value="' + bm_name + '" id="bm_name_' + id + '" class="form-control col-xs-8" /><div class="clear-fix">');
+                        $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_' + id + '" value="1" class="form-control col-xs-4"/>');
                         $('#order_inputs').append('<input type="hidden" name="sord_bm_id[]" value="'+id+'" id="id_'+id+'" />');
                         $('#order_inputs').append('<input type="hidden" name="sord_price[]" value="0" id="sord_price_'+id+'" />');
                         $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="'+price+'" id="price_'+id+'" />');
@@ -364,8 +383,6 @@ $(document).ready(function() {
                         $('#sord_price_'+id).val(sord_total);
                         $('#total_amount').val(total);
                     }
-
-
                 });
 
                 // btn minus(-) is clicked
@@ -374,14 +391,12 @@ $(document).ready(function() {
                     var price = $(this).attr('bm-price');
                     var pic = $(this).attr('menu-pic');
 
-
                     if ($("#order_"+id).length) {
                         // alert('order_'+id);
                         var value = $("#order_"+id).val();
                         var new_val = parseInt(value) - 1;
                         $("#order_"+id).val(new_val);
                         $('#count_'+id).html(new_val);
-
 
                         var v_count = $('#order_'+id).val();
                         var v_price = $('#price_'+id).val();
@@ -418,7 +433,6 @@ $(document).ready(function() {
             $(".overlay").css('display','none');
             $('#selection-msg').attr('hidden', true);
         });
-
     });
 
     $('#ord_discount').change(function () {
@@ -430,11 +444,7 @@ $(document).ready(function() {
         $('#menu_list').html('');
         $('#selection-msg').attr('hidden', false);
         $('#menu_category').attr('disabled', true);
-
-
     });
-
-
 
     // date
     $('#tarikh').persianDatepicker({
@@ -500,7 +510,5 @@ $(document).ready(function() {
             }
         }
     });
-
 });
-
 </script>

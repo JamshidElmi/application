@@ -182,7 +182,24 @@ class Order extends MY_Controller
         }
     } // end jq_menu_list
 
-    public function insert_resturant_order()
+    public function jq_sub_menu_list($mc_id, $type = 'add')
+    {
+        // sleep(1);
+        $this->order_model->base_menus();
+        $base_menus = $this->order_model->data_get_by(['bm_type' => 1, 'bm_cat_id' => $mc_id]);
+
+        foreach ($base_menus as $base_menu) {
+            echo "<li id='bm_" . $base_menu->bm_id . "' >";
+            echo '<img width="100" class="img-thumbnail" src="' . site_url('assets/img/menus/' . $base_menu->bm_picture) . '" data-toggle="tooltip" title="" data-original-title=" af">';
+            echo '<a class="users-list-name" href="#"  style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="' . $base_menu->bm_desc . '">' . $base_menu->bm_name . '</a>';
+            echo '<a class="btn btn-default btn-xs" href="'. site_url('menu/resturant_menus/'.$base_menu->bm_id) .'"><span id="'.$base_menu->bm_id .'" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>&nbsp;';
+            echo '<span class="base_manu_delete read-only" id="'.$base_menu->bm_id. '" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>';
+            echo '</li>';
+        }
+       
+    } // end jq_sub_menu_list
+
+    public function insert_resturant_order($from_where = "create_resturant_order")
     {
         $data = $this->input->post();
 
@@ -239,15 +256,16 @@ class Order extends MY_Controller
             ]);
             $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
             if (isset($data['submit_print'])) {
-                redirect('order/print_resturant_bill/'.$insert_ord_id.'/'.$cus_type);
+                $where = ($from_where != "create_resturant_order") ? 'print_garson_resturant_bill' : 'print_resturant_bill';
+                redirect('order/'.$where.'/'.$insert_ord_id.'/'.$cus_type);
             }
             else
             {
-                redirect('order/create_resturant_order');
+                redirect('order/'.$from_where);
             }
         } else {
             $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد، دوباره کوشش نمائید.');
-            redirect('order/create_resturant_order');
+            redirect('order/'.$from_where);
         }
 
     } // end insert_resturant_order

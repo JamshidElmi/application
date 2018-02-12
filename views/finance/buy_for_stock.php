@@ -80,7 +80,7 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <div class="form-group">
-                                  <label>واحد جنس</label>
+                                  <label>نوع جنس</label>
 
                                    <select name="st_name" id="st_name" class="form-control">
                                    <option value="">انتخاب کنید</option>
@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <label for="dex_unit">نوع جنس</label>
+                                    <label for="dex_unit">واحد</label>
                                     <input name="dex_unit" id="dex_unit"  class="form-control" required readonly />
                                     <input type="hidden" name="dex_unit_id" id="dex_unit_id"  class="form-control" required readonly />
                                     <input type="hidden" name="st_unit_name" id="st_unit_name"  class="form-control" required readonly />

@@ -88,41 +88,104 @@
         </div>
     </div>
 
-
-    <div class="col-sm-8">
-        <div class="box box-primary box-solid">
-            <div class="box-header with-border">
-                <h3 class="box-title">لیست منو های رستورانت </h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                    </button>
-                </div>
-                <!-- /.box-tools -->
+<div class="col-sm-8">
+    <div class="box box-primary box-solid">
+        <div class="box-header with-border">
+            <h3 class="box-title">لیست منو های رستورانت </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                </button>
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="msg" hidden><?=alert("عملیات حذف با موفقیت انجام شد.", 'success'); ?></div>
-                <ul class="users-list clearfix">
-                    <?php foreach ($base_menus as $base_menu): ?>
-                        <li id="bm_<?=$base_menu->bm_id ?>" >
-                            <img width="100" class="img-thumbnail" src="<?=site_url('assets/img/menus/'.$base_menu->bm_picture); ?>" >
-                            <a class="users-list-name" href="#" style="margin-bottom: 10px" data-toggle="tooltip" title="" data-original-title="<?=$base_menu->bm_desc ?>"><?=$base_menu->bm_name ?></a>
-                            <a class="btn btn-default btn-xs" href="<?=site_url('menu/resturant_menus/'.$base_menu->bm_id); ?>"><span id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fa fa-edit fa-lg "></i></span></a>
-                            <span class="base_manu_delete read-only" id="<?=$base_menu->bm_id ?>" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>
-                        </li>
-                    <?php endforeach ?>
-                </ul>
+            <!-- /.box-tools -->
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div id="selection-msg" class="well text-warning well-sm text-center"><p>
+                    <i class="ion ion-clipboard " style="font-size: 35px"></i></p>لطفاً یکی از نوعیت منو را انتخاب
+                کنید.
             </div>
-            <!-- /.box-body -->
-            <div class="overlay" id="overlay" style="display: none;">
-                <i class="fa ion-load-d fa-spin"></i>
-            </div>
+            <div class="msg" hidden><?= alert("برای این نوع منو زیر منوئی ثبت نشده است.", 'warning'); ?></div>
+            <ul class="users-list clearfix" id="menu_list"></ul>
+        </div>
+        <!-- /.box-body -->
+        <div class="overlay" id="overlay" style="display: none;">
+            <i class="fa ion-load-d fa-spin"></i>
         </div>
     </div>
 </div>
+</div>
+
+
+
+
+
 
 <script>
 $(document).ready(function() {
+
+$('#bm_cat_id').change(function (event) {
+    // alert($('#menu_category :selected').text());
+    var mc_id = $('#bm_cat_id :selected').val();
+    var urls = '<?php echo base_url() . 'order/jq_sub_menu_list/' ?>' + mc_id;
+
+    $(document).ajaxStart(function () {
+        $(".overlay").css('display', 'block');
+    });
+    $.ajax({
+        type: "POST",
+        url: urls,
+        dataType: "html",
+        success: function (response) {
+            $("#menu_list").html(response);
+            $('.msg').attr('hidden', true);
+
+            // delete unit restuarant
+            $('.base_manu_delete').confirm({
+                title: 'حذف',
+                content: 'آیا با حذف این منو موافق هستید؟',
+                type: 'red',
+                rtl: true,
+                buttons: {
+                    confirm: {
+                        text: 'تایید',
+                        btnClass: 'btn-red',
+                        action: function () {
+                            var bm_id = this.$target.attr('id');
+                            $(document).ajaxStart(function(){
+                                $("#overlay").css('display','block');
+                            });
+                            $.post("<?php echo site_url('menu/delete_bm'); ?>",{bm_id:bm_id},function(response){});
+                            $(document).ajaxStop(function(){
+                                $("#overlay").css('display','none');
+                                $(".msg").css('display','block');
+                                $("li#bm_"+bm_id).remove();
+                            });
+                        }
+                    },
+                    cancel: {
+                        text: 'انصراف',
+                        action: function () {
+                        }
+                    }
+                }
+            });
+
+            
+            // alert(response);
+            if (response == '') {
+                $('.msg').attr('hidden', false);
+            }
+        }
+    });
+    $(document).ajaxStop(function () {
+        $(".overlay").css('display', 'none');
+        $('#selection-msg').attr('hidden', true);
+    });
+
+});
+
+
+
 /* select Image if user want */
 $('#choose_file').click(function(event) {
     $('#file').html('<div class="form-group"><label for="bm_picture">عکس</label><input type="file" name="bm_picture" id="bm_picture" required /><p class="small">حجم فایل باید کمتر از 250 کیلوبایت و ابعاد آن از 400 پیکسل کوچکتر باشد.</p></div>');
@@ -131,36 +194,7 @@ $('#choose_file').click(function(event) {
 
 
 
-    // delete unit restuarant
-    $('.base_manu_delete').confirm({
-        title: 'حذف',
-        content: 'آیا با حذف این منو موافق هستید؟',
-        type: 'red',
-        rtl: true,
-        buttons: {
-            confirm: {
-                text: 'تایید',
-                btnClass: 'btn-red',
-                action: function () {
-                    var bm_id = this.$target.attr('id');
-                    $(document).ajaxStart(function(){
-                        $("#overlay").css('display','block');
-                    });
-                      $.post("<?php echo site_url('menu/delete_bm'); ?>",{bm_id:bm_id},function(response){});
-                    $(document).ajaxStop(function(){
-                        $("#overlay").css('display','none');
-                        $(".msg").css('display','block');
-                        $("li#bm_"+bm_id).remove();
-                    });
-                }
-            },
-            cancel: {
-                text: 'انصراف',
-                action: function () {
-                }
-            }
-        }
-    });
+    
 });
 
 </script>

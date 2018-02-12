@@ -41,7 +41,7 @@
             <ul class="nav navbar-nav">
                 <li id="menu_garson_resturant_ordering"><a href="<?= site_url('order/garson_ordering') ?>">سفارش
                         رستورانت<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">سفارش آشپزخانه</a></li>
+<!--                <li><a href="#">سفارش آشپزخانه</a></li>-->
                 <li class="dropdown hidden">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">منوی آبشاری
                         <span class="caret"></span></a>
