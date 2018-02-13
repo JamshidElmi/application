@@ -11,6 +11,9 @@
         padding: 3px;
         border-color: #000;
     }
+    .well {
+        border-color: black;
+    }
 </style>
 <div class="box box-warning " style=" border:2px solid black">
     <div class="box-header with-border no-print">

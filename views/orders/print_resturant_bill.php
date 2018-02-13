@@ -14,6 +14,9 @@
     .table-border th, .table-border td, .table-border {
         border: 1px solid #000;
     }
+    .well {
+        border-color: black;
+    }
 </style>
 <div class="row">
     <div class="col-xs-4">
