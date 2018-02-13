@@ -114,6 +114,20 @@ class finance_model extends MY_Model
         $this->_order_by = 'part_id';
     }
 
+    public function extra_expences()
+    {
+        $this->_table_name = 'extra_expences';
+        $this->_primary_key = 'exp_id';
+        $this->_order_by = 'exp_id';
+    }
+
+    public function expence_category()
+    {
+        $this->_table_name = 'expence_category';
+        $this->_primary_key = 'exp_cat_id';
+        $this->_order_by = 'exp_cat_id';
+    }
+
     public function get_trans_dexs($acc_id)
     {
         $this->db->select_sum('tr_amount');
@@ -176,6 +190,23 @@ class finance_model extends MY_Model
         $this->db->select('SUM(part_amount) as total_amount');
         $this->db->from('partners');
         $query = $this->db->get()->row();
+        return $query;
+    }
+
+    public function exp_cat_join_extra_expences($exp_id = NULL)
+    {
+        $this->db->from('extra_expences');
+        $this->db->join('expence_category', 'expence_category.exp_cat_id = extra_expences.exp_cat_id');
+        $this->db->limit(50);
+        if ($exp_id != NULL)
+        {
+            $this->db->where('exp_id', $exp_id);
+            $query = $this->db->get()->row();
+        }
+        else
+        {
+            $query = $this->db->get()->result();
+        }
         return $query;
     }
 

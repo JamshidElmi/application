@@ -220,6 +220,8 @@ class Setting extends MY_Controller
         $this->template->publish();
     } // end desks
 
+
+
     public function save_desk()
     {
         $data = $this->input->post();
@@ -257,6 +259,55 @@ class Setting extends MY_Controller
         $desk_id = $this->input->post('desk_id');
         $this->setting_model->data_delete($desk_id);
     } // end  delete_desk
+
+    public function expence_category()
+    {
+        $this->template->menu1 = 'menu1_exp_category';
+        $this->template->description = 'ایجاد نوعیت مصرف جدید و لیست نوعیت مصارف موجود در سیستم';
+        $this->setting_model->expence_category();
+        $categories = $this->setting_model->data_get();
+        // view
+        $this->template->content->view('settings/expence_category', ['categories' => $categories]);
+        $this->template->publish();
+    } // end expence_category
+
+     public function save_exp_category()
+    {
+        $data = $this->input->post();
+        if ($this->input->post('exp_cat_id')) {
+            // Update Desk
+            $this->setting_model->expence_category();
+            unset($data['exp_cat_id']);
+            $desk = $this->setting_model->data_save($data, $this->input->post('exp_cat_id'));
+            if (is_int($desk)) {
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                redirect('setting/expence_category');
+            } else {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('setting/expence_category');
+            }
+        } else {
+            // Insert Desk
+            $this->setting_model->expence_category();
+            $desk = $this->setting_model->data_save($data);
+            if (is_int($desk)) {
+                $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+                redirect('setting/expence_category');
+            } else {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد دوباره کوشش نمائید.');
+                redirect('setting/expence_category');
+            }
+        }
+    } // end save_exp_category
+
+    public function delete_exp_category()
+    {
+        sleep(1);
+        $this->setting_model->expence_category();
+
+        $exp_cat_id = $this->input->post('exp_cat_id');
+        $this->setting_model->data_delete($exp_cat_id);
+    } // end  delete_exp_category
 
     public function partners()
     {

@@ -874,4 +874,103 @@ class Finance extends MY_Controller {
         }
     }
 
+    public function new_extra_expence()
+    {
+        $this->template->description = 'ثبت مصارف ثابت';
+        $this->template->menu1 = 'menu1_extra_expences';
+        $this->template->menu2 = 'menu2_create_extra_expence';
+
+        // get current amount of main account
+        $this->finance_model->expence_category();
+        $categories = $this->finance_model->data_get();
+        // view
+        $this->template->content->view('extra_expences/create', ['categories' => $categories]);
+        $this->template->publish();
+    }
+     
+    public function insert_extra_expence()
+    {
+        $data = $this->input->post();
+
+        $current_amount = base_account()->acc_amount;
+
+        $new_amount = $current_amount - $this->input->post('exp_amount');
+        $this->finance_model->accounts();
+        $acc_id = $this->finance_model->data_save(['acc_amount' => $new_amount], base_account()->acc_id);
+        if (is_int($acc_id)) 
+        {
+            $this->finance_model->extra_expences();
+            $ext_id = $this->finance_model->data_save($data);
+            if(is_int($ext_id)){
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/new_extra_expence/');
+            }
+            else {
+                $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
+                redirect('finance/new_extra_expence/');
+            }
+        }
+        else {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
+            redirect('finance/new_extra_expence/');
+        }
+    }
+
+    public function extra_expences()
+    {
+        $this->template->description = 'لیست مصارف ثابت';
+        $this->template->menu1 = 'menu1_extra_expences';
+        $this->template->menu2 = 'menu2_extra_expences';
+
+        $extra_expences = $this->finance_model->exp_cat_join_extra_expences();
+
+        // view
+        $this->template->content->view('extra_expences/list', ['extra_expences' => $extra_expences]);
+        $this->template->publish();
+    }
+
+    public function delete_extra_expence()
+    {
+        $this->finance_model->extra_expences();
+        $expence = $this->finance_model->data_get($this->input->post('exp_id'));
+        $acc_amount = base_account()->acc_amount + $expence->exp_amount;
+        // set new amount
+        $this->finance_model->accounts();
+        $this->finance_model->data_save(['acc_amount' => $acc_amount], base_account()->acc_id);
+        // delete extra exp...
+        $this->finance_model->extra_expences();
+        $this->finance_model->data_delete($this->input->post('exp_id'));
+    }
+
+    public function edit_extra_expence($exp_id)
+    {
+        $this->template->description = 'ثبت مصارف ثابت';
+        $this->template->menu1 = 'menu1_extra_expences';
+        $this->template->menu2 = 'menu2_create_extra_expence';
+
+        // get current amount of main account
+        $this->finance_model->expence_category();
+        $categories = $this->finance_model->data_get();
+        $this->finance_model->extra_expences();
+        $extra_expence = $this->finance_model->exp_cat_join_extra_expences($exp_id);
+        // view
+        $this->template->content->view('extra_expences/edit', ['categories' => $categories, 'extra_expence' => $extra_expence]);
+        $this->template->publish();
+    }
+
+    public function update_extra_expence($exp_id)
+    {
+        $data = $this->input->post();
+        $this->finance_model->extra_expences();
+        $ext_id = $this->finance_model->data_save($data, $exp_id);
+        if(is_int($ext_id)){
+            $this->session->set_flashdata('form_success', 'عملیات با موفقیت انجام شد.');
+            redirect('finance/edit_extra_expence/'.$exp_id);
+        }
+        else {
+            $this->session->set_flashdata('form_errors', 'عملیات با موفقیت انجام نشد. لطفاً دوباره کوشش نمائید');
+            redirect('finance/edit_extra_expence/'.$exp_id);
+        }
+    }
+
 } // end class

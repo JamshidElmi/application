@@ -92,6 +92,13 @@ class setting_model extends MY_Model
         $this->_order_by = 'ci_id';
     }
 
+    public function expence_category()
+    {
+        $this->_table_name = 'expence_category';
+        $this->_primary_key = 'exp_cat_id';
+        $this->_order_by = 'exp_cat_id';
+    }
+
     public function partner_join_emp()
     {
         $this->db->from('partners');

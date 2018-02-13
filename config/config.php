@@ -40,8 +40,8 @@ function __autoload($classname)
 | a PHP script and you can easily do that on your own.
 |
 */
- $config['base_url'] = 'http://app.momtaz.dj/';
-//$config['base_url'] = 'http://localhost:85/mis_resturant/resturant/';
+ $config['base_url'] = "http://app.momtaz.dj/";
+// $config['base_url'] = 'http://localhost:85/mis_resturant/resturant/';
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +53,7 @@ function __autoload($classname)
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = "";
 
 /*
 |--------------------------------------------------------------------------

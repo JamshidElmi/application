@@ -192,7 +192,7 @@
                     </ul>
                 </li>
                 <li class="treeview" id="menu1_expences">
-                    <a href=""><i class="fa fa-circle-o"></i> مصارف
+                    <a href=""><i class="fa fa-circle-o"></i>   مصارف روزانه
                         <span class="pull-left-container">
                             <i class="fa fa-angle-right pull-left"></i>
                         </span>
@@ -200,7 +200,18 @@
                     <ul class="treeview-menu">
                         <li id="menu2_create_daily_expence"><a href="<?=site_url('finance/new_expence'); ?>"><i class="fa fa-circle-o"></i> ثبت مصارف روزانه</a></li>
                         <li id="menu2_daily_expences"><a href="<?=site_url('finance/expences/0'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف روزانه</a></li>
+                    </ul>
+                </li>
 
+                <li class="treeview" id="menu1_extra_expences">
+                    <a href=""><i class="fa fa-circle-o"></i> مصارف ثابت
+                        <span class="pull-left-container">
+                            <i class="fa fa-angle-right pull-left"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li id="menu2_create_extra_expence"><a href="<?=site_url('finance/new_extra_expence'); ?>"><i class="fa fa-circle-o"></i> ثبت مصارف ثابت</a></li>
+                        <li id="menu2_extra_expences"><a href="<?=site_url('finance/extra_expences'); ?>"><i class="fa fa-circle-o"></i> لیست مصارف ثابت</a></li>
                     </ul>
                 </li>
 
@@ -285,6 +296,7 @@
             <ul class="treeview-menu">
                 <li id="menu1_units" class=""><a href="<?=site_url('setting/units'); ?>"><i class="fa fa-circle-o "></i> واحدات مقیاسی </a></li>
                 <li id="menu1_stock_units" class="no-garson"><a href="<?=site_url('setting/stock_units'); ?>"><i class="fa fa-circle-o "></i> واحدات گدام </a></li>
+                <li id="menu1_exp_category" class="no-garson"><a href="<?=site_url('setting/expence_category'); ?>"><i class="fa fa-circle-o "></i> واحدات مصارف </a></li>
                 <li id="menu1_jobs" class="no-garson only-admin"><a href="<?=site_url('setting/jobs'); ?>"><i class="fa fa-circle-o "></i> وظایف </a></li>
 <!--                <li id="menu1_menu_category" class=""><a href="--><?//=site_url('setting/menu_category'); ?><!--"><i class="fa fa-circle-o "></i> نوعیت منو </a></li>-->
                 <li id="menu1_desks" class="no-garson "><a href="<?=site_url('setting/desks'); ?>"><i class="fa fa-circle-o "></i> ثبت میز </a></li>

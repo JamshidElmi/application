@@ -183,7 +183,7 @@ if(!function_exists("base_account"))
     function base_account()
     {
         $ci = & get_instance();
-        // $ci->db->select($field);
+//         $ci->db->select($field);
         $ci->db->where('acc_type' ,0);
         $ci->db->limit(1);
         $account_info = $ci->db->get('accounts')->row();

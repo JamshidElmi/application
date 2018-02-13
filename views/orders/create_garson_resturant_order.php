@@ -26,13 +26,13 @@
                     } ?>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group"><label for="ord_cus_id">انتخاب
-                                    مشتری</label><select style="width: 100%" name="ord_cus_id" id="ord_cus_id" class="form-control select2">
-                                    <option value="<?= base_account()->acc_id ?>_">انتخاب کنید
-                                    </option><?php foreach ($customers as $customer): ?>
-                                        <option cus-acc-id="<?= $customer->cus_acc_id ?>" value="<?= $customer->cus_id ?>"><?= $customer->cus_name . ' ' . $customer->cus_lname ?>
-                                        <span>(<?= $customer->cus_unique_id ?>)</span></option><?php endforeach ?>
-                                </select></div>
+                            <div class="form-group"><label for="ord_cus_id">انتخاب مشتری</label>
+                                <select style="width: 100%" name="ord_cus_id" id="ord_cus_id" class="form-control select2">
+                                    <option value="<?= base_account()->acc_id ?>_">انتخاب کنید</option><?php foreach ($customers as $customer): ?>
+                                    <option cus-acc-id="<?= $customer->cus_acc_id ?>" value="<?= $customer->cus_id ?>"><?= $customer->cus_name . ' ' . $customer->cus_lname ?>
+                                    <span>(<?= $customer->cus_unique_id ?>)</span></option><?php endforeach ?>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
