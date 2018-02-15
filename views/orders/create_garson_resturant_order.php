@@ -152,8 +152,8 @@
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-xs-7">
-                            <button type="submit" class="btn btn-success">ذخیره <i class="fa fa-save"></i></button>
-                            <button type="submit" name="submit_print" id="submit_print" class="btn btn-info">
+                            <button type="submit" class="btn btn-success" id="submit" disabled>ذخیره <i class="fa fa-save"></i></button>
+                            <button type="submit" name="submit_print" id="submit_print" disabled class="btn btn-info">
                                 <i class="fa fa-save"></i> ذخیره و چاپ <i class="fa fa-print"></i></button>
                             <!--                        <button type="reset" class="btn btn-default">انصراف <i class="fa fa-refresh"></i></button>-->
                         </div>
@@ -364,6 +364,8 @@
                         var pic = $(this).attr('menu-pic');
                         var bm_unit_id = $(this).attr('bm-unit-id');
                         var bm_name = $(this).attr('bm-name');
+                        $('#submit').attr('disabled', false);
+                        $('#submit_print').attr('disabled', false);
 
                         // create input or sum input value
                         if ($("#order_" + id).length) {
@@ -386,7 +388,7 @@
                             $('#total_amount').val(total);
                             $('#ord_discount').attr('ord-price', total); //
                         }
-                        else 
+                        else
                         {
                             $('#order_inputs').append('<input type="text" name="bm_name[]" value="' + bm_name + '" id="bm_name_' + id + '" class="form-control col-xs-8" /><div class="clear-fix">');
                             $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_' + id + '" value="1" class="form-control col-xs-4"/>');

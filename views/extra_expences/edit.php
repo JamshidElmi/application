@@ -2,7 +2,7 @@
     <div class="col-lg-5 col-xs-12">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">ثبت مصرف جدید</h3>
+                <h3 class="box-title">ویرایش مصرف</h3>
                 <div class="box-tools pull-right">
                     <a href="<?= site_url('finance/extra_expences'); ?>" class="btn btn-box-tool bg-gray" data-toggle="tooltip" data-original-title="Expences List"><i class="fa fa-list-ul fa-lg"></i></a>
                 </div>

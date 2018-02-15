@@ -8,7 +8,7 @@
 }
 </style>
 <div class="row">
-<?php  $segment =  $this->uri->segment(3); ?>
+<?php $segment =  $this->uri->segment(3); ?>
 
     <div class="col-md-12">
         <div class="box box-primary box-solid">

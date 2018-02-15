@@ -188,7 +188,9 @@
                     <ul class="treeview-menu">
                         <li id="menu2_create_account"><a href="<?=site_url('finance/accounts'); ?>"><i class="fa fa-circle-o "></i> ایجاد صندوق </a></li>
                         <li id="menu2_debit_credit"><a href="<?=site_url('finance/credit_debit/'.base_account()->acc_id); ?>"><i class="fa fa-circle-o"></i>جمع و برداشت</a></li>
-                        <li id="menu2_partner_debit_credit" class="only-admin"><a href="<?=site_url('finance/partner_credit_debit/'.$this->session->partner_id); ?>"><i class="fa fa-circle-o"></i>سهام</a></li>
+                        <?php if($this->session->partner_id): ?>
+                            <li id="menu2_partner_debit_credit" class="only-admin"><a href="<?=site_url('finance/partner_credit_debit/'.$this->session->partner_id); ?>"><i class="fa fa-circle-o"></i>سهام</a></li>
+                        <?php endif ?>
                     </ul>
                 </li>
                 <li class="treeview" id="menu1_expences">

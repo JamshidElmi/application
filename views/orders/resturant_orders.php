@@ -90,6 +90,7 @@
                             <a class="read-only-garson" href="<?=site_url('order/resturant_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                             <a class='<?php echo ($now >= show_date("Y/m/d", $order->ord_date) AND $this->session->user_info->user_type != 1) ? "lock" : "" ?>' href="<?=site_url('order/sub_orders/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" title="" data-original-title="Order's Items"><i class="fa fa-list fa-lg"></i></span></a>
                             <a href="<?=site_url('order/print_resturant_bill/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Print Bill"><i class="fa fa-print fa-lg"></i></span></a>
+                            <a href="<?=site_url('order/add_item/'.$order->ord_id); ?>"><span class="label label-success" data-toggle="tooltip" title="" data-original-title="Add Item"><i class="fa ion-plus-round fa-lg"></i></span></a>
                             <a href="#" class="ord_id_to_delete only-admin" id="<?php echo $order->ord_id; ?>" ><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
                         </td>
                     </tr>

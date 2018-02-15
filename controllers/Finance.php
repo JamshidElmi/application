@@ -887,7 +887,7 @@ class Finance extends MY_Controller {
         $this->template->content->view('extra_expences/create', ['categories' => $categories]);
         $this->template->publish();
     }
-     
+
     public function insert_extra_expence()
     {
         $data = $this->input->post();
@@ -897,7 +897,7 @@ class Finance extends MY_Controller {
         $new_amount = $current_amount - $this->input->post('exp_amount');
         $this->finance_model->accounts();
         $acc_id = $this->finance_model->data_save(['acc_amount' => $new_amount], base_account()->acc_id);
-        if (is_int($acc_id)) 
+        if (is_int($acc_id))
         {
             $this->finance_model->extra_expences();
             $ext_id = $this->finance_model->data_save($data);

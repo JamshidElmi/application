@@ -33,7 +33,7 @@
             'jquery-confirm'    => 'plugins/jquery-confirm/jquery-confirm.min.js' ,
             'persian-date'      => 'plugins/persian-datepicker/persian-date.js' ,
             'datepicker'        => 'plugins/persian-datepicker/persian-datepicker.js' ,
-            'Chart'             => 'components/Chart.js/Chart.min.js',
+            'Chart'             => 'components/chart.js/Chart.min.js',
             'select2'           => 'components/select2/dist/js/select2.full.min.js' ,
         ); ?>
 

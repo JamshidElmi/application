@@ -19,8 +19,16 @@ class user_model extends MY_Model
     public function get_employees()
     {
         $this->_table_name = 'employees';
+        $this->_order_by = 'emp_id';
         return $users = $this->data_get();
 
+    }
+
+    public function employees($value='')
+    {
+        $this->_table_name = 'users';
+        $thia->_primary_key = 'user_id';
+        $thia->_order_by = 'user_id';
     }
 
     public function join_user_emp()

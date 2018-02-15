@@ -56,7 +56,7 @@ class Order extends MY_Controller
     public function insert_kitchen_order()
     {
         $data = $this->input->post();
-        var_dump($data); die();
+        // var_dump($data); die();
 
         // Inserting data
         $this->order_model->orders();
@@ -162,6 +162,28 @@ class Order extends MY_Controller
         $this->template->publish();
     } // end create_resturant_order
 
+    public function add_item()
+    {
+        $this->template->menu1 = 'menu1_resturant_orders';
+        $this->template->menu2 = 'menu2_create_resturant_order';
+        $this->template->description = 'ثبت سفارش برای رستورانت';
+
+        $this->load->model('customer_model');
+        $uniqee_id = $this->customer_model->uniquee_id();
+        $this->order_model->menu_category();
+        $menu_categories = $this->order_model->data_get();
+        $this->order_model->customers();
+        $customers = $this->order_model->data_get();
+        $this->order_model->desks();
+        $desks = $this->order_model->data_get();
+        $this->order_model->discounts();
+        $discounts = $this->order_model->data_get();
+
+        // view
+        $this->template->content->view('orders/add_item_to_order', ['menu_categories' => $menu_categories, 'customers' => $customers, 'desks' => $desks, 'discounts' => $discounts, 'uniqee_id' => $uniqee_id]);
+        $this->template->publish();
+    } // end create_resturant_order
+
     public function jq_menu_list($mc_id, $type = 'add')
     {
         // sleep(1);
@@ -196,7 +218,7 @@ class Order extends MY_Controller
             echo '<span class="base_manu_delete read-only" id="'.$base_menu->bm_id. '" data-toggle="tooltip" title="" data-original-title="Remove"><i class="ion ion-trash-b fa-lg btn btn-danger btn-xs"></i></span>';
             echo '</li>';
         }
-       
+
     } // end jq_sub_menu_list
 
     public function insert_resturant_order($from_where = "create_resturant_order")
