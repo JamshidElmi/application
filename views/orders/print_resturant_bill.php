@@ -6,7 +6,9 @@
  * Time: 11:09 PM
  */
 ?>
+
 <style>
+
     .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
         padding: 2px;
         border-color: #000;
@@ -19,8 +21,8 @@
     }
 </style>
 <div class="row">
-    <div class="col-xs-4">
-        <div class="box box-dafualt  " style="width: 300px; font-size: 10px !important; border:2px solid black">
+    <div class="col-xs-4" style="margin: 0;padding: 0;">
+        <div class="box box-dafualt  " style="width: 75mm; font-size: 10px !important; border:1px solid black">
             <div class="box-header with-border no-print">
                 <h3 class="box-title"> فاکتور رستورانت</h3>
                 <div class="box-tools pull-right no-print">
@@ -43,7 +45,7 @@
 
                         <div class="col-xs-9">
                             <p style="margin-bottom: 4px; font-family:BTitrBold,'BTitrBold', 'Vazir', 'Helvetica Neue', Helvetica, Arial, sans-serif;"><b><?= $this->session->general_info->ci_full_name ?></b></p>
-                            <p style="margin: 4px"><b><?= $this->session->general_info->ci_full_name_en ?></b></p>
+                            <p style="margin: 4px; font-size: 8px;"><b><?= $this->session->general_info->ci_full_name_en ?></b></p>
                         </div>
                         <div class="col-xs-3">
                             <img style="margin:-5px 0 -10px 0" src="<?= base_url('assets/img/info/' . $this->session->general_info->ci_logo) ?>" class="img-responsive" alt="LOGO">
@@ -116,17 +118,17 @@
                     <tr>
                         <th colspan="3">تخفیف</th>
                         <td colspan="2">
-                            <b> <?= $discount_price ?></b>
+                            <b> <?= number_format($discount_price); ?></b>
                             افغانی (<?= round($ord_cus->ord_discount) ?>%)
                         </td>
                     </tr>
                     <tr>
                         <td colspan="3" class=" text-success"><b>رسیده</b></td>
-                        <td colspan="2"><b><?= $total_payed ?></b> افغانی</td>
+                        <td colspan="2"><b><?= number_format($total_payed); ?></b> افغانی</td>
                     </tr>
                     <tr>
                         <td colspan="3" class=" text-danger"><b>الباقی</b></td>
-                        <td colspan="2"><b><?= $total_unpayed ?></b> افغانی</td>
+                        <td colspan="2"><b><?= number_format($total_unpayed); ?></b> افغانی</td>
                     </tr>
                     <tr>
                         <td colspan="5"><b>آدرس:</b> <?= $this->session->general_info->ci_address ?></td>

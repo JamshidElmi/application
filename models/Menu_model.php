@@ -60,27 +60,28 @@ class menu_model extends MY_Model
         $this->db->from('base_menus');
         $this->db->join('sub_base_menu', 'base_menus.bm_id = sub_base_menu.sbm_bm_id');
         $this->db->join('sub_menus', 'sub_menus.sm_id = sub_base_menu.sbm_sm_id');
+        $this->db->join('units', 'sub_menus.sm_unit_id = units.unit_id');
         $this->db->where(['bm_id' => $bm_id]);
-        $query = $this->db->get();
-        return $query->result();
+        $query = $this->db->get()->result();
+        return $query;
     }
-
+    
     public function sub_base_menus_not($bm_id)
     {
         $this->db->from('base_menus');
         $this->db->join('sub_base_menu', 'base_menus.bm_id = sub_base_menu.sbm_bm_id');
         $this->db->join('sub_menus', 'sub_menus.sm_id = sub_base_menu.sbm_sm_id');
         $this->db->where(['bm_id !=' => $bm_id]);
-        $query = $this->db->get();
-        return $query->result();
+        $query = $this->db->get()->result();
+        return $query;
     }
 
     public function sub_menu_join_unit()
     {
         $this->db->from('sub_menus');
         $this->db->join('units', 'sub_menus.sm_unit_id = units.unit_id');
-        $query = $this->db->get();
-        return $query->result();
+        $query = $this->db->get()->result();
+        return $query;
     }
 
 }

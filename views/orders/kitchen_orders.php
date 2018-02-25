@@ -33,7 +33,7 @@
                     <td><?=$order->cus_unique_id ?></td>
                     <td><span  data-toggle="tooltip" title="" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('-', $order->cus_phones)) ?></span></td>
                     <td><?=show_date("j F Y", $order->ord_date); ?> </td>
-                    <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
+                    <td class="text-center"><strong><?=number_format($order->ord_price) ?></strong> افغانی</td>
                     <td class="text-center"><span class="badge bg-green"><?=round($order->ord_discount,1) ?> %</span></td>
                     <td><span data-toggle="tooltip" title="" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
                     <td>

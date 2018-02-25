@@ -156,9 +156,10 @@ class finance_model extends MY_Model
         // $this->db->from('expences');
         // $this->db->join('units', 'units.unit_id = expences.dex_unit');
         $this->db->where('bill_type', $bill_type);
-        $this->db->where('tr_type', 'buy_stocks');
+        $this->db->where('tr_type', ($bill_type == 0) ? 'daily_expence' : 'buy_stocks');
         $this->db->order_by('tr_id DESC');
         $query = $this->db->get()->result();
+        echo $this->db->last_query();
         return $query;
     }
 

@@ -103,7 +103,7 @@
             <?php foreach ($sub_menus as $sub_menu) : ?>
             {
                 id: '<?=$sub_menu->sm_id ?>',
-                text: '<?=$sub_menu->sm_name ?> (<?=round($sub_menu->sm_price).' افغانی ' ?>)'
+                text: '(<?=round($sub_menu->sm_count).' '.$sub_menu->unit_name ?>) <?=$sub_menu->sm_name ?>   <?=round($sub_menu->sm_price).' افغانی ' ?>'
             },
             <?php endforeach ?>
 
@@ -111,7 +111,7 @@
             <?php foreach ($sm as $sub_menu ) : ?>
             {
                 id: '<?=$sub_menu->sm_id ?>',
-                text: '<?=$sub_menu->sm_name ?> (<?=round($sub_menu->sm_price).' افغانی ' ?>)',
+                text: '(<?=round($sub_menu->sm_count).' '.$sub_menu->unit_name ?>) <?=$sub_menu->sm_name ?>   <?=round($sub_menu->sm_price).' افغانی ' ?>',
                 selected:"selected"
             },
             <?php endforeach ?>

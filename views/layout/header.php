@@ -37,10 +37,8 @@
             <span class="sr-only">Toggle navigation</span>
         </a>
 
-        <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
+        <div class="collapse navbar-collapse pull-right hidde-xs" id="navbar-collapse">
             <ul class="nav navbar-nav">
-                <li id="menu_garson_resturant_ordering"><a href="<?= site_url('order/garson_ordering') ?>">سفارش
-                        رستورانت<span class="sr-only">(current)</span></a></li>
 <!--                <li><a href="#">سفارش آشپزخانه</a></li>-->
                 <li class="dropdown hidden">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">منوی آبشاری
@@ -70,6 +68,9 @@
                 <!-- ============================================================================================================ -->
                 <!-- ======================================= NOTIFICATIONS =========================================== -->
                 <!-- ============================================================================================================ -->
+                <li>
+                    <a href="<?= site_url('order/garson_ordering') ?>" data-toggle="tooltip" data-original-title="Get Restaurant Oreder"><i class="fa ion-coffee fa-lg"></i></a>
+                </li>
 
                 <li class="dropdown messages-menu ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

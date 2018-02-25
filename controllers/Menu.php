@@ -36,7 +36,7 @@ class Menu extends MY_Controller {
         }
 
         $this->menu_model->sub_menus();
-        $sub_menus = $this->menu_model->data_get();
+        $sub_menus = $this->menu_model->sub_menu_join_unit();
 
 
         // view

@@ -280,19 +280,39 @@
         <div class="box box-info box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست منو های رستورانت </h3>
-                <div class="box-tools pull-right">
+                <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                /////////////////////////////////////Change menus by select>option///////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+                <div class="box-tools pull-right hidden">
                     <select name="menu_category" id="menu_category" class="form-control input-sm" style="border-radius: 3px; box-shadow: inset 0 0 6px 0px #616161;">
                         <option value="0">انتخاب نوعیت منو</option>
                         <?php foreach ($menu_categories as $menu_category): ?>
                             <option value="<?=$menu_category->mc_id ?>"><?=$menu_category->mc_name ?></option>
                         <?php endforeach ?>
                     </select>
+                <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////
+                /////////////////////////////////////Change menus by select>option///////////////////////////////////////////
+                //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
                 </div>
                 <!-- /.box-tools -->
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <div id="selection-msg" class="well text-warning well-sm text-center"><p><i class="ion ion-clipboard " style="font-size: 35px"></i></p>لطفاً یکی از نوعیت منو را انتخاب کنید.</div>
+    
+    
+    
+    
+                <div class="well well-sm">
+                    <?php foreach ($menu_categories as $menu_category): ?>
+                        <a class="btn btn-box-tool bg-blue base_menu" id="<?=$menu_category->mc_id ?>" ><i class="fa fa-cutlery fa-lg"></i> <?=$menu_category->mc_name ?> </a>
+                    <?php endforeach ?>
+                </div>
+
+                
+                
+                
+                
+                <div id="selection-msg" class="well text-warning well-sm text-center"><p><i class="ion ion-clipboard" style="font-size: 35px"></i></p>لطفاً یکی از نوعیت منو را انتخاب کنید.</div>
                 <div class="msg" hidden><?=alert("برای این نوع منو زیر منوئی ثبت نشده است.", 'warning'); ?></div>
                 <ul class="users-list clearfix" id="menu_list"></ul>
             </div>
@@ -315,129 +335,137 @@ $(document).ready(function() {
         $('#remain').val(remain);
     });
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////Change menus by select>option///////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    $('#menu_category').change(function(event) {
-        // alert($('#menu_category :selected').text());
-        var mc_id = $('#menu_category :selected').val();
-        var urls = '<?php echo base_url().'order/jq_menu_list/' ?>' + mc_id;
+//    $('#menu_category').change(function(event) {
+//        // alert($('#menu_category :selected').text());
+//        var mc_id = $('#menu_category :selected').val();
+//        var urls = '<?php //echo base_url().'order/jq_menu_list/' ?>//' + mc_id;
+//
+//
+//        $(document).ajaxStart(function(){
+//            $(".overlay").css('display','block');
+//        });
+//        $.ajax({
+//            type: "POST",
+//            url: urls,
+//            dataType: "html",
+//            success: function(response){
+//                $("#menu_list").html(response);
+//                $('.msg').attr('hidden', true);
+//
+//
+//                // btn add(+) is clicked
+//                $('.btn_add').click(function(event) {
+//                    var id = $(this).attr('bm-id');
+//                    var price = $(this).attr('bm-price');
+//                    var pic = $(this).attr('menu-pic');
+//                    var bm_unit_id = $(this).attr('bm-unit-id');
+//                    var bm_name = $(this).attr('bm-name');
+//                    $('#submit').attr('disabled', false);
+//                    $('#submit_print').attr('disabled', false);
+//
+//                    // create input or sum input value
+//                    if ($("#order_"+id).length) {
+//                         // alert('order_'+id);
+//                         var value = $("#order_"+id).val();
+//                         var new_val = parseInt(value) + 1;
+//                         $("#order_"+id).val(new_val);
+//                         $('#count_'+id).html(new_val);
+//
+//                        var v_count = $('#order_'+id).val();
+//                        var v_price = $('#price_'+id).val();
+//
+//                        var sord_total = v_count * v_price ;
+//                        var total = 1 * v_price ;
+//                        var curr_total = $('#total_amount').val();
+//                        // alert(curr_total);
+//
+//                        total = total + parseFloat(curr_total);
+//                        $('#sord_price_'+id).val(sord_total);
+//                        $('#total_amount').val(total);
+//                        $('#ord_discount').attr('ord-price',total); //
+//                    }
+//                    else{
+//                        $('#order_inputs').append('<input type="text" name="bm_name[]" value="' + bm_name + '" id="bm_name_' + id + '" class="form-control col-xs-8" /><div class="clear-fix">');
+//                        $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_' + id + '" value="1" class="form-control col-xs-4"/>');
+//                        $('#order_inputs').append('<input type="hidden" name="sord_bm_id[]" value="'+id+'" id="id_'+id+'" />');
+//                        $('#order_inputs').append('<input type="hidden" name="sord_price[]" value="0" id="sord_price_'+id+'" />');
+//                        $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="'+price+'" id="price_'+id+'" />');
+//                        $('#order_inputs').append('<input type="hidden" name="bm_unit_id[]" value="'+bm_unit_id+'" id="bm_unit_id_'+id+'" /><div class="clear-fix">');
+//                        $('#order_list').append('<a href="" class="btn-app" style="border: 0; background: none;"><span class="badge bg-green" id="count_'+id+'">1</span><img width="40" id="pic_'+id+'" class="img-thumbnail" src="<?php //echo site_url().'assets/img/menus/' ?>//'+pic+' " alt=""></a>');
+//                        $('#order_list>b').remove();
+//
+//                        var v_count = $('#order_'+id).val();
+//                        var v_price = $('#price_'+id).val();
+//
+//                        var curr_total = $('#total_amount').val();
+//                        // alert(curr_total);
+//                        var total = v_count * v_price;
+//                        var sord_total = v_count * v_price ;
+//                        total = parseFloat(total) + parseFloat(curr_total);
+//                        $('#sord_price_'+id).val(sord_total);
+//                        $('#total_amount').val(total);
+//                    }
+//                });
+//
+//                // btn minus(-) is clicked
+//                $('.btn_minus').click(function(event) {
+//                    var id = $(this).attr('bm-id');
+//                    var price = $(this).attr('bm-price');
+//                    var pic = $(this).attr('menu-pic');
+//
+//                    if ($("#order_"+id).length) {
+//                        // alert('order_'+id);
+//                        var value = $("#order_"+id).val();
+//                        var new_val = parseInt(value) - 1;
+//                        $("#order_"+id).val(new_val);
+//                        $('#count_'+id).html(new_val);
+//
+//                        var v_count = $('#order_'+id).val();
+//                        var v_price = $('#price_'+id).val();
+//
+//                        var sord_total = $('#sord_price_'+id).val() - v_price ;
+//                        var total = $('#total_amount').val() - v_price ;
+//                        var curr_total = $('#total_amount').val();
+//                        // alert(curr_total);
+//
+//                        $('#sord_price_'+id).val(sord_total);
+//                        $('#total_amount').val(total);
+//                        $('#ord_discount').attr('ord-price',total); //
+//
+//                        if(new_val == 0)
+//                        {
+//                            $("#order_"+id).remove();
+//                            $('#count_'+id).remove();
+//                            $('#price_'+id).remove();
+//                            $('#id_'+id).remove();
+//                            $('#pic_'+id).remove();
+//                            $('#sord_price_'+id).remove();
+//                            $('#bm_unit_id_'+id).remove();
+//                        }
+//                    }
+//                });
+//
+//                // alert(response);
+//                if(response == ''){
+//                    $('.msg').attr('hidden', false);
+//                }
+//            }
+//        });
+//        $(document).ajaxStop(function(){
+//            $(".overlay").css('display','none');
+//            $('#selection-msg').attr('hidden', true);
+//        });
+//    });
 
-
-        $(document).ajaxStart(function(){
-            $(".overlay").css('display','block');
-        });
-        $.ajax({
-            type: "POST",
-            url: urls,
-            dataType: "html",
-            success: function(response){
-                $("#menu_list").html(response);
-                $('.msg').attr('hidden', true);
-
-
-                // btn add(+) is clicked
-                $('.btn_add').click(function(event) {
-                    var id = $(this).attr('bm-id');
-                    var price = $(this).attr('bm-price');
-                    var pic = $(this).attr('menu-pic');
-                    var bm_unit_id = $(this).attr('bm-unit-id');
-                    var bm_name = $(this).attr('bm-name');
-                    $('#submit').attr('disabled', false);
-                    $('#submit_print').attr('disabled', false);
-
-                    // create input or sum input value
-                    if ($("#order_"+id).length) {
-                         // alert('order_'+id);
-                         var value = $("#order_"+id).val();
-                         var new_val = parseInt(value) + 1;
-                         $("#order_"+id).val(new_val);
-                         $('#count_'+id).html(new_val);
-
-                        var v_count = $('#order_'+id).val();
-                        var v_price = $('#price_'+id).val();
-
-                        var sord_total = v_count * v_price ;
-                        var total = 1 * v_price ;
-                        var curr_total = $('#total_amount').val();
-                        // alert(curr_total);
-
-                        total = total + parseFloat(curr_total);
-                        $('#sord_price_'+id).val(sord_total);
-                        $('#total_amount').val(total);
-                        $('#ord_discount').attr('ord-price',total); //
-                    }
-                    else{
-                        $('#order_inputs').append('<input type="text" name="bm_name[]" value="' + bm_name + '" id="bm_name_' + id + '" class="form-control col-xs-8" /><div class="clear-fix">');
-                        $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_' + id + '" value="1" class="form-control col-xs-4"/>');
-                        $('#order_inputs').append('<input type="hidden" name="sord_bm_id[]" value="'+id+'" id="id_'+id+'" />');
-                        $('#order_inputs').append('<input type="hidden" name="sord_price[]" value="0" id="sord_price_'+id+'" />');
-                        $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="'+price+'" id="price_'+id+'" />');
-                        $('#order_inputs').append('<input type="hidden" name="bm_unit_id[]" value="'+bm_unit_id+'" id="bm_unit_id_'+id+'" /><div class="clear-fix">');
-                        $('#order_list').append('<a href="" class="btn-app" style="border: 0; background: none;"><span class="badge bg-green" id="count_'+id+'">1</span><img width="40" id="pic_'+id+'" class="img-thumbnail" src="<?php echo site_url().'assets/img/menus/' ?>'+pic+' " alt=""></a>');
-                        $('#order_list>b').remove();
-
-                        var v_count = $('#order_'+id).val();
-                        var v_price = $('#price_'+id).val();
-
-                        var curr_total = $('#total_amount').val();
-                        // alert(curr_total);
-                        var total = v_count * v_price;
-                        var sord_total = v_count * v_price ;
-                        total = parseFloat(total) + parseFloat(curr_total);
-                        $('#sord_price_'+id).val(sord_total);
-                        $('#total_amount').val(total);
-                    }
-                });
-
-                // btn minus(-) is clicked
-                $('.btn_minus').click(function(event) {
-                    var id = $(this).attr('bm-id');
-                    var price = $(this).attr('bm-price');
-                    var pic = $(this).attr('menu-pic');
-
-                    if ($("#order_"+id).length) {
-                        // alert('order_'+id);
-                        var value = $("#order_"+id).val();
-                        var new_val = parseInt(value) - 1;
-                        $("#order_"+id).val(new_val);
-                        $('#count_'+id).html(new_val);
-
-                        var v_count = $('#order_'+id).val();
-                        var v_price = $('#price_'+id).val();
-
-                        var sord_total = $('#sord_price_'+id).val() - v_price ;
-                        var total = $('#total_amount').val() - v_price ;
-                        var curr_total = $('#total_amount').val();
-                        // alert(curr_total);
-
-                        $('#sord_price_'+id).val(sord_total);
-                        $('#total_amount').val(total);
-                        $('#ord_discount').attr('ord-price',total); //
-
-                        if(new_val == 0)
-                        {
-                            $("#order_"+id).remove();
-                            $('#count_'+id).remove();
-                            $('#price_'+id).remove();
-                            $('#id_'+id).remove();
-                            $('#pic_'+id).remove();
-                            $('#sord_price_'+id).remove();
-                            $('#bm_unit_id_'+id).remove();
-                        }
-                    }
-                });
-
-                // alert(response);
-                if(response == ''){
-                    $('.msg').attr('hidden', false);
-                }
-            }
-        });
-        $(document).ajaxStop(function(){
-            $(".overlay").css('display','none');
-            $('#selection-msg').attr('hidden', true);
-        });
-    });
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////Change menus by select>option///////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
     $('#ord_discount').change(function () {
         var ord_discount = $('#ord_discount :selected').val();
         var ord_price = $('#ord_discount').attr('ord-price');
@@ -453,8 +481,6 @@ $(document).ready(function() {
     $('#tarikh').persianDatepicker({
         altField: '#dateAlt',
         format: 'D MMMM YYYY',
-        observer: true,
-
         altFormat: 'YYYY-MM-DD',
         observer: true,
         position: [-67,200],
@@ -476,9 +502,7 @@ $(document).ready(function() {
         altField: '#timeAlt',
         format: 'HH:mm',
         observer: true,
-
         altFormat: 'HH:mm',
-        observer: true,
         position: [-67,200],
         calendar: {
             persian: {
@@ -513,5 +537,137 @@ $(document).ready(function() {
             }
         }
     });
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////// Change menus by <a>Tags ////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    $('.base_menu').click(function (e) {
+        // alert($('#menu_category :selected').text());
+        var mc_id = $(this).attr('id');
+        var urls = '<?php echo base_url() . 'order/jq_menu_list/' ?>' + mc_id;
+
+        $(document).ajaxStart(function () {
+            $(".overlay").css('display', 'block');
+        });
+        $.ajax({
+            type: "POST",
+            url: urls,
+            dataType: "html",
+            success: function (response) {
+                $("#menu_list").html(response);
+                $('.msg').attr('hidden', true);
+
+
+                // btn add(+) is clicked
+                $('.btn_add').click(function (event) {
+                    var id = $(this).attr('bm-id');
+                    var price = $(this).attr('bm-price');
+                    var pic = $(this).attr('menu-pic');
+                    var bm_unit_id = $(this).attr('bm-unit-id');
+                    var bm_name = $(this).attr('bm-name');
+                    $('#submit').attr('disabled', false);
+                    $('#submit_print').attr('disabled', false);
+
+                    // create input or sum input value
+                    if ($("#order_" + id).length) {
+                        // alert('order_'+id);
+                        var value = $("#order_" + id).val();
+                        var new_val = parseInt(value) + 1;
+                        $("#order_" + id).val(new_val);
+                        $('#count_' + id).html(new_val);
+
+                        var v_count = $('#order_' + id).val();
+                        var v_price = $('#price_' + id).val();
+
+                        var sord_total = v_count * v_price;
+                        var total = 1 * v_price;
+                        var curr_total = $('#total_amount').val();
+                        // alert(curr_total);
+
+                        total = total + parseFloat(curr_total);
+                        $('#sord_price_' + id).val(sord_total);
+                        $('#total_amount').val(total);
+                        $('#ord_discount').attr('ord-price', total); //
+                    }
+                    else {
+                        $('#order_inputs').append('<input type="text" name="bm_name[]" value="' + bm_name + '" id="bm_name_' + id + '" class="form-control col-xs-8" /><div class="clear-fix">');
+                        $('#order_inputs').append('<input type="text" name="sord_count[]" id="order_' + id + '" value="1" class="form-control col-xs-4"/>');
+                        $('#order_inputs').append('<input type="hidden" name="sord_bm_id[]" value="' + id + '" id="id_' + id + '" />');
+                        $('#order_inputs').append('<input type="hidden" name="sord_price[]" value="0" id="sord_price_' + id + '" />');
+                        $('#order_inputs').append('<input type="hidden" name="bm_price[]" value="' + price + '" id="price_' + id + '" />');
+                        $('#order_inputs').append('<input type="hidden" name="bm_unit_id[]" value="' + bm_unit_id + '" id="bm_unit_id_' + id + '" /><div class="clear-fix">');
+                        $('#order_list').append('<a href="" class="btn-app" style="border: 0; background: none;"><span class="badge bg-green" id="count_' + id + '">1</span><img width="40" id="pic_' + id + '" class="img-thumbnail" src="<?php echo site_url() . 'assets/img/menus/' ?>' + pic + ' " alt=""></a>');
+                        $('#order_list>b').remove();
+
+                        var v_count = $('#order_' + id).val();
+                        var v_price = $('#price_' + id).val();
+
+                        var curr_total = $('#total_amount').val();
+                        // alert(curr_total);
+                        var total = v_count * v_price;
+                        var sord_total = v_count * v_price;
+                        total = parseFloat(total) + parseFloat(curr_total);
+                        $('#sord_price_' + id).val(sord_total);
+                        $('#total_amount').val(total);
+                    }
+                });
+
+                // btn minus(-) is clicked
+                $('.btn_minus').click(function (event) {
+                    var id = $(this).attr('bm-id');
+                    var price = $(this).attr('bm-price');
+                    var pic = $(this).attr('menu-pic');
+
+                    if ($("#order_" + id).length) {
+                        // alert('order_'+id);
+                        var value = $("#order_" + id).val();
+                        var new_val = parseInt(value) - 1;
+                        $("#order_" + id).val(new_val);
+                        $('#count_' + id).html(new_val);
+
+                        var v_count = $('#order_' + id).val();
+                        var v_price = $('#price_' + id).val();
+
+                        var sord_total = $('#sord_price_' + id).val() - v_price;
+                        var total = $('#total_amount').val() - v_price;
+                        var curr_total = $('#total_amount').val();
+                        // alert(curr_total);
+
+                        $('#sord_price_' + id).val(sord_total);
+                        $('#total_amount').val(total);
+                        $('#ord_discount').attr('ord-price', total); //
+
+                        if (new_val == 0) {
+                            $("#order_" + id).remove();
+                            $('#count_' + id).remove();
+                            $('#price_' + id).remove();
+                            $('#id_' + id).remove();
+                            $('#pic_' + id).remove();
+                            $('#sord_price_' + id).remove();
+                            $('#bm_unit_id_' + id).remove();
+                            $('#bm_name_' + id).remove();
+                        }
+                    }
+                });
+
+                // alert(response);
+                if (response == '') {
+                    $('.msg').attr('hidden', false);
+                }
+            }
+        });
+        $(document).ajaxStop(function () {
+            $(".overlay").css('display', 'none');
+            $('#selection-msg').attr('hidden', true);
+        });
+    });
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////// Change menus by <a>Tags ////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
 });
 </script>

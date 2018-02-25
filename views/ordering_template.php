@@ -89,7 +89,6 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-right" id="navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="<?=site_url('order/garson_ordering')?>">سفارش رستورانت<span class="sr-only">(current)</span></a></li>
 <!--                            <li><a href="#">سفارش آشپزخانه</a></li>-->
                             <li class="dropdown hidden">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">منوی آبشاری <span class="caret"></span></a>
@@ -114,6 +113,10 @@
                     <!-- Navbar Right Menu -->
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
+                            <li>
+                                <a href="<?= site_url('order/garson_ordering') ?>" data-toggle="tooltip" data-original-title="Get Restaurant Oreder"><i class="fa ion-coffee fa-lg"></i></a>
+                            </li>
+
 
                             <li class="dropdown user user-menu">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

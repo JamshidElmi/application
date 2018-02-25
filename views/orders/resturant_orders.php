@@ -21,6 +21,7 @@
                         <th>#</th>
                         <th>صندوق</th>
                         <th class="text-center">تاریخ سفارش</th>
+                        <th class="text-center">ساعت</th>
                         <th class="text-center">هزینه کل</th>
                         <th class="text-center">تخفیف</th>
                         <th>توضیحات</th>
@@ -33,8 +34,9 @@
                     <tr id="ord_<?=$order->ord_id ?>">
                         <td><?=$i++;  ?></td>
                          <td><?=base_account()->acc_name  ?></td>
-                        <td class="text-center"><?=show_date("l j F Y", $order->ord_date); ?> </td>
-                        <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
+                        <td class="text-center"><?=show_date("j F Y", $order->ord_date); ?> </td>
+                        <td class="text-center"><?=$order->ord_time; ?> </td>
+                        <td class="text-center"><strong><?=number_format($order->ord_price) ?></strong> افغانی</td>
                         <td class="text-center"><span class="badge bg-green"><?=round($order->ord_discount,1) ?> %</span></td>
                         <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
                         <td class="text-center">
@@ -68,6 +70,7 @@
                         <th>کد اشتراک</th>
                         <th>شماره تماس</th>
                         <th>تاریخ سفارش</th>
+                        <th>ساعت</th>
                         <th>هزینه کل</th>
                         <th>تخفیف</th>
                         <th>توضیحات</th>
@@ -82,8 +85,9 @@
                         <td><?=$order->cus_name ?> <?=$order->cus_lname ?></td>
                         <td><?=$order->cus_unique_id ?></td>
                         <td><span  data-toggle="tooltip" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('-',$order->cus_phones)) ?></span></td>
-                        <td><?=show_date("l j F Y", $order->ord_date); ?> </td>
-                        <td class="text-center"><strong><?=$order->ord_price ?></strong> افغانی</td>
+                        <td><?=show_date("j F Y", $order->ord_date); ?> </td>
+                        <td><?=$order->ord_time; ?> </td>
+                        <td class="text-center"><strong><?=number_format($order->ord_price) ?></strong> افغانی</td>
                         <td class="text-center"><span class="badge bg-green"><?=round($order->ord_discount,1) ?> %</span></td>
                         <td><span data-toggle="tooltip" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 15); ?></span></td>
                         <td>

@@ -90,8 +90,8 @@
                     <td><?= $sm->sm_name ?></td>
                     <td><?= ($sm->sm_count * $sm->sord_count) ?></td>
                     <td><?= $sm->unit_name ?></td>
-                    <td><?=($total_show == 1) ? round($sm->sm_price,1). ' افغانی ' : '' ?> </td>
-                    <td><?=($total_show == 1) ? $sm->sm_price * $sm->sord_count. ' افغانی ' : '' ?> </td>
+                    <td><?=($total_show == 1) ? number_format(round($sm->sm_price,1)). ' افغانی ' : '' ?> </td>
+                    <td><?=($total_show == 1) ? number_format($sm->sm_price * $sm->sord_count). ' افغانی ' : '' ?> </td>
                 </tr>
             <?php endforeach ?>
             <?php for ($l = 0; $l < $rows; $l++): ?>
@@ -112,12 +112,12 @@
                 <td colspan="2" rowspan="2"><b>قیمت مجموع به حروف</b></td>
                 <td colspan="2" rowspan="2"><strong><?= number2letters($sm->ord_price); ?>  </strong> افغانی</td>
                 <td><b>قیمت مجموعی</b></td>
-                <td><b><?= round($total_amount + $discount_price,1) ?></b> افغانی</td>
+                <td><b><?= number_format(round($total_amount + $discount_price, 1)); ?></b> افغانی</td>
             </tr>
             <tr>
                 <td><b>تخفیف</b></td>
                 <td>
-                    <b> <?= $discount_price ?> </b>
+                    <b> <?= number_format($discount_price); ?> </b>
                     افغانی (<?= round($sm->ord_discount) ?>%)
                 </td>
             </tr>
@@ -125,13 +125,13 @@
                 <td colspan="2"><strong>امضاء فروشنده:</strong></td>
                 <td colspan="2"><strong>امضاء مشتری:</strong></td>
                 <td class=" text-success"><b>رسیده</b></td>
-                <td><b><?= $total_payed ?></b> افغانی</td>
+                <td><b><?= number_format($total_payed); ?></b> افغانی</td>
             </tr>
             <tr>
                 <td colspan="2"><b>شماره های تماس</b></td>
                 <td colspan="2" class="text-center"><?= $this->session->general_info->ci_phones ?></td>
                 <td class=" text-danger"><b>الباقی</b></td>
-                <td><b><?= $total_unpayed ?></b> افغانی</td>
+                <td><b><?= number_format($total_unpayed); ?></b> افغانی</td>
             </tr>
             <tr style="font-size: 13px">
                 <td colspan="3"><b>آدرس:</b> <?= $this->session->general_info->ci_address ?></td>
