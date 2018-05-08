@@ -64,7 +64,8 @@
                             <td>
                                 <?php $date = explode('-', $employee->emp_join_date);
                                 $date[0]++; ?>
-                                <?= show_date("l j F Y", implode('-', [$date[0], $date[1], $date[2]])); ?>
+                              
+                                <?= show_date('dd', implode('-', [$date[0], $date[1],$date[2]])); ?>
                             </td>
                         </tr>
                         <tr>

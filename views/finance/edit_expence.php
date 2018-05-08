@@ -52,7 +52,7 @@
                                     </select>
                                 <?php else: ?>
                                     <input type="text" name="dex_unit_name" id="dex_unit_name" class="form-control" readonly>
-                                    <input type="hidden" name="dex_unit" id="dex_unit" class="form-control" readonly>
+                                    <input type="hidden" name="dex_unit" id="dex_unit" value="<?=$expence->dex_unit ?>" class="form-control" readonly>
                                     <input type="hidden" name="dex_unit_id" id="dex_unit_id" class="form-control" readonly>
                                     <input type="hidden" name="dex_st_name" id="dex_st_name" class="form-control" readonly>
                                 <?php endif; ?>

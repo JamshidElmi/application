@@ -21,7 +21,8 @@
                     <th>تاریخ سفارش</th>
                     <th>هزینه کل</th>
                     <th>تخفیف</th>
-                    <th>توضیحات</th>
+                    <th>پرداخت شده</th>
+                    <th>باقی مانده</th>
                     <th>عملیات</th>
                 </tr>
             </thead>
@@ -33,16 +34,20 @@
                     <td><?=$order->cus_unique_id ?></td>
                     <td><span  data-toggle="tooltip" title="" data-original-title="Phone: <?=$order->cus_phones ?>"><?=current(explode('-', $order->cus_phones)) ?></span></td>
                     <td><?=show_date("j F Y", $order->ord_date); ?> </td>
-                    <td class="text-center"><strong><?=number_format($order->ord_price) ?></strong> افغانی</td>
+                    <td class="text-center"><strong><?=number_format($order->ord_price + $order->ord_ext_charges) ?></strong> افغانی</td>
                     <td class="text-center"><span class="badge bg-green"><?=round($order->ord_discount,1) ?> %</span></td>
-                    <td><span data-toggle="tooltip" title="" data-original-title="<?=$order->ord_desc; ?>"><?=substr_fa($order->ord_desc, 30); ?></span></td>
+                    <td class="text-center text-success"><strong><?= number_format($total_payed = $this->order_model->get_order_sum($order->ord_id)->total_payed); ?></strong> افغانی</td>
+                    <td class="text-center text-danger"><strong><?= number_format($order->ord_price + $order->ord_ext_charges - $total_payed); ?></strong> افغانی</td>
+    
                     <td>
                         <a class="read-only-garson" href="<?=site_url('order/kitchen_payment/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Payment"><i class="fa fa-money fa-lg"></i></span></a>
                         <a class="no-garson" href="<?=site_url('order/stock_expences/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Stock Expences for this Order"><i class="fa fa-shopping-cart fa-lg"></i></span></a>
                         <a href="<?=site_url('order/print_order_bill/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Print Bill"><i class="fa fa-print fa-lg"></i></span></a>
                         <a href="#" class="sm_menu_list" data-toggle="modal" data-target="#modal-warning" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Sub Menu list"><i class="fa ion-clipboard fa-lg"></i></span></a>
                         <a class='<?php echo ($now >= show_date("Y/m/d", $order->ord_date) AND $this->session->user_info->user_type != 1) ? "lock" : "" ?>' href="<?=site_url('order/edit_kitchen_order/'.$order->ord_id); ?>"><span class="label label-default" data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-edit fa-lg"></i></span></a>
-                        <a href="#" class="ord_id_to_delete only-admin" id="<?php echo $order->ord_id; ?>" cus-id="<?php echo $order->cus_acc_id; ?>"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+<!--                        <a href="#" class="ord_id_to_delete only-admin" id="--><?php //echo $order->ord_id; ?><!--" cus-id="--><?php //echo $order->cus_acc_id; ?><!--"><span class="label label-danger" data-toggle="tooltip" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>-->
+                        <a href="delete_kitchen_order/<?php echo $order->ord_id; ?>/<?php echo $order->cus_acc_id; ?>/<?php echo $order->ord_price + $order->ord_ext_charges; ?>/kitchen_orders" class="" id="" ><span class="label label-danger" data-toggle="tooltip" title="" data-original-title="Remove"><i class="fa ion-android-delete fa-lg"></i></span></a>
+
                     </td>
                 </tr>
                 <?php endforeach ?>

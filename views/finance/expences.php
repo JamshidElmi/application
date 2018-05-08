@@ -38,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php print_r($expences); ?>
+                    <?php // print_r($expences); ?>
                         <?php $total_bills= null; $i = 1; foreach ($expences as $expence): ?>
                         <tr id="tr_<?=$expence->bill_id  ?>">
                             <td><?=$i++ ?></td>

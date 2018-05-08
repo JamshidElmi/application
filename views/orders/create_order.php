@@ -62,7 +62,7 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
-                                <label>قیمت فی نفر</label>
+                                <label>قیمت فی غوری</label>
                                 <div class="input-group date">
                                     <input type="text" id="bm_price" name="bm_price" class="form-control" readonly />
                                     <div class="input-group-addon">افغانی</div>
@@ -129,7 +129,7 @@
                             <div class="form-group">
                                 <label>باقیمانده</label>
                                 <div class="input-group date">
-                                    <input type="number" id="remain" class="form-control" readonly />
+                                    <input type="number" id="remain" name="tr_remain" class="form-control" readonly />
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>
@@ -142,10 +142,10 @@
                         <textarea rows="5" class="form-control" name="ord_desc" id="ord_desc"></textarea>
                     </div>
 
-                    <div class="">
-                        <input type="hidden" name="ord_cus_id" id="ord_cus_id" placeholder="ord_cus_id">
-                        <input type="hidden" name="sord_bm_id" id="sord_bm_id" placeholder="sord_bm_id">
-                        <input type="hidden" name="ord_created_date" id="ord_created_date" placeholder="ord_created_date">
+                    <div class=" hidden">
+                        <input type="text" name="ord_cus_id" id="ord_cus_id" placeholder="ord_cus_id">
+                        <input type="text" name="sord_bm_id" id="sord_bm_id" placeholder="sord_bm_id">
+                        <input type="text" name="ord_created_date" id="ord_created_date" placeholder="ord_created_date">
                         <div id="sm_order"></div>
                     </div>
 
@@ -332,7 +332,9 @@
             <div class="box-header with-border">
                 <h3 class="box-title">لیست منو های آشپزخانه </h3>
                 <div class="box-tools pull-right">
+                    <a class="btn btn-box-tool" data-toggle="modal" data-target="#choose_menu_modal">منوی انتخابی</a>
                     <a href="<?= site_url('menu/kitchen_menus'); ?>" class="btn btn-box-tool" data-toggle="tooltip" title="" data-original-title="Add or Edit  Menu"><i class="fa fa-plus"></i></a>
+
                 </div>
                 <!-- /.box-tools -->
             </div>
@@ -402,7 +404,7 @@
                                             مجموعه:
                                             <input type="text" id="total_<?= $base_menu->bm_id ?>" value="<?= $sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly>
                                         </div>
-                                        <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?= $base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=hidden name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?= $base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?= $base_menu->bm_id ?>').val()); " bm-price="<?= $sm_total_price ?>">
+                                        <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick="$('.tr_sm_id<?= $base_menu->bm_id ?>').each(function() { var id = $(this).attr('sm-id');  $('#sm_order').append('<input type=text name=sord_sm_id[] value='+id+' />'); }); $('#sord_bm_id').val(<?= $base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_<?= $base_menu->bm_id ?>').val()); " bm-price="<?= $sm_total_price ?>">
                                             انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i></button>
                                         <button type="button" class="btn btn-danger " data-dismiss="modal">بستن
                                             <i class="fa fa-close"></i></button>
@@ -415,7 +417,77 @@
                         <!-- /.modal -->
                     <?php endforeach ?>
                 </ul>
-
+    
+    
+    
+    
+                <div class="modal fade modal-warning" id="choose_menu_modal">
+                    <div class="modal-dialog ">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close pull-left" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">منوی انتخابی</h4>
+                            </div>
+                            <div class="modal-body">
+                    
+                                <table class="table table-bordered table-responsive">
+                                    <tbody>
+                                    <tr class="bg-primary">
+                                        <th>#</th>
+                                        <th>زیر منو</th>
+                                        <th> قیمت</th>
+                                        <th>توضیحات</th>
+                                        <th>عملیات</th>
+                                    </tr>
+                                    <?php $i = 1;
+                                    $sm_total_price = 0;
+                                    foreach ($all_sub_menus as $sub_menu): ?>
+                                        
+                                        <tr class="tr_sm_id<?//= $base_menu->bm_id ?>" id="sm_<?//= $sub_menu->sbm_id ?>" sm-id="<?= $sub_menu->sm_id ?>">
+                                
+                                            <td><?= $i++ ?></td>
+                                            <td><strong><?= $sub_menu->sm_name ?></strong></td>
+                                            <td><strong><?= $sub_menu->sm_price ?> افغانی </strong></td>
+                                            <td><?= $sub_menu->sm_desc ?></td>
+                                            <td class="text-center"><input type="checkbox" id="sm_check_<?=$sub_menu->sm_id?>" sm-price="<?=$sub_menu->sm_price?>" onclick="
+                                                $('#sm_order').append('<input type=text name=sord_sm_id[] value=<?=$sub_menu->sm_id?> />');
+                                                var total = parseFloat($('#total_choose_input').val()) + parseFloat($(this).attr('sm-price'));
+                                                $('#total_choose_input').val(total);
+                                                $('#sm_check_<?=$sub_menu->sm_id?>').attr('disabled', true);
+                                              
+                                            " /></td>
+                                        </tr>
+                            
+                                        <?php //$sm_total_price += $sub_menu->sm_price ?>
+                                        
+                                    <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                
+                
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-xs-6 pull-left">
+                                    مجموعه:
+                                    <input type="text" id="total_choose_input" value="<?= $sm_total_price ?>" class="form-control input-sm col-xs-8 pull-left" readonly>
+                                </div>
+                                <button type="button" class="btn btn-success select-menu" data-dismiss="modal" onclick=" $('#sord_bm_id').val(<?= $base_menu->bm_id ?>); $('#overlay_alt').css('display', 'block'); $('#bm_price').val($('#total_choose_input').val()); " bm-price="<?= $sm_total_price ?>">
+                                    انتخاب منو <i class="fa ion-ios-redo fa-lg fa-lg"></i></button>
+                                <button type="button" class="btn btn-danger " data-dismiss="modal">بستن
+                                    <i class="fa fa-close"></i></button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+                
+                
+                
+                
+                
 
             </div>
             <!-- /.box-body -->

@@ -159,7 +159,7 @@ class finance_model extends MY_Model
         $this->db->where('tr_type', ($bill_type == 0) ? 'daily_expence' : 'buy_stocks');
         $this->db->order_by('tr_id DESC');
         $query = $this->db->get()->result();
-        echo $this->db->last_query();
+//        echo $this->db->last_query();
         return $query;
     }
 

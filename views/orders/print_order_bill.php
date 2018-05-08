@@ -110,7 +110,7 @@
             <?php $discount_price = round($sm->ord_price * 100 / $ord_discount) - $sm->ord_price; ?>
             <tr>
                 <td colspan="2" rowspan="2"><b>قیمت مجموع به حروف</b></td>
-                <td colspan="2" rowspan="2"><strong><?= number2letters($sm->ord_price); ?>  </strong> افغانی</td>
+                <td colspan="2" rowspan="2"><strong><?= number2letters(strval($total_amount + $discount_price)); ?>  </strong> افغانی</td>
                 <td><b>قیمت مجموعی</b></td>
                 <td><b><?= number_format(round($total_amount + $discount_price, 1)); ?></b> افغانی</td>
             </tr>
@@ -135,9 +135,9 @@
             </tr>
             <tr style="font-size: 13px">
                 <td colspan="3"><b>آدرس:</b> <?= $this->session->general_info->ci_address ?></td>
-                <td colspan="3" class="text-center">
-                    <b><span><?= $this->session->general_info->ci_emails ?></span> <i class="ion-android-globe fa-lg"></i></b>
-                    <b><span><?= $this->session->general_info->ci_website ?></span> <i class="fa fa-facebook-square fa-lg"></i></b>
+                <td colspan="3" class="text-center" style="font-family:arial;direction:ltr:text-align:left">
+                    <b><span style="direction:ltr:text-align:left"><?= $this->session->general_info->ci_website ?></span> <i class="fa fa-facebook-square fa-lg"></i></b>
+                    <b><span style="direction:ltr:text-align:left"><?= $this->session->general_info->ci_emails ?></span> <i class="ion-android-globe fa-lg"></i></b>
                 </td>
             </tr>
             </tbody>

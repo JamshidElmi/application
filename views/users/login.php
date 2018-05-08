@@ -64,6 +64,7 @@ $user_name = array(
         'class'         => 'form-control',
         'placeholder'   => 'نام کاربری',
         'required'      => 'required',
+        'autofocus'     => 'autofocus'
 );
 $user_pass = array(
         'type'          => 'password',
@@ -71,7 +72,7 @@ $user_pass = array(
         'id'            => 'user_pass',
         'class'         => 'form-control',
         'placeholder'   => 'رمز عبور',
-        'required'      => 'required',
+        'required'      => 'required'
 );
  ?>
 <body class="hold-transition " >

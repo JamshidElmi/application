@@ -73,7 +73,7 @@
         </div>
     </div>
 
-    <div class="col-md-8">
+    <div class="col-md-8 hidden">
         <div class="box  box-primary box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">لیست صندوق های موجود در سیستم</h3>
@@ -124,7 +124,96 @@
             </div>
         </div>
     </div>
-
+    
+    
+    <div class="col-md-8">
+    <div class=" box box-gray">
+    <div class="box-body no-padding">
+    <div class=" nav-tabs-custom">
+        <div class="pull-left box-tools" style="margin: 10px 0 0 10px">
+            <a href="<?=site_url('finance/credit_debit/'.base_account()->acc_id); ?>" class="btn <?=(base_account()->acc_amount > 0 ) ? 'btn-success' : 'btn-danger' ?> btn-sm"  data-toggle="tooltip" title="" data-original-title="Credit & Debit">صندوق اصلی: <b><?=base_account()->acc_amount ?></b> افغانی </a>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="false"> <i class="fa fa-circle text-blue"></i> صندوق مشتریان </a></li>
+            <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">  <i class="fa fa-circle text-green"></i>  صندوق همکاران </a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tab_1">
+                <table id="acounts_table2" class="table table-bordered table-hover table-striped">
+                    <thead class="bg-info">
+                    <tr>
+                        <th>#</th>
+                        <th>نام حساب</th>
+                        <th>مقدار موجود</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($accounts as $account): ?>
+                        <?php if ($account->acc_type == 2): ?>
+                            <tr id="acc_<?=$account->acc_id ?>">
+                                <td><?=($account->acc_type == 0) ? '<i class="fa fa-circle text-orange"></i>' : ($account->acc_type == 1) ? '<i class="fa fa-circle text-green"></i>' : '<i class="fa fa-circle text-blue"></i>' ?></td>
+                                <td><?=$account->acc_name ?></td>
+                                <td><?=($account->acc_amount == 0 || $account->acc_amount > 0) ? '<strong><span class="text-success">'.$account->acc_amount.'</span></strong>' : '<strong><span class="text-danger">'.$account->acc_amount.'</span></strong>' ?> افغانی </td>
+                                <td class="text-center"><?=($account->acc_amount < 0) ? '<i class="ion ion-android-remove-circle fa-lg text-danger"></i>' : '<i class="ion ion-android-add-circle fa-lg text-success"></i>' ?></td>
+                                <td class="text-center">
+<!--                                    <a href="#" class="acc_id_to_delete only-admin" id="--><?php //echo $account->acc_id; ?><!--" data-toggle="tooltip" title="" data-original-title="Remove Account"><i class="ion ion-trash-b fa-lg text-danger" ></i></a> &nbsp;&nbsp;&nbsp;-->
+                                    <a href="<?=site_url('finance/credit_debit/'.$account->acc_id); ?>" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List"><i class="fa fa-line-chart fa-lg" ></i></a>
+                                </td>
+                            </tr>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="tab-pane" id="tab_2" >
+                <table id="acounts_table" class="table table-bordered table-hover table-striped">
+                    <thead class="bg-info">
+                    <tr>
+                        <th>#</th>
+                        <th>نام حساب</th>
+                        <th>مقدار موجود</th>
+                        <th>وضعیت</th>
+                        <th>عملیات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($accounts as $account): ?>
+                        <?php if ($account->acc_type == 1): ?>
+                            <tr id="acc_<?=$account->acc_id ?>">
+                                <td><?=($account->acc_type == 0) ? '<i class="fa fa-circle text-orange"></i>' : ($account->acc_type == 1) ? '<i class="fa fa-circle text-green"></i>' : '<i class="fa fa-circle text-blue"></i>' ?></td>
+                                <td><?=$account->acc_name ?></td>
+                                <td><?=($account->acc_amount == 0 || $account->acc_amount > 0) ? '<strong><span class="text-success">'.$account->acc_amount.'</span></strong>' : '<strong><span class="text-danger">'.$account->acc_amount.'</span></strong>' ?> افغانی </td>
+                                <td class="text-center"><?=($account->acc_amount < 0) ? '<i class="ion ion-android-remove-circle fa-lg text-danger"></i>' : '<i class="ion ion-android-add-circle fa-lg text-success"></i>' ?></td>
+                                <td class="text-center">
+<!--                                    <a href="#" class="acc_id_to_delete only-admin" id="--><?php //echo $account->acc_id; ?><!--" data-toggle="tooltip" title="" data-original-title="Remove Account"><i class="ion ion-trash-b fa-lg text-danger" ></i></a> &nbsp;&nbsp;&nbsp;-->
+                                    <a href="<?=site_url('finance/credit_debit/'.$account->acc_id); ?>" class="small-box-footer" data-toggle="tooltip" title="" data-original-title="Credit & Debit List"><i class="fa fa-line-chart fa-lg" ></i></a>
+                                </td>
+                            </tr>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                    </tbody>
+                </table>
+                
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    </div>
+    <div class="overlay" id="overlay" hidden >
+        <i class="fa ion ion-load-d fa-spin fa-lg" style="font-size: 40px;"></i>
+    </div>
+    </div>
+    </div>
+    
+    
+    
+    
+    
 
 </div>
 
@@ -163,13 +252,30 @@ $('.acc_id_to_delete').click(function() {
         $(document).ajaxStop(function(){
             $(".overlay").css('display','none');
             $(".msg").css('display','block');
-            $("div#acc_"+acc_id).remove();
+            $("tr#acc_"+acc_id).remove();
         });
-    };
+    }
+});
+
+$(function () {
+    $('#acounts_table').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : true
+    })
+});
+
+$(function () {
+    $('#acounts_table2').DataTable({
+        'paging'      : true,
+        'lengthChange': true,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : true
+    })
 });
 </script>
-
-
-
-
-

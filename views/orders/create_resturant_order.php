@@ -88,7 +88,7 @@
                             <div class="form-group">
                                 <label>مقدار پرداختی</label>
                                 <div class="input-group date">
-                                    <input type="number" type="text" name="tr_amount" id="tr_amount" class="form-control" />
+                                    <input type="number" type="text" name="tr_amount" id="tr_amount" class="form-control" required />
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>
@@ -283,8 +283,10 @@
                 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////////////////////////Change menus by select>option///////////////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////////////////////////////////////-->
-                <div class="box-tools pull-right hidden">
-                    <select name="menu_category" id="menu_category" class="form-control input-sm" style="border-radius: 3px; box-shadow: inset 0 0 6px 0px #616161;">
+                <div class="box-tools pull-right ">
+                    <a href="" data-toggle="modal" data-target="#orderModal" class="btn btn-box-tool bg-orange" title="Order Summary"><i class="fa ion-eye fa-lg"></i> خلاصه سفارش </a>
+    
+                    <select name="menu_category" id="menu_category" class="form-control input-sm hidden" style="border-radius: 3px; box-shadow: inset 0 0 6px 0px #616161;">
                         <option value="0">انتخاب نوعیت منو</option>
                         <?php foreach ($menu_categories as $menu_category): ?>
                             <option value="<?=$menu_category->mc_id ?>"><?=$menu_category->mc_name ?></option>

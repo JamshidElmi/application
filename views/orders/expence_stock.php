@@ -3,7 +3,7 @@
     <div class="col-sm-6">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title">فرم ثبت مصارف از گدام</h3>
+                <h3 class="box-title">فرم ثبت مصارف از گدام برای <strong><span id="expense_type" class="text-success "></span></strong></h3>
                 <?php ($this->uri->segment(3))? $this->uri->segment(3) : ''; ?>
             </div>
             <!-- /.box-header -->
@@ -14,7 +14,7 @@
                     <?php if($this->session->form_errors) { echo alert($this->session->form_errors,'danger'); }  ?>
                     <?php if($this->session->form_success) { echo alert($this->session->form_success,'success'); }  ?>
                     <?php if($this->session->file_errors) { echo alert($this->session->file_errors,'warning'); }  ?>
-
+                    
                     <div class="row">
                         <div id="kitchen_fields">
                             <div class="col-xs-4">
@@ -222,6 +222,7 @@
     $('#ketchin').click(function () {
         $('#box_body').attr('hidden', false);
         $('#list_title').text('لطفاً مصارف گدام را برای آشپزخانه وارد نمائید');
+        $('#expense_type').text('آشپزخانه');
 
         $('#kitchen_fields').attr('hidden', false);
         $('#resturant_fields').attr('hidden', true);
@@ -235,6 +236,7 @@
     $('#resturant').click(function () {
         $('#box_body').attr('hidden', true);
         $('#list_title').text('لطفاً مصارف گدام را برای رستورانت وارد نمائید');
+        $('#expense_type').text('رستورانت');
 
         $('#kitchen_fields').attr('hidden', true);
         $('#resturant_fields').attr('hidden', false);
@@ -249,6 +251,7 @@
     $('#fast_food').click(function () {
         $('#box_body').attr('hidden', true);
         $('#list_title').text('لطفاً مصارف گدام را برای فست فود وارد نمائید');
+        $('#expense_type').text('فست فود');
 
         $('#kitchen_fields').attr('hidden', true);
         $('#resturant_fields').attr('hidden', false);
@@ -263,6 +266,7 @@
     $('#juice').click(function () {
         $('#box_body').attr('hidden', true);
         $('#list_title').text('لطفاً مصارف گدام را برای آب میوه وارد نمائید');
+        $('#expense_type').text('آب میوه');
 
         $('#kitchen_fields').attr('hidden', true);
         $('#resturant_fields').attr('hidden', false);

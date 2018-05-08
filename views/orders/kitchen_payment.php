@@ -46,7 +46,7 @@ $final_total = $order->ord_price-$total;
                             <div class="form-group">
                                 <label>مجموع باقیمانده</label>
                                 <div class="input-group date">
-                                    <input type="text" id="unpayed" value="<?=$final_total+$order->ord_ext_charges ?>" class="form-control input-danger" readonly/>
+                                    <input type="text" id="unpayed"  value="<?=$final_total+$order->ord_ext_charges ?>" class="form-control input-danger" readonly/>
                                     <div class="input-group-addon">افغانی</div>
                                 </div>
                             </div>

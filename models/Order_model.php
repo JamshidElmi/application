@@ -107,6 +107,7 @@ class order_model extends MY_Model
         $this->db->join('sub_base_menu', 'base_menus.bm_id = sub_base_menu.sbm_bm_id');
         $this->db->join('sub_menus', 'sub_menus.sm_id = sub_base_menu.sbm_sm_id');
         $this->db->where(['bm_type' => 0]);
+        
         $query = $this->db->get()->result();
         return $query;
     }
@@ -114,17 +115,32 @@ class order_model extends MY_Model
 
     public function order_join_customer($ord_type, $limit = NULL)
     {
+//        $this->db->select('*, SUM(tr_amount) as total_payed');
         $this->db->from('orders');
         $this->db->join('customers', 'customers.cus_id = orders.ord_cus_id');
+//        $this->db->join('transections', 'orders.ord_id = transections.tr_ord_id');
         $this->db->where(['ord_type' => $ord_type]);
         if ($limit != NUll) {
             $this->db->limit($limit);
         }
         $this->db->order_by('ord_id DESC');
         $query = $this->db->get()->result();
+//        echo $this->db->last_query();
+    
         return $query;
     }
-
+    
+    public function get_order_sum($ord_id)
+    {
+        $this->db->select('SUM(tr_amount) as total_payed');
+        $this->db->from('transections');
+        $this->db->where('tr_ord_id', $ord_id);
+        $result = $this->db->get()->row();
+//        echo $this->db->last_query();
+    
+        return $result;
+    }
+    
     public function order_join_customer_base_acc($ord_type)
     {
         $this->db->from('orders');
